@@ -1,25 +1,25 @@
+// src/app/page.js
 'use client';
-
 
 import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import Achievements from './components/Achievements';
 import Education from './components/Education';
+import Achievements from './components/Achievements';
 import Contact from './components/Contact';
-
+import './components/styles.css';
 
 export default function Page() {
   return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
+    <div className="app-container">
       <Sidebar />
-      <main className="flex-1 p-6 space-y-12 overflow-y-auto ml-48">
+      <main className="main-content">
         <Home />
         <Projects />
         <Skills />
-        <Achievements />
         <Education />
+        <Achievements />
         <Contact />
       </main>
     </div>
