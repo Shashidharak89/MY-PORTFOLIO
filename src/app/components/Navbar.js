@@ -26,7 +26,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           z-index: 998;
           opacity: 0;
           visibility: hidden;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .portfolio-sidebar-overlay.active {
@@ -44,13 +44,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           border-right: 1px solid #e5e7eb;
           box-shadow: 0 10px 40px rgba(220, 38, 38, 0.12);
           z-index: 999;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translateX(-100%);
+          transform: translateX(-100%) scale(0.95);
+          opacity: 0;
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), scale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           backdrop-filter: blur(10px);
         }
 
         .portfolio-sidebar-container.active {
-          transform: translateX(0);
+          transform: translateX(0) scale(1);
+          opacity: 1;
         }
 
         .portfolio-sidebar-header {
@@ -59,6 +61,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
           position: relative;
           overflow: hidden;
+          animation: slideInTop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .portfolio-sidebar-header::before {
@@ -119,6 +122,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         .portfolio-sidebar-close:hover {
           background: rgba(255, 255, 255, 0.3);
           transform: scale(1.1) rotate(90deg);
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+          animation: pulse 1.2s infinite;
         }
 
         .portfolio-sidebar-nav {
@@ -135,7 +140,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
         .portfolio-nav-item {
           margin: 0.5rem 0;
+          opacity: 0;
+          transform: translateX(-20px) translateY(10px);
+          animation: staggerIn 0.5s ease-in-out forwards;
+          animation-delay: calc(var(--delay) * 0.08s);
         }
+
+        .portfolio-nav-item:nth-child(1) { --delay: 1; }
+        .portfolio-nav-item:nth-child(2) { --delay: 2; }
+        .portfolio-nav-item:nth-child(3) { --delay: 3; }
+        .portfolio-nav-item:nth-child(4) { --delay: 4; }
+        .portfolio-nav-item:nth-child(5) { --delay: 5; }
+        .portfolio-nav-item:nth-child(6) { --delay: 6; }
 
         .portfolio-nav-link {
           display: flex;
@@ -218,6 +234,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           padding: 1.5rem;
           border-top: 1px solid #f3f4f6;
           background: linear-gradient(135deg, #fafafa 0%, #f9fafb 100%);
+          animation: slideInBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .portfolio-footer-text {
@@ -249,11 +266,31 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         .portfolio-sidebar-nav::-webkit-scrollbar-thumb:hover {
           background: rgba(220, 38, 38, 0.5);
         }
+
+        @keyframes slideInTop {
+          from { transform: translateY(-30px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInBottom {
+          from { transform: translateY(30px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes staggerIn {
+          from { transform: translateX(-20px) translateY(10px); opacity: 0; }
+          to { transform: translateX(0) translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1.1) rotate(90deg); }
+          50% { transform: scale(1.15) rotate(90deg); }
+        }
       `}</style>
 
       <div className={`portfolio-sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={toggleSidebar}></div>
       
-      <div className={`portfoliohemat-sidebar-container ${isOpen ? 'active' : ''}`}>
+      <div className={`portfolio-sidebar-container ${isOpen ? 'active' : ''}`}>
         <div className="portfolio-sidebar-header">
           <div className="portfolio-sidebar-brand">
             <h1 className="portfolio-brand-title">Portfolio</h1>
@@ -450,7 +487,7 @@ const Navbar = () => {
           overflow: hidden;
         }
 
-        .modern faveur-cta::before {
+        .modern-navbar-cta::before {
           content: '';
           position: absolute;
           top: 0;
@@ -485,6 +522,7 @@ const Navbar = () => {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
           overflow: hidden;
+          transform: scale(1);
         }
 
         .modern-hamburger-menu::before {
@@ -514,7 +552,8 @@ const Navbar = () => {
         .modern-hamburger-menu.active {
           background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
           border-color: #dc2626;
-          transform: scale(0.95);
+          transform: scale(0.95) rotate(180deg);
+          transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .modern-hamburger-line {
@@ -522,7 +561,7 @@ const Navbar = () => {
           height: 2px;
           background: #dc2626;
           margin: 2px 0;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           border-radius: 1px;
           position: relative;
           z-index: 1;
@@ -626,7 +665,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <Sidebar isOpen={isOpen} toggleSidebar={() => setIsOpen(false)} />
+      {isOpen && <Sidebar isOpen={isOpen} toggleSidebar={() => setIsOpen(false)} />}
     </>
   );
 };

@@ -6,12 +6,12 @@ const PortfolioDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSkill, setCurrentSkill] = useState(0);
 
-  const skills = ['Full Stack Developer', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast'];
+  const skills = ['Full Stack Developer', 'DSA Enthusiast', 'Problem Solver', 'Tech Enthusiast'];
   const stats = [
-    { label: 'Projects Completed', value: '50+', icon: '🚀' },
-    { label: 'Years Experience', value: '3+', icon: '⏰' },
-    { label: 'Technologies', value: '15+', icon: '💻' },
-    { label: 'Happy Clients', value: '25+', icon: '😊' }
+    { label: 'Projects Completed', value: '20+', icon: '🚀' },
+    { label: 'Years Experience', value: '2+', icon: '⏰' },
+    { label: 'Technologies', value: '10+', icon: '💻' },
+    { label: 'Happy Clients', value: '5+', icon: '😊' }
   ];
 
   useEffect(() => {
@@ -341,7 +341,7 @@ const PortfolioDashboard = () => {
           <div className="portfolio-dashboard-profile">
             <div className="portfolio-dashboard-avatar">
             </div>
-            <h2 className="portfolio-dashboard-name">Your Name</h2>
+            <h2 className="portfolio-dashboard-name">Shashidhara K</h2>
             <div className="portfolio-dashboard-title">
               <span className="portfolio-dashboard-skill" key={currentSkill}>
                 {skills[currentSkill]}
