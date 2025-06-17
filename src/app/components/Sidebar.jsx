@@ -3,8 +3,8 @@ import './styles/Sidebar.css';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="close-btn" onClick={toggleSidebar}>×</div>
+    <div className={`pastel-sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-close" onClick={toggleSidebar}>×</div>
       <a href="#home" onClick={toggleSidebar}>Home</a>
       <a href="#about" onClick={toggleSidebar}>About</a>
       <a href="#projects" onClick={toggleSidebar}>Projects</a>
