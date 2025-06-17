@@ -1,16 +1,32 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [activeItem, setActiveItem] = useState('home');
 
+  // Set active item based on current pathname
+  useEffect(() => {
+    const routeToId = {
+      '/': 'home',
+      '/about': 'about',
+      '/projects': 'projects',
+      '/skills': 'skills',
+      '/resume': 'resume',
+      '/contact': 'contact'
+    };
+    setActiveItem(routeToId[pathname] || 'home');
+  }, [pathname]);
+
   const navigationItems = [
-    { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'about', label: 'About', icon: '👤' },
-    { id: 'projects', label: 'Projects', icon: '💼' },
-    { id: 'skills', label: 'Skills', icon: '⚡' },
-    { id: 'resume', label: 'Resume', icon: '📄' },
-    { id: 'contact', label: 'Contact', icon: '📧' }
+    { id: 'home', label: 'Home', icon: '🏠', route: '/' },
+    { id: 'about', label: 'About', icon: '👤', route: '/about' },
+    { id: 'projects', label: 'Projects', icon: '💼', route: '/projects' },
+    { id: 'skills', label: 'Skills', icon: '⚡', route: '/skills' },
+    { id: 'resume', label: 'Resume', icon: '📄', route: '/resume' },
+    { id: 'contact', label: 'Contact', icon: '📧', route: '/contact' }
   ];
 
   return (
@@ -167,6 +183,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           border-radius: 0;
           position: relative;
           overflow: hidden;
+          cursor: pointer;
         }
 
         .portfolio-nav-link::before {
@@ -312,12 +329,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             {navigationItems.map((item) => (
               <li key={item.id} className="portfolio-nav-item">
                 <a
-                  href={`#${item.id}`}
+                  href={item.route}
                   className={`portfolio-nav-link ${activeItem === item.id ? 'active' : ''}`}
                   onClick={(e) => {
                     e.preventDefault();
                     setActiveItem(item.id);
                     toggleSidebar();
+                    router.push(item.route);
                     console.log(`Navigate to ${item.label}`);
                   }}
                 >
@@ -341,6 +359,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 };
 
 const Navbar = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -390,6 +409,7 @@ const Navbar = () => {
           align-items: center;
           text-decoration: none;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
         }
 
         .modern-navbar-brand:hover {
@@ -487,6 +507,7 @@ const Navbar = () => {
           box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
           position: relative;
           overflow: hidden;
+          cursor: pointer;
         }
 
         .modern-navbar-cta::before {
@@ -639,7 +660,13 @@ const Navbar = () => {
 
       <nav className={`modern-portfolio-navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="modern-navbar-container">
-          <a href="#home" className="modern-navbar-brand">
+          <div 
+            className="modern-navbar-brand"
+            onClick={() => {
+              router.push('/');
+              console.log('Navigate to Home');
+            }}
+          >
             <div className="modern-brand-logo">
               S
             </div>
@@ -647,12 +674,18 @@ const Navbar = () => {
               <h1 className="modern-brand-title">Portfolio</h1>
               <span className="modern-brand-subtitle">Shashidhara K</span>
             </div>
-          </a>
+          </div>
 
           <div className="modern-navbar-actions">
-            <a href="#contact" className="modern-navbar-cta">
+            <div
+              className="modern-navbar-cta"
+              onClick={() => {
+                router.push('/contact');
+                console.log('Navigate to Contact');
+              }}
+            >
               {"Let's Connect"}
-            </a>
+            </div>
             
             <button 
               className={`modern-hamburger-menu ${isOpen ? 'active' : ''}`}
