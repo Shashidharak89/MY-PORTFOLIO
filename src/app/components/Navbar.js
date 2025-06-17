@@ -264,7 +264,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             onClick={toggleSidebar}
             aria-label="Close sidebar"
           >
-            ×
+            &times;
           </button>
         </div>
 
@@ -293,7 +293,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="portfolio-sidebar-footer">
           <p className="portfolio-footer-text">
             Built with <span className="portfolio-footer-highlight">passion</span><br />
-            & modern technologies
+            &amp; modern technologies
           </p>
         </div>
       </div>
@@ -588,7 +588,7 @@ const Navbar = () => {
           .modern-hamburger-menu {
             width: 40px;
             height: 40px;
-          }modern-brand-logo
+          }
 
           .modern-hamburger-line {
             width: 18px;
@@ -610,7 +610,7 @@ const Navbar = () => {
 
           <div className="modern-navbar-actions">
             <a href="#contact" className="modern-navbar-cta">
-              Let's Connect
+              Let&apos;s Connect
             </a>
             
             <button 
