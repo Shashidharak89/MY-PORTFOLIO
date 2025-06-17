@@ -1,15 +1,19 @@
-// src/app/layout.js
-import './globals.css';
+import './globals.css'; // Global styles
+
 
 export const metadata = {
-  title: 'Shashidhara K Portfolio',
-  description: 'Portfolio website built with Next.js and CSS',
+  title: 'My Portfolio',
+  description: 'Personal Portfolio built with Next.js',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head />
+      <body>
+        
+        <main style={{ paddingTop: '60px' }}>{children}</main>
+      </body>
     </html>
   );
 }
