@@ -253,7 +253,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       <div className={`portfolio-sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={toggleSidebar}></div>
       
-      <div className={`portfolio-sidebar-container ${isOpen ? 'active' : ''}`}>
+      <div className={`portfoliohemat-sidebar-container ${isOpen ? 'active' : ''}`}>
         <div className="portfolio-sidebar-header">
           <div className="portfolio-sidebar-brand">
             <h1 className="portfolio-brand-title">Portfolio</h1>
@@ -264,7 +264,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             onClick={toggleSidebar}
             aria-label="Close sidebar"
           >
-            &times;
+            ×
           </button>
         </div>
 
@@ -278,7 +278,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     setActiveItem(item.id);
-                    toggleSidebar(); // Close sidebar after navigation on mobile
+                    toggleSidebar();
                     console.log(`Navigate to ${item.label}`);
                   }}
                 >
@@ -293,7 +293,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="portfolio-sidebar-footer">
           <p className="portfolio-footer-text">
             Built with <span className="portfolio-footer-highlight">passion</span><br />
-            &amp; modern technologies
+            & modern technologies
           </p>
         </div>
       </div>
@@ -450,7 +450,7 @@ const Navbar = () => {
           overflow: hidden;
         }
 
-        .modern-navbar-cta::before {
+        .modern faveur-cta::before {
           content: '';
           position: absolute;
           top: 0;
@@ -610,7 +610,7 @@ const Navbar = () => {
 
           <div className="modern-navbar-actions">
             <a href="#contact" className="modern-navbar-cta">
-              Let&apos;s Connect
+              {"Let's Connect"}
             </a>
             
             <button 

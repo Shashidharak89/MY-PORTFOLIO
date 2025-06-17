@@ -20,7 +20,7 @@ const PortfolioDashboard = () => {
       setCurrentSkill((prev) => (prev + 1) % skills.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [skills]);
 
   return (
     <div className="portfolio-dashboard-container">
@@ -353,7 +353,7 @@ const PortfolioDashboard = () => {
           </div>
 
           <div className="portfolio-dashboard-content">
-            <p className="portfolio-dashboard-greeting">Hello, I'm</p>
+            <p className="portfolio-dashboard-greeting">Hello, {"I'm"}</p>
             <h1 className="portfolio-dashboard-headline">
               Building Digital
               <br />
