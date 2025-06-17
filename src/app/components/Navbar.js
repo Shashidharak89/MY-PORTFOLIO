@@ -26,7 +26,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           z-index: 998;
           opacity: 0;
           visibility: hidden;
-          transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: opacity 0.5s cubic-bezier(0.33, 0, 0, 1), visibility 0.5s cubic-bezier(0.33, 0, 0, 1);
+          will-change: opacity;
         }
 
         .portfolio-sidebar-overlay.active {
@@ -44,14 +45,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           border-right: 1px solid #e5e7eb;
           box-shadow: 0 10px 40px rgba(220, 38, 38, 0.12);
           z-index: 999;
-          transform: translateX(-100%) scale(0.95);
+          transform: translateX(-100%);
           opacity: 0;
-          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), scale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.6s cubic-bezier(0.33, 0, 0, 1), opacity 0.5s cubic-bezier(0.33, 0, 0, 1);
           backdrop-filter: blur(10px);
+          will-change: transform, opacity;
         }
 
         .portfolio-sidebar-container.active {
-          transform: translateX(0) scale(1);
+          transform: translateX(0);
           opacity: 1;
         }
 
@@ -61,7 +63,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
           position: relative;
           overflow: hidden;
-          animation: slideInTop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInTop 0.6s cubic-bezier(0.33, 0, 0, 1) forwards;
         }
 
         .portfolio-sidebar-header::before {
@@ -141,9 +143,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         .portfolio-nav-item {
           margin: 0.5rem 0;
           opacity: 0;
-          transform: translateX(-20px) translateY(10px);
-          animation: staggerIn 0.5s ease-in-out forwards;
-          animation-delay: calc(var(--delay) * 0.08s);
+          transform: translateX(-30px);
+          animation: staggerIn 0.5s cubic-bezier(0.33, 0, 0, 1) forwards;
+          animation-delay: calc(var(--delay) * 0.1s);
         }
 
         .portfolio-nav-item:nth-child(1) { --delay: 1; }
@@ -234,7 +236,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           padding: 1.5rem;
           border-top: 1px solid #f3f4f6;
           background: linear-gradient(135deg, #fafafa 0%, #f9fafb 100%);
-          animation: slideInBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInBottom 0.6s cubic-bezier(0.33, 0, 0, 1) forwards;
         }
 
         .portfolio-footer-text {
@@ -278,8 +280,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         }
 
         @keyframes staggerIn {
-          from { transform: translateX(-20px) translateY(10px); opacity: 0; }
-          to { transform: translateX(0) translateY(0); opacity: 1; }
+          from { transform: translateX(-30px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes pulse {
