@@ -588,7 +588,7 @@ const Navbar = () => {
           .modern-hamburger-menu {
             width: 40px;
             height: 40px;
-          }
+          }modern-brand-logo
 
           .modern-hamburger-line {
             width: 18px;
@@ -600,11 +600,11 @@ const Navbar = () => {
         <div className="modern-navbar-container">
           <a href="#home" className="modern-navbar-brand">
             <div className="modern-brand-logo">
-              P
+              S
             </div>
             <div className="modern-brand-text">
               <h1 className="modern-brand-title">Portfolio</h1>
-              <span className="modern-brand-subtitle">Developer</span>
+              <span className="modern-brand-subtitle">Shashidhara K</span>
             </div>
           </a>
 
