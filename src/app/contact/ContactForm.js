@@ -108,10 +108,10 @@ const ContactForm = () => {
         {/* Header Section */}
         <div className="portfolio-contact-header">
           <h1 className="portfolio-contact-title">
-            Let's <span className="portfolio-highlight">Connect</span>
+            Let&apos;s <span className="portfolio-highlight">Connect</span>
           </h1>
           <p className="portfolio-contact-subtitle">
-            Ready to bring your ideas to life? Let's start a conversation.
+            Ready to bring your ideas to life? Let&apos;s start a conversation.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ const ContactForm = () => {
             <div className="portfolio-contact-card">
               <h2 className="portfolio-info-title">Get In Touch</h2>
               <p className="portfolio-info-description">
-                I'm always excited to work on new projects and collaborate with amazing people.
+                I&apos;m always excited to work on new projects and collaborate with amazing people.
               </p>
 
               {/* Contact Details */}
