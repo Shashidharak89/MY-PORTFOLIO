@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, Heart, ArrowUp } from 'lucide-react';
@@ -8,6 +8,8 @@ const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [email, setEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState({ message: '', type: '' }); // For success/error feedback
+  const [isSubmitting, setIsSubmitting] = useState(false); // For loading state
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,10 +39,36 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSubscribe = () => {
-    if (email) {
-      console.log(`Subscribed with email: ${email}`);
-      setEmail('');
+  const handleSubscribe = async () => {
+    if (!email) {
+      setSubscribeStatus({ message: 'Please enter an email address', type: 'error' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubscribeStatus({ message: '', type: '' });
+
+    try {
+      const response = await fetch('/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+
+      setSubscribeStatus({ message: 'Subscribed successfully!', type: 'success' });
+      setEmail(''); // Clear input on success
+    } catch (error) {
+      setSubscribeStatus({ message: error.message || 'Something went wrong', type: 'error' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,7 +76,7 @@ const Footer = () => {
     { icon: Github, label: 'GitHub', url: '#', color: '#ff4757' },
     { icon: Linkedin, label: 'LinkedIn', url: '#', color: '#3742fa' },
     { icon: Mail, label: 'Email', url: '#', color: '#ff6b7a' },
-    { icon: Phone, label: 'Phone', url: '#', color: '#4834d4' }
+    { icon: Phone, label: 'Phone', url: '#', color: '#4834d4' },
   ];
 
   const quickLinks = ['About', 'Projects', 'Skills', 'Experience', 'Contact'];
@@ -73,7 +101,7 @@ const Footer = () => {
             className={styles['footer-particle']}
             style={{
               '--delay': `${i * 0.5}s`,
-              '--duration': `${3 + (i % 3)}s`
+              '--duration': `${3 + (i % 3)}s`,
             }}
           ></div>
         ))}
@@ -161,15 +189,28 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles['footer-newsletter-input']}
+                disabled={isSubmitting}
               />
               <button
                 onClick={handleSubscribe}
                 className={styles['footer-newsletter-btn']}
+                disabled={isSubmitting}
               >
-                Subscribe
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                 <div className={styles['footer-btn-glow']}></div>
               </button>
             </div>
+            {subscribeStatus.message && (
+              <p
+                className={`${styles['footer-newsletter-status']} ${
+                  subscribeStatus.type === 'success'
+                    ? styles['footer-newsletter-success']
+                    : styles['footer-newsletter-error']
+                }`}
+              >
+                {subscribeStatus.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -181,8 +222,12 @@ const Footer = () => {
               <Heart size={14} className={styles['footer-heart']} /> by Developer
             </p>
             <div className={styles['footer-bottom-links']}>
-              <a href="#" className={styles['footer-bottom-link']}>Privacy Policy</a>
-              <a href="#" className={styles['footer-bottom-link']}>Terms of Service</a>
+              <a href="#" className={styles['footer-bottom-link']}>
+                Privacy Policy
+              </a>
+              <a href="#" className={styles['footer-bottom-link']}>
+                Terms of Service
+              </a>
             </div>
           </div>
         </div>
