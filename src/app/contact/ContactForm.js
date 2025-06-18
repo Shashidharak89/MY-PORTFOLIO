@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Twitter, Instagram, Linkedin } from 'lucide-react';
 import './styles/ContactForm.css';
 
 const ContactForm = () => {
@@ -9,10 +9,11 @@ const ContactForm = () => {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ message: '', type: '' }); // For success/error feedback
 
   useEffect(() => {
     setIsVisible(true);
@@ -20,73 +21,87 @@ const ContactForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Reset form
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    setIsSubmitting(false);
-    
-    // Show success message (you can implement this)
-    alert('Message sent successfully!');
+    setSubmitStatus({ message: '', type: '' });
+
+    try {
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit contact form');
+      }
+
+      setSubmitStatus({ message: 'Message sent successfully!', type: 'success' });
+      setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
+    } catch (error) {
+      setSubmitStatus({ message: error.message || 'Something went wrong', type: 'error' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: <Mail className="portfolio-contact-icon" />,
-      label: "Email",
-      value: "john.doe@example.com",
-      link: "mailto:john.doe@example.com"
+      label: 'Email',
+      value: 'john.doe@example.com',
+      link: 'mailto:john.doe@example.com',
     },
     {
       icon: <Phone className="portfolio-contact-icon" />,
-      label: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      label: 'Phone',
+      value: '+1 (555) 123-4567',
+      link: 'tel:+15551234567',
     },
     {
       icon: <MapPin className="portfolio-contact-icon" />,
-      label: "Location",
-      value: "San Francisco, CA",
-      link: null
-    }
+      label: 'Location',
+      value: 'San Francisco, CA',
+      link: null,
+    },
   ];
 
   const socialLinks = [
     {
       icon: <Github className="portfolio-social-icon" />,
-      name: "GitHub",
-      url: "https://github.com/johndoe",
-      color: "#333"
+      name: 'GitHub',
+      url: 'https://github.com/johndoe',
+      color: '#333',
     },
     {
       icon: <Linkedin className="portfolio-social-icon" />,
-      name: "LinkedIn",
-      url: "https://linkedin.com/in/johndoe",
-      color: "#0077b5"
+      name: 'LinkedIn',
+      url: 'https://linkedin.com/in/johndoe',
+      color: '#0077b5',
     },
     {
       icon: <Twitter className="portfolio-social-icon" />,
-      name: "Twitter",
-      url: "https://twitter.com/johndoe",
-      color: "#1da1f2"
+      name: 'Twitter',
+      url: 'https://twitter.com/johndoe',
+      color: '#1da1f2',
     },
     {
       icon: <Instagram className="portfolio-social-icon" />,
-      name: "Instagram",
-      url: "https://instagram.com/johndoe",
-      color: "#e4405f"
-    }
+      name: 'Instagram',
+      url: 'https://instagram.com/johndoe',
+      color: '#e4405f',
+    },
   ];
 
   return (
@@ -108,10 +123,10 @@ const ContactForm = () => {
         {/* Header Section */}
         <div className="portfolio-contact-header">
           <h1 className="portfolio-contact-title">
-            Let&apos;s <span className="portfolio-highlight">Connect</span>
+            Let's <span className="portfolio-highlight">Connect</span>
           </h1>
           <p className="portfolio-contact-subtitle">
-            Ready to bring your ideas to life? Let&apos;s start a conversation.
+            Ready to bring your ideas to life? Let's start a conversation.
           </p>
         </div>
 
@@ -122,7 +137,7 @@ const ContactForm = () => {
             <div className="portfolio-contact-card">
               <h2 className="portfolio-info-title">Get In Touch</h2>
               <p className="portfolio-info-description">
-                I&apos;m always excited to work on new projects and collaborate with amazing people.
+                I'm always excited to work on new projects and collaborate with amazing people.
               </p>
 
               {/* Contact Details */}
@@ -170,8 +185,7 @@ const ContactForm = () => {
           <div className="portfolio-form-section">
             <div className="portfolio-form-card">
               <h2 className="portfolio-form-title">Send a Message</h2>
-              
-              <div className="portfolio-contact-form">
+              <form onSubmit={handleSubmit} className="portfolio-contact-form">
                 <div className="portfolio-form-row">
                   <div className="portfolio-form-group">
                     <input
@@ -182,6 +196,7 @@ const ContactForm = () => {
                       required
                       className="portfolio-form-input"
                       placeholder=" "
+                      disabled={isSubmitting}
                     />
                     <label className="portfolio-form-label">Full Name</label>
                   </div>
@@ -197,6 +212,7 @@ const ContactForm = () => {
                       required
                       className="portfolio-form-input"
                       placeholder=" "
+                      disabled={isSubmitting}
                     />
                     <label className="portfolio-form-label">Email Address</label>
                   </div>
@@ -211,6 +227,7 @@ const ContactForm = () => {
                       onChange={handleInputChange}
                       className="portfolio-form-input"
                       placeholder=" "
+                      disabled={isSubmitting}
                     />
                     <label className="portfolio-form-label">Phone Number</label>
                   </div>
@@ -226,6 +243,7 @@ const ContactForm = () => {
                       rows="5"
                       className="portfolio-form-textarea"
                       placeholder=" "
+                      disabled={isSubmitting}
                     ></textarea>
                     <label className="portfolio-form-label">Your Message</label>
                   </div>
@@ -242,7 +260,19 @@ const ContactForm = () => {
                   <Send className="portfolio-btn-icon" />
                   <div className="portfolio-btn-wave"></div>
                 </button>
-              </div>
+
+                {submitStatus.message && (
+                  <p
+                    className={`portfolio-form-status ${
+                      submitStatus.type === 'success'
+                        ? 'portfolio-form-success'
+                        : 'portfolio-form-error'
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </p>
+                )}
+              </form>
             </div>
           </div>
         </div>
