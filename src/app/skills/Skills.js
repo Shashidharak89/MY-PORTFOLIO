@@ -42,6 +42,7 @@ const Skills = () => {
   };
 
   useEffect(() => {
+    const currentRef = skillsRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -51,13 +52,13 @@ const Skills = () => {
       { threshold: 0.1 }
     );
 
-    if (skillsRef.current) {
-      observer.observe(skillsRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (skillsRef.current) {
-        observer.unobserve(skillsRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -65,7 +66,6 @@ const Skills = () => {
   return (
     <section className="skills-section" ref={skillsRef}>
       <div className="skills-container">
-        {/* Header */}
         <div className="skills-header">
           <div className="header-decoration"></div>
           <h2 className="skills-title">My Skills</h2>
@@ -75,7 +75,6 @@ const Skills = () => {
           <div className="header-decoration"></div>
         </div>
 
-        {/* Category Tabs */}
         <div className="category-tabs">
           {Object.keys(skillsData).map((category) => (
             <button
@@ -91,7 +90,6 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Skills Grid */}
         <div className="skills-grid">
           {skillsData[activeCategory].map((skill, index) => (
             <div
@@ -131,7 +129,6 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Floating Elements */}
         <div className="floating-elements">
           <div className="floating-circle circle-1"></div>
           <div className="floating-circle circle-2"></div>

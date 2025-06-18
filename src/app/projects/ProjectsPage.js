@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 import { ExternalLink, Github, ArrowRight, Play } from 'lucide-react';
 
 const ProjectsPage = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState({});
 
-  // Sample project data
-  const projects = [
+  const projects = useMemo(() => [
     {
       id: 1,
       title: "E-Commerce Platform",
@@ -65,9 +65,8 @@ const ProjectsPage = () => {
         "https://pixlr.com/images/generator/simple-generator.webp"
       ]
     }
-  ];
+  ], []);
 
-  // Auto-slide images when project is hovered
   useEffect(() => {
     if (hoveredProject) {
       const interval = setInterval(() => {
@@ -88,7 +87,7 @@ const ProjectsPage = () => {
           <span className="prj-title-accent">Featured</span> Projects
         </h1>
         <p className="prj-subtitle">
-          Discover the innovative solutions I've crafted with passion and precision
+          Discover the innovative solutions I&apos;ve crafted with passion and precision
         </p>
       </div>
 
@@ -116,10 +115,13 @@ const ProjectsPage = () => {
                 </div>
                 
                 <div className="prj-preview-image">
-                  <img 
+                  <Image 
                     src={project.images[0]} 
                     alt={project.title}
                     className="prj-image"
+                    width={200}
+                    height={120}
+                    style={{ objectFit: 'cover', aspectRatio: '16/9' }}
                   />
                   <div className="prj-image-overlay">
                     <Play className="prj-play-icon" />
@@ -131,13 +133,16 @@ const ProjectsPage = () => {
                 <div className="prj-image-gallery">
                   <div className="prj-image-container">
                     {project.images.map((image, i) => (
-                      <img
+                      <Image
                         key={i}
                         src={image}
                         alt={`${project.title} ${i + 1}`}
                         className={`prj-gallery-image ${
                           i === (currentImageIndex[project.id] || 0) ? 'prj-gallery-image-active' : ''
                         }`}
+                        width={200}
+                        height={120}
+                        style={{ objectFit: 'cover', aspectRatio: '16/9' }}
                       />
                     ))}
                   </div>
