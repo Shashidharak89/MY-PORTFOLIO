@@ -696,7 +696,7 @@ const ProjectsPage = () => {
                   Ready to work together?
                 </h3>
                 <p className="text-gray-600 text-lg mb-6">
-                  Let's create something amazing together
+                  Let&apos;s create something amazing together
                 </p>
                 <button className="pf-button-primary text-lg px-8 py-4">
                   <span className="relative z-10">Get In Touch</span>
