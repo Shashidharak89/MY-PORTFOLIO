@@ -1,10 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './styles/navbar.module.css';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const [activeItem, setActiveItem] = useState('home');
 
@@ -56,20 +56,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <ul className={styles.portfolioNavList}>
             {navigationItems.map((item) => (
               <li key={item.id} className={styles.portfolioNavItem}>
-                <a
+                <Link
                   href={item.route}
                   className={`${styles.portfolioNavLink} ${activeItem === item.id ? styles.active : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setActiveItem(item.id);
                     toggleSidebar();
-                    router.push(item.route);
                     console.log(`Navigate to ${item.label}`);
                   }}
                 >
                   <span className={styles.portfolioNavIcon}>{item.icon}</span>
                   <span className={styles.portfolioNavText}>{item.label}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -87,7 +85,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 };
 
 const Navbar = () => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -104,12 +101,10 @@ const Navbar = () => {
     <>
       <nav className={`${styles.modernPortfolioNavbar} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.modernNavbarContainer}>
-          <div 
+          <Link 
+            href="/"
             className={styles.modernNavbarBrand}
-            onClick={() => {
-              router.push('/');
-              console.log('Navigate to Home');
-            }}
+            onClick={() => console.log('Navigate to Home')}
           >
             <div className={styles.modernBrandLogo}>
               S
@@ -118,18 +113,16 @@ const Navbar = () => {
               <h1 className={styles.modernBrandTitle}>Portfolio</h1>
               <span className={styles.modernBrandSubtitle}>Shashidhara K</span>
             </div>
-          </div>
+          </Link>
 
           <div className={styles.modernNavbarActions}>
-            <div
+            <Link
+              href="/contact"
               className={styles.modernNavbarCta}
-              onClick={() => {
-                router.push('/contact');
-                console.log('Navigate to Contact');
-              }}
+              onClick={() => console.log('Navigate to Contact')}
             >
               {"Let's Connect"}
-            </div>
+            </Link>
             
             <button 
               className={`${styles.modernHamburgerMenu} ${isOpen ? styles.active : ''}`}
