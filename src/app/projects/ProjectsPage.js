@@ -87,7 +87,7 @@ const ProjectsPage = () => {
           <span className="prj-title-accent">Featured</span> Projects
         </h1>
         <p className="prj-subtitle">
-          Discover the innovative solutions I've crafted with passion and precision
+          Discover the innovative solutions I&apos;ve crafted with passion and precision
         </p>
       </div>
 
