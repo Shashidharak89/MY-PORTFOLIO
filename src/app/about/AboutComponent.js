@@ -12,17 +12,17 @@ const AboutComponent = () => {
   const skills = [
     { name: 'Frontend Development', level: 95, icon: '🎨' },
     { name: 'Backend Development', level: 90, icon: '⚙️' },
-    { name: 'Database Management', level: 85, icon: '🗂️' },
+    { name: 'Database Management', level: 85, icon: '🗄️' },
     { name: 'Cloud Technologies', level: 80, icon: '☁️' },
     { name: 'Mobile Development', level: 75, icon: '📱' },
-    { name: 'DevOps', level: 70, icon: '🚀' },
+    { name: 'DevOps', level: 70, icon: '🚀' }
   ];
 
   const achievements = [
-    { number: '20+', label: 'Projects Completed', icon: '💡' },
+    { number: '20+', label: 'Projects Completed', icon: '💼' },
     { number: '2+', label: 'Years Experience', icon: '⏱️' },
     { number: '10+', label: 'Technologies', icon: '💻' },
-    { number: '5+', label: 'Happy Clients', icon: '😊' },
+    { number: '5+', label: 'Happy Clients', icon: '😊' }
   ];
 
   const technologies = [
@@ -112,11 +112,6 @@ const AboutComponent = () => {
               <p className="shas-profile-title">Full Stack Developer</p>
               <div className="shas-profile-description">
                 <p>
-                  I'm a passionate Full Stack Developer with 2+ years of experience in creating 
-                  exceptional digital experiences. I specialize in modern web technologies and 
-                  focus on building scalable, user-centric applications that make a difference.
-                </p>
-                <p>
                   My journey in technology is driven by curiosity and the desire to solve 
                   complex problems through innovative solutions. I believe in writing clean, 
                   maintainable code and staying updated with the latest industry trends.
@@ -192,12 +187,6 @@ const AboutComponent = () => {
           <div className="shas-personal-card">
             <h3 className="shas-section-title">Beyond Code</h3>
             <div className="shas-personal-content">
-              <p>
-                When I'm not coding, you'll find me exploring new technologies, contributing to 
-                open-source projects, or sharing knowledge with the developer community. 
-                I believe in continuous learning and enjoy tackling challenging problems 
-                that push the boundaries of what's possible.
-              </p>
               <div className="shas-interests">
                 <span className="shas-interest">🎯 Problem Solving</span>
                 <span className="shas-interest">🌱 Open Source</span>
