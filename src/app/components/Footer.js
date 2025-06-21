@@ -8,8 +8,8 @@ const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [email, setEmail] = useState('');
-  const [subscribeStatus, setSubscribeStatus] = useState({ message: '', type: '' }); // For success/error feedback
-  const [isSubmitting, setIsSubmitting] = useState(false); // For loading state
+  const [subscribeStatus, setSubscribeStatus] = useState({ message: '', type: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,7 +19,7 @@ const Footer = () => {
       { threshold: 0.1 }
     );
 
-    const footerElement = document.querySelector(`.${styles['portfolio-footer-container']}`);
+    const footerElement = document.querySelector(`.${styles['crimson-footer-container']}`);
     if (footerElement) {
       observer.observe(footerElement);
     }
@@ -64,7 +64,7 @@ const Footer = () => {
       }
 
       setSubscribeStatus({ message: 'Subscribed successfully!', type: 'success' });
-      setEmail(''); // Clear input on success
+      setEmail('');
     } catch (error) {
       setSubscribeStatus({ message: error.message || 'Something went wrong', type: 'error' });
     } finally {
@@ -73,35 +73,50 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Github, label: 'GitHub', url: '#', color: '#ff4757' },
-    { icon: Linkedin, label: 'LinkedIn', url: '#', color: '#3742fa' },
-    { icon: Mail, label: 'Email', url: '#', color: '#ff6b7a' },
-    { icon: Phone, label: 'Phone', url: '#', color: '#4834d4' },
+    { icon: Github, label: 'GitHub', url: '#', color: '#FFD700' },
+    { icon: Linkedin, label: 'LinkedIn', url: '#', color: '#FFD700' },
+    { icon: Mail, label: 'Email', url: '#', color: '#FFD700' },
+    { icon: Phone, label: 'Phone', url: '#', color: '#FFD700' },
   ];
-
-  const quickLinks = ['About', 'Projects', 'Skills', 'Experience', 'Contact'];
 
   return (
     <footer
-      className={`${styles['portfolio-footer-container']} ${isVisible ? styles['footer-animate-in'] : ''}`}
+      className={`${styles['crimson-footer-container']} ${isVisible ? styles['crimson-footer-animate-in'] : ''}`}
       onMouseMove={handleMouseMove}
     >
-      {/* Animated Background */}
-      <div className={styles['footer-bg-animation']}>
-        <div className={`${styles['footer-wave']} ${styles['footer-wave-1']}`}></div>
-        <div className={`${styles['footer-wave']} ${styles['footer-wave-2']}`}></div>
-        <div className={`${styles['footer-wave']} ${styles['footer-wave-3']}`}></div>
+      {/* Animated Background Waves */}
+      <div className={styles['crimson-bg-animation']}>
+        <div className={`${styles['crimson-wave']} ${styles['crimson-wave-1']}`}></div>
+        <div className={`${styles['crimson-wave']} ${styles['crimson-wave-2']}`}></div>
+        <div className={`${styles['crimson-wave']} ${styles['crimson-wave-3']}`}></div>
+        <div className={`${styles['crimson-wave']} ${styles['crimson-wave-4']}`}></div>
       </div>
 
       {/* Floating Particles */}
-      <div className={styles['footer-particles']}>
-        {[...Array(15)].map((_, i) => (
+      <div className={styles['crimson-particles']}>
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className={styles['footer-particle']}
+            className={styles['crimson-particle']}
             style={{
-              '--delay': `${i * 0.5}s`,
-              '--duration': `${3 + (i % 3)}s`,
+              '--delay': `${i * 0.3}s`,
+              '--duration': `${4 + (i % 4)}s`,
+              '--size': `${2 + (i % 3)}px`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      {/* Golden Orbs */}
+      <div className={styles['crimson-golden-orbs']}>
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className={styles['crimson-golden-orb']}
+            style={{
+              '--delay': `${i * 0.8}s`,
+              '--x-offset': `${(i % 4) * 25}%`,
+              '--y-offset': `${Math.floor(i / 4) * 50}%`,
             }}
           ></div>
         ))}
@@ -109,103 +124,101 @@ const Footer = () => {
 
       {/* Mouse Follower Effect */}
       <div
-        className={styles['footer-mouse-glow']}
+        className={styles['crimson-mouse-glow']}
         style={{
           left: mousePos.x,
           top: mousePos.y,
         }}
       ></div>
 
-      <div className={styles['footer-content-wrapper']}>
-        <div className={styles['footer-main-content']}>
+      <div className={styles['crimson-content-wrapper']}>
+        <div className={styles['crimson-main-content']}>
           {/* Brand Section */}
-          <div className={styles['footer-brand-section']}>
-            <div className={styles['footer-logo-container']}>
-              <div className={styles['footer-logo-text']}>Portfolio</div>
-              <div className={styles['footer-logo-pulse']}></div>
+          <div className={styles['crimson-brand-section']}>
+            <div className={styles['crimson-logo-container']}>
+              <div className={styles['crimson-logo-text']}>Portfolio</div>
+              <div className={styles['crimson-logo-pulse']}></div>
+              <div className={styles['crimson-logo-ring']}></div>
             </div>
-            <p className={styles['footer-brand-tagline']}>
+            <p className={styles['crimson-brand-tagline']}>
               Crafting digital experiences with passion and precision
             </p>
-            <div className={styles['footer-social-links']}>
+            <div className={styles['crimson-social-links']}>
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.url}
-                  className={styles['footer-social-link']}
+                  className={styles['crimson-social-link']}
                   style={{ '--hover-color': social.color }}
                   aria-label={social.label}
                 >
-                  <social.icon size={20} />
-                  <span className={styles['footer-social-tooltip']}>{social.label}</span>
+                  <social.icon size={24} />
+                  <div className={styles['crimson-social-ripple']}></div>
+                  <span className={styles['crimson-social-tooltip']}>{social.label}</span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className={styles['footer-links-section']}>
-            <h3 className={styles['footer-section-title']}>Quick Links</h3>
-            <ul className={styles['footer-links-list']}>
-              {quickLinks.map((link, index) => (
-                <li key={index} className={styles['footer-link-item']}>
-                  <a href={`#${link.toLowerCase()}`} className={styles['footer-link']}>
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact Info */}
-          <div className={styles['footer-contact-section']}>
-            <h3 className={styles['footer-section-title']}>Get In Touch</h3>
-            <div className={styles['footer-contact-info']}>
-              <div className={styles['footer-contact-item']}>
-                <Mail size={16} />
+          <div className={styles['crimson-contact-section']}>
+            <h3 className={styles['crimson-section-title']}>Get In Touch</h3>
+            <div className={styles['crimson-contact-info']}>
+              <div className={styles['crimson-contact-item']}>
+                <div className={styles['crimson-contact-icon']}>
+                  <Mail size={18} />
+                </div>
                 <span>hello@portfolio.com</span>
               </div>
-              <div className={styles['footer-contact-item']}>
-                <Phone size={16} />
+              <div className={styles['crimson-contact-item']}>
+                <div className={styles['crimson-contact-icon']}>
+                  <Phone size={18} />
+                </div>
                 <span>+1 (555) 123-4567</span>
               </div>
-              <div className={styles['footer-contact-item']}>
-                <MapPin size={16} />
+              <div className={styles['crimson-contact-item']}>
+                <div className={styles['crimson-contact-icon']}>
+                  <MapPin size={18} />
+                </div>
                 <span>New York, NY</span>
               </div>
             </div>
           </div>
 
           {/* Newsletter */}
-          <div className={styles['footer-newsletter-section']}>
-            <h3 className={styles['footer-section-title']}>Stay Updated</h3>
-            <p className={styles['footer-newsletter-text']}>
+          <div className={styles['crimson-newsletter-section']}>
+            <h3 className={styles['crimson-section-title']}>Stay Updated</h3>
+            <p className={styles['crimson-newsletter-text']}>
               Subscribe to get notified about new projects and updates
             </p>
-            <div className={styles['footer-newsletter-form']}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles['footer-newsletter-input']}
-                disabled={isSubmitting}
-              />
+            <div className={styles['crimson-newsletter-form']}>
+              <div className={styles['crimson-input-wrapper']}>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles['crimson-newsletter-input']}
+                  disabled={isSubmitting}
+                />
+                <div className={styles['crimson-input-glow']}></div>
+              </div>
               <button
                 onClick={handleSubscribe}
-                className={styles['footer-newsletter-btn']}
+                className={styles['crimson-newsletter-btn']}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-                <div className={styles['footer-btn-glow']}></div>
+                <span>{isSubmitting ? 'Subscribing...' : 'Subscribe'}</span>
+                <div className={styles['crimson-btn-glow']}></div>
+                <div className={styles['crimson-btn-particles']}></div>
               </button>
             </div>
             {subscribeStatus.message && (
               <p
-                className={`${styles['footer-newsletter-status']} ${
+                className={`${styles['crimson-newsletter-status']} ${
                   subscribeStatus.type === 'success'
-                    ? styles['footer-newsletter-success']
-                    : styles['footer-newsletter-error']
+                    ? styles['crimson-newsletter-success']
+                    : styles['crimson-newsletter-error']
                 }`}
               >
                 {subscribeStatus.message}
@@ -215,17 +228,17 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className={styles['footer-bottom-bar']}>
-          <div className={styles['footer-bottom-content']}>
-            <p className={styles['footer-copyright']}>
+        <div className={styles['crimson-bottom-bar']}>
+          <div className={styles['crimson-bottom-content']}>
+            <p className={styles['crimson-copyright']}>
               © 2025 Portfolio. Made with{' '}
-              <Heart size={14} className={styles['footer-heart']} /> by Developer
+              <Heart size={16} className={styles['crimson-heart']} /> by Developer
             </p>
-            <div className={styles['footer-bottom-links']}>
-              <a href="#" className={styles['footer-bottom-link']}>
+            <div className={styles['crimson-bottom-links']}>
+              <a href="#" className={styles['crimson-bottom-link']}>
                 Privacy Policy
               </a>
-              <a href="#" className={styles['footer-bottom-link']}>
+              <a href="#" className={styles['crimson-bottom-link']}>
                 Terms of Service
               </a>
             </div>
@@ -235,11 +248,12 @@ const Footer = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={styles['footer-scroll-top']}
+          className={styles['crimson-scroll-top']}
           aria-label="Scroll to top"
         >
           <ArrowUp size={20} />
-          <div className={styles['footer-scroll-top-glow']}></div>
+          <div className={styles['crimson-scroll-glow']}></div>
+          <div className={styles['crimson-scroll-ring']}></div>
         </button>
       </div>
     </footer>
