@@ -44,6 +44,7 @@ export const createSubscriber = async (req) => {
     const mailOptions = {
       from: `"Shashidhara K - Portfolio" <${process.env.EMAIL_USER}>`,
       to: subscriber.email,
+      replyTo: 'shashidharak334@gmail.com', // Direct replies to this email
       subject: '🎉 Welcome to Shashidhara K\'s Portfolio - Innovation Awaits!',
       text: `Dear Valued Subscriber,
 
@@ -56,6 +57,8 @@ As a subscriber, you'll receive exclusive notifications about:
 - Upcoming speaking engagements and collaborative opportunities
 
 I'm committed to delivering valuable content that showcases cutting-edge developments in technology and design.
+
+Have questions or want to connect? Simply reply to this email at shashidharak334@gmail.com - I'd love to hear from you!
 
 Best regards,
 Shashidhara K
@@ -93,6 +96,15 @@ Software Developer & Innovation Enthusiast`,
         <p style="color: #555; font-size: 1.05em; margin: 0 0 30px 0; line-height: 1.8; animation: fadeInUp 1s ease-out 0.7s both;">
           I'm committed to delivering valuable content that showcases cutting-edge developments in technology and design. Each update will provide meaningful insights into my professional growth and the exciting projects I'm working on.
         </p>
+        
+        <!-- Reply Section -->
+        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-radius: 15px; padding: 20px; margin: 25px 0; text-align: center; border-left: 4px solid #4facfe; animation: fadeInUp 1s ease-out 1.8s both;">
+          <p style="color: #2c3e50; font-size: 1.1em; margin: 0 0 10px 0; font-weight: 600;">💬 Want to Connect?</p>
+          <p style="color: #555; font-size: 1em; margin: 0; line-height: 1.6;">
+            Have questions or feedback? I'd love to hear from you! Simply reply to this email and it will reach me directly at 
+            <a href="mailto:shashidharak334@gmail.com" style="color: #4facfe; text-decoration: none; font-weight: 600; animation: pulse 2s ease-in-out infinite;">shashidharak334@gmail.com</a>
+          </p>
+        </div>
         
         <!-- Call to Action Button -->
         <div style="text-align: center; margin: 30px 0;">
@@ -226,7 +238,6 @@ Software Developer & Innovation Enthusiast`,
     </style>
   `
     };
-
 
 
 
