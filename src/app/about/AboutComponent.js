@@ -12,17 +12,17 @@ const AboutComponent = () => {
   const skills = [
     { name: 'Frontend Development', level: 95, icon: '🎨' },
     { name: 'Backend Development', level: 90, icon: '⚙️' },
-    { name: 'Database Management', level: 85, icon: '🗄️' },
+    { name: 'Database Management', level: 85, icon: '🗂️' },
     { name: 'Cloud Technologies', level: 80, icon: '☁️' },
     { name: 'Mobile Development', level: 75, icon: '📱' },
-    { name: 'DevOps', level: 70, icon: '🚀' }
+    { name: 'DevOps', level: 70, icon: '🚀' },
   ];
 
   const achievements = [
-    { number: '20+', label: 'Projects Completed', icon: '💼' },
+    { number: '20+', label: 'Projects Completed', icon: '💡' },
     { number: '2+', label: 'Years Experience', icon: '⏱️' },
     { number: '10+', label: 'Technologies', icon: '💻' },
-    { number: '5+', label: 'Happy Clients', icon: '😊' }
+    { number: '5+', label: 'Happy Clients', icon: '😊' },
   ];
 
   const technologies = [
