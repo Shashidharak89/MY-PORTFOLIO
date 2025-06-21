@@ -13,7 +13,19 @@ export const createSubscriber = async (req) => {
       });
     }
 
-    const existingSubscriber = await Subscriber.findOne({ email });
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email format' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Normalize email to lowercase for case-insensitive comparison
+    const normalizedEmail = email.toLowerCase();
+
+    const existingSubscriber = await Subscriber.findOne({ email: normalizedEmail });
     if (existingSubscriber) {
       return new Response(JSON.stringify({ error: 'Email already subscribed' }), {
         status: 409,
@@ -21,7 +33,7 @@ export const createSubscriber = async (req) => {
       });
     }
 
-    const subscriber = new Subscriber({ email });
+    const subscriber = new Subscriber({ email: normalizedEmail });
     await subscriber.save();
 
     return new Response(JSON.stringify({ message: 'Subscribed successfully', subscriber }), {
