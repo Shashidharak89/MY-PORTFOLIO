@@ -6,7 +6,7 @@ export default function About() {
   return (
     <>
       <Navbar />
-      
+      <p>Hello from about page</p>
       <Footer />
     </>
   );
