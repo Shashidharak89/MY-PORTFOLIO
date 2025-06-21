@@ -38,36 +38,59 @@ export const createSubscriber = async (req) => {
 
     // Configure email options for portfolio subscription
     const mailOptions = {
-      from: `"Your Portfolio" <${process.env.EMAIL_USER}>`,
+      from: `"Shashidhara K - Portfolio" <${process.env.EMAIL_USER}>`,
       to: subscriber.email,
-      subject: '🎉 Welcome to My Creative World!',
-      text: `Hi,\n\nThanks for joining! You’ll now get updates on new projects, blog posts, and exclusive content straight from my portfolio.\n\nStay tuned!\n\nBest,\n[Your Name]`,
+      subject: '🎉 Thank You for Subscribing to Portfolio Updates!',
+      text: `Hi,
+
+Thank you for subscribing to updates from my portfolio. You'll now receive notifications about new projects, blogs, and other exciting professional updates.
+
+Best regards,
+Shashidhara K`,
       html: `
-    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      <div style="background-color: #8B0000; color: #fff; padding: 20px; text-align: center;">
-        <h1 style="margin: 0; font-size: 28px;">Welcome to My Creative World 🌟</h1>
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.1);">
+      <div style="background: linear-gradient(135deg, #8B0000, #B22222); color: #fff; padding: 30px 20px; text-align: center;">
+        <h1 style="margin: 0; font-size: 28px; animation: fadeInDown 1s ease-in-out;">Welcome to My Portfolio</h1>
+        <p style="margin: 10px 0 0; font-size: 16px;">Thank you for joining the journey!</p>
       </div>
-      <div style="padding: 30px;">
-        <p style="font-size: 18px; color: #333;">Hi there,</p>
-        <p style="font-size: 16px; color: #555;">
-          Thank you for subscribing to updates from my portfolio! You're now part of a growing community of creators and dreamers.✨
+      <div style="padding: 30px; animation: fadeInUp 1s ease-in-out;">
+        <p style="font-size: 16px; color: #333;">
+          Hello,
         </p>
         <p style="font-size: 16px; color: #555;">
-          From new <strong>projects</strong> and <strong>case studies</strong> to useful <strong>tips</strong> and behind-the-scenes stories — you’ll be the first to know!
+          I’m thrilled to have you on board! As a subscriber, you’ll now receive professional updates directly from my portfolio — including new projects, insights, blog posts, and exclusive content.
+        </p>
+        <p style="font-size: 16px; color: #555;">
+          Stay tuned for creative inspiration and exciting developments.
         </p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://your-portfolio-link.com" style="background-color: #FF4500; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Explore My Work</a>
+          <a href="https://your-portfolio-link.com" style="background: linear-gradient(90deg, #FF6347, #FF4500); color: #fff; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block; transition: background 0.3s ease;">
+            Visit My Portfolio
+          </a>
         </div>
-        <p style="font-size: 16px; color: #555;">Welcome aboard!</p>
-        <p style="font-size: 16px; color: #555;">Warm regards,<br><strong>[Your Name]</strong></p>
+        <p style="font-size: 16px; color: #555;">Warm regards,</p>
+        <p style="font-size: 16px; color: #333;"><strong>Shashidhara K</strong></p>
       </div>
-      <div style="background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #888;">
-        You received this email because you subscribed on my portfolio site. 
-        <br>If you didn’t, you can safely ignore it.
+      <div style="background-color: #f9f9f9; padding: 20px; text-align: center; font-size: 12px; color: #999;">
+        You’re receiving this email because you subscribed on my portfolio site.<br>
+        If this wasn’t you, you may safely ignore it.
       </div>
     </div>
-  `,
+
+    <!-- Simulated Animation (works only in some clients that support it) -->
+    <style>
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  `
     };
+
 
 
     // Send the welcome email
