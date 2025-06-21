@@ -40,15 +40,35 @@ export const createSubscriber = async (req) => {
     const mailOptions = {
       from: `"Your Portfolio" <${process.env.EMAIL_USER}>`,
       to: subscriber.email,
-      subject: 'Welcome to My Portfolio Updates!',
-      text: `Hi,\n\nThank you for subscribing to updates from my portfolio! You'll receive notifications about new projects, blog posts, and other exciting updates.\n\nBest regards,\n[Your Name]`,
+      subject: '🎉 Welcome to My Creative World!',
+      text: `Hi,\n\nThanks for joining! You’ll now get updates on new projects, blog posts, and exclusive content straight from my portfolio.\n\nStay tuned!\n\nBest,\n[Your Name]`,
       html: `
-        <h1>Welcome to My Portfolio Updates!</h1>
-        <p>Hi,</p>
-        <p>Thank you for subscribing to updates from my portfolio! You'll receive notifications about new projects, blog posts, and other exciting updates.</p>
-        <p>Best regards,<br>[Your Name]</p>
-      `,
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      <div style="background-color: #8B0000; color: #fff; padding: 20px; text-align: center;">
+        <h1 style="margin: 0; font-size: 28px;">Welcome to My Creative World 🌟</h1>
+      </div>
+      <div style="padding: 30px;">
+        <p style="font-size: 18px; color: #333;">Hi there,</p>
+        <p style="font-size: 16px; color: #555;">
+          Thank you for subscribing to updates from my portfolio! You're now part of a growing community of creators and dreamers.✨
+        </p>
+        <p style="font-size: 16px; color: #555;">
+          From new <strong>projects</strong> and <strong>case studies</strong> to useful <strong>tips</strong> and behind-the-scenes stories — you’ll be the first to know!
+        </p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://your-portfolio-link.com" style="background-color: #FF4500; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Explore My Work</a>
+        </div>
+        <p style="font-size: 16px; color: #555;">Welcome aboard!</p>
+        <p style="font-size: 16px; color: #555;">Warm regards,<br><strong>[Your Name]</strong></p>
+      </div>
+      <div style="background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #888;">
+        You received this email because you subscribed on my portfolio site. 
+        <br>If you didn’t, you can safely ignore it.
+      </div>
+    </div>
+  `,
     };
+
 
     // Send the welcome email
     try {
