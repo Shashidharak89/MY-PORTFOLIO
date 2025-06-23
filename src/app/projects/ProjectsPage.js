@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import ImageSlider from './ImageSlider';
 import './styles/ProjectPage.css';
+import image from './images/image.jpg';
+import image1 from './images/image1.jpg';
 
 const ProjectsPage = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -12,17 +14,17 @@ const ProjectsPage = () => {
   const commonSlides = [
     {
       type: 'image',
-      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1743850448/bca2025_profiles/mtx0ziwcusmcxxobpip1.jpg',
       alt: 'Slide 1',
     },
     {
       type: 'image',
-      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      src: 'https://aimst.edu.my/wp-content/uploads/2023/04/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai.jpg',
       alt: 'Slide 2',
     },
     {
       type: 'image',
-      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      src: 'https://aimst.edu.my/wp-content/uploads/2023/04/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai.jpg',
       alt: 'Slide 3',
     },
     {
@@ -36,10 +38,10 @@ const ProjectsPage = () => {
   const projects = useMemo(() => [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution built with modern technologies. Features include user authentication, payment integration, inventory management, and responsive design for optimal user experience across all devices.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      liveLink: 'https://example.com',
+      title: 'Gamenexplay',
+      description: 'GameNexPlay.live is an interactive browser-based gaming platform I developed, offering users a seamless experience to play a variety of online games without any installation. The website features engaging tournaments, reward-based gameplay, and a user-friendly interface, making it an exciting destination for casual and competitive gamers alike.',
+      technologies: ['React', 'Node.js', 'MongoDB', 'Node.js'],
+      liveLink: 'https://gamenexplay.live',
       githubLink: 'https://github.com/example',
       slides: commonSlides,
     },
