@@ -32,6 +32,29 @@ const ProjectsPage = () => {
       title: 'YouTube Video',
     },
   ];
+  const commonSlides1 = [
+    {
+      type: 'image',
+      src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1740932445/team_photos/ojavhm6mj8jdjnjvm6ub.jpg',
+      alt: 'Slide 1',
+    },
+    {
+      type: 'image',
+      src: 'https://aimst.edu.my/wp-content/uploads/2023/04/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai.jpg',
+      alt: 'Slide 2',
+    },
+    {
+      type: 'image',
+      src: 'https://aimst.edu.my/wp-content/uploads/2023/04/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai.jpg',
+      alt: 'Slide 3',
+    },
+    {
+      type: 'video',
+      thumbnail: 'https://img.youtube.com/vi/ECFNE4gCT7s/maxresdefault.jpg',
+      videoSrc: 'https://www.youtube.com/embed/ECFNE4gCT7s?autoplay=1&rel=0',
+      title: 'YouTube Video',
+    },
+  ];
 
   const projects = useMemo(() => [
     {
@@ -50,7 +73,7 @@ const ProjectsPage = () => {
       technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Socket.io'],
       liveLink: 'https://example.com',
       githubLink: 'https://github.com/example',
-      slides: commonSlides,
+      slides: commonSlides1,
     },
     {
       id: 3,
