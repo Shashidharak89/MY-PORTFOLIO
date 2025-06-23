@@ -8,6 +8,31 @@ import './styles/ProjectPage.css';
 const ProjectsPage = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
 
+  // Common slides array for all projects (images and video)
+  const commonSlides = [
+    {
+      type: 'image',
+      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      alt: 'Slide 1',
+    },
+    {
+      type: 'image',
+      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      alt: 'Slide 2',
+    },
+    {
+      type: 'image',
+      src: 'https://pixlr.com/images/generator/simple-generator.webp',
+      alt: 'Slide 3',
+    },
+    {
+      type: 'video',
+      thumbnail: 'https://img.youtube.com/vi/ECFNE4gCT7s/maxresdefault.jpg',
+      videoSrc: 'https://www.youtube.com/embed/ECFNE4gCT7s?autoplay=1&rel=0',
+      title: 'YouTube Video',
+    },
+  ];
+
   const projects = useMemo(() => [
     {
       id: 1,
@@ -16,12 +41,7 @@ const ProjectsPage = () => {
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       liveLink: "https://example.com",
       githubLink: "https://github.com/example",
-      images: [
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp"
-      ]
+      slides: commonSlides,
     },
     {
       id: 2,
@@ -30,12 +50,7 @@ const ProjectsPage = () => {
       technologies: ["Next.js", "TypeScript", "PostgreSQL", "Socket.io"],
       liveLink: "https://example.com",
       githubLink: "https://github.com/example",
-      images: [
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp"
-      ]
+      slides: commonSlides,
     },
     {
       id: 3,
@@ -44,12 +59,7 @@ const ProjectsPage = () => {
       technologies: ["Python", "FastAPI", "React", "OpenAI API"],
       liveLink: "https://example.com",
       githubLink: "https://github.com/example",
-      images: [
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp"
-      ]
+      slides: commonSlides,
     },
     {
       id: 4,
@@ -58,13 +68,8 @@ const ProjectsPage = () => {
       technologies: ["Vue.js", "Express", "MySQL", "Chart.js"],
       liveLink: "https://example.com",
       githubLink: "https://github.com/example",
-      images: [
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp",
-        "https://pixlr.com/images/generator/simple-generator.webp"
-      ]
-    }
+      slides: commonSlides,
+    },
   ], []);
 
   return (
@@ -100,7 +105,7 @@ const ProjectsPage = () => {
                 
                 <div className="prj-preview-image">
                   <Image 
-                    src={project.images[0]} 
+                    src={project.slides[0].src} 
                     alt={project.title}
                     className="prj-image"
                     width={200}
@@ -114,7 +119,7 @@ const ProjectsPage = () => {
               </div>
 
               <div className="prj-expanded-content">
-                <ImageSlider images={project.images} title={project.title} isActive={hoveredProject === project.id} />
+                <ImageSlider slides={project.slides} title={project.title} isActive={hoveredProject === project.id} />
                 <div className="prj-details">
                   <p className="prj-description">{project.description}</p>
                   <div className="prj-actions">

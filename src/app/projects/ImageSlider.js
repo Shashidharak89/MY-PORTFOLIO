@@ -1,45 +1,23 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import './styles/ImageSlider.css';
+import { useState, useEffect, useRef } from 'react';
 
-const ImageSlider = () => {
+const ImageSlider = ({ slides, title, isActive }) => {
   const scrollRef = useRef(null);
   const [isVideoPopupOpen, setIsVideoPopupOpen] = useState(false);
   const intervalId = useRef(null);
-
-  const slides = [
-    {
-      type: 'image',
-      src: 'https://th.bing.com/th/id/OIP.tLotgCDtzgTdwJcTiXWRCwHaEK?rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3',
-      alt: 'Slide 1',
-    },
-    {
-      type: 'image',
-      src: 'https://aimst.edu.my/wp-content/uploads/2023/04/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai.jpg',
-      alt: 'Slide 2',
-    },
-    {
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/ECFNE4gCT7s/maxresdefault.jpg',
-      videoSrc: 'https://www.youtube.com/embed/ECFNE4gCT7s?autoplay=1&rel=0',
-      title: 'YouTube Video',
-    },
-  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const startAutoScroll = () => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container || !isActive || isVideoPopupOpen) return;
 
-    let currentIndex = 0;
-    intervalId.current = setInterval(() => {
-      if (isVideoPopupOpen) return;
-      currentIndex = (currentIndex + 1) % slides.length;
-      container.scrollTo({
-        left: container.children[currentIndex].offsetLeft,
-        behavior: 'smooth',
-      });
-    }, 3000);
+    const nextIndex = (currentIndex + 1) % slides.length;
+    setCurrentIndex(nextIndex);
+    container.scrollTo({
+      left: container.children[nextIndex].offsetLeft,
+      behavior: 'smooth',
+    });
   };
 
   const handlePlayClick = () => {
@@ -49,15 +27,14 @@ const ImageSlider = () => {
 
   const closeVideoPopup = () => {
     setIsVideoPopupOpen(false);
-    startAutoScroll();
   };
 
   useEffect(() => {
-    startAutoScroll();
-    return () => {
-      if (intervalId.current) clearInterval(intervalId.current);
-    };
-  }, []);
+    if (isActive && !isVideoPopupOpen) {
+      intervalId.current = setInterval(startAutoScroll, 3000);
+      return () => clearInterval(intervalId.current);
+    }
+  }, [isActive, isVideoPopupOpen, currentIndex]);
 
   return (
     <div className="carousel-wrapper-shashi">
@@ -87,6 +64,15 @@ const ImageSlider = () => {
         ))}
       </div>
 
+      <div className="carousel-indicators-shashi">
+        {slides.map((_, i) => (
+          <div
+            key={i}
+            className={`carousel-indicator-shashi ${i === currentIndex ? 'carousel-indicator-active-shashi' : ''}`}
+          />
+        ))}
+      </div>
+
       {isVideoPopupOpen && (
         <div className="video-modal-overlay-shashi">
           <div className="video-modal-container-shashi">
@@ -96,7 +82,7 @@ const ImageSlider = () => {
             <iframe
               className="video-iframe-shashi"
               src={slides.find((s) => s.type === 'video').videoSrc}
-              title="YouTube Video"
+              title={title}
               frameBorder="0"
               allow="autoplay; encrypted-media"
               allowFullScreen
