@@ -4,8 +4,6 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import ImageSlider from './ImageSlider';
 import './styles/ProjectPage.css';
-import image from './images/image.jpg';
-import image1 from './images/image1.jpg';
 
 const ProjectsPage = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
