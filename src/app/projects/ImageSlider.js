@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image'; // Import Next.js Image component
 
 const ImageSlider = ({ slides, title, isActive }) => {
   const scrollRef = useRef(null);
@@ -34,7 +35,7 @@ const ImageSlider = ({ slides, title, isActive }) => {
       intervalId.current = setInterval(startAutoScroll, 3000);
       return () => clearInterval(intervalId.current);
     }
-  }, [isActive, isVideoPopupOpen, currentIndex]);
+  }, [isActive, isVideoPopupOpen, currentIndex, startAutoScroll]); // Added startAutoScroll to dependencies
 
   return (
     <div className="carousel-wrapper-shashi">
@@ -51,11 +52,14 @@ const ImageSlider = ({ slides, title, isActive }) => {
                 className="carousel-content-shashi video-thumbnail-shashi"
                 onClick={handlePlayClick}
               >
-                <img
+                <Image // Replaced img with Image
                   src={slide.thumbnail}
                   alt={slide.title}
                   className="video-thumb-image-shashi"
-                  draggable="false"
+                  width={200} // Add appropriate width
+                  height={120} // Add appropriate height
+                  style={{ objectFit: 'cover' }}
+                  draggable={false}
                 />
                 <div className="play-button-overlay-shashi">▶</div>
               </div>

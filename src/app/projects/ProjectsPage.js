@@ -36,41 +36,41 @@ const ProjectsPage = () => {
   const projects = useMemo(() => [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution built with modern technologies. Features include user authentication, payment integration, inventory management, and responsive design for optimal user experience across all devices.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      liveLink: "https://example.com",
-      githubLink: "https://github.com/example",
+      title: 'E-Commerce Platform',
+      description: 'A full-stack e-commerce solution built with modern technologies. Features include user authentication, payment integration, inventory management, and responsive design for optimal user experience across all devices.',
+      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      liveLink: 'https://example.com',
+      githubLink: 'https://github.com/example',
       slides: commonSlides,
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "An intuitive task management application with real-time collaboration features. Built with modern frameworks and includes drag-and-drop functionality, team collaboration tools, and advanced analytics dashboard.",
-      technologies: ["Next.js", "TypeScript", "PostgreSQL", "Socket.io"],
-      liveLink: "https://example.com",
-      githubLink: "https://github.com/example",
+      title: 'Task Management App',
+      description: 'An intuitive task management application with real-time collaboration features. Built with modern frameworks and includes drag-and-drop functionality, team collaboration tools, and advanced analytics dashboard.',
+      technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Socket.io'],
+      liveLink: 'https://example.com',
+      githubLink: 'https://github.com/example',
       slides: commonSlides,
     },
     {
       id: 3,
-      title: "AI Chat Assistant",
-      description: "An intelligent chat assistant powered by advanced AI models. Features natural language processing, context awareness, and seamless integration with multiple platforms for enhanced user interaction.",
-      technologies: ["Python", "FastAPI", "React", "OpenAI API"],
-      liveLink: "https://example.com",
-      githubLink: "https://github.com/example",
+      title: 'AI Chat Assistant',
+      description: 'An intelligent chat assistant powered by advanced AI models. Features natural language processing, context awareness, and seamless integration with multiple platforms for enhanced user interaction.',
+      technologies: ['Python', 'FastAPI', 'React', 'OpenAI API'],
+      liveLink: 'https://example.com',
+      githubLink: 'https://github.com/example',
       slides: commonSlides,
     },
     {
       id: 4,
-      title: "Portfolio Dashboard",
-      description: "A comprehensive dashboard for managing and showcasing creative portfolios. Includes analytics, project management, client communication tools, and customizable themes for different industries.",
-      technologies: ["Vue.js", "Express", "MySQL", "Chart.js"],
-      liveLink: "https://example.com",
-      githubLink: "https://github.com/example",
+      title: 'Portfolio Dashboard',
+      description: 'A comprehensive dashboard for managing and showcasing creative portfolios. Includes analytics, project management, client communication tools, and customizable themes for different industries.',
+      technologies: ['Vue.js', 'Express', 'MySQL', 'Chart.js'],
+      liveLink: 'https://example.com',
+      githubLink: 'https://github.com/example',
       slides: commonSlides,
     },
-  ], []);
+  ], [commonSlides]); // Added commonSlides to dependencies
 
   return (
     <div className="prj-container">
@@ -79,7 +79,7 @@ const ProjectsPage = () => {
           <span className="prj-title-accent">Featured</span> Projects
         </h1>
         <p className="prj-subtitle">
-          Discover the innovative solutions I've crafted with passion and precision
+          Discover the innovative solutions I&apos;ve crafted with passion and precision
         </p>
       </div>
 
