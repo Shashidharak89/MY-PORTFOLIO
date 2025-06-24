@@ -16,9 +16,9 @@ const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
-      title: "AI-Powered Web Application",
+      title: "Gamenexplay",
       description: "A sophisticated web application leveraging artificial intelligence to provide intelligent recommendations and automated decision-making capabilities. Built with modern frameworks and deployed on cloud infrastructure for scalability.",
-      technologies: ["React", "Node.js", "TensorFlow", "AWS"],
+      technologies: ["React", "Node.js", "Express js", "MongoDB"],
       projectLink: "https://gamenexplay.live",
       sourceCode: "https://github.com",
       slides: [
@@ -29,33 +29,42 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774372/Screenshot_27_mqrpxq.png', title: 'Analytics Panel' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774378/Screenshot_32_dk20yq.png', title: 'Analytics Panel' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774382/Screenshot_31_dxp9xw.png', title: 'Analytics Panel' }
-        
+
       ]
     },
     {
       id: 2,
-      title: "E-Commerce Platform",
+      title: "Color Prediction",
       description: "A comprehensive e-commerce solution featuring real-time inventory management, secure payment processing, and advanced analytics dashboard. Designed for scalability and optimal user experience across all devices.",
-      technologies: ["Next.js", "Stripe", "MongoDB", "Redis"],
-      projectLink: "https://gamenexplay.live",
+      technologies: ["Next.js", "Node.js", "MongoDB"],
+      projectLink: "https://color-prediction-next-js.vercel.app",
       sourceCode: "https://github.com",
       slides: [
-        { type: 'image', src: defaultImageSrc, title: 'Homepage' },
-        { type: 'image', src: defaultImageSrc, title: 'Product Page' },
-        { type: 'video', thumbnail: defaultVideoThumbnail, videoSrc: defaultVideoSrc, title: 'Platform Demo' }
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775188/Screenshot_33_s0gcac.png', title: 'Homepage' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775190/Screenshot_35_yg1jhz.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775189/Screenshot_34_djpczm.png', title: 'Product Page' },
+        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Platform Demo' }
       ]
     },
     {
       id: 3,
-      title: "Mobile Fitness Tracker",
+      title: "G.K Groups",
       description: "Cross-platform mobile application for fitness tracking with real-time workout monitoring, social features, and personalized coaching. Integrates with various wearable devices and health platforms.",
-      technologies: ["React Native", "Firebase", "Python", "ML Kit"],
-      projectLink: "https://gamenexplay.live",
+      technologies: ["React", "Node.js", "Express js", "MongoDB"],
+      projectLink: "https://gkgrp.com",
       sourceCode: "https://github.com",
       slides: [
-        { type: 'image', src: defaultImageSrc, title: 'Workout Screen' },
-        { type: 'video', thumbnail: defaultVideoThumbnail, videoSrc: defaultVideoSrc, title: 'App Demo' },
-        { type: 'image', src: defaultImageSrc, title: 'Statistics View' }
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775689/Screenshot_36_da2req.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775693/Screenshot_38_aekgyv.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775694/Screenshot_37_djce25.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775701/Screenshot_39_q5ydzo.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775701/Screenshot_42_jxlakw.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775716/Screenshot_41_ksd11o.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775716/Screenshot_40_dwh3d1.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775717/Screenshot_46_wssult.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775721/Screenshot_43_k20btq.png', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775722/Screenshot_44_qhep3t.png', title: 'Workout Screen' }
+
       ]
     }
   ];
@@ -123,13 +132,13 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="project-actions-unique">
-                  <button 
+                  <button
                     className="project-btn-primary-unique"
                     onClick={() => handleProjectLinkClick(project.projectLink)}
                   >
                     View Project
                   </button>
-                  <button 
+                  <button
                     className="project-btn-secondary-unique"
                     onClick={() => handleSourceCodeClick(project.sourceCode)}
                   >
