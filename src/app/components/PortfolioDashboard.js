@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import './styles/portfolio-dashboard.css';
 
 const PortfolioDashboard = () => {
@@ -47,7 +48,7 @@ const PortfolioDashboard = () => {
           </div>
 
           <div className="portfolio-dashboard-content">
-            <p className="portfolio-dashboard-greeting">Hello, I&apos;m</p>
+            <p className="portfolio-dashboard-greeting">Hello, I'm</p>
             <h1 className="portfolio-dashboard-headline">
               Building Digital
               <br />
@@ -59,12 +60,16 @@ const PortfolioDashboard = () => {
               Welcome to my digital portfolio where creativity meets functionality.
             </p>
             <div className="portfolio-dashboard-cta">
-              <button className="portfolio-dashboard-button portfolio-dashboard-button-primary">
-                View My Work
-              </button>
-              <button className="portfolio-dashboard-button portfolio-dashboard-button-secondary">
-                Get In Touch
-              </button>
+              <Link href="/projects">
+                <a className="portfolio-dashboard-button portfolio-dashboard-button-primary">
+                  View My Work
+                </a>
+              </Link>
+              <Link href="/contact">
+                <a className="portfolio-dashboard-button portfolio-dashboard-button-secondary">
+                  Get In Touch
+                </a>
+              </Link>
             </div>
           </div>
         </section>
