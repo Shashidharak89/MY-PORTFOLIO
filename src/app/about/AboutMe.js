@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'; // Added import for Link
+import profile from './images/profile.jpg';
 import './styles/AboutMe.css';
 
 const AboutMe = () => {
@@ -37,7 +38,7 @@ const AboutMe = () => {
         <div className={`about-header ${isVisible ? 'fade-in' : ''}`}>
           <div className="profile-image-container">
             <Image
-              src="https://th.bing.com/th/id/OIP.26T9Qi27BkdU6aOWRXDZ-gHaHa?rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3"
+              src={profile}
               alt="Profile Picture"
               className="profile-image"
               width={150}

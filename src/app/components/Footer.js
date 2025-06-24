@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, Heart, ArrowUp } from 'lucide-react';
+import Link from 'next/link';
 import styles from './styles/Footer.module.css';
 
 const Footer = () => {
@@ -73,10 +74,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Github, label: 'GitHub', url: '#', color: '#FFD700' },
-    { icon: Linkedin, label: 'LinkedIn', url: '#', color: '#FFD700' },
-    { icon: Mail, label: 'Email', url: '#', color: '#FFD700' },
-    { icon: Phone, label: 'Phone', url: '#', color: '#FFD700' },
+    { icon: Github, label: 'GitHub', url: 'https://github.com/Shashidharak89', color: '#FFD700' },
+    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b', color: '#FFD700' },
+    { icon: Mail, label: 'Email', url: 'mailto:shashidharak334@gmail.com', color: '#FFD700' },
+    { icon: Phone, label: 'Phone', url: '/contact', color: '#FFD700' },
   ];
 
   return (
@@ -145,7 +146,7 @@ const Footer = () => {
             </p>
             <div className={styles['crimson-social-links']}>
               {socialLinks.map((social, index) => (
-                <a
+                <Link
                   key={index}
                   href={social.url}
                   className={styles['crimson-social-link']}
@@ -155,7 +156,7 @@ const Footer = () => {
                   <social.icon size={24} />
                   <div className={styles['crimson-social-ripple']}></div>
                   <span className={styles['crimson-social-tooltip']}>{social.label}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -168,19 +169,19 @@ const Footer = () => {
                 <div className={styles['crimson-contact-icon']}>
                   <Mail size={18} />
                 </div>
-                <span>hello@portfolio.com</span>
+                <span>shashidharak334@gmail.com</span>
               </div>
               <div className={styles['crimson-contact-item']}>
                 <div className={styles['crimson-contact-icon']}>
                   <Phone size={18} />
                 </div>
-                <span>+1 (555) 123-4567</span>
+                <span>Unavailable</span>
               </div>
               <div className={styles['crimson-contact-item']}>
                 <div className={styles['crimson-contact-icon']}>
                   <MapPin size={18} />
                 </div>
-                <span>New York, NY</span>
+                <span>Mangalore, Karnataka, India</span>
               </div>
             </div>
           </div>
@@ -232,15 +233,15 @@ const Footer = () => {
           <div className={styles['crimson-bottom-content']}>
             <p className={styles['crimson-copyright']}>
               © 2025 Portfolio. Made with{' '}
-              <Heart size={16} className={styles['crimson-heart']} /> by Developer
+              <Heart size={16} className={styles['crimson-heart']} /> by SHASHIDHARA.K
             </p>
             <div className={styles['crimson-bottom-links']}>
-              <a href="#" className={styles['crimson-bottom-link']}>
+              <Link href="/privacy" className={styles['crimson-bottom-link']}>
                 Privacy Policy
-              </a>
-              <a href="#" className={styles['crimson-bottom-link']}>
+              </Link>
+              <Link href="/terms" className={styles['crimson-bottom-link']}>
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>

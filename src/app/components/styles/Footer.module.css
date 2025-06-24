@@ -897,6 +897,7 @@
   .crimson-contact-item,
   .crimson-newsletter-input {
     border-width: 2px;
+    
     border-color: #FFD700;
   }
 }
