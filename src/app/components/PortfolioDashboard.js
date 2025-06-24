@@ -60,7 +60,7 @@ const PortfolioDashboard = () => {
               Welcome to my digital portfolio where creativity meets functionality.
             </p>
             <div className="portfolio-dashboard-cta">
-              <Link href="/portfolio">
+              <Link href="/projects">
                 <button className="portfolio-dashboard-button portfolio-dashboard-button-primary">
                   View My Work
                 </button>
