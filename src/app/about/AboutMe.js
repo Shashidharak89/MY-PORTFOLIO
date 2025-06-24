@@ -47,7 +47,7 @@ const AboutMe = () => {
             />
           </div>
           <h1 className="about-title">About Me</h1>
-          <p className="about-subtitle">Passionate Developer & Tech Enthusiast</p>
+          <p className="about-subtitle">Full-Stack Developer & Tech Enthusiast</p>
         </div>
 
         {/* Personal Information */}
@@ -56,19 +56,19 @@ const AboutMe = () => {
           <div className="info-grid">
             <div className="info-card">
               <h3 className="info-label">Full Name</h3>
-              <p className="info-value">Your Name</p>
+              <p className="info-value">SHASHIDHARA K</p>
             </div>
             <div className="info-card">
               <h3 className="info-label">Age</h3>
-              <p className="info-value">25 Years</p>
+              <p className="info-value">21 Years</p>
             </div>
             <div className="info-card">
               <h3 className="info-label">Date of Birth</h3>
-              <p className="info-value">January 15, 1999</p>
+              <p className="info-value">October 20, 2003</p>
             </div>
             <div className="info-card">
               <h3 className="info-label">Location</h3>
-              <p className="info-value">Your City, Country</p>
+              <p className="info-value">Belthangady 574214, Mangalore, Karnataka, India</p>
             </div>
           </div>
         </div>
@@ -80,11 +80,11 @@ const AboutMe = () => {
             <div className="timeline-item">
               <div className="timeline-marker"></div>
               <div className="timeline-content">
-                <h3 className="education-degree">Bachelor of Technology</h3>
-                <p className="education-field">Computer Science Engineering</p>
-                <p className="education-school">Your University Name</p>
-                <p className="education-year">2020 - 2024</p>
-                <p className="education-gpa">CGPA: 8.5/10</p>
+                <h3 className="education-degree">Bachelor of Computer Science</h3>
+                <p className="education-field">Sacred Heart College, Madanthyar</p>
+                <p className="education-school">Mangalore University</p>
+                <p className="education-year">2022 - 2025</p>
+                <p className="education-gpa">CGPA: 8.52/10</p>
               </div>
             </div>
             <div className="timeline-item">
@@ -93,7 +93,7 @@ const AboutMe = () => {
                 <h3 className="education-degree">Currently Pursuing</h3>
                 <p className="education-field">Advanced Web Development</p>
                 <p className="education-school">Self-Learning & Online Courses</p>
-                <p className="education-year">2024 - Present</p>
+                <p className="education-year">2025 - Present</p>
               </div>
             </div>
           </div>
