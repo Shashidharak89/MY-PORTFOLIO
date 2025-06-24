@@ -1,12 +1,12 @@
 import Footer from 'app/components/Footer';
 import Navbar from '../components/Navbar';
-import AboutComponent from './AboutComponent';
+import AboutMe from './AboutMe';
 
 export default function About() {
   return (
     <>
       <Navbar />
-      <AboutComponent />
+      <AboutMe/>
       <Footer />
     </>
   );
