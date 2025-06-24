@@ -5,39 +5,33 @@ import './styles/Skills.css';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('frontend');
+  const [activeCategory, setActiveCategory] = useState('Languages');
   const skillsRef = useRef(null);
 
   const skillsData = {
-    frontend: [
-      { name: 'React.js', level: 90, icon: '⚛️' },
-      { name: 'Next.js', level: 85, icon: '🚀' },
-      { name: 'JavaScript', level: 88, icon: '🟨' },
-      { name: 'TypeScript', level: 82, icon: '🔷' },
+    Languages: [  
+      { name: 'Python', level: 90, icon: '🐍' },
+      { name: 'Java', level: 88, icon: '🔷' },
+      { name: 'PHP', level: 88, icon: '🔷' },
+      { name: 'JavaScript', level: 85, icon: '🟨' },
+      { name: 'C', level: 80, icon: '🔷' },
+      { name: 'SQL', level: 90, icon: '🔷' },
+      { name: 'R', level: 75, icon: '🔷' },
       { name: 'HTML5', level: 95, icon: '🌐' },
-      { name: 'CSS3', level: 90, icon: '🎨' },
-      { name: 'Tailwind CSS', level: 87, icon: '💨' },
-      { name: 'SASS/SCSS', level: 83, icon: '💎' }
+      { name: 'CSS', level: 80, icon: '🎨' }
     ],
-    backend: [
-      { name: 'Node.js', level: 85, icon: '🚀' },
-      { name: 'Express.js', level: 80, icon: '⚡' },
-      { name: 'Python', level: 78, icon: '🐍' },
-      { name: 'MongoDB', level: 75, icon: '🍃' },
-      { name: 'PostgreSQL', level: 72, icon: '🐘' },
-      { name: 'GraphQL', level: 70, icon: '📊' },
-      { name: 'REST APIs', level: 88, icon: '🔗' },
-      { name: 'Firebase', level: 76, icon: '🔥' }
+    Frameworks: [
+      { name: 'React.js', level: 90, icon: '⚛️' },
+      { name: 'Next.js', level: 80, icon: '🚀' },
+      { name: 'Express.js', level: 85, icon: '⚡' },
+      { name: 'Springboot', level: 70, icon: '⚡' },
     ],
     tools: [
       { name: 'Git & GitHub', level: 90, icon: '🐙' },
       { name: 'VS Code', level: 95, icon: '💻' },
-      { name: 'Docker', level: 68, icon: '🐳' },
-      { name: 'AWS', level: 65, icon: '☁️' },
+      { name: 'Cloudinary', level: 80, icon: '💻' },
       { name: 'Figma', level: 80, icon: '🎨' },
-      { name: 'Webpack', level: 72, icon: '📦' },
-      { name: 'Jest', level: 75, icon: '🧪' },
-      { name: 'Postman', level: 85, icon: '📮' }
+      { name: 'Thunderclient', level: 85, icon: '📮' }
     ]
   };
 
