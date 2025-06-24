@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ImageSlider from './ImageSlider'; // Adjust path as needed
 import './styles/ProjectsSection.css';
 
+
 const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -21,9 +22,14 @@ const ProjectsSection = () => {
       projectLink: "https://gamenexplay.live",
       sourceCode: "https://github.com",
       slides: [
-        { type: 'image', src: defaultImageSrc, title: 'Dashboard View' },
-        { type: 'image', src: defaultImageSrc, title: 'Analytics Panel' },
-        { type: 'video', thumbnail: defaultVideoThumbnail, videoSrc: defaultVideoSrc, title: 'Demo Video' }
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774357/Screenshot_26_eqtroy.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774359/Screenshot_29_j01rmq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774366/Screenshot_28_rozreh.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774368/Screenshot_30_tp10bu.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774372/Screenshot_27_mqrpxq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774378/Screenshot_32_dk20yq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774382/Screenshot_31_dxp9xw.png', title: 'Analytics Panel' }
+        
       ]
     },
     {
