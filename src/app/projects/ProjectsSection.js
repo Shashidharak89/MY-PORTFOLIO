@@ -31,6 +31,32 @@ const ProjectsSection = () => {
     },
     {
       id: 2,
+      title: "CIPHER 2K25",
+      description: "CIPHER2K25.in is the official website for CIPHER 2K25, the annual IT Fest organized by the BCA Department of Sacred Heart College. Designed to generate excitement and streamline participation, the site showcases all fest-related information including event lineups, registration details, rules, schedules, and sponsor highlights. With a modern, mobile-friendly interface and dynamic visuals inspired by tech and gaming culture, the website offers a smooth and engaging experience for students, coordinators, and visitors alike.",
+      technologies: ["React", "Node.js", "Express js", "MongoDB","Cloudinary"],
+      projectLink: "https://cipher2k25.in",
+      sourceCode: "https://github.com/Shashidharak89/ciphen.git",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784963/Screenshot_58_ahpt9z.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_59_nnpwga.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784964/Screenshot_60_ow1mdt.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_71_ymvoas.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784965/Screenshot_65_azatac.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784966/Screenshot_64_ycorwx.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_61_edymqn.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_62_dbq1ah.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_67_a6ft3o.png', title: 'Dashboard View' },
+        
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_69_xgpcgu.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_70_cck2sc.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_68_x8mhvd.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_72_qn7qe4.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_63_gmfqkz.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
+      ]
+    },
+    {
+      id: 3,
       title: "Color Prediction",
       description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
       technologies: ["Next.js", "Node.js", "MongoDB"],
@@ -44,7 +70,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: "G.K Groups",
       description: "GKGRP.com is the official digital platform of GK Groups, a multifaceted company with expertise across three major domains: GK Design to Build, GK Industries, and GK Properties. The website serves as a unified portal to showcase the company’s diverse operations — from innovative architectural design and construction services, to manufacturing and industrial solutions, and real estate development. With a modern, intuitive interface, GKGRP.com reflects the group’s commitment to quality, professionalism, and growth across sectors.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
@@ -65,7 +91,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 4,
+      id: 5,
       title: "Department of BCA",
       description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
       technologies: ["HTML", "CSS", "Javascript"],
