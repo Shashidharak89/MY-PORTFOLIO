@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image'; // Added import
+import Image from 'next/image';
 import './styles/AboutMe.css';
 
 const AboutMe = () => {
@@ -178,9 +179,9 @@ const AboutMe = () => {
 
         {/* Contact CTA */}
         <div className={`contact-cta ${isVisible ? 'bounce-in' : ''}`}>
-          <h2 className="cta-title">Let\'s Connect!</h2>
+          <h2 className="cta-title">Let's Connect!</h2>
           <p className="cta-description">
-            I\'m always excited to discuss new opportunities and collaborate on interesting projects.
+            I'm always excited to discuss new opportunities and collaborate on interesting projects.
           </p>
           <button className="cta-button">
             Get In Touch
