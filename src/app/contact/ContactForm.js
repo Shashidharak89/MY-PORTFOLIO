@@ -60,19 +60,19 @@ const ContactForm = () => {
     {
       icon: <Mail className="portfolio-contact-icon" />,
       label: 'Email',
-      value: 'john.doe@example.com',
-      link: 'mailto:john.doe@example.com',
+      value: 'shashidharak334@gmail.com',
+      link: 'mailto:shashidharak334@gmail.com',
     },
     {
       icon: <Phone className="portfolio-contact-icon" />,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: 'Unavailable',
+      link: 'Unavailable',
     },
     {
       icon: <MapPin className="portfolio-contact-icon" />,
       label: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Belthangady 574214, Mangalore, Karnataka, India',
       link: null,
     },
   ];
@@ -81,25 +81,25 @@ const ContactForm = () => {
     {
       icon: <Github className="portfolio-social-icon" />,
       name: 'GitHub',
-      url: 'https://github.com/johndoe',
+      url: 'https://github.com/Shashidharak89',
       color: '#333',
     },
     {
       icon: <Linkedin className="portfolio-social-icon" />,
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/johndoe',
+      url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b',
       color: '#0077b5',
     },
     {
       icon: <Twitter className="portfolio-social-icon" />,
       name: 'Twitter',
-      url: 'https://twitter.com/johndoe',
+      url: 'https://twitter.com',
       color: '#1da1f2',
     },
     {
       icon: <Instagram className="portfolio-social-icon" />,
       name: 'Instagram',
-      url: 'https://instagram.com/johndoe',
+      url: 'https://instagram.com/luminous_alpha_',
       color: '#e4405f',
     },
   ];
