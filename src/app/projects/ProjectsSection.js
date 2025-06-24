@@ -8,16 +8,13 @@ import './styles/ProjectsSection.css';
 const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Default projects data with provided image and video
-  const defaultImageSrc = "https://th.bing.com/th/id/OIP.26T9Qi27BkdU6aOWRXDZ-gHaHa?rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3";
-  const defaultVideoSrc = "https://www.youtube.com/embed/F8QMo4SDqK4?si=48rYpmi8grOtwjiC";
-  const defaultVideoThumbnail = "https://img.youtube.com/vi/F8QMo4SDqK4/maxresdefault.jpg";
+  
 
   const projects = [
     {
       id: 1,
       title: "Gamenexplay",
-      description: "A sophisticated web application leveraging artificial intelligence to provide intelligent recommendations and automated decision-making capabilities. Built with modern frameworks and deployed on cloud infrastructure for scalability.",
+      description: "GameNexPlay.live is an interactive online gaming platform that offers users a variety of browser-based games without the need for downloads or installations. Designed with a sleek and responsive user interface, GameNexPlay provides a seamless experience across devices. The platform includes features such as coin-based rewards, redeemable gift cards, and user accounts, making gameplay both engaging and rewarding. Whether you're a casual gamer or a competitive player, GameNexPlay.live brings entertainment and excitement directly to your screen.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
       projectLink: "https://gamenexplay.live",
       sourceCode: "https://github.com",
@@ -35,10 +32,10 @@ const ProjectsSection = () => {
     {
       id: 2,
       title: "Color Prediction",
-      description: "A comprehensive e-commerce solution featuring real-time inventory management, secure payment processing, and advanced analytics dashboard. Designed for scalability and optimal user experience across all devices.",
+      description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
       technologies: ["Next.js", "Node.js", "MongoDB"],
       projectLink: "https://color-prediction-next-js.vercel.app",
-      sourceCode: "https://github.com",
+      sourceCode: "hhttps://github.com/Shashidharak89/Color-Prediction-NextJS.git",
       slides: [
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775188/Screenshot_33_s0gcac.png', title: 'Homepage' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775190/Screenshot_35_yg1jhz.png', title: 'Product Page' },
@@ -49,7 +46,7 @@ const ProjectsSection = () => {
     {
       id: 3,
       title: "G.K Groups",
-      description: "Cross-platform mobile application for fitness tracking with real-time workout monitoring, social features, and personalized coaching. Integrates with various wearable devices and health platforms.",
+      description: "GKGRP.com is the official digital platform of GK Groups, a multifaceted company with expertise across three major domains: GK Design to Build, GK Industries, and GK Properties. The website serves as a unified portal to showcase the company’s diverse operations — from innovative architectural design and construction services, to manufacturing and industrial solutions, and real estate development. With a modern, intuitive interface, GKGRP.com reflects the group’s commitment to quality, professionalism, and growth across sectors.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
       projectLink: "https://gkgrp.com",
       sourceCode: "https://github.com",
