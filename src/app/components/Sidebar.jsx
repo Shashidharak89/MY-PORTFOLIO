@@ -248,7 +248,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="portfolio-sidebar-header">
           <div className="portfolio-sidebar-brand">
             <h1 className="portfolio-brand-title">Portfolio</h1>
-            <p className="portfolio-brand-subtitle">Professional Developer</p>
+            <p className="portfolio-brand-subtitle">Full Stack Developer</p>
           </div>
           <button 
             className="portfolio-sidebar-close" 
