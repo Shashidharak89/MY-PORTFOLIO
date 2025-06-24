@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // Added import for Link
 import './styles/AboutMe.css';
 
 const AboutMe = () => {
@@ -183,9 +184,11 @@ const AboutMe = () => {
           <p className="cta-description">
             I'm always excited to discuss new opportunities and collaborate on interesting projects.
           </p>
-          <button className="cta-button">
-            Get In Touch
-          </button>
+          <Link href="/contact">
+            <button className="cta-button">
+              Get In Touch
+            </button>
+          </Link>
         </div>
       </div>
     </div>
