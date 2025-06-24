@@ -63,7 +63,27 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775722/Screenshot_44_qhep3t.png', title: 'Workout Screen' }
 
       ]
-    }
+    },
+    {
+      id: 4,
+      title: "Department of BCA",
+      description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
+      technologies: ["HTML", "CSS", "Javascript"],
+      projectLink: "https://bcasacredheart2024.github.io/Department_of_bca",
+      sourceCode: "hhttps://github.com",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782478/Screenshot_50_dksygb.png', title: 'Homepage' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782488/Screenshot_49_rynkf9.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782510/Screenshot_48_nuenyn.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782511/Screenshot_53_fnphdn.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782513/Screenshot_52_smjcwc.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782518/Screenshot_51_kgx7lm.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_56_r7qatt.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_55_rm9akg.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_54_cjhgxv.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782581/Screenshot_57_nwy1hx.png', title: 'Product Page' }
+      ]
+    },
   ];
 
   useEffect(() => {
