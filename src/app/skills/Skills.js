@@ -43,10 +43,20 @@ const Skills = () => {
 
   useEffect(() => {
     const currentRef = skillsRef.current;
+
+    // Fallback to set isVisible to true after a short delay if IntersectionObserver doesn't trigger
+    const fallbackTimeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          clearTimeout(fallbackTimeout); // Clear fallback if observer triggers
+          if (currentRef) {
+            observer.unobserve(currentRef); // Unobserve once visible to prevent re-triggering
+          }
         }
       },
       { threshold: 0.1 }
@@ -57,6 +67,7 @@ const Skills = () => {
     }
 
     return () => {
+      clearTimeout(fallbackTimeout);
       if (currentRef) {
         observer.unobserve(currentRef);
       }
@@ -111,7 +122,7 @@ const Skills = () => {
                       className="progress-fill"
                       style={{ 
                         width: isVisible ? `${skill.level}%` : '0%',
-                        animationDelay: `${index * 0.1 + 0.5}s`
+                        transition: isVisible ? 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
                       }}
                     ></div>
                   </div>
