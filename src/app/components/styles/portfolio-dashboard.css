@@ -1,7 +1,7 @@
 /* Portfolio Dashboard Styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 .portfolio-dashboard-container {
-  font-family: Inter;
+  font-family: 'Poppins', sans-serif;
   min-height: 100vh;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
   padding: 2rem;
@@ -9,6 +9,7 @@
 }
 
 .portfolio-dashboard-main {
+  font-family: 'Poppins', sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -25,6 +26,7 @@
 }
 
 .portfolio-dashboard-hero {
+  font-family: 'Poppins', sans-serif;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 3rem;
@@ -35,6 +37,7 @@
 
 .portfolio-dashboard-profile {
   text-align: center;
+  font-family: 'Poppins', sans-serif;
   animation: portfolio-fadeInLeft 1s ease-out 0.3s both;
 }
 
