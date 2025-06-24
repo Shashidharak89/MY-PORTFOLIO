@@ -18,6 +18,8 @@ const ProjectsSection = () => {
       title: "AI-Powered Web Application",
       description: "A sophisticated web application leveraging artificial intelligence to provide intelligent recommendations and automated decision-making capabilities. Built with modern frameworks and deployed on cloud infrastructure for scalability.",
       technologies: ["React", "Node.js", "TensorFlow", "AWS"],
+      projectLink: "https://gamenexplay.live",
+      sourceCode: "https://github.com",
       slides: [
         { type: 'image', src: defaultImageSrc, title: 'Dashboard View' },
         { type: 'image', src: defaultImageSrc, title: 'Analytics Panel' },
@@ -29,6 +31,8 @@ const ProjectsSection = () => {
       title: "E-Commerce Platform",
       description: "A comprehensive e-commerce solution featuring real-time inventory management, secure payment processing, and advanced analytics dashboard. Designed for scalability and optimal user experience across all devices.",
       technologies: ["Next.js", "Stripe", "MongoDB", "Redis"],
+      projectLink: "https://gamenexplay.live",
+      sourceCode: "https://github.com",
       slides: [
         { type: 'image', src: defaultImageSrc, title: 'Homepage' },
         { type: 'image', src: defaultImageSrc, title: 'Product Page' },
@@ -40,6 +44,8 @@ const ProjectsSection = () => {
       title: "Mobile Fitness Tracker",
       description: "Cross-platform mobile application for fitness tracking with real-time workout monitoring, social features, and personalized coaching. Integrates with various wearable devices and health platforms.",
       technologies: ["React Native", "Firebase", "Python", "ML Kit"],
+      projectLink: "https://gamenexplay.live",
+      sourceCode: "https://github.com",
       slides: [
         { type: 'image', src: defaultImageSrc, title: 'Workout Screen' },
         { type: 'video', thumbnail: defaultVideoThumbnail, videoSrc: defaultVideoSrc, title: 'App Demo' },
@@ -53,11 +59,19 @@ const ProjectsSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleProjectLinkClick = (link) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSourceCodeClick = (link) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section className="projects-section-unique" id="projects">
       <div className="projects-container-unique">
         <div className={`projects-header-unique ${isVisible ? 'projects-header-visible-unique' : ''}`}>
-          <h2 className="projects-title-unique">Featured Projects</h2>
+          <h2 className="projects-title-unique">My Projects</h2>
           <div className="projects-title-underline-unique"></div>
         </div>
 
@@ -82,6 +96,8 @@ const ProjectsSection = () => {
                   slides={project.slides}
                   title={project.title}
                   isActive={true}
+                  projectLink={project.projectLink}
+                  sourceCode={project.sourceCode}
                 />
               </div>
 
@@ -101,10 +117,16 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="project-actions-unique">
-                  <button className="project-btn-primary-unique">
+                  <button 
+                    className="project-btn-primary-unique"
+                    onClick={() => handleProjectLinkClick(project.projectLink)}
+                  >
                     View Project
                   </button>
-                  <button className="project-btn-secondary-unique">
+                  <button 
+                    className="project-btn-secondary-unique"
+                    onClick={() => handleSourceCodeClick(project.sourceCode)}
+                  >
                     Source Code
                   </button>
                 </div>
