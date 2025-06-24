@@ -1,5 +1,5 @@
 /* ContactForm.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 /* Root Variables */
 :root {
   --portfolio-primary-red: #ef4444;
@@ -17,6 +17,7 @@
 
 /* Container */
 .portfolio-contact-container {
+  font-family: 'Poppins', sans-serif;
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   position: relative;
