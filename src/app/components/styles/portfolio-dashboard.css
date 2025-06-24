@@ -1,7 +1,7 @@
 /* Portfolio Dashboard Styles */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 .portfolio-dashboard-container {
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
   min-height: 100vh;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
   padding: 2rem;
