@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'img.youtube.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'th.bing.com',
+        pathname: '/**',
+      },
     ],
   },
 };
