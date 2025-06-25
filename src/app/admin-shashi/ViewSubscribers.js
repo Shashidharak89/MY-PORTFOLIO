@@ -8,8 +8,10 @@ const ViewSubscribers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState('desc'); // 'desc' for newest first, 'asc' for oldest first
-  
+  const [sortOrder, setSortOrder] = useState('desc'); // Date sorting
+  const [searchTerm, setSearchTerm] = useState('');
+  const [emailSortOrder, setEmailSortOrder] = useState(null); // Email sorting: null | 'asc' | 'desc'
+
   const SUBSCRIBERS_PER_PAGE = 5;
 
   useEffect(() => {
@@ -18,91 +20,83 @@ const ViewSubscribers = () => {
         setLoading(true);
         setError('');
         const res = await fetch('/api/subscribers');
-        
-        if (!res.ok) {
-          throw new Error(`Failed to fetch: ${res.status}`);
-        }
-        
+        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
         const data = await res.json();
-        const validData = Array.isArray(data) ? data : [];
-        setAllSubscribers(validData);
+        setAllSubscribers(Array.isArray(data) ? data : []);
       } catch (err) {
-        console.error('Failed to fetch subscribers:', err);
+        console.error('Fetch error:', err);
         setError('Failed to load subscribers. Please try again.');
       } finally {
         setLoading(false);
       }
     };
-
     fetchSubscribers();
   }, []);
 
   useEffect(() => {
-    // Sort and paginate subscribers whenever allSubscribers, sortOrder, or currentPage changes
-    if (allSubscribers.length > 0) {
-      const sortedSubscribers = [...allSubscribers].sort((a, b) => {
-        const dateA = new Date(a.createdAt);
-        const dateB = new Date(b.createdAt);
-        
-        if (sortOrder === 'desc') {
-          return dateB - dateA; // Newest first
-        } else {
-          return dateA - dateB; // Oldest first
-        }
-      });
+    if (allSubscribers.length === 0) return;
 
-      const startIndex = 0;
-      const endIndex = currentPage * SUBSCRIBERS_PER_PAGE;
-      setDisplayedSubscribers(sortedSubscribers.slice(startIndex, endIndex));
+    let filtered = allSubscribers.filter(sub =>
+      sub.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Date sort
+    filtered = filtered.sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    });
+
+    // Email alphabetical sort
+    if (emailSortOrder) {
+      filtered = filtered.sort((a, b) => {
+        const emailA = a.email.toLowerCase();
+        const emailB = b.email.toLowerCase();
+        return emailSortOrder === 'asc'
+          ? emailA.localeCompare(emailB)
+          : emailB.localeCompare(emailA);
+      });
     }
-  }, [allSubscribers, sortOrder, currentPage]);
+
+    const startIndex = 0;
+    const endIndex = currentPage * SUBSCRIBERS_PER_PAGE;
+    setDisplayedSubscribers(filtered.slice(startIndex, endIndex));
+  }, [allSubscribers, sortOrder, currentPage, searchTerm, emailSortOrder]);
 
   const handleSortToggle = () => {
-    setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
-    setCurrentPage(1); // Reset to first page when sorting
+    setSortOrder(prev => (prev === 'desc' ? 'asc' : 'desc'));
+    setCurrentPage(1);
+  };
+
+  const handleEmailSortToggle = () => {
+    if (!emailSortOrder) setEmailSortOrder('asc');
+    else if (emailSortOrder === 'asc') setEmailSortOrder('desc');
+    else setEmailSortOrder(null);
+    setCurrentPage(1);
   };
 
   const handleViewMore = () => {
     setCurrentPage(prev => prev + 1);
   };
 
-  const hasMoreSubscribers = () => {
-    return currentPage * SUBSCRIBERS_PER_PAGE < allSubscribers.length;
-  };
+  const hasMoreSubscribers = () =>
+    currentPage * SUBSCRIBERS_PER_PAGE < allSubscribers.length;
 
-  const getRemainingCount = () => {
-    return allSubscribers.length - (currentPage * SUBSCRIBERS_PER_PAGE);
-  };
+  const getRemainingCount = () =>
+    allSubscribers.length - displayedSubscribers.length;
 
-  const formatDate = (dateString) => {
-    try {
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) {
-        return 'Invalid Date';
-      }
-      return date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      });
-    } catch (err) {
-      return 'Invalid Date';
-    }
-  };
-
-  const getSubscriberCount = () => {
-    return allSubscribers.length;
-  };
-
-  const getSortButtonText = () => {
-    return sortOrder === 'desc' ? 'Newest First' : 'Oldest First';
-  };
-
-  const getSortIcon = () => {
-    return sortOrder === 'desc' ? '↓' : '↑';
+  const formatDate = dateString => {
+    const date = new Date(dateString);
+    return isNaN(date.getTime())
+      ? 'Invalid Date'
+      : date.toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        });
   };
 
   return (
@@ -111,24 +105,54 @@ const ViewSubscribers = () => {
         <div className="card-header">
           <div className="header-content">
             <h2 className="card-title">
-              <span className="title-icon">📧</span>
-              All Subscribers
+              <span className="title-icon">📧</span> All Subscribers
             </h2>
             <div className="header-actions">
+              <input
+                type="text"
+                placeholder="Search email..."
+                className="search-input"
+                value={searchTerm}
+                onChange={e => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+
               {!loading && allSubscribers.length > 0 && (
-                <button 
-                  className="sort-button"
-                  onClick={handleSortToggle}
-                  title={`Sort by ${sortOrder === 'desc' ? 'oldest' : 'newest'} first`}
-                >
-                  <span className="sort-icon">{getSortIcon()}</span>
-                  <span className="sort-text">{getSortButtonText()}</span>
-                </button>
+                <>
+                  <button
+                    className="sort-button"
+                    onClick={handleSortToggle}
+                    title={`Sort by ${
+                      sortOrder === 'desc' ? 'oldest' : 'newest'
+                    }`}
+                  >
+                    📅 {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
+                  </button>
+
+                  <button
+                    className="sort-button"
+                    onClick={handleEmailSortToggle}
+                    title="Sort email alphabetically"
+                  >
+                    🔤{' '}
+                    {emailSortOrder === 'asc'
+                      ? 'A → Z'
+                      : emailSortOrder === 'desc'
+                      ? 'Z → A'
+                      : 'Reset'}
+                  </button>
+                </>
               )}
+
               {!loading && (
                 <div className="subscriber-count">
                   <span className="count-badge">
-                    {getSubscriberCount()} {getSubscriberCount() === 1 ? 'Subscriber' : 'Subscribers'}
+                    {allSubscribers.length}{' '}
+                    {allSubscribers.length === 1
+                      ? 'Subscriber'
+                      : 'Subscribers'}
                   </span>
                 </div>
               )}
@@ -147,19 +171,19 @@ const ViewSubscribers = () => {
             <div className="error-state">
               <div className="error-icon">❌</div>
               <p className="error-text">{error}</p>
-              <button 
+              <button
                 className="retry-button"
                 onClick={() => window.location.reload()}
               >
                 Try Again
               </button>
             </div>
-          ) : allSubscribers.length === 0 ? (
+          ) : displayedSubscribers.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">📭</div>
-              <h3 className="empty-title">No Subscribers Yet</h3>
+              <h3 className="empty-title">No Subscribers Found</h3>
               <p className="empty-text">
-                Your subscriber list is empty. Share your newsletter to get your first subscribers!
+                No results matched your search term.
               </p>
             </div>
           ) : (
@@ -167,37 +191,20 @@ const ViewSubscribers = () => {
               <table className="subscribers-table">
                 <thead className="table-header">
                   <tr>
-                    <th className="table-header-cell email-header">
-                      <div className="header-content-cell">
-                        <span>Email Address</span>
-                      </div>
-                    </th>
-                    <th className="table-header-cell date-header">
-                      <div className="header-content-cell">
-                        <span>Subscribed Date</span>
-                        <span className="sort-indicator">{getSortIcon()}</span>
-                      </div>
-                    </th>
+                    <th className="table-header-cell">Email</th>
+                    <th className="table-header-cell">Subscribed On</th>
                   </tr>
                 </thead>
                 <tbody className="table-body">
                   {displayedSubscribers.map((subscriber, index) => (
-                    <tr 
-                      key={subscriber._id || index} 
+                    <tr
+                      key={subscriber._id || index}
                       className="table-row"
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
-                      <td className="table-cell email-cell">
-                        <div className="email-content">
-                          <span className="email-icon">✉️</span>
-                          <span className="email-text">{subscriber.email}</span>
-                        </div>
-                      </td>
-                      <td className="table-cell date-cell">
-                        <div className="date-content">
-                          <span className="date-icon">📅</span>
-                          <span className="date-text">{formatDate(subscriber.createdAt)}</span>
-                        </div>
+                      <td className="table-cell">{subscriber.email}</td>
+                      <td className="table-cell">
+                        {formatDate(subscriber.createdAt)}
                       </td>
                     </tr>
                   ))}
@@ -207,24 +214,17 @@ const ViewSubscribers = () => {
           )}
         </div>
 
-        {allSubscribers.length > 0 && (
+        {displayedSubscribers.length > 0 && hasMoreSubscribers() && (
           <div className="table-footer">
             <div className="footer-content">
               <p className="footer-text">
-                Showing {displayedSubscribers.length} of {allSubscribers.length} {allSubscribers.length === 1 ? 'subscriber' : 'subscribers'}
-                {sortOrder === 'desc' ? ' (newest first)' : ' (oldest first)'}
+                Showing {displayedSubscribers.length} of{' '}
+                {allSubscribers.length} subscribers
               </p>
-              {hasMoreSubscribers() && (
-                <button 
-                  className="view-more-button"
-                  onClick={handleViewMore}
-                >
-                  <span className="view-more-icon">👀</span>
-                  <span className="view-more-text">
-                    View More ({Math.min(SUBSCRIBERS_PER_PAGE, getRemainingCount())} remaining)
-                  </span>
-                </button>
-              )}
+              <button className="view-more-button" onClick={handleViewMore}>
+                👀 View More ({Math.min(SUBSCRIBERS_PER_PAGE, getRemainingCount())}{' '}
+                remaining)
+              </button>
             </div>
           </div>
         )}
