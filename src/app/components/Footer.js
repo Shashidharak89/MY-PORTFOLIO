@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import validator from 'validator';
 import { Github, Linkedin, Mail, Phone, MapPin, Heart, ArrowUp } from 'lucide-react';
 import Link from 'next/link';
 import styles from './styles/Footer.module.css';
@@ -41,8 +42,13 @@ const Footer = () => {
   };
 
   const handleSubscribe = async () => {
-    if (!email) {
+    if (!email.trim()) {
       setSubscribeStatus({ message: 'Please enter an email address', type: 'error' });
+      return;
+    }
+
+    if (!validator.isEmail(email.trim())) {
+      setSubscribeStatus({ message: 'Invalid email address', type: 'error' });
       return;
     }
 
@@ -55,7 +61,7 @@ const Footer = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: email.trim() }),
       });
 
       const data = await response.json();
@@ -85,7 +91,6 @@ const Footer = () => {
       className={`${styles['crimson-footer-container']} ${isVisible ? styles['crimson-footer-animate-in'] : ''}`}
       onMouseMove={handleMouseMove}
     >
-      {/* Animated Background Waves */}
       <div className={styles['crimson-bg-animation']}>
         <div className={`${styles['crimson-wave']} ${styles['crimson-wave-1']}`}></div>
         <div className={`${styles['crimson-wave']} ${styles['crimson-wave-2']}`}></div>
@@ -93,7 +98,6 @@ const Footer = () => {
         <div className={`${styles['crimson-wave']} ${styles['crimson-wave-4']}`}></div>
       </div>
 
-      {/* Floating Particles */}
       <div className={styles['crimson-particles']}>
         {[...Array(20)].map((_, i) => (
           <div
@@ -108,7 +112,6 @@ const Footer = () => {
         ))}
       </div>
 
-      {/* Golden Orbs */}
       <div className={styles['crimson-golden-orbs']}>
         {[...Array(8)].map((_, i) => (
           <div
@@ -123,7 +126,6 @@ const Footer = () => {
         ))}
       </div>
 
-      {/* Mouse Follower Effect */}
       <div
         className={styles['crimson-mouse-glow']}
         style={{
@@ -134,7 +136,6 @@ const Footer = () => {
 
       <div className={styles['crimson-content-wrapper']}>
         <div className={styles['crimson-main-content']}>
-          {/* Brand Section */}
           <div className={styles['crimson-brand-section']}>
             <div className={styles['crimson-logo-container']}>
               <div className={styles['crimson-logo-text']}>Portfolio</div>
@@ -161,7 +162,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Info */}
           <div className={styles['crimson-contact-section']}>
             <h3 className={styles['crimson-section-title']}>Get In Touch</h3>
             <div className={styles['crimson-contact-info']}>
@@ -186,7 +186,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div className={styles['crimson-newsletter-section']}>
             <h3 className={styles['crimson-section-title']}>Stay Updated</h3>
             <p className={styles['crimson-newsletter-text']}>
@@ -228,7 +227,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className={styles['crimson-bottom-bar']}>
           <div className={styles['crimson-bottom-content']}>
             <p className={styles['crimson-copyright']}>
@@ -246,7 +244,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
           className={styles['crimson-scroll-top']}
