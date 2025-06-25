@@ -103,7 +103,7 @@ const SendUpdateForm = () => {
           <div className="input-group">
             <label htmlFor="projectlink" className="input-label">Project Link</label>
             <input
-              type="url"
+              type="text"
               id="projectlink"
               name="projectlink"
               className="form-input"
