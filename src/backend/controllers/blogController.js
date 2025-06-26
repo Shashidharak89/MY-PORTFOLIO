@@ -1,4 +1,4 @@
-import Blog from '../models/Blog.js';
+import Blog from '../models/Blog.js'; 
 import connectDB from '../utils/db.js';
 
 // Create Blog
