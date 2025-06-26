@@ -9,7 +9,7 @@ export default function Projects() {
   return (
     <>
       <Navbar />
-     <BlogList/>
+      <BlogList/>
       <Footer/>
     </>
   );

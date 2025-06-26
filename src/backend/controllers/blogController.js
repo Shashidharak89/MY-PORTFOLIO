@@ -89,10 +89,13 @@ export const likeBlog = async (req) => {
 };
 
 // Add Comment
+// Add Comment
 export const commentBlog = async (req) => {
   try {
     await connectDB();
     const { id, comment } = await req.json();
+
+    console.log('Received comment payload:', { id, comment });
 
     if (!id || !comment?.trim()) {
       return new Response(JSON.stringify({ error: 'Blog ID and comment required' }), {
@@ -101,13 +104,19 @@ export const commentBlog = async (req) => {
     }
 
     const blog = await Blog.findById(id);
+
     if (!blog) {
       return new Response(JSON.stringify({ error: 'Blog not found' }), {
         status: 404,
       });
     }
 
-    blog.comments.push(comment);
+    // 👇 fix: push object with `text` and `posted`
+    blog.comments.push({
+      text: comment,
+      posted: new Date()
+    });
+
     await blog.save();
 
     return new Response(JSON.stringify({ message: 'Comment added', comments: blog.comments }), {
@@ -120,3 +129,4 @@ export const commentBlog = async (req) => {
     });
   }
 };
+
