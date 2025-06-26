@@ -1,7 +1,7 @@
 // app/about/page.js
 import Footer from 'app/components/Footer';
 import Navbar from '../components/Navbar';
-import CreateBlog from './CreateBlog';
+import BlogList from './BlogList';
 
 
 
@@ -9,7 +9,7 @@ export default function Projects() {
   return (
     <>
       <Navbar />
-     <CreateBlog/>
+     <BlogList/>
       <Footer/>
     </>
   );
