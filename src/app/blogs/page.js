@@ -10,7 +10,6 @@ export default function Projects() {
   return (
     <>
       <Navbar />
-      <BlogPosts/>
       <BlogList />
       <Footer />
     </>
