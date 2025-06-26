@@ -1,26 +1,20 @@
 import Blog from '../models/Blog.js';
 import connectDB from '../utils/db.js';
 
-// Create Blog
+// Create a new blog
 export const createBlog = async (req) => {
   try {
     await connectDB();
-
     const { blogname, description } = await req.json();
 
-    if (!blogname?.trim() || !description?.trim()) {
-      return new Response(JSON.stringify({ error: 'Blogname and description are required' }), {
+    if (!blogname || !description) {
+      return new Response(JSON.stringify({ error: 'Blog name and description are required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const blog = new Blog({
-      blogname,
-      description,
-      imageurl: ['xyz.jpg'], // static image
-    });
-
+    const blog = new Blog({ blogname, description });
     await blog.save();
 
     return new Response(JSON.stringify({ message: 'Blog created successfully', blog }), {
@@ -36,7 +30,7 @@ export const createBlog = async (req) => {
   }
 };
 
-// Get All Blogs
+// Get all blogs
 export const getAllBlogs = async () => {
   try {
     await connectDB();
@@ -55,78 +49,123 @@ export const getAllBlogs = async () => {
   }
 };
 
-// Like Blog (+1)
-export const likeBlog = async (req) => {
+// Increment like count
+export const addLike = async (req) => {
   try {
     await connectDB();
     const { id } = await req.json();
 
-    if (!id) {
-      return new Response(JSON.stringify({ error: 'Blog ID required' }), {
-        status: 400,
-      });
-    }
+    const blog = await Blog.findByIdAndUpdate(id, { $inc: { likes: 1 } }, { new: true });
 
-    const blog = await Blog.findById(id);
     if (!blog) {
       return new Response(JSON.stringify({ error: 'Blog not found' }), {
         status: 404,
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    blog.likes += 1;
-    await blog.save();
-
-    return new Response(JSON.stringify({ message: 'Blog liked', likes: blog.likes }), {
+    return new Response(JSON.stringify({ message: 'Like added', likes: blog.likes }), {
       status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error liking blog:', error);
+    console.error('Error adding like:', error);
     return new Response(JSON.stringify({ error: 'Server error' }), {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };
 
-// Add Comment
-// Add Comment
-export const commentBlog = async (req) => {
+// Get likes count
+export const getLikes = async (req) => {
+  try {
+    await connectDB();
+    const { id } = await req.json();
+
+    const blog = await Blog.findById(id).select('likes');
+
+    if (!blog) {
+      return new Response(JSON.stringify({ error: 'Blog not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify({ likes: blog.likes }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error getting likes:', error);
+    return new Response(JSON.stringify({ error: 'Server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
+
+// Add a comment
+export const addComment = async (req) => {
   try {
     await connectDB();
     const { id, comment } = await req.json();
 
-    console.log('Received comment payload:', { id, comment });
-
-    if (!id || !comment?.trim()) {
-      return new Response(JSON.stringify({ error: 'Blog ID and comment required' }), {
+    if (!id || !comment) {
+      return new Response(JSON.stringify({ error: 'Blog ID and comment are required' }), {
         status: 400,
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
     const blog = await Blog.findById(id);
-
     if (!blog) {
       return new Response(JSON.stringify({ error: 'Blog not found' }), {
         status: 404,
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // 👇 fix: push object with `text` and `posted`
-    blog.comments.push({
-      text: comment,
-      posted: new Date()
-    });
-
+    blog.comments.push({ text: comment });
     await blog.save();
 
     return new Response(JSON.stringify({ message: 'Comment added', comments: blog.comments }), {
       status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error commenting blog:', error);
+    console.error('Error adding comment:', error);
     return new Response(JSON.stringify({ error: 'Server error' }), {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };
 
+// Get comments
+export const getComments = async (req) => {
+  try {
+    await connectDB();
+    const { id } = await req.json();
+
+    const blog = await Blog.findById(id).select('comments');
+
+    if (!blog) {
+      return new Response(JSON.stringify({ error: 'Blog not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify(blog.comments), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error retrieving comments:', error);
+    return new Response(JSON.stringify({ error: 'Server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};

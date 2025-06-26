@@ -1,0 +1,113 @@
+.bp-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  color: #f1f1f1;
+  background-color: #0d0d0d;
+}
+
+.bp-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.bp-card {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+.bp-blogname {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ffcc70;
+}
+
+.bp-description {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.bp-date {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.bp-likes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bp-like-btn {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bp-comments {
+  margin-top: 15px;
+}
+
+.bp-show-comments-btn {
+  background-color: #3a86ff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.bp-comment-list {
+  background-color: #262626;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.bp-comment-item {
+  border-bottom: 1px solid #444;
+  padding: 5px 0;
+}
+
+.bp-comment-item:last-child {
+  border-bottom: none;
+}
+
+.bp-comment-time {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.bp-comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bp-comment-input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background-color: #121212;
+  color: white;
+}
+
+.bp-comment-submit-btn {
+  background-color: #00c853;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}

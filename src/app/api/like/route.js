@@ -1,5 +1,9 @@
-import { likeBlog } from '../../../backend/controllers/blogController.js';
+import { addLike, getLikes } from '../../../backend/controllers/blogController.js';
 
 export async function PUT(req) {
-  return await likeBlog(req);
+  return await addLike(req);
+}
+
+export async function POST(req) {
+  return await getLikes(req);
 }

@@ -3,78 +3,116 @@
 import { useState } from 'react';
 
 const CreateBlog = () => {
-  const [blogname, setBlogname] = useState('');
-  const [description, setDescription] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    blogname: '',
+    description: '',
+  });
+
+  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    setStatus('');
     setLoading(true);
 
-    if (!blogname || !description) {
-      setMessage('❌ Please fill all fields.');
-      setLoading(false);
-      return;
-    }
-
     try {
-      const res = await fetch('/api/blog', {
+      const res = await fetch('/api/blogs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ blogname, description }),
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
-      if (res.ok) {
-        setMessage('✅ Blog created successfully!');
-        setBlogname('');
-        setDescription('');
-      } else {
-        setMessage(`❌ ${data.error || 'Something went wrong.'}`);
-      }
-    } catch (error) {
-      setMessage('❌ Failed to connect to server.');
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+      setStatus('✅ Blog created successfully!');
+      setFormData({ blogname: '', description: '' });
+    } catch (err) {
+      setStatus(`❌ ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 bg-gray-900 p-6 rounded-xl text-white shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-center">Create New Blog</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div style={styles.container}>
+      <h2>Create New Blog</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="text"
+          name="blogname"
           placeholder="Blog Name"
-          value={blogname}
-          onChange={(e) => setBlogname(e.target.value)}
-          className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600"
+          value={formData.blogname}
+          onChange={handleChange}
           required
+          style={styles.input}
         />
         <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600"
-          rows="4"
+          name="description"
+          placeholder="Blog Description"
+          value={formData.description}
+          onChange={handleChange}
           required
+          rows="5"
+          style={styles.textarea}
         />
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 rounded font-semibold transition ${
-            loading ? 'bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'
-          }`}
-        >
-          {loading ? 'Creating Blog...' : 'Create Blog'}
+        <button type="submit" disabled={loading} style={styles.button}>
+          {loading ? 'Submitting...' : 'Create Blog'}
         </button>
       </form>
-      {message && <p className="mt-4 text-center text-sm">{message}</p>}
+      {status && <p style={styles.status}>{status}</p>}
     </div>
   );
+};
+
+const styles = {
+  container: {
+    maxWidth: '500px',
+    margin: '40px auto',
+    padding: '20px',
+    border: '1px solid #555',
+    borderRadius: '8px',
+    background: '#111',
+    color: '#fff',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  input: {
+    padding: '10px',
+    fontSize: '16px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  textarea: {
+    padding: '10px',
+    fontSize: '16px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  button: {
+    padding: '10px',
+    fontSize: '16px',
+    background: '#4CAF50',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  status: {
+    marginTop: '15px',
+    fontWeight: 'bold',
+  },
 };
 
 export default CreateBlog;
