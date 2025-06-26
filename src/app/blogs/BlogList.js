@@ -408,7 +408,7 @@ const BlogList = () => {
       <div className="crimson-main-header">
         <div className="crimson-header-content">
           <h1 className="crimson-main-title">
-            <span className="crimson-title-accent">Featured</span>
+            {/* <span className="crimson-title-accent">Featured</span> */}
             <span className="crimson-title-main">Blog Posts</span>
           </h1>
           <div className="crimson-title-decoration">
@@ -420,7 +420,7 @@ const BlogList = () => {
           <p className="crimson-main-subtitle">Discover amazing stories and insights from our community</p>
         </div>
         
-        <div className="crimson-header-controls">
+        {/* <div className="crimson-header-controls">
           <button 
             className={`crimson-realtime-toggle ${realTimeUpdates ? 'crimson-toggle-active' : ''}`}
             onClick={() => setRealTimeUpdates(!realTimeUpdates)}
@@ -430,7 +430,7 @@ const BlogList = () => {
             </div>
             <span className="crimson-toggle-label">Real-time Updates</span>
           </button>
-        </div>
+        </div> */}
       </div>
       
       <div className="crimson-blogs-grid">
