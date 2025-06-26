@@ -1,4 +1,4 @@
-'use client';
+ 'use client';
 
 import { useEffect, useState, useRef } from 'react';
 import './styles/BlogList.css';
@@ -119,25 +119,20 @@ const BlogList = () => {
     setIsCommenting(true);
     setMessage('💭 Sending your comment...');
     
-    const newComment = {
-      text: commentInput.trim(),
-      timestamp: new Date().toISOString()
-    };
+    const newComment = commentInput.trim();
     
     try {
       const res = await fetch('/api/comment', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: activeBlog._id, comment: newComment.text }),
+        body: JSON.stringify({ id: activeBlog._id, comment: newComment }),
       });
-
-      const data = await res.json();
 
       if (res.ok) {
         // Immediately add comment to local state for real-time feel
         const updatedBlog = {
           ...activeBlog,
-          comments: [newComment, ...(activeBlog.comments || [])]
+          comments: [newComment, ...activeBlog.comments]
         };
         
         setActiveBlog(updatedBlog);
@@ -164,7 +159,7 @@ const BlogList = () => {
   };
 
   const loadMoreComments = () => {
-    setDisplayedComments(prev => Math.min(prev + 5, activeBlog?.comments?.length || 0));
+    setDisplayedComments(prev => Math.min(prev + 5, activeBlog.comments.length));
   };
 
   const handleKeyPress = (e) => {
@@ -173,21 +168,9 @@ const BlogList = () => {
     }
   };
 
-  const formatTimestamp = (timestamp) => {
-    if (!timestamp) return 'Just now';
-    const commentDate = new Date(timestamp);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now - commentDate) / 1000);
-    
-    if (diffInSeconds < 60) return 'Just now';
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minute${Math.floor(diffInSeconds / 60) === 1 ? '' : 's'} ago`;
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hour${Math.floor(diffInSeconds / 3600) === 1 ? '' : 's'} ago`;
-    return commentDate.toLocaleDateString();
-  };
-
   if (activeBlog) {
-    const commentsToShow = activeBlog?.comments?.slice(0, displayedComments) || [];
-    const hasMoreComments = displayedComments < (activeBlog?.comments?.length || 0);
+    const commentsToShow = activeBlog.comments.slice(0, displayedComments);
+    const hasMoreComments = displayedComments < activeBlog.comments.length;
 
     return (
       <div className="crimson-blogdetail-wrapper">
@@ -197,8 +180,6 @@ const BlogList = () => {
             <div
               key={heart.id}
               className="crimson-floating-heart"
- Тимследить
-
               style={{
                 left: `${heart.x}px`,
                 top: `${heart.y}px`,
@@ -226,7 +207,7 @@ const BlogList = () => {
           
           <div className="crimson-realtime-status">
             <div className={`crimson-live-indicator ${realTimeUpdates ? 'crimson-live-active' : ''}`}>
-              <div className="Cpulse"></div>
+              <div className="crimson-live-pulse"></div>
             </div>
             <span className="crimson-live-text">Live Updates</span>
           </div>
@@ -242,7 +223,7 @@ const BlogList = () => {
               </span>
               <span className="crimson-meta-badge">
                 <span className="crimson-comment-icon">💬</span>
-                {activeBlog?.comments?.length || 0} comments
+                {activeBlog.comments.length} comments
               </span>
             </div>
           </div>
@@ -292,7 +273,7 @@ const BlogList = () => {
                 </div>
                 <div className="crimson-stat-divider"></div>
                 <div className="crimson-stat-item">
-                  <span className="crimson-stat-number">{activeBlog?.comments?.length || 0}</span>
+                  <span className="crimson-stat-number">{activeBlog.comments.length}</span>
                   <span className="crimson-stat-label">Comments</span>
                 </div>
               </div>
@@ -302,9 +283,9 @@ const BlogList = () => {
           <div className="crimson-comments-section">
             <div className="crimson-comments-header">
               <h3 className="crimson-comments-title">
-                Comments ({activeBlog?.comments?.length || 0})
+                Comments ({activeBlog.comments.length})
               </h3>
-              {activeBlog?.comments?.length > 0 && (
+              {activeBlog.comments.length > 0 && (
                 <span className="crimson-comments-sort">Latest First</span>
               )}
             </div>
@@ -361,7 +342,7 @@ const BlogList = () => {
                   <div className="crimson-comments-container">
                     {commentsToShow.map((comment, idx) => (
                       <div 
-                        key={`${comment.text || comment}-${idx}`} 
+                        key={`${comment}-${idx}`} 
                         className="crimson-comment-card"
                         style={{ animationDelay: `${idx * 0.1}s` }}
                       >
@@ -372,10 +353,10 @@ const BlogList = () => {
                         </div>
                         <div className="crimson-comment-body">
                           <div className="crimson-comment-meta">
-                            <span className="crimson-comment-author">Anonymous User</span>
-                            <span className="crimson-comment-time">{formatTimestamp(comment.timestamp)}</span>
+                            {/* <span className="crimson-comment-author">Anonymous User</span> */}
+                            <span className="crimson-comment-time">Just now</span>
                           </div>
-                          <p className="crimson-comment-message">{comment.text || comment}</p>
+                          <p className="crimson-comment-message">{comment}</p>
                         </div>
                       </div>
                     ))}
@@ -387,7 +368,7 @@ const BlogList = () => {
                       onClick={loadMoreComments}
                     >
                       <span className="crimson-load-icon">⬇️</span>
-                      <span>Load {Math.min(5, (activeBlog?.comments?.length || 0) - displayedComments)} more comments</span>
+                      <span>Load {Math.min(5, activeBlog.comments.length - displayedComments)} more comments</span>
                     </button>
                   )}
                 </>
@@ -427,7 +408,7 @@ const BlogList = () => {
       <div className="crimson-main-header">
         <div className="crimson-header-content">
           <h1 className="crimson-main-title">
-            <span className="crimson-title-accent">Featured</span>
+            {/* <span className="crimson-title-accent">Featured</span> */}
             <span className="crimson-title-main">Blog Posts</span>
           </h1>
           <div className="crimson-title-decoration">
@@ -439,7 +420,7 @@ const BlogList = () => {
           <p className="crimson-main-subtitle">Discover amazing stories and insights from our community</p>
         </div>
         
-        <div className="crimson-header-controls">
+        {/* <div className="crimson-header-controls">
           <button 
             className={`crimson-realtime-toggle ${realTimeUpdates ? 'crimson-toggle-active' : ''}`}
             onClick={() => setRealTimeUpdates(!realTimeUpdates)}
@@ -449,7 +430,7 @@ const BlogList = () => {
             </div>
             <span className="crimson-toggle-label">Real-time Updates</span>
           </button>
-        </div>
+        </div> */}
       </div>
       
       <div className="crimson-blogs-grid">
@@ -482,7 +463,7 @@ const BlogList = () => {
                     <span className="crimson-read-more-text">Read Full Story</span>
                     <div className="crimson-overlay-stats">
                       <span className="crimson-overlay-stat">❤️ {blog.likes}</span>
-                      <span className="crimson-overlay-stat">💬 {blog?.comments?.length || 0}</span>
+                      <span className="crimson-overlay-stat">💬 {blog.comments.length}</span>
                     </div>
                   </div>
                 </div>
@@ -513,7 +494,7 @@ const BlogList = () => {
                     </span>
                     <span className="crimson-card-stat">
                       <span className="crimson-stat-icon">💬</span>
-                      <span className="crimson-stat-count">{blog?.comments?.length || 0}</span>
+                      <span className="crimson-stat-count">{blog.comments.length}</span>
                     </span>
                   </div>
                   <div className="crimson-read-time">
