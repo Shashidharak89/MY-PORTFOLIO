@@ -370,7 +370,7 @@ const BlogList = () => {
               <div className="crimson-composer-container">
                 <textarea
                   className="crimson-comment-textarea"
-                  placeholder="Share your thoughts... (Ctrl+Enter to send)"
+                  placeholder="Share your thoughts... "
                   value={newComment[currentBlog._id] || ''}
                   onChange={(e) => setNewComment(prev => ({ ...prev, [currentBlog._id]: e.target.value }))}
                   onKeyPress={(e) => handleKeyPress(e, currentBlog._id)}
@@ -487,7 +487,7 @@ const BlogList = () => {
               <span></span><span></span><span></span>
             </div>
           </div>
-          <p className="crimson-main-subtitle">Discover amazing stories and insights from our community</p>
+          {/* <p className="crimson-main-subtitle">Discover amazing stories and insights from our community</p> */}
         </div>
       </div>
       
@@ -602,7 +602,7 @@ const BlogList = () => {
               <div className="crimson-loader-ring crimson-ring-2"></div>
               <div className="crimson-loader-ring crimson-ring-3"></div>
             </div>
-            <div className="crimson-loading-text">Loading Amazing Content</div>
+            <div className="crimson-loading-text">Loading Content..</div>
             <div className="crimson-loading-subtext">Fetching the latest blog posts for you...</div>
             <div className="crimson-floating-dots">
               <div className="crimson-dot"></div>
