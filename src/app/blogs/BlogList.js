@@ -353,7 +353,7 @@ const BlogList = () => {
                         </div>
                         <div className="crimson-comment-body">
                           <div className="crimson-comment-meta">
-                            <span className="crimson-comment-author">Anonymous User</span>
+                            {/* <span className="crimson-comment-author">Anonymous User</span> */}
                             <span className="crimson-comment-time">Just now</span>
                           </div>
                           <p className="crimson-comment-message">{comment}</p>
