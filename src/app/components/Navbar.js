@@ -16,6 +16,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       '/projects': 'projects',
       '/skills': 'skills',
       '/resume': 'resume',
+      '/blogs':'blogs',
+      '/handles':'handles',
       '/contact': 'contact'
     };
     setActiveItem(routeToId[pathname] || 'home');

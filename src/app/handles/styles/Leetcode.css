@@ -1,0 +1,102 @@
+/* src/components/styles/leetcodeStyles.css */
+
+.leetcode-container {
+  padding: 2rem;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.leetcode-title {
+  font-size: 2rem;
+  color: #ff0000;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.leetcode-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.leetcode-card {
+  flex: 1 1 150px;
+  min-width: 150px;
+  background-color: #f0f0f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+  animation: slideInUp 0.5s ease forwards;
+}
+
+.leetcode-card:hover {
+  transform: scale(1.05);
+}
+
+/* Difficulty based colors */
+.leetcode-card.all {
+  background-color: #0077ff;
+  color: #fff;
+}
+
+.leetcode-card.easy {
+  background-color: #00cc66;
+  color: #fff;
+}
+
+.leetcode-card.medium {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+.leetcode-card.hard {
+  background-color: #ff0033;
+  color: #fff;
+}
+
+.leetcode-loading {
+  font-style: italic;
+  color: #555;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .leetcode-title {
+    font-size: 1.5rem;
+  }
+
+  .leetcode-card {
+    min-width: 120px;
+    padding: 0.8rem;
+  }
+}
