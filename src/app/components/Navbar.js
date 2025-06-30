@@ -28,6 +28,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { id: 'skills', label: 'Skills', icon: '⚡', route: '/skills' },
     { id: 'resume', label: 'Resume', icon: '📄', route: '/resume' },
     { id: 'blogs', label: 'blogs', icon: '📰', route: '/blogs' },
+    { id: 'handles', label: 'Handles', icon: '👨‍💻', route: '/handles' },
     { id: 'contact', label: 'Contact', icon: '📧', route: '/contact' }
   ];
 
