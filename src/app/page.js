@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import * as gtag from '../lib/gtag';
 
-import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import PortfolioDashboard from './components/PortfolioDashboard';
 import Preloader from './components/Preloader';
+import FooterC from './components/FooterC';
 
 export default function Home() {
   const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function Home() {
       <Navbar />
       <PortfolioDashboard />
       <Preloader />
-      <Footer />
+      <FooterC/>
     </>
   );
 }
