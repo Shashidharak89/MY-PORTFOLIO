@@ -11,7 +11,6 @@ export default function Projects() {
   return (
     <>
       <Navbar />
-      
       <Github/>
       <Leetcode/>
       <FooterC/>
