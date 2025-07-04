@@ -1,95 +1,89 @@
-/* Light theme and responsive */
-
-.lc-container {
+.gfg-container {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background-color: #f8fefc;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
 }
 
-.lc-title {
+.gfg-title {
   text-align: center;
-  color: #333;
+  color: #006400;
   margin-bottom: 1.5rem;
 }
 
-.lc-card {
+.gfg-card {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.lc-avatar {
+.gfg-avatar {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  border: 3px solid #ccc;
+  border: 3px solid #00a36c;
+  background-color: #ffffff;
 }
 
-.lc-info {
+.gfg-info {
   flex-grow: 1;
 }
 
-.lc-name {
+.gfg-name {
   margin: 0;
   font-size: 1.5rem;
-  color: #222;
+  color: #004d40;
 }
 
-.lc-username,
-.lc-rank,
-.lc-reputation {
+.gfg-rank,
+.gfg-score,
+.gfg-institute {
   margin: 4px 0;
-  color: #555;
+  color: #444;
   font-size: 0.95rem;
 }
 
-.lc-stats {
+.gfg-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
 }
 
-.lc-stat-box {
+.gfg-stat-box {
   background-color: #ffffff;
-  border: 1px solid #ddd;
+  border: 1px solid #b2dfdb;
   border-radius: 8px;
   padding: 1rem;
   text-align: center;
 }
 
-.lc-difficulty {
+.gfg-label {
   font-weight: bold;
-  color: #444;
+  color: #00695c;
 }
 
-.lc-count {
+.gfg-value {
   font-size: 1.1rem;
-  color: #2e7d32;
+  color: #1b5e20;
 }
 
-.lc-sub {
-  font-size: 0.85rem;
-  color: #999;
-}
-
-.lc-loading,
-.lc-error {
+.gfg-loading,
+.gfg-error {
   text-align: center;
-  color: #888;
+  color: #777;
   padding: 2rem;
   font-size: 1.2rem;
 }
 
-.lc-profile-btn {
+.gfg-profile-btn {
   display: inline-block;
   margin-top: 10px;
   padding: 8px 16px;
-  background-color: #ffa116;
+  background-color: #00a36c;
   color: white;
   font-size: 0.9rem;
   border: none;
@@ -99,6 +93,6 @@
   transition: background-color 0.3s ease;
 }
 
-.lc-profile-btn:hover {
-  background-color: #e39600;
+.gfg-profile-btn:hover {
+  background-color: #00895e;
 }

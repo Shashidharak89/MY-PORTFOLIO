@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import './styles/Leetcode.css';
 
 const LeetcodeProfile = () => {
@@ -46,6 +47,14 @@ const LeetcodeProfile = () => {
           <p className="lc-username">@{data.username}</p>
           <p className="lc-rank">Ranking: <strong>{ranking}</strong></p>
           <p className="lc-reputation">Reputation: <strong>{reputation}</strong></p>
+          <Link
+            href={`https://leetcode.com/${data.username}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="lc-profile-btn"
+          >
+            View Profile
+          </Link>
         </div>
       </div>
       <div className="lc-stats">
