@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import './styles/GFGProfile.css';
 
 const GFGProfile = () => {
@@ -39,9 +40,17 @@ const GFGProfile = () => {
           alt="GFG Avatar"
         />
         <div className="gfg-info">
-          <h3 className="gfg-name">GFG User</h3>
+          <h3 className="gfg-name">Shashidhara K</h3>
           <p className="gfg-username">@{userName}</p>
           <p className="gfg-total">Total Solved: <strong>{totalProblemsSolved}</strong></p>
+          <Link
+            href={`https://auth.geeksforgeeks.org/user/${userName}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gfg-profile-btn"
+          >
+            View Profile
+          </Link>
         </div>
       </div>
       <div className="gfg-stats">
