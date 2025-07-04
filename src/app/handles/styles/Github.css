@@ -7,6 +7,25 @@
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
 }
+.gh-contribution-calendar {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  margin-top: 2rem;
+  overflow-x: hidden;
+}
+.gh-contribution-calendar {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gh-contribution-calendar::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 .gh-title {
   text-align: center;
