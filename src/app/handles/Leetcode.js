@@ -1,48 +1,94 @@
-// src/components/Leetcode.js
 "use client";
 
-import React, { useEffect, useState } from "react";
-import "./styles/Leetcode.css";
+import { useEffect, useState } from 'react';
 
-const Leetcode = () => {
-  const [stats, setStats] = useState(null);
+const LeetcodeProfile = () => {
+  const [username, setUsername] = useState('shashidharak'); // default username
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const fetchLeetcodeStats = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/leetcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      const json = await res.json();
+
+      if (res.ok) {
+        setData(json.matchedUser);
+      } else {
+        throw new Error(json.error || 'Failed to fetch LeetCode data');
+      }
+    } catch (err) {
+      console.error('Error fetching:', err);
+      setError(err.message);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await fetch("https://leetcode-stats-api.vercel.app/shashidhara_k99");
-        const data = await res.json();
-        setStats([
-          { difficulty: "Easy", count: data.easySolved },
-          { difficulty: "Medium", count: data.mediumSolved },
-          { difficulty: "Hard", count: data.hardSolved },
-          { difficulty: "All", count: data.totalSolved },
-        ]);
-      } catch (err) {
-        console.error("Error fetching LeetCode data:", err);
-      }
-    };
-
-    fetchStats();
+    fetchLeetcodeStats();
   }, []);
 
   return (
-    <div className="leetcode-container">
-      <h2 className="leetcode-title">LeetCode Stats</h2>
-      {stats ? (
-        <div className="leetcode-stats">
-          {stats.map((item) => (
-            <div key={item.difficulty} className={`leetcode-card ${item.difficulty.toLowerCase()}`}>
-              <h3>{item.difficulty}</h3>
-              <p>{item.count} Problems Solved</p>
-            </div>
-          ))}
+    <div style={styles.container}>
+      <h2>LeetCode Profile</h2>
+      {loading && <p>Loading...</p>}
+      {error && <p style={styles.error}>⚠️ {error}</p>}
+      {data ? (
+        <div style={styles.card}>
+          <img src={data.profile.userAvatar} alt="avatar" style={styles.avatar} />
+          <h3>{data.profile.realName} ({data.username})</h3>
+          <p><strong>Ranking:</strong> {data.profile.ranking}</p>
+          <p><strong>Reputation:</strong> {data.profile.reputation}</p>
+
+          <h4>Solved Problems:</h4>
+          <ul>
+            {data.submitStats.acSubmissionNum.map((item) => (
+              <li key={item.difficulty}>
+                {item.difficulty}: {item.count} problems
+              </li>
+            ))}
+          </ul>
         </div>
-      ) : (
-        <p className="leetcode-loading">Loading stats...</p>
-      )}
+      ) : null}
     </div>
   );
 };
 
-export default Leetcode;
+const styles = {
+  container: {
+    maxWidth: '500px',
+    margin: 'auto',
+    padding: '1rem',
+    backgroundColor: '#111',
+    color: '#fff',
+    fontFamily: 'Arial, sans-serif',
+    borderRadius: '10px',
+  },
+  card: {
+    marginTop: '1rem',
+    padding: '1rem',
+    border: '1px solid #444',
+    borderRadius: '8px',
+    backgroundColor: '#1e1e1e',
+  },
+  avatar: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+  },
+  error: {
+    color: 'red',
+  },
+};
+
+export default LeetcodeProfile;
