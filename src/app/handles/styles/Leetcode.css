@@ -1,73 +1,86 @@
-.lc-wrapper {
-  max-width: 1100px;
-  margin: 3rem auto;
+/* Light theme and responsive */
+
+.lc-container {
+  max-width: 600px;
+  margin: 2rem auto;
   padding: 2rem;
-  background: #ffffff;
-  color: #222;
+  background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .lc-title {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
   color: #333;
+  margin-bottom: 1.5rem;
 }
 
-.lc-profile-card {
+.lc-card {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background: #f9f9f9;
-  border: 1px solid #eaeaea;
-  padding: 1.5rem;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-}
-
-.lc-card-left {
-  display: flex;
-  flex: 1;
-  gap: 1.2rem;
   align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .lc-avatar {
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  border: 3px solid #ddd;
+  border: 3px solid #ccc;
 }
 
-.lc-user-info {
-  font-size: 0.95rem;
-  line-height: 1.5;
+.lc-info {
+  flex-grow: 1;
 }
 
-.lc-user-info a {
-  color: #0070f3;
-  text-decoration: none;
+.lc-name {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #222;
 }
 
-.lc-user-info a:hover {
-  text-decoration: underline;
-}
-
-.lc-card-right {
-  flex: 1;
-  margin-top: 1rem;
+.lc-username,
+.lc-rank,
+.lc-reputation {
+  margin: 4px 0;
+  color: #555;
   font-size: 0.95rem;
 }
 
-@media (max-width: 768px) {
-  .lc-profile-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+.lc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
 
-  .lc-card-right {
-    margin-top: 1.5rem;
-  }
+.lc-stat-box {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.lc-difficulty {
+  font-weight: bold;
+  color: #444;
+}
+
+.lc-count {
+  font-size: 1.1rem;
+  color: #2e7d32;
+}
+
+.lc-sub {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.lc-loading,
+.lc-error {
+  text-align: center;
+  color: #888;
+  padding: 2rem;
+  font-size: 1.2rem;
 }
