@@ -1,0 +1,117 @@
+.ig-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #000;
+}
+
+.ig-header {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.ig-profile-pic img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ddd;
+}
+
+.ig-info {
+  flex: 1;
+}
+
+.ig-username-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ig-username {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.ig-button {
+  background-color: #efefef;
+  color: #000;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ig-button:hover {
+  background-color: #ddd;
+}
+
+.ig-stats {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.ig-bio {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.ig-bio a {
+  color: #00376b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ig-highlights {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.ig-highlight {
+  text-align: center;
+  cursor: pointer;
+}
+
+.ig-highlight img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  object-fit: cover;
+}
+
+.ig-highlight p {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  color: #444;
+}
+
+@media (max-width: 600px) {
+  .ig-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ig-stats {
+    justify-content: center;
+  }
+
+  .ig-username-row {
+    justify-content: center;
+  }
+}
