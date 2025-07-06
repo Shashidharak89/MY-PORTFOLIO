@@ -1,117 +1,165 @@
-.ig-container {
-  max-width: 900px;
+/* Container setup */
+.insta-wrapper {
+  max-width: 935px;
   margin: 2rem auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  background: #fff;
   font-family: 'Segoe UI', sans-serif;
-  color: #000;
+  color: #262626;
 }
 
-.ig-header {
+/* Top Instagram bar */
+.insta-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.insta-logo-icon {
+  font-size: 1.4rem;
+  color: #E1306C;
+}
+
+.insta-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Profile layout */
+.insta-profile {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.ig-profile-pic img {
-  width: 130px;
-  height: 130px;
+.insta-pic-section {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.insta-avatar {
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
-  border: 2px solid #ddd;
+  border: 2px solid #dbdbdb;
 }
 
-.ig-info {
+/* Right section */
+.insta-details {
   flex: 1;
+  min-width: 250px;
 }
 
-.ig-username-row {
+.insta-header-row {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
-.ig-username {
-  font-size: 1.8rem;
-  margin: 0;
-}
-
-.ig-button {
-  background-color: #efefef;
-  color: #000;
-  padding: 0.4rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.insta-username {
+  font-size: 1.5rem;
   font-weight: 500;
 }
 
-.ig-button:hover {
-  background-color: #ddd;
+.insta-button {
+  background-color: #efefef;
+  border: 1px solid #dbdbdb;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.ig-stats {
-  margin-top: 0.6rem;
+.insta-button:hover {
+  background-color: #dbdbdb;
+}
+
+.insta-stats {
   display: flex;
   gap: 1.5rem;
-  font-size: 0.95rem;
+  margin: 0.5rem 0 1rem 0;
+  font-size: 1rem;
   color: #333;
 }
 
-.ig-bio {
-  margin-top: 1rem;
-  font-size: 0.95rem;
+.insta-bio p {
+  margin: 2px 0;
 }
 
-.ig-bio a {
+.insta-bio a {
   color: #00376b;
   text-decoration: none;
-  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.ig-highlights {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+.insta-bio a:hover {
+  text-decoration: underline;
+}
+
+/* Highlights - scrollable */
+.insta-highlights-scroll {
+  overflow-x: auto;
   margin-top: 2rem;
+  padding-bottom: 10px;
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
-.ig-highlight {
+.insta-highlights-scroll::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari */
+}
+
+.insta-highlights {
+  display: flex;
+  gap: 1.2rem;
+  padding-left: 4px;
+}
+
+.insta-highlight {
   text-align: center;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
-.ig-highlight img {
-  width: 70px;
-  height: 70px;
+.insta-highlight img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  border: 2px solid #ccc;
+  border: 2px solid #dbdbdb;
   object-fit: cover;
 }
 
-.ig-highlight p {
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  color: #444;
+.insta-highlight p {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  color: #262626;
+  white-space: nowrap;
 }
 
+/* Responsive design */
 @media (max-width: 600px) {
-  .ig-header {
+  .insta-profile {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .ig-stats {
+  .insta-header-row {
     justify-content: center;
   }
 
-  .ig-username-row {
+  .insta-details {
+    align-items: center;
+    text-align: left;
+  }
+
+  .insta-stats {
     justify-content: center;
   }
 }

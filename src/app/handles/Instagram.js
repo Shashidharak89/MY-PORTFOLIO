@@ -10,27 +10,33 @@ const Instagram = () => {
   };
 
   return (
-    <div className="ig-container">
-      <div className="ig-header">
-        <div className="ig-profile-pic" onClick={handleRedirect}>
+    <div className="insta-wrapper">
+      <div className="insta-topbar">
+        <FaInstagram className="insta-logo-icon" />
+        <span className="insta-title">Instagram</span>
+      </div>
+
+      <div className="insta-profile">
+        <div className="insta-pic-section" onClick={handleRedirect}>
           <img
             src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg"
             alt="Profile"
+            className="insta-avatar"
           />
         </div>
-        <div className="ig-info">
-          <div className="ig-username-row">
-            <h2 className="ig-username">luminous_alpha_</h2>
-            <button className="ig-button" onClick={handleRedirect}>
+        <div className="insta-details">
+          <div className="insta-header-row">
+            <h2 className="insta-username">luminous_alpha_</h2>
+            <button className="insta-button" onClick={handleRedirect}>
               Visit Profile
             </button>
           </div>
-          <div className="ig-stats">
+          <div className="insta-stats">
             <span><strong>3</strong> posts</span>
             <span><strong>4,576</strong> followers</span>
             <span><strong>3,804</strong> following</span>
           </div>
-          <div className="ig-bio">
+          <div className="insta-bio">
             <p><strong>Shashi kulal 🌟</strong></p>
             <p>@luminous_alpha_</p>
             <p>#sacredite</p>
@@ -42,16 +48,18 @@ const Instagram = () => {
         </div>
       </div>
 
-      <div className="ig-highlights">
-        {['FRNDS', '💻🧑‍💻', 'highlight story', 'SHC 🤩', 'REELS 🔥', 'NATURE 🌌🏞️', 'ME ❄️🌀'].map((title, index) => (
-          <div key={index} className="ig-highlight" onClick={handleRedirect}>
-            <img
-              src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg"
-              alt="Highlight"
-            />
-            <p>{title}</p>
-          </div>
-        ))}
+      <div className="insta-highlights-scroll">
+        <div className="insta-highlights">
+          {['FRNDS', '💻🧑‍💻', 'highlight story', 'SHC 🤩', 'REELS 🔥', 'NATURE 🌌🏞️', 'ME ❄️🌀'].map((title, index) => (
+            <div key={index} className="insta-highlight" onClick={handleRedirect}>
+              <img
+                src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg"
+                alt={title}
+              />
+              <p>{title}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
