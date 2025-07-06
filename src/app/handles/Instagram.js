@@ -18,22 +18,22 @@ const Instagram = () => {
     },
     {
       title: '💻🧑‍💻',
-      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0c',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODc3NzY3NTY0OTIxNzIz?story_media_id=3130873057895116997_13282588137&igsh=b3RtbDJvZThhaGRi',
       image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
     },
     {
       title: 'SHC 🤩',
-      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTcyNjg4MjU0NjMzNTE4?story_media_id=3141737469686662180_13282588137&igsh=MTBwcXFtaDBld3dpeA==',
       image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
     },
     {
       title: 'REELS 🔥',
-      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDMwODM0NTkyODc5MTE2?story_media_id=3126410282200230517_13282588137&igsh=MThoaWRmeWU3MG9rYg==',
       image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
     },
     {
       title: 'NATURE 🌌🏞️',
-      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTY4MjY4NTY5ODYyMDE1?story_media_id=2868851949952138910_13282588137&igsh=YWNwenVjbXc0OWJr',
       image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
     },
     {

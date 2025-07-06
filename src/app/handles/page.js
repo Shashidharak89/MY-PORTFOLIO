@@ -6,6 +6,7 @@ import FooterC from 'app/components/FooterC';
 import Github from './Github';
 import GFGProfile from './GFGProfile';
 import Instagram from './Instagram';
+import Linkedin from './Linkedin';
 
 
 
@@ -13,6 +14,7 @@ export default function Projects() {
   return (
     <>
     <Instagram/>
+    <Linkedin/>
       <Navbar />
       <Github/>
       
