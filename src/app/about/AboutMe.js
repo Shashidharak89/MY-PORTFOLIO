@@ -80,7 +80,7 @@ const AboutMe = () => {
             <div className="timeline-item">
               <div className="timeline-marker"></div>
               <div className="timeline-content">
-                <h3 className="education-degree">Bachelor of Computer Science</h3>
+                <h3 className="education-degree">Bachelor of Computer Applications</h3>
                 <p className="education-field">Sacred Heart College, Madanthyar</p>
                 <p className="education-school">Mangalore University</p>
                 <p className="education-year">2022 - 2025</p>
