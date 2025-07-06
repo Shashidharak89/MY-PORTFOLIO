@@ -38,7 +38,7 @@ const Instagram = () => {
     },
     {
       title: 'ME ❄️🌀',
-      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTQwMzgzNjI0Mjc0MTU5?story_media_id=2932852016272679109_13282588137&igsh=NGswNTVpNjJqeDU5',
       image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
     },
   ];
