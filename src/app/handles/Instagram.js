@@ -9,6 +9,40 @@ const Instagram = () => {
     window.open('https://www.instagram.com/luminous_alpha_/', '_blank');
   };
 
+  // List of highlights with specific links (as requested)
+  const highlights = [
+    {
+      title: 'FRNDS',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+    {
+      title: '💻🧑‍💻',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0c',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+    {
+      title: 'SHC 🤩',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+    {
+      title: 'REELS 🔥',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+    {
+      title: 'NATURE 🌌🏞️',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+    {
+      title: 'ME ❄️🌀',
+      link: 'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY1OTQ2ODYxNTMzOTg3?story_media_id=2184297870807367469_13282588137&igsh=MTFod2l0MjFjNGU0cA==',
+      image: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg',
+    },
+  ];
+
   return (
     <div className="insta-wrapper">
       <div className="insta-topbar">
@@ -50,13 +84,14 @@ const Instagram = () => {
 
       <div className="insta-highlights-scroll">
         <div className="insta-highlights">
-          {['FRNDS', '💻🧑‍💻', 'highlight story', 'SHC 🤩', 'REELS 🔥', 'NATURE 🌌🏞️', 'ME ❄️🌀'].map((title, index) => (
-            <div key={index} className="insta-highlight" onClick={handleRedirect}>
-              <img
-                src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg"
-                alt={title}
-              />
-              <p>{title}</p>
+          {highlights.map((hl, index) => (
+            <div
+              key={index}
+              className="insta-highlight"
+              onClick={() => window.open(hl.link, '_blank')}
+            >
+              <img src={hl.image} alt={hl.title} />
+              <p>{hl.title}</p>
             </div>
           ))}
         </div>
