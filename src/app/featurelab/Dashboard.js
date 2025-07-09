@@ -8,7 +8,7 @@ const tools = [
   {
     id: 1,
     name: 'Hashing tool',
-    description: 'A sample tool to demonstrate routing and UI behavior.',
+    description: 'A sample tool to Hash the string using bcryptjs hashing method',
     route: '/featurelab/hash'
   },
   {
