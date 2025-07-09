@@ -1,120 +1,286 @@
-/* Root wrapper */
+/* Dashboard.css */
+
 .flab-dashboard-wrapper {
-  padding: 2rem;
-  background-color: white;
-  font-family: 'Segoe UI', sans-serif;
   min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Title */
+.flab-dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: flab-fade-in 0.8s ease-out;
+}
+
 .flab-dashboard-title {
-  font-size: 2rem;
-  color: black;
   text-align: center;
-  border-bottom: 4px solid red;
-  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+  animation: flab-slide-down 0.6s ease-out;
+}
+
+.flab-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-/* List container */
-.flab-dashboard-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Tool block */
-.flab-tool-block {
-  background-color: #fefefe;
-  border: 2px solid black;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+.flab-tool-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  animation: flab-slide-up 0.6s ease-out;
 }
 
-.flab-tool-block:hover {
+.flab-tool-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.15);
+  border-color: #dc2626;
 }
 
-/* Tool toggle */
-.flab-tool-toggle {
+.flab-tool-header {
   width: 100%;
-  background-color: red;
-  color: white;
-  padding: 1rem;
-  font-size: 1.1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   border: none;
-  text-align: left;
   cursor: pointer;
-  border-radius: 10px 10px 0 0;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.flab-tool-toggle:hover {
-  background-color: #c40000;
+.flab-tool-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+  transition: left 0.5s ease;
 }
 
-.flab-tool-toggle.active {
-  background-color: #900;
+.flab-tool-header:hover::before {
+  left: 100%;
 }
 
-/* Dropdown animation */
-.flab-tool-dropdown {
+.flab-tool-header:hover {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  color: #dc2626;
+}
+
+.flab-tool-header.flab-active {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
+}
+
+.flab-tool-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  z-index: 1;
+  position: relative;
+}
+
+.flab-chevron {
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  position: relative;
+}
+
+.flab-chevron.flab-rotated {
+  transform: rotate(180deg);
+}
+
+.flab-tool-content {
   max-height: 0;
   overflow: hidden;
-  opacity: 0;
-  transform: scaleY(0.9);
-  transform-origin: top;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
 }
 
-.flab-tool-dropdown.open {
-  max-height: 300px;
-  opacity: 1;
-  padding: 1rem;
-  transform: scaleY(1);
-  background-color: #fff;
-  border-top: 1px dashed red;
+.flab-tool-content.flab-expanded {
+  max-height: 200px;
+  border-top: 1px solid rgba(220, 38, 38, 0.1);
 }
 
-/* Description & Visit button */
+.flab-tool-inner {
+  padding: 1.5rem;
+  animation: flab-fade-in 0.4s ease-out 0.2s both;
+}
+
 .flab-tool-description {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  color: black;
-  font-size: 1rem;
-}
-
-.flab-visit-button {
-  align-self: start;
-  background-color: blue;
-  color: white;
-  padding: 0.6rem 1rem;
+  color: #374151;
   font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.flab-visit-btn {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.flab-visit-button:hover {
-  background-color: #0033aa;
+.flab-visit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+.flab-visit-btn:hover::before {
+  left: 100%;
+}
+
+.flab-visit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+}
+
+.flab-visit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+/* Animations */
+@keyframes flab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flab-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flab-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .flab-dashboard-wrapper {
+    padding: 1.5rem 1rem;
+  }
+  
   .flab-dashboard-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
+  
+  .flab-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .flab-tool-header {
+    padding: 1.25rem;
+  }
+  
+  .flab-tool-name {
+    font-size: 1.125rem;
+  }
+  
+  .flab-tool-inner {
+    padding: 1.25rem;
+  }
+  
+  .flab-tool-content.flab-expanded {
+    max-height: 180px;
+  }
+}
 
-  .flab-tool-toggle {
+@media (max-width: 480px) {
+  .flab-dashboard-wrapper {
+    padding: 1rem 0.75rem;
+  }
+  
+  .flab-dashboard-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .flab-dashboard-grid {
+    gap: 0.75rem;
+  }
+  
+  .flab-tool-header {
+    padding: 1rem;
+  }
+  
+  .flab-tool-name {
     font-size: 1rem;
-    padding: 0.8rem;
   }
+  
+  .flab-tool-inner {
+    padding: 1rem;
+  }
+  
+  .flab-visit-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
 
-  .flab-visit-button {
-    font-size: 0.9rem;
-  }
+/* Focus states for accessibility */
+.flab-tool-header:focus,
+.flab-visit-btn:focus {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling for the expanded content */
+.flab-tool-content {
+  scroll-behavior: smooth;
+}
+
+/* Additional hover effects for better UX */
+.flab-tool-card:hover .flab-tool-header:not(.flab-active) {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
 }

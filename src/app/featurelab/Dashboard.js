@@ -45,31 +45,34 @@ export default function Dashboard() {
 
   return (
     <div className="flab-dashboard-wrapper">
-      <h2 className="flab-dashboard-title">🔧 Feature Lab</h2>
-      <div className="flab-dashboard-list">
-        {tools.map((tool) => (
-          <div key={tool.id} className="flab-tool-block">
-            <button
-              className={`flab-tool-toggle ${activeToolId === tool.id ? 'active' : ''}`}
-              onClick={() => toggleTool(tool.id)}
-            >
-              {tool.name}
-            </button>
-            <div className={`flab-tool-dropdown ${activeToolId === tool.id ? 'open' : ''}`}>
-              {activeToolId === tool.id && (
-                <div className="flab-tool-description">
-                  <p>{tool.description}</p>
+      <div className="flab-dashboard-container">
+        <h2 className="flab-dashboard-title">🔧 Feature Lab</h2>
+        <div className="flab-dashboard-grid">
+          {tools.map((tool) => (
+            <div key={tool.id} className="flab-tool-card">
+              <button
+                className={`flab-tool-header ${activeToolId === tool.id ? 'flab-active' : ''}`}
+                onClick={() => toggleTool(tool.id)}
+              >
+                <span className="flab-tool-name">{tool.name}</span>
+                <span className={`flab-chevron ${activeToolId === tool.id ? 'flab-rotated' : ''}`}>
+                  ▼
+                </span>
+              </button>
+              <div className={`flab-tool-content ${activeToolId === tool.id ? 'flab-expanded' : ''}`}>
+                <div className="flab-tool-inner">
+                  <p className="flab-tool-description">{tool.description}</p>
                   <button
-                    className="flab-visit-button"
+                    className="flab-visit-btn"
                     onClick={() => handleVisit(tool.route)}
                   >
-                    Visit
+                    Visit Tool
                   </button>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
