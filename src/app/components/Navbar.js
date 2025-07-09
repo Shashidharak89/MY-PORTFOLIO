@@ -16,8 +16,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       '/projects': 'projects',
       '/skills': 'skills',
       '/resume': 'resume',
-      '/blogs':'blogs',
-      '/handles':'handles',
+      '/blogs': 'blogs',
+      '/handles': 'handles',
+      '/featurelab': 'featurelab',
       '/contact': 'contact'
     };
     setActiveItem(routeToId[pathname] || 'home');
@@ -31,23 +32,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { id: 'resume', label: 'Resume', icon: '📄', route: '/resume' },
     { id: 'blogs', label: 'blogs', icon: '📰', route: '/blogs' },
     { id: 'handles', label: 'Handles', icon: '👨‍💻', route: '/handles' },
+    { id: 'featurelab', label: 'Feature Lab', icon: '👨‍💻', route: '/featurelab' },
     { id: 'contact', label: 'Contact', icon: '📧', route: '/contact' }
   ];
 
   return (
     <>
-      <div 
-        className={`${styles.portfolioSidebarOverlay} ${isOpen ? styles.active : ''}`} 
+      <div
+        className={`${styles.portfolioSidebarOverlay} ${isOpen ? styles.active : ''}`}
         onClick={toggleSidebar}
       />
-      
+
       <div className={`${styles.portfolioSidebarContainer} ${isOpen ? styles.active : ''}`}>
         <div className={styles.portfolioSidebarHeader}>
           <div className={styles.portfolioSidebarBrand}>
             <h1 className={styles.portfolioBrandTitle}>Portfolio</h1>
             <p className={styles.portfolioBrandSubtitle}>Full Stack Developer</p>
           </div>
-          <button 
+          <button
             className={styles.portfolioSidebarClose}
             onClick={toggleSidebar}
             aria-label="Close sidebar"
@@ -105,7 +107,7 @@ const Navbar = () => {
     <>
       <nav className={`${styles.modernPortfolioNavbar} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.modernNavbarContainer}>
-          <Link 
+          <Link
             href="/"
             className={styles.modernNavbarBrand}
             onClick={() => console.log('Navigate to Home')}
@@ -127,8 +129,8 @@ const Navbar = () => {
             >
               {"Let's Connect"}
             </Link>
-            
-            <button 
+
+            <button
               className={`${styles.modernHamburgerMenu} ${isOpen ? styles.active : ''}`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle navigation menu"
