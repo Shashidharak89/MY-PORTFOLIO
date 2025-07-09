@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation';
 const tools = [
   {
     id: 1,
-    name: 'Sample Tool',
+    name: 'Hashing tool',
     description: 'A sample tool to demonstrate routing and UI behavior.',
-    route: '/featurelab/sample'
+    route: '/featurelab/hash'
   },
   {
     id: 2,

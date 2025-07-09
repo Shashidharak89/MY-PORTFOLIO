@@ -1,0 +1,113 @@
+.hash-container {
+  padding: 2rem;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  color: #000;
+}
+
+.hash-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #000;
+  border-bottom: 3px solid red;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.hash-form {
+  max-width: 600px;
+  margin: auto;
+  background: #fefefe;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.hash-input {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid red;
+  margin-bottom: 1.5rem;
+  outline: none;
+}
+
+.hash-options {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hash-checkbox {
+  font-size: 0.95rem;
+  color: #000;
+}
+
+.hash-generate-btn {
+  background-color: red;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hash-generate-btn:hover {
+  background-color: #c40000;
+}
+
+.hash-generate-btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.hash-result {
+  margin-top: 2rem;
+  background: #fff;
+  border: 2px dashed red;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #111;
+  word-break: break-word;
+  font-size: 0.95rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.hash-result.animate {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hash-form {
+    padding: 1.2rem;
+  }
+
+  .hash-title {
+    font-size: 1.5rem;
+  }
+
+  .hash-generate-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
