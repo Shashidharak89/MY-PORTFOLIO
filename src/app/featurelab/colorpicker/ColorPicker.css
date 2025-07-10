@@ -1,0 +1,116 @@
+.cpicker-container {
+  padding: 2rem;
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  color: #000;
+}
+
+.cpicker-title {
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: 3px solid red;
+  margin-bottom: 2rem;
+}
+
+.cpicker-wrapper {
+  max-width: 400px;
+  margin: auto;
+  background-color: #fefefe;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #000;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.cpicker-values {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1rem;
+  border: 2px dashed red;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.cpicker-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.cpicker-row label {
+  font-weight: bold;
+  color: red;
+}
+
+.cpicker-row span {
+  font-family: monospace;
+  color: black;
+}
+
+.cpicker-copy {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cpicker-copy:hover {
+  background-color: #0033aa;
+}
+
+/* Tooltip animation */
+.cpicker-tooltip {
+  background-color: black;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main fade-in for panel */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cpicker-wrapper {
+    padding: 1.5rem;
+  }
+
+  .cpicker-title {
+    font-size: 1.5rem;
+  }
+
+  .cpicker-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
