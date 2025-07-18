@@ -55,8 +55,7 @@ const PortfolioDashboard = () => {
               <span className="portfolio-dashboard-headline-accent">Experiences</span>
             </h1>
             <p className="portfolio-dashboard-description">
-              Crafting seamless web and mobile solutions powered by full-stack development expertise, sharp algorithmic thinking, and an eye for detail. Fueled by a deep curiosity for technology and a strong foundation in data structures and problem-solving, every project becomes a blend of creativity, logic, and performance. Passion meets precision in building scalable applications, tackling real-world challenges, and writing clean, efficient code. Continuously evolving through learning and experimentation, with a relentless drive to transform complex ideas into engaging digital realities — where every click, tap, and interaction delivers impact and innovation.
-            </p>
+              Blending full-stack development and app creation with a passion for problem-solving, clean code, and scalable design. Driven by a strong DSA foundation and curiosity for innovation, every line of code transforms ideas into purposeful, high-impact digital solutions — where logic meets creativity and every interaction delivers meaning.            </p>
             <div className="portfolio-dashboard-cta">
               <Link href="/projects">
                 <button className="portfolio-dashboard-button portfolio-dashboard-button-primary">
