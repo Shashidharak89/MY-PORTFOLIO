@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { HslColorPicker } from 'react-colorful';
-import './colorpicker.css';
+import './ColorPicker.css';
 
 export default function ColorPicker() {
   const [color, setColor] = useState({ h: 0, s: 100, l: 50 });
