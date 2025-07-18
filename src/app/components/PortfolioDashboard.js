@@ -55,9 +55,7 @@ const PortfolioDashboard = () => {
               <span className="portfolio-dashboard-headline-accent">Experiences</span>
             </h1>
             <p className="portfolio-dashboard-description">
-              I craft modern web applications with cutting-edge technologies, 
-              focusing on user experience, performance, and scalable solutions. 
-              Welcome to my digital portfolio where creativity meets functionality.
+              Crafting seamless web and mobile solutions powered by full-stack development expertise, sharp algorithmic thinking, and an eye for detail. Fueled by a deep curiosity for technology and a strong foundation in data structures and problem-solving, every project becomes a blend of creativity, logic, and performance. Passion meets precision in building scalable applications, tackling real-world challenges, and writing clean, efficient code. Continuously evolving through learning and experimentation, with a relentless drive to transform complex ideas into engaging digital realities — where every click, tap, and interaction delivers impact and innovation.
             </p>
             <div className="portfolio-dashboard-cta">
               <Link href="/projects">
@@ -76,8 +74,8 @@ const PortfolioDashboard = () => {
 
         <section className="portfolio-dashboard-stats">
           {stats.map((stat, index) => (
-            <div 
-              key={stat.label} 
+            <div
+              key={stat.label}
               className="portfolio-dashboard-stat-card"
               style={{
                 animation: `portfolio-fadeInUp 0.8s ease-out ${0.2 * (index + 1)}s both`
