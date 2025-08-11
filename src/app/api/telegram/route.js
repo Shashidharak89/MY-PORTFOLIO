@@ -4,36 +4,63 @@ export async function POST(req) {
   try {
     const data = await req.json();
     const chatId = data.message?.chat?.id;
-    const messageText = data.message?.text?.toLowerCase() || "";
+    const messageTextRaw = data.message?.text || "";
+    const messageText = messageTextRaw.toLowerCase();
 
     if (!chatId) {
       return NextResponse.json({ status: "no chat id" });
     }
 
-    // 1️⃣ Keyword: Creator Info
+    // /start command: show intro and commands
+    if (messageText === "/start") {
+      const welcomeMsg =
+        "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
+        "You can try these commands:\n" +
+        "/start - Show this introduction\n" +
+        "Ask me who is my creator!\n" +
+        "Say 'contact' to get creator's contact info.\n" +
+        "Or just type anything else and I'll reply using AI.";
+
+      await sendTelegramMessage(chatId, welcomeMsg);
+      return NextResponse.json({ ok: true });
+    }
+
+    // Creator info keywords
     if (
       messageText.includes("creator") ||
       messageText.includes("father") ||
-      messageText.includes("who made you")
+      messageText.includes("who made you") ||
+      messageText.includes("made you") ||
+      messageText.includes("developer") ||
+      messageText.includes("author")
     ) {
       await sendTelegramMessage(
         chatId,
-        "I was created by *Shashidhara K*, a student of NMAMIT Nitte MCA 1st year."
+        "👤 My creator is *Shashidhara K*, a student of NMAMIT Nitte MCA 1st year.",
+        { parse_mode: "Markdown" }
       );
       return NextResponse.json({ ok: true });
     }
 
-    // 2️⃣ Keyword: Contact Info
-    if (messageText.includes("contact")) {
+    // Contact info keywords
+    if (
+      messageText.includes("contact") ||
+      messageText.includes("reach you") ||
+      messageText.includes("email") ||
+      messageText.includes("telegram") ||
+      messageText.includes("get in touch")
+    ) {
       await sendTelegramMessage(
         chatId,
-        "📩 Contact me:\nEmail: shashidharak334@gmail.com\nTelegram: @shashi_kulal"
+        "📬 You can contact my creator:\n\n" +
+          "📧 Email: shashidharak334@gmail.com\n" +
+          "💬 Telegram: @shashi_kulal"
       );
       return NextResponse.json({ ok: true });
     }
 
-    // 3️⃣ Gemini AI for all other messages
-    const aiReply = await getGeminiResponse(messageText);
+    // Gemini AI fallback
+    const aiReply = await getGeminiResponse(messageTextRaw);
 
     await sendTelegramMessage(chatId, aiReply);
 
@@ -44,20 +71,20 @@ export async function POST(req) {
   }
 }
 
-// 📌 Helper to send a Telegram message
-async function sendTelegramMessage(chatId, text) {
+// Helper: Send message to Telegram
+async function sendTelegramMessage(chatId, text, extra = {}) {
   await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: chatId,
       text,
-      parse_mode: "Markdown"
-    })
+      ...extra,
+    }),
   });
 }
 
-// 📌 Gemini API call
+// Gemini AI call helper
 async function getGeminiResponse(userMessage) {
   try {
     const geminiRes = await fetch(
@@ -68,18 +95,23 @@ async function getGeminiResponse(userMessage) {
         body: JSON.stringify({
           contents: [
             {
-              parts: [{ text: userMessage }]
-            }
-          ]
-        })
+              parts: [{ text: userMessage }],
+            },
+          ],
+        }),
       }
     );
 
     const geminiData = await geminiRes.json();
 
-    return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+    return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
     console.error("Gemini API Error:", error);
     return "Sorry, I had an error processing your request.";
   }
+}
+
+// For health check if needed
+export async function GET() {
+  return NextResponse.json({ status: "Telegram bot webhook is running!" });
 }
