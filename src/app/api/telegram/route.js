@@ -52,6 +52,7 @@ bot.on("text", async (ctx) => {
         "connect with you",
         "get in touch"
       ])
+      
     ) {
       return await bot.telegram.sendMessage(
         chatId,
