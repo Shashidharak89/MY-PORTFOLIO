@@ -24,19 +24,19 @@ bot.on("text", async (ctx) => {
     // Creator info
     if (
       containsAny(userMessage, [
-        "creator",
-        "father",
+        "your creator",
+        "your father",
         "who made you",
         "made you",
         "your parent",
-        "developer",
-        "author",
-        "inventor"
+        "your developer",
+        "your author",
+        "your inventor"
       ])
     ) {
       return await bot.telegram.sendMessage(
         chatId,
-        "My creator is *Shashidhara K*, a student of NMAMIT Nitte MCA 1st year.",
+        "My creator is *Shashidhara K*, a student of NMAMIT Nitte.",
         { parse_mode: "Markdown" }
       );
     }
@@ -44,11 +44,11 @@ bot.on("text", async (ctx) => {
     // Contact info without buttons
     if (
       containsAny(userMessage, [
-        "contact",
+        "want to contact",
         "contact us",
         "reach you",
-        "email",
-        "telegram",
+        "your email",
+        "your telegram id",
         "connect with you",
         "get in touch"
       ])
