@@ -1,26 +1,27 @@
-// app/api/telegram/route.js
 import { NextResponse } from "next/server";
-import { Telegraf, Markup } from "telegraf";
+import { Telegraf } from "telegraf";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// Create the bot
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-// Gemini setup
+// Gemini AI setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// Helper to check if a message contains any keyword
+// Helper to detect if message contains any keyword
 function containsAny(message, keywords) {
   return keywords.some((kw) => message.includes(kw.toLowerCase()));
 }
 
-// Handle incoming messages
+// Handle all text messages
 bot.on("text", async (ctx) => {
   try {
     const userMessage = ctx.message.text.trim().toLowerCase();
-    console.log("Incoming message:", userMessage);
+    const chatId = ctx.chat.id;
 
-    // 1️⃣ Creator-related responses
+    // === Custom Responses ===
+    // Creator info
     if (
       containsAny(userMessage, [
         "creator",
@@ -33,12 +34,14 @@ bot.on("text", async (ctx) => {
         "inventor"
       ])
     ) {
-      return await ctx.reply(
-        "My creator is Shashidhara K, a student of NMAMIT Nitte MCA 1st year."
+      return await bot.telegram.sendMessage(
+        chatId,
+        "My creator is *Shashidhara K*, a student of NMAMIT Nitte MCA 1st year.",
+        { parse_mode: "Markdown" }
       );
     }
 
-    // 2️⃣ Contact-related responses
+    // Contact options
     if (
       containsAny(userMessage, [
         "contact",
@@ -50,42 +53,29 @@ bot.on("text", async (ctx) => {
         "get in touch"
       ])
     ) {
-      return await ctx.reply(
-        "Here are my creator's contact options:",
-        Markup.inlineKeyboard([
-          [
-            Markup.button.url(
-              "📧 Email Shashidhara",
-              "mailto:shashidharak334@gmail.com"
-            ),
-            Markup.button.url(
-              "💬 Message on Telegram",
-              "https://t.me/shashi_kulal"
-            )
+      return await bot.telegram.sendMessage(chatId, "Here are my creator's contact options:", {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: "📧 Email Shashidhara", url: "mailto:shashidharak334@gmail.com" },
+              { text: "💬 Message on Telegram", url: "https://t.me/shashi_kulal" }
+            ]
           ]
-        ])
-      );
+        }
+      });
     }
 
-    // 3️⃣ Postman test mode — return Gemini reply directly
-    if (ctx.chat.id === 123456789) {
-      const result = await model.generateContent(userMessage);
-      const aiReply = result.response.text();
-      console.log("Gemini reply:", aiReply);
-      return;
-    }
-
-    // 4️⃣ Normal Gemini AI response
+    // === Gemini AI fallback ===
     const result = await model.generateContent(userMessage);
     const aiReply = result.response.text();
-    console.log("Gemini reply:", aiReply);
-    await ctx.reply(aiReply);
+    await bot.telegram.sendMessage(chatId, aiReply || "I couldn't think of a reply just now.");
 
   } catch (error) {
     console.error("Error handling message:", error);
-    if (ctx.chat.id !== 123456789) {
-      await ctx.reply("Sorry, I had an error processing your request.");
-    }
+    await bot.telegram.sendMessage(
+      ctx.chat?.id,
+      "Sorry, I had an error processing your request."
+    );
   }
 });
 
@@ -93,58 +83,6 @@ bot.on("text", async (ctx) => {
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("Webhook update:", JSON.stringify(body, null, 2));
-
-    // Postman test mode — respond directly
-    if (
-      body.message &&
-      body.message.chat &&
-      body.message.chat.id === 123456789
-    ) {
-      const userMessage = body.message.text.trim().toLowerCase();
-
-      // Custom responses in Postman too
-      if (
-        containsAny(userMessage, [
-          "creator",
-          "father",
-          "who made you",
-          "made you",
-          "your parent",
-          "developer",
-          "author",
-          "inventor"
-        ])
-      ) {
-        return NextResponse.json({
-          reply:
-            "My creator is Shashidhara K, a student of NMAMIT Nitte MCA 1st year."
-        });
-      }
-
-      if (
-        containsAny(userMessage, [
-          "contact",
-          "contact us",
-          "reach you",
-          "email",
-          "telegram",
-          "connect with you",
-          "get in touch"
-        ])
-      ) {
-        return NextResponse.json({
-          reply: "📧 shashidharak334@gmail.com | 💬 @shashi_kulal"
-        });
-      }
-
-      // Otherwise Gemini
-      const result = await model.generateContent(userMessage);
-      const aiReply = result.response.text();
-      return NextResponse.json({ reply: aiReply });
-    }
-
-    // Normal Telegram update
     await bot.handleUpdate(body);
     return NextResponse.json({ status: "ok" });
   } catch (err) {
@@ -153,7 +91,7 @@ export async function POST(req) {
   }
 }
 
-// GET route for testing if webhook is live
+// Simple GET route for health check
 export async function GET() {
   return NextResponse.json({ status: "Telegram bot webhook is running!" });
 }
