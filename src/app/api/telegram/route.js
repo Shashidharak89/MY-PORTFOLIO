@@ -41,7 +41,7 @@ bot.on("text", async (ctx) => {
       );
     }
 
-    // Contact options
+    // Contact info without buttons
     if (
       containsAny(userMessage, [
         "contact",
@@ -53,16 +53,13 @@ bot.on("text", async (ctx) => {
         "get in touch"
       ])
     ) {
-      return await bot.telegram.sendMessage(chatId, "Here are my creator's contact options:", {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: "📧 Email Shashidhara", url: "mailto:shashidharak334@gmail.com" },
-              { text: "💬 Message on Telegram", url: "https://t.me/shashi_kulal" }
-            ]
-          ]
-        }
-      });
+      return await bot.telegram.sendMessage(
+        chatId,
+        "📬 You can contact my creator here:\n\n" +
+        "📧 Email: [shashidharak334@gmail.com](mailto:shashidharak334@gmail.com)\n" +
+        "💬 Telegram: [@shashi_kulal](https://t.me/shashi_kulal)",
+        { parse_mode: "Markdown" }
+      );
     }
 
     // === Gemini AI fallback ===
@@ -72,10 +69,12 @@ bot.on("text", async (ctx) => {
 
   } catch (error) {
     console.error("Error handling message:", error);
-    await bot.telegram.sendMessage(
-      ctx.chat?.id,
-      "Sorry, I had an error processing your request."
-    );
+    if (ctx.chat?.id) {
+      await bot.telegram.sendMessage(
+        ctx.chat.id,
+        "Sorry, I had an error processing your request."
+      );
+    }
   }
 });
 
