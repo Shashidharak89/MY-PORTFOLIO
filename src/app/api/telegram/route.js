@@ -1,20 +1,41 @@
+import { NextResponse } from "next/server";
 import { Telegraf } from "telegraf";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply("Hello from my portfolio webhook 🚀"));
-bot.on("text", (ctx) => ctx.reply(`You said: ${ctx.message.text}`));
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+// When a message is received
+bot.on("text", async (ctx) => {
+  try {
+    const userMessage = ctx.message.text;
+
+    // Send to Gemini AI
+    const result = await model.generateContent(userMessage);
+    const aiReply = result.response.text();
+
+    // Reply back
+    await ctx.reply(aiReply);
+  } catch (error) {
+    console.error("Gemini error:", error);
+    await ctx.reply("Sorry, I had an error processing your request.");
+  }
+});
 
 export async function POST(req) {
   try {
     const body = await req.json();
     await bot.handleUpdate(body);
+    return NextResponse.json({ status: "ok" });
   } catch (err) {
-    console.error("Error handling Telegram update:", err);
+    console.error(err);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
-  return new Response("OK", { status: 200 });
 }
 
 export async function GET() {
-  return new Response("Telegram bot webhook is running!", { status: 200 });
+  return NextResponse.json({ message: "Telegram bot webhook is running!" });
 }
