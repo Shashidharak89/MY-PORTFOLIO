@@ -104,6 +104,7 @@ async function getGeminiResponse(userMessage) {
 
     const geminiData = await geminiRes.json();
 
+    
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
     console.error("Gemini API Error:", error);
