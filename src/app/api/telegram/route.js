@@ -29,14 +29,14 @@ export async function POST(req) {
       const chatId = data.callback_query.message.chat.id;
       const queryData = data.callback_query.data;
 
-      // Movie list pagination
-      if (queryData.startsWith("show_movie_list")) {
-        const page = parseInt(queryData.split("_")[3] || "0", 10);
+      // Show movie list page
+      if (queryData.startsWith("show_movie_list_page_")) {
+        const page = parseInt(queryData.split("_")[4] || "0", 10);
         await sendMovieList(chatId, page);
         return NextResponse.json({ ok: true });
       }
 
-      // Specific movie click
+      // Movie selection
       if (queryData.startsWith("movie_")) {
         const movieKey = queryData.replace("movie_", "");
         if (MOVIES[movieKey]) {
@@ -70,7 +70,6 @@ export async function POST(req) {
       await sendTelegramMessage(chatId, welcomeMsg, {
         reply_markup: {
           inline_keyboard: [
-            [{ text: "📥 Search Movie", switch_inline_query_current_chat: "$movies-" }],
             [{ text: "🎬 Movie List", callback_data: "show_movie_list_page_0" }],
             [{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }]
           ]
@@ -141,7 +140,7 @@ export async function POST(req) {
   }
 }
 
-// Send movie list with pagination
+// Paginated movie list
 async function sendMovieList(chatId, page = 0) {
   const movieTitles = Object.keys(MOVIES);
   const pageSize = 7;
@@ -157,17 +156,14 @@ async function sendMovieList(chatId, page = 0) {
   if (start + pageSize < movieTitles.length)
     navigationButtons.push({ text: "Next ➡", callback_data: `show_movie_list_page_${page + 1}` });
 
-  const extraButtons = [
-    [{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }],
-    [{ text: "🎬 Movie List", callback_data: "show_movie_list_page_0" }]
-  ];
+  const extraButtons = [[{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }]];
 
-  await sendTelegramMessage(chatId, "📜 Available Movies:", {
+  await sendTelegramMessage(chatId, `📜 Available Movies (Page ${page + 1}):`, {
     reply_markup: { inline_keyboard: [...movieButtons, navigationButtons, ...extraButtons] }
   });
 }
 
-// Send Telegram message
+// Send message to Telegram
 async function sendTelegramMessage(chatId, text, extra = {}) {
   await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -176,7 +172,7 @@ async function sendTelegramMessage(chatId, text, extra = {}) {
   });
 }
 
-// Gemini AI call
+// Gemini AI
 async function getGeminiResponse(userMessage) {
   try {
     const geminiRes = await fetch(
@@ -187,7 +183,6 @@ async function getGeminiResponse(userMessage) {
         body: JSON.stringify({ contents: [{ parts: [{ text: userMessage }] }] })
       }
     );
-
     const geminiData = await geminiRes.json();
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
