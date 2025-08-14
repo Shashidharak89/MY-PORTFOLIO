@@ -1,39 +1,50 @@
 import { NextResponse } from "next/server";
 
-// Movie database (title: link)
+// Movie database
 const MOVIES = {
   "we can be heroes ep1": "https://t.me/webseriesang/213",
   "we can be heroes ep2": "https://t.me/webseriesang/214",
   "inception": "https://t.me/webseriesang/999",
   "avatar": "https://t.me/webseriesang/888",
-  "movie 5": "https://t.me/webseriesang/111",
-  "movie 6": "https://t.me/webseriesang/112",
-  "movie 7": "https://t.me/webseriesang/113",
-  "movie 8": "https://t.me/webseriesang/114",
-  "movie 9": "https://t.me/webseriesang/115",
-  "movie 10": "https://t.me/webseriesang/116",
-  "movie 11": "https://t.me/webseriesang/117"
+  "matrix": "https://t.me/webseriesang/777",
+  "interstellar": "https://t.me/webseriesang/666",
+  "spiderman": "https://t.me/webseriesang/555",
+  "batman": "https://t.me/webseriesang/444",
+  "iron man": "https://t.me/webseriesang/333",
+  "superman": "https://t.me/webseriesang/222",
+  "thor": "https://t.me/webseriesang/111"
 };
 
-const PAGE_SIZE = 7; // Max movies per message
+// Pagination helper
+function getPaginatedMovies(movieKeys, page = 1, pageSize = 7) {
+  const start = (page - 1) * pageSize;
+  const paginated = movieKeys.slice(start, start + pageSize);
+  const totalPages = Math.ceil(movieKeys.length / pageSize);
+  return { paginated, totalPages };
+}
 
 export async function POST(req) {
   try {
     const data = await req.json();
 
-    // Handle button clicks
+    // Handle button clicks (callback queries)
     if (data.callback_query) {
       const chatId = data.callback_query.message.chat.id;
       const queryData = data.callback_query.data;
 
-      // Pagination for movie search
-      if (queryData.startsWith("page_")) {
-        const [, searchTerm, page] = queryData.split("|");
-        await sendMoviePage(chatId, searchTerm, parseInt(page, 10));
+      // Pagination for movie list
+      if (queryData.startsWith("movie_page_")) {
+        const [_, pageStr, searchTerm] = queryData.split("_");
+        const page = parseInt(pageStr);
+        const matches = searchTerm === "all"
+          ? Object.keys(MOVIES)
+          : Object.keys(MOVIES).filter((t) => t.includes(searchTerm));
+
+        await sendPaginatedMovieList(chatId, matches, page, searchTerm);
         return NextResponse.json({ ok: true });
       }
 
-      // Movie link send
+      // Handle specific movie click
       if (queryData.startsWith("movie_")) {
         const movieKey = queryData.replace("movie_", "");
         if (MOVIES[movieKey]) {
@@ -49,19 +60,28 @@ export async function POST(req) {
     const messageTextRaw = data.message?.text || "";
     const messageText = messageTextRaw.toLowerCase();
 
-    if (!chatId) return NextResponse.json({ status: "no chat id" });
+    if (!chatId) {
+      return NextResponse.json({ status: "no chat id" });
+    }
 
-    // Start command — show join channel message but still allow use
+    // Start command
     if (messageText === "/start") {
       const welcomeMsg =
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
-        "ℹ You can support us by joining our channel: https://t.me/webseriesang\n\n" +
         "Commands:\n" +
+        "/start - Show this introduction\n" +
         "$movies-<movie/series name> - Search and download\n" +
         "Ask 'who is my creator'\n" +
         "Say 'contact' to get my creator's info";
 
-      await sendTelegramMessage(chatId, welcomeMsg);
+      await sendTelegramMessage(chatId, welcomeMsg, {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }],
+            [{ text: "🎬 Movie List", callback_data: "movie_page_1_all" }]
+          ]
+        }
+      });
       return NextResponse.json({ ok: true });
     }
 
@@ -99,10 +119,16 @@ export async function POST(req) {
       return NextResponse.json({ ok: true });
     }
 
-    // Movies search with $movies-
-    if (messageText.startsWith("$movies-")) {
-      const searchTerm = messageTextRaw.substring(8).trim().toLowerCase();
-      await sendMoviePage(chatId, searchTerm, 0);
+    // Movies command
+    if (messageText.startsWith("$movies-") || messageText.startsWith("@shashiai_bot $movies-")) {
+      const searchTerm = messageTextRaw.replace("@shashiai_bot", "").substring(8).trim().toLowerCase();
+      const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
+
+      if (matches.length === 0) {
+        await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
+      } else {
+        await sendPaginatedMovieList(chatId, matches, 1, searchTerm);
+      }
       return NextResponse.json({ ok: true });
     }
 
@@ -117,28 +143,26 @@ export async function POST(req) {
   }
 }
 
-// Send a page of movies
-async function sendMoviePage(chatId, searchTerm, page) {
-  const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
-  if (matches.length === 0) {
-    await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
-    return;
-  }
-
-  const start = page * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
-  const pageMovies = matches.slice(start, end);
-
-  const buttons = pageMovies.map((title) => [{ text: title, callback_data: `movie_${title}` }]);
+// Send paginated movie list
+async function sendPaginatedMovieList(chatId, movieKeys, page, searchTerm) {
+  const { paginated, totalPages } = getPaginatedMovies(movieKeys, page, 7);
+  const movieButtons = paginated.map((title) => [
+    { text: title, callback_data: `movie_${title}` }
+  ]);
 
   const navButtons = [];
-  if (page > 0) navButtons.push({ text: "⬅ Prev", callback_data: `page_${searchTerm}|${page - 1}` });
-  if (end < matches.length) navButtons.push({ text: "Next ➡", callback_data: `page_${searchTerm}|${page + 1}` });
+  if (page > 1) navButtons.push({ text: "⬅ Prev", callback_data: `movie_page_${page - 1}_${searchTerm}` });
+  if (page < totalPages) navButtons.push({ text: "Next ➡", callback_data: `movie_page_${page + 1}_${searchTerm}` });
 
-  if (navButtons.length > 0) buttons.push(navButtons);
-
-  await sendTelegramMessage(chatId, `📜 Found ${matches.length} results: (Page ${page + 1})`, {
-    reply_markup: { inline_keyboard: buttons }
+  await sendTelegramMessage(chatId, `📜 Found ${movieKeys.length} result(s):`, {
+    reply_markup: {
+      inline_keyboard: [
+        ...movieButtons,
+        navButtons.length ? navButtons : [],
+        [{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }],
+        [{ text: "🎬 Movie List", callback_data: "movie_page_1_all" }]
+      ].filter((row) => row.length > 0)
+    }
   });
 }
 
@@ -160,10 +184,11 @@ async function getGeminiResponse(userMessage) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: userMessage }] } ]
+          contents: [{ parts: [{ text: userMessage }] }]
         })
       }
     );
+
     const geminiData = await geminiRes.json();
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
