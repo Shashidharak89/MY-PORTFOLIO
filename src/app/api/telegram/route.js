@@ -8,6 +8,8 @@ const MOVIES = {
   "avatar": "https://t.me/webseriesang/888"
 };
 
+const CHANNEL_USERNAME = "@webseriesang"; // Channel username without https link
+
 export async function POST(req) {
   try {
     const data = await req.json();
@@ -16,6 +18,21 @@ export async function POST(req) {
     if (data.callback_query) {
       const chatId = data.callback_query.message.chat.id;
       const queryData = data.callback_query.data;
+
+      // Retry join check
+      if (queryData.startsWith("retry_movie_")) {
+        const movieKey = queryData.replace("retry_movie_", "");
+        if (await isUserInChannel(chatId)) {
+          if (MOVIES[movieKey]) {
+            await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
+          } else {
+            await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+          }
+        } else {
+          await sendJoinMessage(chatId);
+        }
+        return NextResponse.json({ ok: true });
+      }
 
       // Show movie list
       if (queryData === "show_movie_list") {
@@ -31,10 +48,14 @@ export async function POST(req) {
       // Handle specific movie click
       if (queryData.startsWith("movie_")) {
         const movieKey = queryData.replace("movie_", "");
-        if (MOVIES[movieKey]) {
-          await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
+        if (await isUserInChannel(chatId)) {
+          if (MOVIES[movieKey]) {
+            await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
+          } else {
+            await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+          }
         } else {
-          await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+          await sendJoinMessage(chatId, movieKey);
         }
         return NextResponse.json({ ok: true });
       }
@@ -108,9 +129,14 @@ export async function POST(req) {
     }
 
     // Movies command
-    if (messageText.startsWith("$movies-")||messageText.startsWith("@shashiai_bot $movies-")) {
-      const searchTerm = messageTextRaw.substring(8).trim().toLowerCase();
+    if (messageText.startsWith("$movies-") || messageText.startsWith("@shashiai_bot $movies-")) {
+      const searchTerm = messageTextRaw.replace("@shashiai_bot", "").substring(8).trim().toLowerCase();
       const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
+
+      if (!(await isUserInChannel(chatId))) {
+        await sendJoinMessage(chatId);
+        return NextResponse.json({ ok: true });
+      }
 
       if (matches.length === 0) {
         await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
@@ -136,6 +162,36 @@ export async function POST(req) {
     console.error("Bot error:", err);
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
+}
+
+// Check if user is in channel
+async function isUserInChannel(userId) {
+  const res = await fetch(
+    `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getChatMember?chat_id=${CHANNEL_USERNAME}&user_id=${userId}`
+  );
+  const data = await res.json();
+  if (!data.ok) return false;
+  const status = data.result.status;
+  return ["member", "administrator", "creator"].includes(status);
+}
+
+// Send join channel message
+async function sendJoinMessage(chatId, movieKey = null) {
+  const extra = {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }],
+        movieKey
+          ? [{ text: "✅ I've Joined", callback_data: `retry_movie_${movieKey}` }]
+          : []
+      ].filter((row) => row.length > 0)
+    }
+  };
+  await sendTelegramMessage(
+    chatId,
+    "🚫 You must join our channel to download movies.",
+    extra
+  );
 }
 
 // Send Telegram message
