@@ -20,6 +20,9 @@ const MOVIES = {
   "movie 16": "https://t.me/webseriesang/122"
 };
 
+// Store search results in memory (for pagination)
+const searchSessions = {};
+
 export async function POST(req) {
   try {
     const data = await req.json();
@@ -29,10 +32,21 @@ export async function POST(req) {
       const chatId = data.callback_query.message.chat.id;
       const queryData = data.callback_query.data;
 
-      // Show movie list page
+      // Movie list page (full list)
       if (queryData.startsWith("show_movie_list_page_")) {
         const page = parseInt(queryData.split("_")[4] || "0", 10);
         await sendMovieList(chatId, page);
+        return NextResponse.json({ ok: true });
+      }
+
+      // Search results page
+      if (queryData.startsWith("search_page_")) {
+        const [_, __, chatKey, pageStr] = queryData.split("_");
+        const page = parseInt(pageStr, 10);
+        const searchKey = `${chatId}_${chatKey}`;
+        if (searchSessions[searchKey]) {
+          await sendSearchResults(chatId, searchSessions[searchKey], chatKey, page);
+        }
         return NextResponse.json({ ok: true });
       }
 
@@ -118,13 +132,11 @@ export async function POST(req) {
 
       if (matches.length === 0) {
         await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
-      } else if (matches.length === 1) {
-        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[matches[0]]}`);
       } else {
-        const movieButtons = matches.map((title) => [{ text: title, callback_data: `movie_${title}` }]);
-        await sendTelegramMessage(chatId, `📜 Found ${matches.length} results:`, {
-          reply_markup: { inline_keyboard: movieButtons }
-        });
+        // Store search in session
+        const searchKey = Date.now().toString();
+        searchSessions[`${chatId}_${searchKey}`] = matches;
+        await sendSearchResults(chatId, matches, searchKey, 0);
       }
       return NextResponse.json({ ok: true });
     }
@@ -140,26 +152,36 @@ export async function POST(req) {
   }
 }
 
-// Paginated movie list
+// Paginated full movie list
 async function sendMovieList(chatId, page = 0) {
   const movieTitles = Object.keys(MOVIES);
+  await sendPaginatedList(chatId, movieTitles, page, "show_movie_list_page_");
+}
+
+// Paginated search results
+async function sendSearchResults(chatId, matches, searchKey, page = 0) {
+  await sendPaginatedList(chatId, matches, page, `search_page_${searchKey}_`);
+}
+
+// Generic pagination sender
+async function sendPaginatedList(chatId, items, page, callbackPrefix) {
   const pageSize = 7;
   const start = page * pageSize;
-  const paginatedMovies = movieTitles.slice(start, start + pageSize);
+  const paginated = items.slice(start, start + pageSize);
 
-  const movieButtons = paginatedMovies.map((title) => [
+  const buttons = paginated.map((title) => [
     { text: title, callback_data: `movie_${title}` }
   ]);
 
   const navigationButtons = [];
-  if (page > 0) navigationButtons.push({ text: "⬅ Prev", callback_data: `show_movie_list_page_${page - 1}` });
-  if (start + pageSize < movieTitles.length)
-    navigationButtons.push({ text: "Next ➡", callback_data: `show_movie_list_page_${page + 1}` });
+  if (page > 0) navigationButtons.push({ text: "⬅ Prev", callback_data: `${callbackPrefix}${page - 1}` });
+  if (start + pageSize < items.length)
+    navigationButtons.push({ text: "Next ➡", callback_data: `${callbackPrefix}${page + 1}` });
 
   const extraButtons = [[{ text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }]];
 
-  await sendTelegramMessage(chatId, `📜 Available Movies (Page ${page + 1}):`, {
-    reply_markup: { inline_keyboard: [...movieButtons, navigationButtons, ...extraButtons] }
+  await sendTelegramMessage(chatId, `📜 Results (Page ${page + 1}):`, {
+    reply_markup: { inline_keyboard: [...buttons, navigationButtons, ...extraButtons] }
   });
 }
 
