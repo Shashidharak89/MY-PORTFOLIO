@@ -108,7 +108,7 @@ export async function POST(req) {
     }
 
     // Movies command
-    if (messageText.startsWith("$movies-")) {
+    if (messageText.startsWith("$movies-")||messageText.startsWith("@shashiai_bot $movies-")) {
       const searchTerm = messageTextRaw.substring(8).trim().toLowerCase();
       const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
 
