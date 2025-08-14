@@ -17,7 +17,7 @@ export async function POST(req) {
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
         "You can try these commands:\n" +
         "/start - Show this introduction\n" +
-        "$movies-<movie or web series name> - to get the download file\n"
+        "$movies-<movie or web series name> - to get the download link\n" +
         "Ask me who is my creator!\n" +
         "Say 'contact' to get creator's contact info.\n" +
         "Or just type anything else and I'll reply using AI.";
@@ -60,9 +60,21 @@ export async function POST(req) {
       return NextResponse.json({ ok: true });
     }
 
+    // Movies command: $movies-<title>
+    if (messageText.startsWith("$movies-")) {
+      const movieName = messageTextRaw.substring(8).trim().toLowerCase();
+
+      // In future, you can map multiple movies to links
+      if (movieName === "we can be heroes") {
+        await sendTelegramMessage(chatId, "🎬 Here’s your link: https://t.me/webseriesang/213");
+      } else {
+        await sendTelegramMessage(chatId, `❌ Sorry, I don't have the movie "${movieName}" in my list.`);
+      }
+      return NextResponse.json({ ok: true });
+    }
+
     // Gemini AI fallback
     const aiReply = await getGeminiResponse(messageTextRaw);
-
     await sendTelegramMessage(chatId, aiReply);
 
     return NextResponse.json({ ok: true });
@@ -105,7 +117,6 @@ async function getGeminiResponse(userMessage) {
 
     const geminiData = await geminiRes.json();
 
-    
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
     console.error("Gemini API Error:", error);
