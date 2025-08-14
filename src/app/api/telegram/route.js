@@ -1,29 +1,43 @@
 import { NextResponse } from "next/server";
 
-// Movie list with links
+// Movie database (title: link)
 const MOVIES = {
-  "we can be heroes": "https://t.me/webseriesang/213",
-  "we can be hero": "https://t.me/webseriesang/213",
-  "inception": "https://t.me/webseriesang/999", // Example
-  "avatar": "https://t.me/webseriesang/888" // Example
+  "we can be heroes ep1": "https://t.me/webseriesang/213",
+  "we can be heroes ep2": "https://t.me/webseriesang/214",
+  "inception": "https://t.me/webseriesang/999",
+  "avatar": "https://t.me/webseriesang/888"
 };
 
 export async function POST(req) {
   try {
     const data = await req.json();
 
-    // Handle callback queries (button clicks)
+    // Handle button clicks (callback queries)
     if (data.callback_query) {
       const chatId = data.callback_query.message.chat.id;
-      const movieKey = data.callback_query.data;
+      const queryData = data.callback_query.data;
 
-      if (MOVIES[movieKey]) {
-        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
-      } else {
-        await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+      // Show movie list
+      if (queryData === "show_movie_list") {
+        const movieButtons = Object.keys(MOVIES).map((title) => [
+          { text: title, callback_data: `movie_${title}` }
+        ]);
+        await sendTelegramMessage(chatId, "📜 Available Movies:", {
+          reply_markup: { inline_keyboard: movieButtons }
+        });
+        return NextResponse.json({ ok: true });
       }
 
-      return NextResponse.json({ ok: true });
+      // Handle specific movie click
+      if (queryData.startsWith("movie_")) {
+        const movieKey = queryData.replace("movie_", "");
+        if (MOVIES[movieKey]) {
+          await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
+        } else {
+          await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+        }
+        return NextResponse.json({ ok: true });
+      }
     }
 
     const chatId = data.message?.chat?.id;
@@ -34,47 +48,27 @@ export async function POST(req) {
       return NextResponse.json({ status: "no chat id" });
     }
 
-    // /start command: Show intro with buttons
+    // Start command
     if (messageText === "/start") {
       const welcomeMsg =
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
-        "You can try these commands:\n" +
+        "Commands:\n" +
         "/start - Show this introduction\n" +
-        "$movies-<movie or web series name> - to get the download link\n" +
-        "Ask me who is my creator!\n" +
-        "Say 'contact' to get creator's contact info.\n" +
-        "Or just type anything else and I'll reply using AI.";
+        "$movies-<movie/series name> - Search and download\n" +
+        "Ask 'who is my creator'\n" +
+        "Say 'contact' to get my creator's info";
 
       await sendTelegramMessage(chatId, welcomeMsg, {
         reply_markup: {
           inline_keyboard: [
             [
-              {
-                text: "📥 Search Movie",
-                switch_inline_query_current_chat: "$movies-"
-              }
+              { text: "📥 Search Movie", switch_inline_query_current_chat: "$movies-" }
             ],
             [
-              {
-                text: "🎬 Movie List",
-                callback_data: "show_movie_list"
-              }
+              { text: "🎬 Movie List", callback_data: "show_movie_list" }
             ]
           ]
         }
-      });
-
-      return NextResponse.json({ ok: true });
-    }
-
-    // Movie list button clicked
-    if (messageText === "show_movie_list") {
-      const movieButtons = Object.keys(MOVIES).map((title) => [
-        { text: title, callback_data: title.toLowerCase() }
-      ]);
-
-      await sendTelegramMessage(chatId, "📜 Available Movies:", {
-        reply_markup: { inline_keyboard: movieButtons }
       });
       return NextResponse.json({ ok: true });
     }
@@ -106,20 +100,29 @@ export async function POST(req) {
     ) {
       await sendTelegramMessage(
         chatId,
-        "📬 You can contact my creator:\n\n" +
+        "📬 Contact my creator:\n" +
           "📧 Email: shashidharak334@gmail.com\n" +
           "💬 Telegram: @shashi_kulal"
       );
       return NextResponse.json({ ok: true });
     }
 
-    // Movies command: $movies-
+    // Movies command
     if (messageText.startsWith("$movies-")) {
-      const movieName = messageTextRaw.substring(8).trim().toLowerCase();
-      if (MOVIES[movieName]) {
-        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieName]}`);
+      const searchTerm = messageTextRaw.substring(8).trim().toLowerCase();
+      const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
+
+      if (matches.length === 0) {
+        await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
+      } else if (matches.length === 1) {
+        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[matches[0]]}`);
       } else {
-        await sendTelegramMessage(chatId, `❌ Sorry, I don't have the movie "${movieName}" in my list.`);
+        const movieButtons = matches.map((title) => [
+          { text: title, callback_data: `movie_${title}` }
+        ]);
+        await sendTelegramMessage(chatId, `📜 Found ${matches.length} results:`, {
+          reply_markup: { inline_keyboard: movieButtons }
+        });
       }
       return NextResponse.json({ ok: true });
     }
@@ -140,11 +143,7 @@ async function sendTelegramMessage(chatId, text, extra = {}) {
   await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      ...extra
-    })
+    body: JSON.stringify({ chat_id: chatId, text, ...extra })
   });
 }
 
@@ -157,11 +156,7 @@ async function getGeminiResponse(userMessage) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [
-            {
-              parts: [{ text: userMessage }]
-            }
-          ]
+          contents: [{ parts: [{ text: userMessage }] }]
         })
       }
     );
