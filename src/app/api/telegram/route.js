@@ -5,30 +5,35 @@ const MOVIES = {
   "we can be heroes ep1": "https://t.me/webseriesang/213",
   "we can be heroes ep2": "https://t.me/webseriesang/214",
   "inception": "https://t.me/webseriesang/999",
-  "avatar": "https://t.me/webseriesang/888"
+  "avatar": "https://t.me/webseriesang/888",
+  "movie 5": "https://t.me/webseriesang/111",
+  "movie 6": "https://t.me/webseriesang/112",
+  "movie 7": "https://t.me/webseriesang/113",
+  "movie 8": "https://t.me/webseriesang/114",
+  "movie 9": "https://t.me/webseriesang/115",
+  "movie 10": "https://t.me/webseriesang/116",
+  "movie 11": "https://t.me/webseriesang/117"
 };
+
+const PAGE_SIZE = 7; // Max movies per message
 
 export async function POST(req) {
   try {
     const data = await req.json();
 
-    // Handle button clicks (callback queries)
+    // Handle button clicks
     if (data.callback_query) {
       const chatId = data.callback_query.message.chat.id;
       const queryData = data.callback_query.data;
 
-      // Show movie list
-      if (queryData === "show_movie_list") {
-        const movieButtons = Object.keys(MOVIES).map((title) => [
-          { text: title, callback_data: `movie_${title}` }
-        ]);
-        await sendTelegramMessage(chatId, "📜 Available Movies:", {
-          reply_markup: { inline_keyboard: movieButtons }
-        });
+      // Pagination for movie search
+      if (queryData.startsWith("page_")) {
+        const [, searchTerm, page] = queryData.split("|");
+        await sendMoviePage(chatId, searchTerm, parseInt(page, 10));
         return NextResponse.json({ ok: true });
       }
 
-      // Handle specific movie click
+      // Movie link send
       if (queryData.startsWith("movie_")) {
         const movieKey = queryData.replace("movie_", "");
         if (MOVIES[movieKey]) {
@@ -44,33 +49,19 @@ export async function POST(req) {
     const messageTextRaw = data.message?.text || "";
     const messageText = messageTextRaw.toLowerCase();
 
-    if (!chatId) {
-      return NextResponse.json({ status: "no chat id" });
-    }
+    if (!chatId) return NextResponse.json({ status: "no chat id" });
 
-    // Start command — show join channel message but don't block access
+    // Start command — show join channel message but still allow use
     if (messageText === "/start") {
       const welcomeMsg =
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
-        "📢 Join our channel for updates: https://t.me/webseriesang\n\n" +
+        "ℹ You can support us by joining our channel: https://t.me/webseriesang\n\n" +
         "Commands:\n" +
-        "/start - Show this introduction\n" +
-        "/movies <movie name> - Search and download\n" +
+        "$movies-<movie/series name> - Search and download\n" +
         "Ask 'who is my creator'\n" +
         "Say 'contact' to get my creator's info";
 
-      await sendTelegramMessage(chatId, welcomeMsg, {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: "📢 Join Our Channel", url: "https://t.me/webseriesang" }
-            ],
-            [
-              { text: "🎬 Movie List", callback_data: "show_movie_list" }
-            ]
-          ]
-        }
-      });
+      await sendTelegramMessage(chatId, welcomeMsg);
       return NextResponse.json({ ok: true });
     }
 
@@ -108,25 +99,10 @@ export async function POST(req) {
       return NextResponse.json({ ok: true });
     }
 
-    // Movies command — /movies <name>
-    if (messageText.startsWith("/movies ")) {
+    // Movies search with $movies-
+    if (messageText.startsWith("$movies-")) {
       const searchTerm = messageTextRaw.substring(8).trim().toLowerCase();
-      const matches = Object.keys(MOVIES).filter((title) =>
-        title.includes(searchTerm)
-      );
-
-      if (matches.length === 0) {
-        await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
-      } else if (matches.length === 1) {
-        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[matches[0]]}`);
-      } else {
-        const movieButtons = matches.map((title) => [
-          { text: title, callback_data: `movie_${title}` }
-        ]);
-        await sendTelegramMessage(chatId, `📜 Found ${matches.length} results:`, {
-          reply_markup: { inline_keyboard: movieButtons }
-        });
-      }
+      await sendMoviePage(chatId, searchTerm, 0);
       return NextResponse.json({ ok: true });
     }
 
@@ -139,6 +115,31 @@ export async function POST(req) {
     console.error("Bot error:", err);
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
+}
+
+// Send a page of movies
+async function sendMoviePage(chatId, searchTerm, page) {
+  const matches = Object.keys(MOVIES).filter((title) => title.includes(searchTerm));
+  if (matches.length === 0) {
+    await sendTelegramMessage(chatId, `❌ No movies found for "${searchTerm}"`);
+    return;
+  }
+
+  const start = page * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+  const pageMovies = matches.slice(start, end);
+
+  const buttons = pageMovies.map((title) => [{ text: title, callback_data: `movie_${title}` }]);
+
+  const navButtons = [];
+  if (page > 0) navButtons.push({ text: "⬅ Prev", callback_data: `page_${searchTerm}|${page - 1}` });
+  if (end < matches.length) navButtons.push({ text: "Next ➡", callback_data: `page_${searchTerm}|${page + 1}` });
+
+  if (navButtons.length > 0) buttons.push(navButtons);
+
+  await sendTelegramMessage(chatId, `📜 Found ${matches.length} results: (Page ${page + 1})`, {
+    reply_markup: { inline_keyboard: buttons }
+  });
 }
 
 // Send Telegram message
@@ -159,11 +160,10 @@ async function getGeminiResponse(userMessage) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: userMessage }] }]
+          contents: [{ parts: [{ text: userMessage }] } ]
         })
       }
     );
-
     const geminiData = await geminiRes.json();
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
