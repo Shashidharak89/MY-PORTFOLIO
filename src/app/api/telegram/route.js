@@ -17,6 +17,7 @@ export async function POST(req) {
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
         "You can try these commands:\n" +
         "/start - Show this introduction\n" +
+        "$movies-<movie or web series name> - to get the download file\n"
         "Ask me who is my creator!\n" +
         "Say 'contact' to get creator's contact info.\n" +
         "Or just type anything else and I'll reply using AI.";
