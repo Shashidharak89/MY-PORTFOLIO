@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 // Movie list with links
 const MOVIES = {
   "we can be heroes": "https://t.me/webseriesang/213",
+  "we can be hero": "https://t.me/webseriesang/213",
   "inception": "https://t.me/webseriesang/999", // Example
   "avatar": "https://t.me/webseriesang/888" // Example
 };
