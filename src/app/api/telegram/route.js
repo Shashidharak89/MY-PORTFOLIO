@@ -1,8 +1,30 @@
 import { NextResponse } from "next/server";
 
+// Movie list with links
+const MOVIES = {
+  "we can be heroes": "https://t.me/webseriesang/213",
+  "inception": "https://t.me/webseriesang/999", // Example
+  "avatar": "https://t.me/webseriesang/888" // Example
+};
+
 export async function POST(req) {
   try {
     const data = await req.json();
+
+    // Handle callback queries (button clicks)
+    if (data.callback_query) {
+      const chatId = data.callback_query.message.chat.id;
+      const movieKey = data.callback_query.data;
+
+      if (MOVIES[movieKey]) {
+        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieKey]}`);
+      } else {
+        await sendTelegramMessage(chatId, "❌ Sorry, that movie is not available.");
+      }
+
+      return NextResponse.json({ ok: true });
+    }
+
     const chatId = data.message?.chat?.id;
     const messageTextRaw = data.message?.text || "";
     const messageText = messageTextRaw.toLowerCase();
@@ -11,7 +33,7 @@ export async function POST(req) {
       return NextResponse.json({ status: "no chat id" });
     }
 
-    // /start command: show intro and commands
+    // /start command: Show intro with buttons
     if (messageText === "/start") {
       const welcomeMsg =
         "👋 Welcome! I am your AI-powered Telegram bot.\n\n" +
@@ -22,11 +44,41 @@ export async function POST(req) {
         "Say 'contact' to get creator's contact info.\n" +
         "Or just type anything else and I'll reply using AI.";
 
-      await sendTelegramMessage(chatId, welcomeMsg);
+      await sendTelegramMessage(chatId, welcomeMsg, {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "📥 Search Movie",
+                switch_inline_query_current_chat: "$movies-"
+              }
+            ],
+            [
+              {
+                text: "🎬 Movie List",
+                callback_data: "show_movie_list"
+              }
+            ]
+          ]
+        }
+      });
+
       return NextResponse.json({ ok: true });
     }
 
-    // Creator info keywords
+    // Movie list button clicked
+    if (messageText === "show_movie_list") {
+      const movieButtons = Object.keys(MOVIES).map((title) => [
+        { text: title, callback_data: title.toLowerCase() }
+      ]);
+
+      await sendTelegramMessage(chatId, "📜 Available Movies:", {
+        reply_markup: { inline_keyboard: movieButtons }
+      });
+      return NextResponse.json({ ok: true });
+    }
+
+    // Creator info
     if (
       messageText.includes("creator") ||
       messageText.includes("father") ||
@@ -43,7 +95,7 @@ export async function POST(req) {
       return NextResponse.json({ ok: true });
     }
 
-    // Contact info keywords
+    // Contact info
     if (
       messageText.includes("contact") ||
       messageText.includes("reach you") ||
@@ -60,20 +112,18 @@ export async function POST(req) {
       return NextResponse.json({ ok: true });
     }
 
-    // Movies command: $movies-<title>
+    // Movies command: $movies-
     if (messageText.startsWith("$movies-")) {
       const movieName = messageTextRaw.substring(8).trim().toLowerCase();
-
-      // In future, you can map multiple movies to links
-      if (movieName === "we can be heroes") {
-        await sendTelegramMessage(chatId, "🎬 Here’s your link: https://t.me/webseriesang/213");
+      if (MOVIES[movieName]) {
+        await sendTelegramMessage(chatId, `🎬 Here’s your link: ${MOVIES[movieName]}`);
       } else {
         await sendTelegramMessage(chatId, `❌ Sorry, I don't have the movie "${movieName}" in my list.`);
       }
       return NextResponse.json({ ok: true });
     }
 
-    // Gemini AI fallback
+    // AI fallback
     const aiReply = await getGeminiResponse(messageTextRaw);
     await sendTelegramMessage(chatId, aiReply);
 
@@ -84,7 +134,7 @@ export async function POST(req) {
   }
 }
 
-// Helper: Send message to Telegram
+// Send Telegram message
 async function sendTelegramMessage(chatId, text, extra = {}) {
   await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -92,12 +142,12 @@ async function sendTelegramMessage(chatId, text, extra = {}) {
     body: JSON.stringify({
       chat_id: chatId,
       text,
-      ...extra,
-    }),
+      ...extra
+    })
   });
 }
 
-// Gemini AI call helper
+// Gemini AI call
 async function getGeminiResponse(userMessage) {
   try {
     const geminiRes = await fetch(
@@ -108,15 +158,14 @@ async function getGeminiResponse(userMessage) {
         body: JSON.stringify({
           contents: [
             {
-              parts: [{ text: userMessage }],
-            },
-          ],
-        }),
+              parts: [{ text: userMessage }]
+            }
+          ]
+        })
       }
     );
 
     const geminiData = await geminiRes.json();
-
     return geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
   } catch (error) {
     console.error("Gemini API Error:", error);
@@ -124,7 +173,7 @@ async function getGeminiResponse(userMessage) {
   }
 }
 
-// For health check if needed
+// Health check
 export async function GET() {
   return NextResponse.json({ status: "Telegram bot webhook is running!" });
 }
