@@ -55,4 +55,4 @@ export const certificatesData = [
       'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600'
     ]
   }
-];
+].reverse();

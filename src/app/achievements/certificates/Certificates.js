@@ -22,7 +22,7 @@ const Certificates = () => {
     const initialIndices = {};
     const initialLoadingStates = {};
     
-    certificatesData.reverse().forEach(certificate => {
+    certificatesData.forEach(certificate => {
       initialIndices[certificate.id] = 0;
       // Show preloader for 1 second on page load
       initialLoadingStates[certificate.id] = true;

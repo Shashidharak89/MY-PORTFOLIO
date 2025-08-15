@@ -22,7 +22,7 @@ const Achievements = () => {
     const initialIndices = {};
     const initialLoadingStates = {};
     
-    achievementsData.reverse().forEach(achievement => {
+    achievementsData.forEach(achievement => {
       initialIndices[achievement.id] = 0;
       // Show preloader for 1 second on page load
       initialLoadingStates[achievement.id] = true;
