@@ -77,6 +77,17 @@ export const certificatesData = [
       'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755251079/IMG20250403172518_At8h9CHU5t_pscrqf.jpg'
     ]
   },
+  {
+    id: 7,
+    date: '14 Jul 2025',
+    title: 'Internship Common Aptitude test',
+    issuer: 'Internship Studio',
+    description: 'Successfully participated in Internship Common Aptitude test by Internship STudio',
+    skills: ['Aptitude','Time Management'],
+    images: [
+      'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755251079/Shashidhara_K_-_Participation_Certificate_page-0001_qGDOizq328_bf4hp0.jpg'
+    ]
+  }
 
 
 ].reverse();
