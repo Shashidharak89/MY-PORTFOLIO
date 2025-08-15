@@ -16,6 +16,7 @@ const Achievements = () => {
   const loadedImagesCache = useRef(new Set());
   const containerRefs = useRef({});
   const autoSlideTimeouts = useRef({});
+  const imageLoadTimers = useRef({}); // Track load timers
 
   // Initialize image indices and loading states
   useEffect(() => {
@@ -26,18 +27,48 @@ const Achievements = () => {
       initialIndices[achievement.id] = 0;
       // Check if first image is already cached
       const firstImageUrl = achievement.images[0];
-      initialLoadingStates[achievement.id] = !loadedImagesCache.current.has(firstImageUrl);
+      const isCached = loadedImagesCache.current.has(firstImageUrl);
       
-      // If image is cached, we can also set dimensions if available
-      if (loadedImagesCache.current.has(firstImageUrl)) {
-        // Try to get dimensions from a hidden image element if available
+      if (isCached) {
+        initialLoadingStates[achievement.id] = false;
+        // Get dimensions from cache if available
         preloadImageDimensions(achievement.id, firstImageUrl);
+      } else {
+        // Start loading timer for uncached images
+        initialLoadingStates[achievement.id] = false; // Start as false
+        startImageLoadTimer(achievement.id, firstImageUrl);
       }
     });
     
     setCurrentImageIndex(initialIndices);
     setImageLoading(initialLoadingStates);
   }, []);
+
+  // Function to start a timer that shows preloader only if image takes too long
+  const startImageLoadTimer = (achievementId, imageUrl) => {
+    // Clear any existing timer
+    if (imageLoadTimers.current[achievementId]) {
+      clearTimeout(imageLoadTimers.current[achievementId]);
+    }
+
+    // Only show preloader if image isn't cached and takes more than 200ms to load
+    imageLoadTimers.current[achievementId] = setTimeout(() => {
+      if (!loadedImagesCache.current.has(imageUrl)) {
+        setImageLoading(prev => ({
+          ...prev,
+          [achievementId]: true
+        }));
+      }
+    }, 200); // Show preloader after 200ms delay
+  };
+
+  // Function to clear image load timer
+  const clearImageLoadTimer = (achievementId) => {
+    if (imageLoadTimers.current[achievementId]) {
+      clearTimeout(imageLoadTimers.current[achievementId]);
+      delete imageLoadTimers.current[achievementId];
+    }
+  };
 
   // Function to preload image dimensions without showing loader
   const preloadImageDimensions = (achievementId, imageUrl) => {
@@ -71,15 +102,10 @@ const Achievements = () => {
           
           const currentIndex = prev[achievementId] || 0;
           const nextIndex = (currentIndex + 1) % achievement.images.length;
-          
-          // Check if next image is cached, if not show preloader
           const nextImageUrl = achievement.images[nextIndex];
-          if (!loadedImagesCache.current.has(nextImageUrl)) {
-            setImageLoading(prev => ({
-              ...prev,
-              [achievementId]: true
-            }));
-          }
+          
+          // Handle loading for next image
+          handleImageChange(achievementId, nextImageUrl);
           
           return { ...prev, [achievementId]: nextIndex };
         });
@@ -98,6 +124,22 @@ const Achievements = () => {
     };
   }, []);
 
+  // Handle image change (unified function for consistency)
+  const handleImageChange = (achievementId, imageUrl) => {
+    const isCached = loadedImagesCache.current.has(imageUrl);
+    
+    if (!isCached) {
+      // Start the timer to show preloader if needed
+      startImageLoadTimer(achievementId, imageUrl);
+    } else {
+      // Image is cached, ensure preloader is hidden
+      setImageLoading(prev => ({
+        ...prev,
+        [achievementId]: false
+      }));
+    }
+  };
+
   // Handle image load to determine dimensions and hide preloader
   const handleImageLoad = (achievementId, imgElement, imageUrl) => {
     const { naturalWidth, naturalHeight } = imgElement;
@@ -105,6 +147,9 @@ const Achievements = () => {
     
     // Add to cache
     loadedImagesCache.current.add(imageUrl);
+    
+    // Clear the load timer since image has loaded
+    clearImageLoadTimer(achievementId);
     
     setImageDimensions(prev => ({
       ...prev,
@@ -114,24 +159,23 @@ const Achievements = () => {
       }
     }));
 
-    // Hide preloader with a small delay for smooth transition
-    setTimeout(() => {
-      setImageLoading(prev => ({
-        ...prev,
-        [achievementId]: false
-      }));
-    }, 200);
+    // Hide preloader immediately since image is loaded
+    setImageLoading(prev => ({
+      ...prev,
+      [achievementId]: false
+    }));
   };
 
-  // Handle image load start (when switching images) - only if not cached
-  const handleImageLoadStart = (achievementId, imageUrl) => {
-    // Only show preloader if image is not in cache
-    if (!loadedImagesCache.current.has(imageUrl)) {
-      setImageLoading(prev => ({
-        ...prev,
-        [achievementId]: true
-      }));
-    }
+  // Handle image error
+  const handleImageError = (achievementId, imageUrl) => {
+    // Clear the load timer
+    clearImageLoadTimer(achievementId);
+    
+    // Hide preloader on error
+    setImageLoading(prev => ({
+      ...prev,
+      [achievementId]: false
+    }));
   };
 
   // Handle manual sliding
@@ -151,8 +195,8 @@ const Achievements = () => {
 
     const newImageUrl = achievement.images[newIndex];
     
-    // Show preloader only for uncached images
-    handleImageLoadStart(achievementId, newImageUrl);
+    // Handle loading for new image
+    handleImageChange(achievementId, newImageUrl);
 
     // Set slide direction for animation
     setSlideDirection(prev => ({
@@ -185,13 +229,8 @@ const Achievements = () => {
         const nextIndex = (currentIndex + 1) % achievement.images.length;
         const nextImageUrl = achievement.images[nextIndex];
         
-        // Check if next image needs preloader
-        if (!loadedImagesCache.current.has(nextImageUrl)) {
-          setImageLoading(prev => ({
-            ...prev,
-            [achievementId]: true
-          }));
-        }
+        // Handle loading for auto-slide
+        handleImageChange(achievementId, nextImageUrl);
         
         return { ...prev, [achievementId]: nextIndex };
       });
@@ -205,7 +244,7 @@ const Achievements = () => {
       const achievement = achievementsData.find(a => a.id === achievementId);
       if (achievement) {
         const imageUrl = achievement.images[index];
-        handleImageLoadStart(achievementId, imageUrl);
+        handleImageChange(achievementId, imageUrl);
       }
       
       setCurrentImageIndex(prev => ({
@@ -277,6 +316,15 @@ const Achievements = () => {
     return () => clearTimeout(preloadTimer);
   }, []);
 
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(imageLoadTimers.current).forEach(timer => {
+        clearTimeout(timer);
+      });
+    };
+  }, []);
+
   return (
     <div className="port-achievements-main-container">
       <div className="port-achievements-header-section">
@@ -329,6 +377,7 @@ const Achievements = () => {
                     slideDirection[achievement.id] === 'prev' ? 'sliding-right' : ''
                   } ${isLoading ? 'image-loading' : 'image-loaded'}`}
                   onLoad={(e) => handleImageLoad(achievement.id, e.target, currentImageUrl)}
+                  onError={() => handleImageError(achievement.id, currentImageUrl)}
                   draggable={false}
                 />
                 
