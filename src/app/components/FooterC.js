@@ -159,7 +159,7 @@ const FooterC = () => {
                 <div className="professional-contact-icon-wrapper">
                   <Phone size={16} />
                 </div>
-                <span>Unavailable</span>
+                <span>+91 7760770725</span>
               </div>
               <div className="professional-contact-detail">
                 <div className="professional-contact-icon-wrapper">

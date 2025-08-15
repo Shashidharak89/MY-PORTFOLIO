@@ -66,8 +66,8 @@ const ContactForm = () => {
     {
       icon: <Phone className="portfolio-contact-icon" />,
       label: 'Phone',
-      value: 'Unavailable',
-      link: 'Unavailable',
+      value: '+91 7760770725',
+      link: 'https://wa.me/7760770725',
     },
     {
       icon: <MapPin className="portfolio-contact-icon" />,
