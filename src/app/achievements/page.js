@@ -7,7 +7,7 @@ import Achievements from './Achievements';
 
 
 
-export default function Projects() {
+export default function Achievement() {
   return (
     <>
       <Navbar />
