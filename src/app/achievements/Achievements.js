@@ -10,16 +10,20 @@ const Achievements = () => {
   const [imageDimensions, setImageDimensions] = useState({});
   const [isDragging, setIsDragging] = useState({});
   const [slideDirection, setSlideDirection] = useState({});
+  const [imageLoading, setImageLoading] = useState({});
   const containerRefs = useRef({});
   const autoSlideTimeouts = useRef({});
 
-  // Initialize image indices
+  // Initialize image indices and loading states
   useEffect(() => {
     const initialIndices = {};
+    const initialLoadingStates = {};
     achievementsData.forEach(achievement => {
       initialIndices[achievement.id] = 0;
+      initialLoadingStates[achievement.id] = true;
     });
     setCurrentImageIndex(initialIndices);
+    setImageLoading(initialLoadingStates);
   }, []);
 
   // Auto-slide functionality
@@ -54,7 +58,7 @@ const Achievements = () => {
     };
   }, []);
 
-  // Handle image load to determine dimensions
+  // Handle image load to determine dimensions and hide preloader
   const handleImageLoad = (achievementId, imgElement) => {
     const { naturalWidth, naturalHeight } = imgElement;
     const isVertical = naturalHeight > naturalWidth;
@@ -66,12 +70,31 @@ const Achievements = () => {
         aspectRatio: naturalWidth / naturalHeight
       }
     }));
+
+    // Hide preloader with a small delay for smooth transition
+    setTimeout(() => {
+      setImageLoading(prev => ({
+        ...prev,
+        [achievementId]: false
+      }));
+    }, 200);
+  };
+
+  // Handle image load start (when switching images)
+  const handleImageLoadStart = (achievementId) => {
+    setImageLoading(prev => ({
+      ...prev,
+      [achievementId]: true
+    }));
   };
 
   // Handle manual sliding
   const handleSlide = (achievementId, direction) => {
     const achievement = achievementsData.find(a => a.id === achievementId);
     if (!achievement) return;
+
+    // Show preloader for the new image
+    handleImageLoadStart(achievementId);
 
     // Set slide direction for animation
     setSlideDirection(prev => ({
@@ -113,6 +136,18 @@ const Achievements = () => {
         return { ...prev, [achievementId]: nextIndex };
       });
     }, 4000);
+  };
+
+  // Handle indicator click
+  const handleIndicatorClick = (achievementId, index) => {
+    const currentIndex = currentImageIndex[achievementId] || 0;
+    if (index !== currentIndex) {
+      handleImageLoadStart(achievementId);
+      setCurrentImageIndex(prev => ({
+        ...prev,
+        [achievementId]: index
+      }));
+    }
   };
 
   // Touch and mouse event handlers
@@ -172,6 +207,7 @@ const Achievements = () => {
         {achievementsData.map((achievement) => {
           const currentIndex = currentImageIndex[achievement.id] || 0;
           const dimensions = imageDimensions[achievement.id];
+          const isLoading = imageLoading[achievement.id];
           
           return (
             <div key={achievement.id} className="port-achievement-single-card">
@@ -186,18 +222,30 @@ const Achievements = () => {
                 onTouchMove={(e) => handleMove(achievement.id, e.touches[0].clientX)}
                 onTouchEnd={(e) => handleEnd(achievement.id, e.changedTouches[0].clientX)}
               >
+                {/* Image Preloader */}
+                {isLoading && (
+                  <div className="port-achievement-image-preloader">
+                    <div className="port-achievement-preloader-spinner">
+                      <div className="port-achievement-spinner-ring"></div>
+                      <div className="port-achievement-spinner-ring"></div>
+                      <div className="port-achievement-spinner-ring"></div>
+                    </div>
+                    <p className="port-achievement-preloader-text">Loading achievement...</p>
+                  </div>
+                )}
+
                 <img
                   src={achievement.images[currentIndex]}
                   alt={achievement.title}
                   className={`port-achievement-display-image ${dimensions?.isVertical ? 'vertical-image' : 'horizontal-image'} ${
                     slideDirection[achievement.id] === 'next' ? 'sliding-left' : 
                     slideDirection[achievement.id] === 'prev' ? 'sliding-right' : ''
-                  }`}
+                  } ${isLoading ? 'image-loading' : 'image-loaded'}`}
                   onLoad={(e) => handleImageLoad(achievement.id, e.target)}
                   draggable={false}
                 />
                 
-                {achievement.images.length > 1 && (
+                {achievement.images.length > 1 && !isLoading && (
                   <>
                     <button 
                       className="port-img-nav-btn port-img-nav-prev"
@@ -217,6 +265,7 @@ const Achievements = () => {
                         <div 
                           key={index}
                           className={`port-img-indicator ${index === currentIndex ? 'active' : ''}`}
+                          onClick={() => handleIndicatorClick(achievement.id, index)}
                         />
                       ))}
                     </div>
