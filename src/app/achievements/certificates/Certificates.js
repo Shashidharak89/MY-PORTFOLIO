@@ -11,6 +11,9 @@ const Certificates = () => {
   const [isDragging, setIsDragging] = useState({});
   const [slideDirection, setSlideDirection] = useState({});
   const [imageLoading, setImageLoading] = useState({});
+  
+  // Cache to track loaded images - this persists across component renders
+  const loadedImagesCache = useRef(new Set());
   const containerRefs = useRef({});
   const autoSlideTimeouts = useRef({});
 
@@ -18,13 +21,41 @@ const Certificates = () => {
   useEffect(() => {
     const initialIndices = {};
     const initialLoadingStates = {};
+    
     certificatesData.forEach(certificate => {
       initialIndices[certificate.id] = 0;
-      initialLoadingStates[certificate.id] = true;
+      // Check if first image is already cached
+      const firstImageUrl = certificate.images[0];
+      initialLoadingStates[certificate.id] = !loadedImagesCache.current.has(firstImageUrl);
+      
+      // If image is cached, we can also set dimensions if available
+      if (loadedImagesCache.current.has(firstImageUrl)) {
+        // Try to get dimensions from a hidden image element if available
+        preloadImageDimensions(certificate.id, firstImageUrl);
+      }
     });
+    
     setCurrentImageIndex(initialIndices);
     setImageLoading(initialLoadingStates);
   }, []);
+
+  // Function to preload image dimensions without showing loader
+  const preloadImageDimensions = (certificateId, imageUrl) => {
+    const img = new Image();
+    img.onload = () => {
+      const { naturalWidth, naturalHeight } = img;
+      const isVertical = naturalHeight > naturalWidth;
+      
+      setImageDimensions(prev => ({
+        ...prev,
+        [certificateId]: {
+          isVertical,
+          aspectRatio: naturalWidth / naturalHeight
+        }
+      }));
+    };
+    img.src = imageUrl;
+  };
 
   // Auto-slide functionality (only for certificates with multiple images)
   useEffect(() => {
@@ -40,6 +71,15 @@ const Certificates = () => {
         setCurrentImageIndex(prev => {
           const currentIndex = prev[certificateId] || 0;
           const nextIndex = (currentIndex + 1) % certificate.images.length;
+          
+          // Check if next image is cached, if not show preloader
+          const nextImageUrl = certificate.images[nextIndex];
+          if (!loadedImagesCache.current.has(nextImageUrl)) {
+            setImageLoading(prev => ({
+              ...prev,
+              [certificateId]: true
+            }));
+          }
           
           return { ...prev, [certificateId]: nextIndex };
         });
@@ -61,9 +101,12 @@ const Certificates = () => {
   }, []);
 
   // Handle image load to determine dimensions and hide preloader
-  const handleImageLoad = (certificateId, imgElement) => {
+  const handleImageLoad = (certificateId, imgElement, imageUrl) => {
     const { naturalWidth, naturalHeight } = imgElement;
     const isVertical = naturalHeight > naturalWidth;
+    
+    // Add to cache
+    loadedImagesCache.current.add(imageUrl);
     
     setImageDimensions(prev => ({
       ...prev,
@@ -82,12 +125,15 @@ const Certificates = () => {
     }, 200);
   };
 
-  // Handle image load start (when switching images)
-  const handleImageLoadStart = (certificateId) => {
-    setImageLoading(prev => ({
-      ...prev,
-      [certificateId]: true
-    }));
+  // Handle image load start (when switching images) - only if not cached
+  const handleImageLoadStart = (certificateId, imageUrl) => {
+    // Only show preloader if image is not in cache
+    if (!loadedImagesCache.current.has(imageUrl)) {
+      setImageLoading(prev => ({
+        ...prev,
+        [certificateId]: true
+      }));
+    }
   };
 
   // Handle manual sliding
@@ -95,8 +141,20 @@ const Certificates = () => {
     const certificate = certificatesData.find(c => c.id === certificateId);
     if (!certificate || certificate.images.length <= 1) return;
 
-    // Show preloader for the new image
-    handleImageLoadStart(certificateId);
+    // Calculate new index
+    const currentIndex = currentImageIndex[certificateId] || 0;
+    let newIndex;
+    
+    if (direction === 'next') {
+      newIndex = (currentIndex + 1) % certificate.images.length;
+    } else {
+      newIndex = currentIndex === 0 ? certificate.images.length - 1 : currentIndex - 1;
+    }
+
+    const newImageUrl = certificate.images[newIndex];
+    
+    // Show preloader only for uncached images
+    handleImageLoadStart(certificateId, newImageUrl);
 
     // Set slide direction for animation
     setSlideDirection(prev => ({
@@ -104,18 +162,10 @@ const Certificates = () => {
       [certificateId]: direction
     }));
 
-    setCurrentImageIndex(prev => {
-      const currentIndex = prev[certificateId] || 0;
-      let newIndex;
-      
-      if (direction === 'next') {
-        newIndex = (currentIndex + 1) % certificate.images.length;
-      } else {
-        newIndex = currentIndex === 0 ? certificate.images.length - 1 : currentIndex - 1;
-      }
-      
-      return { ...prev, [certificateId]: newIndex };
-    });
+    setCurrentImageIndex(prev => ({
+      ...prev,
+      [certificateId]: newIndex
+    }));
 
     // Clear slide direction after animation
     setTimeout(() => {
@@ -136,6 +186,16 @@ const Certificates = () => {
         setCurrentImageIndex(prev => {
           const currentIndex = prev[certificateId] || 0;
           const nextIndex = (currentIndex + 1) % certificate.images.length;
+          const nextImageUrl = certificate.images[nextIndex];
+          
+          // Check if next image needs preloader
+          if (!loadedImagesCache.current.has(nextImageUrl)) {
+            setImageLoading(prev => ({
+              ...prev,
+              [certificateId]: true
+            }));
+          }
+          
           return { ...prev, [certificateId]: nextIndex };
         });
       }, 5000);
@@ -146,7 +206,12 @@ const Certificates = () => {
   const handleIndicatorClick = (certificateId, index) => {
     const currentIndex = currentImageIndex[certificateId] || 0;
     if (index !== currentIndex) {
-      handleImageLoadStart(certificateId);
+      const certificate = certificatesData.find(c => c.id === certificateId);
+      if (certificate) {
+        const imageUrl = certificate.images[index];
+        handleImageLoadStart(certificateId, imageUrl);
+      }
+      
       setCurrentImageIndex(prev => ({
         ...prev,
         [certificateId]: index
@@ -198,6 +263,27 @@ const Certificates = () => {
     });
   };
 
+  // Preload all images in the background for better UX
+  useEffect(() => {
+    const preloadImages = () => {
+      certificatesData.forEach(certificate => {
+        certificate.images.forEach(imageUrl => {
+          if (!loadedImagesCache.current.has(imageUrl)) {
+            const img = new Image();
+            img.onload = () => {
+              loadedImagesCache.current.add(imageUrl);
+            };
+            img.src = imageUrl;
+          }
+        });
+      });
+    };
+
+    // Preload images after a short delay to not interfere with initial load
+    const preloadTimer = setTimeout(preloadImages, 1000);
+    return () => clearTimeout(preloadTimer);
+  }, []);
+
   return (
     <div className="cert-portfolio-main-container">
       <div className="cert-portfolio-header-section">
@@ -216,6 +302,7 @@ const Certificates = () => {
           const dimensions = imageDimensions[certificate.id];
           const hasMultipleImages = certificate.images.length > 1;
           const isLoading = imageLoading[certificate.id];
+          const currentImageUrl = certificate.images[currentIndex];
           
           return (
             <div key={certificate.id} className="cert-portfolio-single-card">
@@ -230,7 +317,7 @@ const Certificates = () => {
                 onTouchMove={hasMultipleImages ? (e) => handleMove(certificate.id, e.touches[0].clientX) : undefined}
                 onTouchEnd={hasMultipleImages ? (e) => handleEnd(certificate.id, e.changedTouches[0].clientX) : undefined}
               >
-                {/* Image Preloader */}
+                {/* Image Preloader - only show if actually loading */}
                 {isLoading && (
                   <div className="cert-image-preloader">
                     <div className="cert-preloader-spinner">
@@ -243,13 +330,13 @@ const Certificates = () => {
                 )}
 
                 <img
-                  src={certificate.images[currentIndex]}
+                  src={currentImageUrl}
                   alt={certificate.title}
                   className={`cert-portfolio-display-image ${dimensions?.isVertical ? 'vertical-image' : 'horizontal-image'} ${
                     slideDirection[certificate.id] === 'next' ? 'sliding-left' : 
                     slideDirection[certificate.id] === 'prev' ? 'sliding-right' : ''
                   } ${isLoading ? 'image-loading' : 'image-loaded'}`}
-                  onLoad={(e) => handleImageLoad(certificate.id, e.target)}
+                  onLoad={(e) => handleImageLoad(certificate.id, e.target, currentImageUrl)}
                   draggable={false}
                 />
                 
