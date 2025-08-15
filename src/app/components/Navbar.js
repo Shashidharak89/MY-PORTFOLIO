@@ -129,7 +129,7 @@ const Navbar = () => {
               className="modern-navbar-cta"
               onClick={() => console.log('Navigate to Contact')}
             >
-              Let's Connect
+              Lets Connect
             </Link>
 
             <button
