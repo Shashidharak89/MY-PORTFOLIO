@@ -22,7 +22,7 @@ const Achievements = () => {
     const initialIndices = {};
     const initialLoadingStates = {};
     
-    achievementsData.forEach(achievement => {
+    achievementsData.reverse().forEach(achievement => {
       initialIndices[achievement.id] = 0;
       // Check if first image is already cached
       const firstImageUrl = achievement.images[0];

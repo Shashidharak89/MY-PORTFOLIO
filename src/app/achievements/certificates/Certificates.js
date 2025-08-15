@@ -22,7 +22,7 @@ const Certificates = () => {
     const initialIndices = {};
     const initialLoadingStates = {};
     
-    certificatesData.forEach(certificate => {
+    certificatesData.reverse().forEach(certificate => {
       initialIndices[certificate.id] = 0;
       // Check if first image is already cached
       const firstImageUrl = certificate.images[0];
