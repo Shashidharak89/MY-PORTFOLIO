@@ -21,7 +21,8 @@ export const achievementsData = [
         images: [
             'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755256265/IMG_9741_Cq1PkwQe4X_s1dviw.jpg',
             'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755256265/IMG_9812_ndH5p9yK2u_p42ola.jpg',
-            'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755256265/Picsart_24-09-15_09-28-46-275-min_z95itCkw4q_pgqpz4.jpg'
+            'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755256265/Picsart_24-09-15_09-28-46-275-min_z95itCkw4q_pgqpz4.jpg',
+            'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755257079/IMG_20240830_184530758_wwhd2w.jpg'
         ]
     },
     {
