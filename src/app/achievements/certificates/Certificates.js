@@ -10,16 +10,20 @@ const Certificates = () => {
   const [imageDimensions, setImageDimensions] = useState({});
   const [isDragging, setIsDragging] = useState({});
   const [slideDirection, setSlideDirection] = useState({});
+  const [imageLoading, setImageLoading] = useState({});
   const containerRefs = useRef({});
   const autoSlideTimeouts = useRef({});
 
-  // Initialize image indices
+  // Initialize image indices and loading states
   useEffect(() => {
     const initialIndices = {};
+    const initialLoadingStates = {};
     certificatesData.forEach(certificate => {
       initialIndices[certificate.id] = 0;
+      initialLoadingStates[certificate.id] = true;
     });
     setCurrentImageIndex(initialIndices);
+    setImageLoading(initialLoadingStates);
   }, []);
 
   // Auto-slide functionality (only for certificates with multiple images)
@@ -56,7 +60,7 @@ const Certificates = () => {
     };
   }, []);
 
-  // Handle image load to determine dimensions
+  // Handle image load to determine dimensions and hide preloader
   const handleImageLoad = (certificateId, imgElement) => {
     const { naturalWidth, naturalHeight } = imgElement;
     const isVertical = naturalHeight > naturalWidth;
@@ -68,12 +72,31 @@ const Certificates = () => {
         aspectRatio: naturalWidth / naturalHeight
       }
     }));
+
+    // Hide preloader with a small delay for smooth transition
+    setTimeout(() => {
+      setImageLoading(prev => ({
+        ...prev,
+        [certificateId]: false
+      }));
+    }, 200);
+  };
+
+  // Handle image load start (when switching images)
+  const handleImageLoadStart = (certificateId) => {
+    setImageLoading(prev => ({
+      ...prev,
+      [certificateId]: true
+    }));
   };
 
   // Handle manual sliding
   const handleSlide = (certificateId, direction) => {
     const certificate = certificatesData.find(c => c.id === certificateId);
     if (!certificate || certificate.images.length <= 1) return;
+
+    // Show preloader for the new image
+    handleImageLoadStart(certificateId);
 
     // Set slide direction for animation
     setSlideDirection(prev => ({
@@ -116,6 +139,18 @@ const Certificates = () => {
           return { ...prev, [certificateId]: nextIndex };
         });
       }, 5000);
+    }
+  };
+
+  // Handle indicator click
+  const handleIndicatorClick = (certificateId, index) => {
+    const currentIndex = currentImageIndex[certificateId] || 0;
+    if (index !== currentIndex) {
+      handleImageLoadStart(certificateId);
+      setCurrentImageIndex(prev => ({
+        ...prev,
+        [certificateId]: index
+      }));
     }
   };
 
@@ -180,6 +215,7 @@ const Certificates = () => {
           const currentIndex = currentImageIndex[certificate.id] || 0;
           const dimensions = imageDimensions[certificate.id];
           const hasMultipleImages = certificate.images.length > 1;
+          const isLoading = imageLoading[certificate.id];
           
           return (
             <div key={certificate.id} className="cert-portfolio-single-card">
@@ -194,18 +230,30 @@ const Certificates = () => {
                 onTouchMove={hasMultipleImages ? (e) => handleMove(certificate.id, e.touches[0].clientX) : undefined}
                 onTouchEnd={hasMultipleImages ? (e) => handleEnd(certificate.id, e.changedTouches[0].clientX) : undefined}
               >
+                {/* Image Preloader */}
+                {isLoading && (
+                  <div className="cert-image-preloader">
+                    <div className="cert-preloader-spinner">
+                      <div className="cert-spinner-ring"></div>
+                      <div className="cert-spinner-ring"></div>
+                      <div className="cert-spinner-ring"></div>
+                    </div>
+                    <p className="cert-preloader-text">Loading certificate...</p>
+                  </div>
+                )}
+
                 <img
                   src={certificate.images[currentIndex]}
                   alt={certificate.title}
                   className={`cert-portfolio-display-image ${dimensions?.isVertical ? 'vertical-image' : 'horizontal-image'} ${
                     slideDirection[certificate.id] === 'next' ? 'sliding-left' : 
                     slideDirection[certificate.id] === 'prev' ? 'sliding-right' : ''
-                  }`}
+                  } ${isLoading ? 'image-loading' : 'image-loaded'}`}
                   onLoad={(e) => handleImageLoad(certificate.id, e.target)}
                   draggable={false}
                 />
                 
-                {hasMultipleImages && (
+                {hasMultipleImages && !isLoading && (
                   <>
                     <button 
                       className="cert-img-nav-btn cert-img-nav-prev"
@@ -225,12 +273,7 @@ const Certificates = () => {
                         <div 
                           key={index}
                           className={`cert-img-indicator ${index === currentIndex ? 'active' : ''}`}
-                          onClick={() => {
-                            setCurrentImageIndex(prev => ({
-                              ...prev,
-                              [certificate.id]: index
-                            }));
-                          }}
+                          onClick={() => handleIndicatorClick(certificate.id, index)}
                         />
                       ))}
                     </div>
