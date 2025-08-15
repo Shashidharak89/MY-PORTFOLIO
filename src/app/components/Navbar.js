@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import styles from './styles/navbar.module.css';
+import './styles/Navbar.css';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const pathname = usePathname();
@@ -19,69 +19,71 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       '/blogs': 'blogs',
       '/handles': 'handles',
       '/featurelab': 'featurelab',
+      '/achievements': 'achievements',
       '/contact': 'contact'
     };
     setActiveItem(routeToId[pathname] || 'home');
   }, [pathname]);
 
   const navigationItems = [
-    { id: 'home', label: 'Home', icon: '🏠', route: '/' },
-    { id: 'about', label: 'About', icon: '👤', route: '/about' },
-    { id: 'projects', label: 'Projects', icon: '💼', route: '/projects' },
+    { id: 'home', label: 'Home', icon: '🏡', route: '/' },
+    { id: 'about', label: 'About', icon: '👨‍💼', route: '/about' },
+    { id: 'projects', label: 'Projects', icon: '🚀', route: '/projects' },
     { id: 'skills', label: 'Skills', icon: '⚡', route: '/skills' },
-    { id: 'resume', label: 'Resume', icon: '📄', route: '/resume' },
-    { id: 'blogs', label: 'blogs', icon: '📰', route: '/blogs' },
-    { id: 'handles', label: 'Handles', icon: '👨‍💻', route: '/handles' },
-    { id: 'featurelab', label: 'Feature Lab', icon: '👨‍💻', route: '/featurelab' },
-    { id: 'contact', label: 'Contact', icon: '📧', route: '/contact' }
+    { id: 'resume', label: 'Resume', icon: '📋', route: '/resume' },
+    { id: 'blogs', label: 'Blogs', icon: '📝', route: '/blogs' },
+    { id: 'handles', label: 'Handles', icon: '🌐', route: '/handles' },
+    { id: 'featurelab', label: 'Feature Lab', icon: '🧪', route: '/featurelab' },
+    { id: 'achievements', label: 'Achievements', icon: '🏆', route: '/achievements' },
+    { id: 'contact', label: 'Contact', icon: '📬', route: '/contact' }
   ];
 
   return (
     <>
       <div
-        className={`${styles.portfolioSidebarOverlay} ${isOpen ? styles.active : ''}`}
+        className={`portfolio-sidebar-overlay ${isOpen ? 'active' : ''}`}
         onClick={toggleSidebar}
       />
 
-      <div className={`${styles.portfolioSidebarContainer} ${isOpen ? styles.active : ''}`}>
-        <div className={styles.portfolioSidebarHeader}>
-          <div className={styles.portfolioSidebarBrand}>
-            <h1 className={styles.portfolioBrandTitle}>Portfolio</h1>
-            <p className={styles.portfolioBrandSubtitle}>Full Stack Developer</p>
+      <div className={`portfolio-sidebar-container ${isOpen ? 'active' : ''}`}>
+        <div className="portfolio-sidebar-header">
+          <div className="portfolio-sidebar-brand">
+            <h1 className="portfolio-brand-title">Portfolio</h1>
+            <p className="portfolio-brand-subtitle">Full Stack Developer</p>
           </div>
           <button
-            className={styles.portfolioSidebarClose}
+            className="portfolio-sidebar-close"
             onClick={toggleSidebar}
             aria-label="Close sidebar"
           >
-            ×
+            ✕
           </button>
         </div>
 
-        <nav className={styles.portfolioSidebarNav}>
-          <ul className={styles.portfolioNavList}>
-            {navigationItems.map((item) => (
-              <li key={item.id} className={styles.portfolioNavItem}>
+        <nav className="portfolio-sidebar-nav">
+          <ul className="portfolio-nav-list">
+            {navigationItems.map((item, index) => (
+              <li key={item.id} className="portfolio-nav-item" style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
                 <Link
                   href={item.route}
-                  className={`${styles.portfolioNavLink} ${activeItem === item.id ? styles.active : ''}`}
+                  className={`portfolio-nav-link ${activeItem === item.id ? 'active' : ''}`}
                   onClick={() => {
                     setActiveItem(item.id);
                     toggleSidebar();
                     console.log(`Navigate to ${item.label}`);
                   }}
                 >
-                  <span className={styles.portfolioNavIcon}>{item.icon}</span>
-                  <span className={styles.portfolioNavText}>{item.label}</span>
+                  <span className="portfolio-nav-icon">{item.icon}</span>
+                  <span className="portfolio-nav-text">{item.label}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className={styles.portfolioSidebarFooter}>
-          <p className={styles.portfolioFooterText}>
-            Built with <span className={styles.portfolioFooterHighlight}>passion</span><br />
+        <div className="portfolio-sidebar-footer">
+          <p className="portfolio-footer-text">
+            Built with <span className="portfolio-footer-highlight">passion</span><br />
             & modern technologies
           </p>
         </div>
@@ -105,39 +107,39 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`${styles.modernPortfolioNavbar} ${isScrolled ? styles.scrolled : ''}`}>
-        <div className={styles.modernNavbarContainer}>
+      <nav className={`modern-portfolio-navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="modern-navbar-container">
           <Link
             href="/"
-            className={styles.modernNavbarBrand}
+            className="modern-navbar-brand"
             onClick={() => console.log('Navigate to Home')}
           >
-            <div className={styles.modernBrandLogo}>
+            <div className="modern-brand-logo">
               S
             </div>
-            <div className={styles.modernBrandText}>
-              <h1 className={styles.modernBrandTitle}>Portfolio</h1>
-              <span className={styles.modernBrandSubtitle}>Shashidhara K</span>
+            <div className="modern-brand-text">
+              <h1 className="modern-brand-title">Portfolio</h1>
+              <span className="modern-brand-subtitle">Shashidhara K</span>
             </div>
           </Link>
 
-          <div className={styles.modernNavbarActions}>
+          <div className="modern-navbar-actions">
             <Link
               href="/contact"
-              className={styles.modernNavbarCta}
+              className="modern-navbar-cta"
               onClick={() => console.log('Navigate to Contact')}
             >
-              {"Let's Connect"}
+              Let's Connect
             </Link>
 
             <button
-              className={`${styles.modernHamburgerMenu} ${isOpen ? styles.active : ''}`}
+              className={`modern-hamburger-menu ${isOpen ? 'active' : ''}`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle navigation menu"
             >
-              <div className={styles.modernHamburgerLine}></div>
-              <div className={styles.modernHamburgerLine}></div>
-              <div className={styles.modernHamburgerLine}></div>
+              <div className="modern-hamburger-line"></div>
+              <div className="modern-hamburger-line"></div>
+              <div className="modern-hamburger-line"></div>
             </button>
           </div>
         </div>
