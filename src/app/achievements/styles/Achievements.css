@@ -75,74 +75,87 @@
   background: #fef2f2;
   cursor: grab;
   user-select: none;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .port-achievement-img-wrapper:active {
   cursor: grabbing;
 }
 
-.port-achievement-img-wrapper.vertical-image {
-  height: auto;
-  min-height: 400px;
-  aspect-ratio: auto;
-}
-
-.port-achievement-img-wrapper.horizontal-image {
-  height: 300px;
-  aspect-ratio: 16/11;
-}
-
 .port-achievement-display-image {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  transition: all 0.5s ease-in-out;
-  animation: port-img-fade-in 0.5s ease-in-out;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   pointer-events: none;
   user-select: none;
+  display: block;
 }
 
 .vertical-image .port-achievement-display-image {
-  object-fit: cover;
-  height: auto;
-  min-height: 100%;
+  width: auto;
+  height: 90%;
 }
 
 .horizontal-image .port-achievement-display-image {
-  object-fit: contain;
+  width: 90%;
+  height: auto;
 }
 
-@keyframes port-img-fade-in {
+@keyframes port-img-slide-left {
   0% { 
-    opacity: 0; 
-    transform: scale(0.98); 
+    transform: translateX(100%);
+    opacity: 0.7;
   }
   100% { 
-    opacity: 1; 
-    transform: scale(1); 
+    transform: translateX(0);
+    opacity: 1;
   }
+}
+
+@keyframes port-img-slide-right {
+  0% { 
+    transform: translateX(-100%);
+    opacity: 0.7;
+  }
+  100% { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.port-achievement-display-image.sliding-left {
+  animation: port-img-slide-left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.port-achievement-display-image.sliding-right {
+  animation: port-img-slide-right 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .port-img-nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid #dc2626;
   color: #dc2626;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0;
   pointer-events: none;
   z-index: 10;
+  backdrop-filter: blur(4px);
 }
 
 .port-achievement-img-wrapper:hover .port-img-nav-btn {
@@ -151,35 +164,40 @@
 }
 
 .port-img-nav-prev {
-  left: 15px;
+  left: 20px;
 }
 
 .port-img-nav-next {
-  right: 15px;
+  right: 20px;
 }
 
 .port-img-nav-btn:hover {
   background: #dc2626;
   color: white;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
 }
 
 .port-img-indicators {
   position: absolute;
-  bottom: 15px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 10px;
   z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
 }
 
 .port-img-indicator {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(220, 38, 38, 0.7);
+  background: rgba(220, 38, 38, 0.3);
+  border: 2px solid rgba(220, 38, 38, 0.5);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -187,6 +205,7 @@
 .port-img-indicator.active {
   background: #dc2626;
   border-color: #dc2626;
+  transform: scale(1.2);
 }
 
 .port-achievement-content-area {
@@ -267,12 +286,8 @@
     gap: 2rem;
   }
   
-  .port-achievement-img-wrapper.vertical-image {
-    min-height: 350px;
-  }
-  
-  .port-achievement-img-wrapper.horizontal-image {
-    height: 250px;
+  .port-achievement-img-wrapper {
+    height: 380px;
   }
   
   .port-achievement-content-area {
@@ -284,17 +299,17 @@
   }
 
   .port-img-nav-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
   }
 
   .port-img-nav-prev {
-    left: 10px;
+    left: 15px;
   }
 
   .port-img-nav-next {
-    right: 10px;
+    right: 15px;
   }
 }
 
@@ -312,12 +327,8 @@
     gap: 1.5rem;
   }
   
-  .port-achievement-img-wrapper.vertical-image {
-    min-height: 300px;
-  }
-  
-  .port-achievement-img-wrapper.horizontal-image {
-    height: 200px;
+  .port-achievement-img-wrapper {
+    height: 320px;
   }
 
   .port-achievement-content-area {
@@ -332,6 +343,27 @@
     opacity: 1;
     pointer-events: all;
     background: rgba(255, 255, 255, 0.95);
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .port-img-nav-prev {
+    left: 12px;
+  }
+
+  .port-img-nav-next {
+    right: 12px;
+  }
+
+  .port-img-indicators {
+    bottom: 15px;
+    padding: 6px 12px;
+  }
+
+  .port-img-indicator {
+    width: 10px;
+    height: 10px;
   }
 }
 

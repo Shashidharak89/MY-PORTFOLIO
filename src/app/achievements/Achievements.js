@@ -9,6 +9,7 @@ const Achievements = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState({});
   const [imageDimensions, setImageDimensions] = useState({});
   const [isDragging, setIsDragging] = useState({});
+  const [slideDirection, setSlideDirection] = useState({});
   const containerRefs = useRef({});
   const autoSlideTimeouts = useRef({});
 
@@ -72,6 +73,12 @@ const Achievements = () => {
     const achievement = achievementsData.find(a => a.id === achievementId);
     if (!achievement) return;
 
+    // Set slide direction for animation
+    setSlideDirection(prev => ({
+      ...prev,
+      [achievementId]: direction
+    }));
+
     setCurrentImageIndex(prev => {
       const currentIndex = prev[achievementId] || 0;
       let newIndex;
@@ -84,6 +91,15 @@ const Achievements = () => {
       
       return { ...prev, [achievementId]: newIndex };
     });
+
+    // Clear slide direction after animation
+    setTimeout(() => {
+      setSlideDirection(prev => {
+        const newState = { ...prev };
+        delete newState[achievementId];
+        return newState;
+      });
+    }, 600);
 
     // Reset auto-slide timer
     if (autoSlideTimeouts.current[achievementId]) {
@@ -160,7 +176,7 @@ const Achievements = () => {
           return (
             <div key={achievement.id} className="port-achievement-single-card">
               <div 
-                className={`port-achievement-img-wrapper ${dimensions?.isVertical ? 'vertical-image' : 'horizontal-image'}`}
+                className="port-achievement-img-wrapper"
                 ref={el => containerRefs.current[achievement.id] = el}
                 onMouseDown={(e) => handleStart(achievement.id, e.clientX)}
                 onMouseMove={(e) => handleMove(achievement.id, e.clientX)}
@@ -173,7 +189,10 @@ const Achievements = () => {
                 <img
                   src={achievement.images[currentIndex]}
                   alt={achievement.title}
-                  className="port-achievement-display-image"
+                  className={`port-achievement-display-image ${dimensions?.isVertical ? 'vertical-image' : 'horizontal-image'} ${
+                    slideDirection[achievement.id] === 'next' ? 'sliding-left' : 
+                    slideDirection[achievement.id] === 'prev' ? 'sliding-right' : ''
+                  }`}
                   onLoad={(e) => handleImageLoad(achievement.id, e.target)}
                   draggable={false}
                 />
