@@ -87,6 +87,17 @@ export const certificatesData = [
     images: [
       'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755251079/Shashidhara_K_-_Participation_Certificate_page-0001_qGDOizq328_bf4hp0.jpg'
     ]
+  },
+  {
+    id: 8,
+    date: '21 Jul 2025',
+    title: 'Machine Learning Course',
+    issuer: 'TuteDude',
+    description: 'Successfully Completed AIML Course in Tutedude.',
+    skills: ['ML','AI','Python','Google Colab'],
+    images: [
+      'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755353848/1755258125232-4ccd7df1-e802-4848-a294-68b6ce717ef4_1_bvztsz.jpg'
+    ]
   }
 
 
