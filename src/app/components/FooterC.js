@@ -21,7 +21,7 @@ const FooterC = () => {
       { threshold: 0.1 }
     );
 
-    const footerElement = document.querySelector('.professional-footer-wrapper');
+    const footerElement = document.querySelector('.portfolio-footer-wrapper');
     if (footerElement) {
       observer.observe(footerElement);
     }
@@ -88,21 +88,21 @@ const FooterC = () => {
 
   return (
     <section
-      className={`professional-footer-wrapper ${isVisible ? 'professional-footer-animate-in' : ''}`}
+      className={`portfolio-footer-wrapper ${isVisible ? 'portfolio-footer-animate-in' : ''}`}
       onMouseMove={handleMouseMove}
     >
-      <div className="professional-background-pattern">
-        <div className="professional-pattern-dot"></div>
-        <div className="professional-pattern-dot"></div>
-        <div className="professional-pattern-dot"></div>
-        <div className="professional-pattern-dot"></div>
+      <div className="portfolio-background-pattern">
+        <div className="portfolio-pattern-dot"></div>
+        <div className="portfolio-pattern-dot"></div>
+        <div className="portfolio-pattern-dot"></div>
+        <div className="portfolio-pattern-dot"></div>
       </div>
 
-      <div className="professional-floating-elements">
+      <div className="portfolio-floating-elements">
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="professional-floating-element"
+            className="portfolio-floating-element"
             style={{
               '--delay': `${i * 0.5}s`,
               '--duration': `${3 + (i % 3)}s`,
@@ -113,56 +113,56 @@ const FooterC = () => {
       </div>
 
       <div
-        className="professional-cursor-effect"
+        className="portfolio-cursor-effect"
         style={{
           left: mousePos.x,
           top: mousePos.y,
         }}
       ></div>
 
-      <div className="professional-content-container">
-        <div className="professional-main-grid">
-          <div className="professional-brand-area">
-            <div className="professional-logo-section">
-              <div className="professional-logo-text">Portfolio</div>
-              <div className="professional-logo-accent"></div>
+      <div className="portfolio-content-container">
+        <div className="portfolio-main-grid">
+          <div className="portfolio-brand-area">
+            <div className="portfolio-logo-section">
+              <div className="portfolio-logo-text">Portfolio</div>
+              <div className="portfolio-logo-accent"></div>
             </div>
-            <p className="professional-brand-description">
+            <p className="portfolio-brand-description">
               Crafting digital experiences with passion and precision
             </p>
-            <div className="professional-social-grid">
+            <div className="portfolio-social-grid">
               {socialLinks.map((social, index) => (
                 <Link
                   key={index}
                   href={social.url}
-                  className="professional-social-item"
+                  className="portfolio-social-item"
                   aria-label={social.label}
                 >
                   <social.icon size={20} />
-                  <div className="professional-social-effect"></div>
-                  <span className="professional-social-label">{social.label}</span>
+                  <div className="portfolio-social-effect"></div>
+                  <span className="portfolio-social-label">{social.label}</span>
                 </Link>
               ))}
             </div>
           </div>
 
-          <div className="professional-contact-area">
-            <h3 className="professional-area-title">Get In Touch</h3>
-            <div className="professional-contact-list">
-              <div className="professional-contact-detail">
-                <div className="professional-contact-icon-wrapper">
+          <div className="portfolio-contact-area">
+            <h3 className="portfolio-area-title">Get In Touch</h3>
+            <div className="portfolio-contact-list">
+              <div className="portfolio-contact-detail">
+                <div className="portfolio-contact-icon-wrapper">
                   <Mail size={16} />
                 </div>
                 <span>shashidharak334@gmail.com</span>
               </div>
-              <div className="professional-contact-detail">
-                <div className="professional-contact-icon-wrapper">
+              <div className="portfolio-contact-detail">
+                <div className="portfolio-contact-icon-wrapper">
                   <Phone size={16} />
                 </div>
                 <span>+91 7760770725</span>
               </div>
-              <div className="professional-contact-detail">
-                <div className="professional-contact-icon-wrapper">
+              <div className="portfolio-contact-detail">
+                <div className="portfolio-contact-icon-wrapper">
                   <MapPin size={16} />
                 </div>
                 <span>Mangalore, Karnataka, India</span>
@@ -170,38 +170,38 @@ const FooterC = () => {
             </div>
           </div>
 
-          <div className="professional-newsletter-area">
-            <h3 className="professional-area-title">Stay Updated</h3>
-            <p className="professional-newsletter-description">
+          <div className="portfolio-newsletter-area">
+            <h3 className="portfolio-area-title">Stay Updated</h3>
+            <p className="portfolio-newsletter-description">
               Subscribe to get notified about new projects and updates
             </p>
-            <div className="professional-newsletter-form">
-              <div className="professional-input-container">
+            <div className="portfolio-newsletter-form">
+              <div className="portfolio-input-container">
                 <input
                   type="email"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="professional-newsletter-input"
+                  className="portfolio-newsletter-input"
                   disabled={isSubmitting}
                 />
-                <div className="professional-input-border"></div>
+                <div className="portfolio-input-border"></div>
               </div>
               <button
                 onClick={handleSubscribe}
-                className="professional-newsletter-button"
+                className="portfolio-newsletter-button"
                 disabled={isSubmitting}
               >
                 <span>{isSubmitting ? 'Subscribing...' : 'Subscribe'}</span>
-                <div className="professional-button-effect"></div>
+                <div className="portfolio-button-effect"></div>
               </button>
             </div>
             {subscribeStatus.message && (
               <p
-                className={`professional-newsletter-message ${
+                className={`portfolio-newsletter-message ${
                   subscribeStatus.type === 'success'
-                    ? 'professional-newsletter-success'
-                    : 'professional-newsletter-error'
+                    ? 'portfolio-newsletter-success'
+                    : 'portfolio-newsletter-error'
                 }`}
               >
                 {subscribeStatus.message}
@@ -210,17 +210,17 @@ const FooterC = () => {
           </div>
         </div>
 
-        <div className="professional-bottom-section">
-          <div className="professional-bottom-content">
-            <p className="professional-copyright">
+        <div className="portfolio-bottom-section">
+          <div className="portfolio-bottom-content">
+            <p className="portfolio-copyright">
               © 2025 Portfolio. Made with{' '}
-              <Heart size={14} className="professional-heart" /> by SHASHIDHARA.K
+              <Heart size={14} className="portfolio-heart" /> by SHASHIDHARA.K
             </p>
-            <div className="professional-bottom-links">
-              <Link href="/privacy" className="professional-bottom-link">
+            <div className="portfolio-bottom-links">
+              <Link href="/privacy" className="portfolio-bottom-link">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="professional-bottom-link">
+              <Link href="/terms" className="portfolio-bottom-link">
                 Terms of Service
               </Link>
             </div>
@@ -229,11 +229,11 @@ const FooterC = () => {
 
         <button
           onClick={scrollToTop}
-          className="professional-scroll-top-button"
+          className="portfolio-scroll-top-button"
           aria-label="Scroll to top"
         >
           <ArrowUp size={18} />
-          <div className="professional-scroll-effect"></div>
+          <div className="portfolio-scroll-effect"></div>
         </button>
       </div>
     </section>
