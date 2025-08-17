@@ -53,7 +53,7 @@ const Instagram = () => {
       <div className="insta-profile">
         <div className="insta-pic-section" onClick={handleRedirect}>
           <img
-            src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1751812555/profile_zrldff.jpg"
+            src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1752031938/IMG_20250709_085909_fu3evc.jpg"
             alt="Profile"
             className="insta-avatar"
           />
