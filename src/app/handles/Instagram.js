@@ -67,13 +67,13 @@ const Instagram = () => {
           </div>
           <div className="insta-stats">
             <span><strong>3</strong> posts</span>
-            <span><strong>4,576</strong> followers</span>
-            <span><strong>3,804</strong> following</span>
+            <span><strong>4,571</strong> followers</span>
+            <span><strong>3,743</strong> following</span>
           </div>
           <div className="insta-bio">
             <p><strong>Shashi kulal 🌟</strong></p>
             <p>@luminous_alpha_</p>
-            <p>#sacredite</p>
+            <p>𝐍𝐌𝐀𝐌𝐈𝐓 𝐍𝐈𝐓𝐓𝐄</p>
             <p>Turning negativity into motivation 💀</p>
             <a href="https://portfolio.gamenexplay.live" target="_blank" rel="noopener noreferrer">
               portfolio.gamenexplay.live
