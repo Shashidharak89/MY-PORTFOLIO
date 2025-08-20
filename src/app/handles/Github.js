@@ -13,6 +13,7 @@ const Github = () => {
             .then(data => setUser(data));
     }, []);
 
+    
     return (
         <div className="gh-wrapper">
             <h2 className="gh-title">GitHub Stats & Contributions</h2>
@@ -70,6 +71,5 @@ const Github = () => {
         </div>
     );
 };
-
 
 export default Github;
