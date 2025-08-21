@@ -12,7 +12,7 @@ const ProjectsSection = () => {
 
   const projects = [
     {
-      id: 5,
+      id: 1,
       title: "Department of BCA",
       description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
       technologies: ["HTML", "CSS", "Javascript"],
