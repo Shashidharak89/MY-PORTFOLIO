@@ -1,6 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { 
+  FaPython, FaJava, FaPhp, FaJs, FaHtml5, FaCss3Alt, FaReact, 
+  FaGitAlt, FaFigma, FaDatabase, FaBolt, FaCode // Added FaCode
+} from 'react-icons/fa';
+import { SiNextdotjs, SiExpress, SiSpringboot, SiVisualstudiocode, 
+  SiCloudinary, SiR } from 'react-icons/si';
 import './styles/Skills.css';
 
 const Skills = () => {
@@ -8,138 +14,128 @@ const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('Languages');
   const skillsRef = useRef(null);
 
+  // Skills data
   const skillsData = {
     Languages: [  
-      { name: 'Python', level: 90, icon: '🐍' },
-      { name: 'Java', level: 88, icon: '🔷' },
-      { name: 'PHP', level: 88, icon: '🔷' },
-      { name: 'JavaScript', level: 85, icon: '🟨' },
-      { name: 'C', level: 80, icon: '🔷' },
-      { name: 'SQL', level: 90, icon: '🔷' },
-      { name: 'R', level: 75, icon: '🔷' },
-      { name: 'HTML5', level: 95, icon: '🌐' },
-      { name: 'CSS', level: 80, icon: '🎨' }
+      { name: 'Python', level: 90, icon: FaPython },
+      { name: 'Java', level: 88, icon: FaJava },
+      { name: 'PHP', level: 88, icon: FaPhp },
+      { name: 'JavaScript', level: 85, icon: FaJs },
+      { name: 'C', level: 80, icon: FaCode }, // FaCode is now properly imported
+      { name: 'SQL', level: 90, icon: FaDatabase },
+      { name: 'R', level: 75, icon: SiR },
+      { name: 'HTML5', level: 95, icon: FaHtml5 },
+      { name: 'CSS', level: 80, icon: FaCss3Alt }
     ],
     Frameworks: [
-      { name: 'React.js', level: 90, icon: '⚛️' },
-      { name: 'Next.js', level: 80, icon: '🚀' },
-      { name: 'Express.js', level: 85, icon: '⚡' },
-      { name: 'Springboot', level: 70, icon: '⚡' },
+      { name: 'React.js', level: 90, icon: FaReact },
+      { name: 'Next.js', level: 80, icon: SiNextdotjs },
+      { name: 'Express.js', level: 85, icon: SiExpress },
+      { name: 'Springboot', level: 70, icon: SiSpringboot },
     ],
-    tools: [
-      { name: 'Git & GitHub', level: 90, icon: '🐙' },
-      { name: 'VS Code', level: 95, icon: '💻' },
-      { name: 'Cloudinary', level: 80, icon: '💻' },
-      { name: 'Figma', level: 80, icon: '🎨' },
-      { name: 'Thunderclient', level: 85, icon: '📮' }
+    Tools: [
+      { name: 'Git & GitHub', level: 90, icon: FaGitAlt },
+      { name: 'VS Code', level: 95, icon: SiVisualstudiocode },
+      { name: 'Cloudinary', level: 80, icon: SiCloudinary },
+      { name: 'Figma', level: 80, icon: FaFigma },
+      { name: 'Thunder Client', level: 85, icon: FaBolt }
     ]
   };
 
   useEffect(() => {
     const currentRef = skillsRef.current;
 
-    // Fallback to set isVisible to true after a short delay if IntersectionObserver doesn't trigger
-    const fallbackTimeout = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000);
+    const handleIntersection = (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+      }
+    };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          clearTimeout(fallbackTimeout); // Clear fallback if observer triggers
-          if (currentRef) {
-            observer.unobserve(currentRef); // Unobserve once visible to prevent re-triggering
-          }
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (currentRef) {
+    let observer;
+    if (currentRef && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(handleIntersection, { 
+        threshold: 0.1,
+        rootMargin: '50px'
+      });
       observer.observe(currentRef);
+    } else {
+      setIsVisible(true);
     }
 
     return () => {
-      clearTimeout(fallbackTimeout);
-      if (currentRef) {
+      if (observer && currentRef) {
         observer.unobserve(currentRef);
       }
     };
   }, []);
 
-  return (
-    <section className="skills-section" ref={skillsRef}>
-      <div className="skills-container">
-        <div className="skills-header">
-          <div className="header-decoration"></div>
-          <h2 className="skills-title">My Skills</h2>
-          <p className="skills-subtitle">
-            Crafting digital experiences with modern technologies
-          </p>
-          <div className="header-decoration"></div>
-        </div>
+  const handleCategoryChange = (category) => setActiveCategory(category);
 
-        <div className="category-tabs">
+  return (
+    <section className="standard-skills-section" ref={skillsRef}>
+      <div className="standard-skills-container">
+        <header className="standard-skills-header">
+          <h2 className="standard-skills-title">My Skills</h2>
+          <p className="standard-skills-subtitle">
+            Professional expertise in modern technologies
+          </p>
+        </header>
+
+        <nav className="standard-category-tabs">
           {Object.keys(skillsData).map((category) => (
             <button
               key={category}
-              className={`tab-button ${activeCategory === category ? 'active' : ''}`}
-              onClick={() => setActiveCategory(category)}
+              className={`standard-tab-button ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(category)}
+              aria-label={`View ${category} skills`}
             >
-              <span className="tab-text">
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </span>
-              <div className="tab-indicator"></div>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>
           ))}
-        </div>
+        </nav>
 
-        <div className="skills-grid">
-          {skillsData[activeCategory].map((skill, index) => (
-            <div
-              key={skill.name}
-              className={`skill-card ${isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="skill-icon">
-                <span>{skill.icon}</span>
-                <div className="icon-glow"></div>
-              </div>
-              
-              <div className="skill-content">
-                <h3 className="skill-name">{skill.name}</h3>
+        <div className="standard-skills-grid">
+          {skillsData[activeCategory].map((skill, index) => {
+            const IconComponent = skill.icon;
+            return (
+              <div
+                key={skill.name}
+                className={`standard-skill-card ${isVisible ? 'animate' : ''}`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="standard-skill-icon">
+                  {IconComponent ? (
+                    <IconComponent />
+                  ) : (
+                    <span className="fallback-icon">{skill.name[0]}</span>
+                  )}
+                </div>
                 
-                <div className="skill-progress">
-                  <div className="progress-track">
-                    <div 
-                      className="progress-fill"
-                      style={{ 
-                        width: isVisible ? `${skill.level}%` : '0%',
-                        transition: isVisible ? 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
-                      }}
-                    ></div>
-                  </div>
+                <div className="standard-skill-content">
+                  <h3 className="standard-skill-name">{skill.name}</h3>
                   
-                  <div className="skill-percentage">
-                    <span className={isVisible ? 'count-up' : ''}>
-                      {isVisible ? skill.level : 0}%
-                    </span>
+                  <div className="standard-skill-progress">
+                    <div className="standard-progress-track">
+                      <div 
+                        className="standard-progress-fill"
+                        style={{ 
+                          width: isVisible ? `${skill.level}%` : '0%',
+                          transitionDelay: `${index * 100}ms`
+                        }}
+                      ></div>
+                    </div>
+                    
+                    <div className="standard-skill-percentage">
+                      <span className={isVisible ? 'count-up' : ''}>
+                        {isVisible ? skill.level : 0}%
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="skill-hover-effect"></div>
-            </div>
-          ))}
-        </div>
-
-        <div className="floating-elements">
-          <div className="floating-circle circle-1"></div>
-          <div className="floating-circle circle-2"></div>
-          <div className="floating-circle circle-3"></div>
-          <div className="floating-triangle triangle-1"></div>
-          <div className="floating-triangle triangle-2"></div>
+            );
+          })}
         </div>
       </div>
     </section>
