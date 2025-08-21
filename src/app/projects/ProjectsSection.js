@@ -204,7 +204,7 @@ const ProjectsSection = () => {
                     className="project-btn-primary-unique"
                     onClick={() => handleProjectLinkClick(project.projectLink)}
                   >
-                    View Project
+                    Live Demo
                   </button>
                   <button
                     className="project-btn-secondary-unique"
