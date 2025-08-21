@@ -92,8 +92,8 @@ const AboutMe = () => {
               <div className="timeline-marker"></div>
               <div className="timeline-content">
                 <h3 className="education-degree">Currently Pursuing</h3>
-                <p className="education-field">Advanced Web Development</p>
-                <p className="education-school">Self-Learning & Online Courses</p>
+                <p className="education-field">Master of Computer Applications</p>
+                <p className="education-school">N.M.A.M.I.T Nitte</p>
                 <p className="education-year">2025 - Present</p>
               </div>
             </div>
