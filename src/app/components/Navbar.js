@@ -1,31 +1,14 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import './styles/Navbar.css';
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
   const pathname = usePathname();
   const [activeItem, setActiveItem] = useState('home');
 
-  // Set active item based on current pathname
-  useEffect(() => {
-    const routeToId = {
-      '/': 'home',
-      '/about': 'about',
-      '/projects': 'projects',
-      '/skills': 'skills',
-      '/resume': 'resume',
-      '/blogs': 'blogs',
-      '/handles': 'handles',
-      '/featurelab': 'featurelab',
-      '/achievements': 'achievements',
-      '/contact': 'contact'
-    };
-    setActiveItem(routeToId[pathname] || 'home');
-  }, [pathname]);
-
-  const navigationItems = [
+  const navigationItems = useMemo(() => [
     { id: 'home', label: 'Home', icon: '🏡', route: '/' },
     { id: 'about', label: 'About', icon: '👨‍💼', route: '/about' },
     { id: 'projects', label: 'Projects', icon: '🚀', route: '/projects' },
@@ -36,7 +19,33 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { id: 'featurelab', label: 'Feature Lab', icon: '🧪', route: '/featurelab' },
     { id: 'achievements', label: 'Achievements', icon: '🏆', route: '/achievements' },
     { id: 'contact', label: 'Contact', icon: '📬', route: '/contact' }
-  ];
+  ], []);
+
+  const routeToIdMap = useMemo(() => ({
+    '/': 'home',
+    '/about': 'about',
+    '/projects': 'projects',
+    '/skills': 'skills',
+    '/resume': 'resume',
+    '/blogs': 'blogs',
+    '/handles': 'handles',
+    '/featurelab': 'featurelab',
+    '/achievements': 'achievements',
+    '/contact': 'contact'
+  }), []);
+
+  // Set active item based on current pathname
+  useEffect(() => {
+    const newActiveItem = routeToIdMap[pathname] || 'home';
+    if (newActiveItem !== activeItem) {
+      setActiveItem(newActiveItem);
+    }
+  }, [pathname, routeToIdMap, activeItem]);
+
+  const handleNavClick = useCallback((itemId) => {
+    setActiveItem(itemId);
+    toggleSidebar();
+  }, [toggleSidebar]);
 
   return (
     <>
@@ -63,15 +72,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <nav className="portfolio-sidebar-nav">
           <ul className="portfolio-nav-list">
             {navigationItems.map((item, index) => (
-              <li key={item.id} className="portfolio-nav-item" style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
+              <li 
+                key={item.id} 
+                className="portfolio-nav-item" 
+                style={{ '--animation-delay': `${(index + 1) * 0.1}s` }}
+              >
                 <Link
                   href={item.route}
                   className={`portfolio-nav-link ${activeItem === item.id ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveItem(item.id);
-                    toggleSidebar();
-                    console.log(`Navigate to ${item.label}`);
-                  }}
+                  onClick={() => handleNavClick(item.id)}
                 >
                   <span className="portfolio-nav-icon">{item.icon}</span>
                   <span className="portfolio-nav-text">{item.label}</span>
@@ -90,20 +99,62 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </div>
     </>
   );
-};
+});
+
+Sidebar.displayName = 'Sidebar';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const toggleSidebar = useCallback(() => {
+    setIsOpen(prev => !prev);
+  }, []);
+
+  const closeSidebar = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 20;
+          if (scrolled !== isScrolled) {
+            setIsScrolled(scrolled);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isScrolled]);
+
+  // Close sidebar on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -112,7 +163,6 @@ const Navbar = () => {
           <Link
             href="/"
             className="modern-navbar-brand"
-            onClick={() => console.log('Navigate to Home')}
           >
             <div className="modern-brand-logo">
               S
@@ -127,15 +177,15 @@ const Navbar = () => {
             <Link
               href="/contact"
               className="modern-navbar-cta"
-              onClick={() => console.log('Navigate to Contact')}
             >
               Lets Connect
             </Link>
 
             <button
               className={`modern-hamburger-menu ${isOpen ? 'active' : ''}`}
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={toggleSidebar}
               aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
             >
               <div className="modern-hamburger-line"></div>
               <div className="modern-hamburger-line"></div>
@@ -145,7 +195,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {isOpen && <Sidebar isOpen={isOpen} toggleSidebar={() => setIsOpen(false)} />}
+      {isOpen && <Sidebar isOpen={isOpen} toggleSidebar={closeSidebar} />}
     </>
   );
 };

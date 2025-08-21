@@ -1,3 +1,16 @@
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Use transform3d for hardware acceleration */
+.portfolio-sidebar-overlay,
+.portfolio-sidebar-container,
+.modern-portfolio-navbar {
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
 /* Sidebar Styles */
 .portfolio-sidebar-overlay {
   position: fixed;
@@ -9,8 +22,7 @@
   z-index: 998;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-  will-change: opacity;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   backdrop-filter: blur(2px);
 }
 
@@ -29,17 +41,16 @@
   border-right: 1px solid #e5e7eb;
   box-shadow: 0 20px 60px rgba(220, 38, 38, 0.15);
   z-index: 999;
-  transform: translateX(-100%);
+  transform: translate3d(-100%, 0, 0);
   opacity: 0;
-  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
   backdrop-filter: blur(20px);
-  will-change: transform, opacity;
   display: flex;
   flex-direction: column;
 }
 
 .portfolio-sidebar-container.active {
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
   opacity: 1;
 }
 
@@ -49,7 +60,6 @@
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   position: relative;
   overflow: hidden;
-  animation: slideInTop 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   border-radius: 0 0 20px 0;
 }
 
@@ -63,6 +73,7 @@
   background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 70%);
   transform: rotate(45deg);
   animation: headerShimmer 8s linear infinite;
+  will-change: transform;
 }
 
 .portfolio-sidebar-brand {
@@ -77,7 +88,6 @@
   margin: 0 0 0.5rem 0;
   letter-spacing: -0.025em;
   text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
 .portfolio-brand-subtitle {
@@ -106,7 +116,7 @@
   justify-content: center;
   font-size: 18px;
   font-weight: 600;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -116,7 +126,6 @@
   background: rgba(255, 255, 255, 0.3);
   transform: scale(1.1) rotate(90deg);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  animation: closeButtonPulse 1.5s infinite;
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -138,7 +147,8 @@
   margin: 0.8rem 0;
   opacity: 0;
   transform: translateX(-40px);
-  animation: staggerSlideIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation: staggerSlideIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: var(--animation-delay, 0s);
 }
 
 .portfolio-nav-link {
@@ -149,7 +159,7 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 1.05rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   border-radius: 0;
   position: relative;
   overflow: hidden;
@@ -168,7 +178,7 @@
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   transform: scaleY(0);
   transform-origin: center;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
   border-radius: 0 4px 4px 0;
 }
 
@@ -181,7 +191,7 @@
   bottom: 0;
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(185, 28, 28, 0.08) 100%);
   transform: translateX(-100%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
   border-radius: 12px;
 }
 
@@ -213,7 +223,7 @@
 .portfolio-nav-icon {
   font-size: 1.4rem;
   margin-right: 1.2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
   position: relative;
   z-index: 1;
   display: flex;
@@ -225,8 +235,7 @@
 
 .portfolio-nav-link:hover .portfolio-nav-icon,
 .portfolio-nav-link.active .portfolio-nav-icon {
-  transform: scale(1.2) rotate(10deg);
-  filter: drop-shadow(0 2px 4px rgba(220, 38, 38, 0.3));
+  transform: scale(1.1) rotate(5deg);
 }
 
 .portfolio-nav-text {
@@ -239,7 +248,6 @@
   padding: 2rem;
   border-top: 1px solid #f3f4f6;
   background: linear-gradient(135deg, #fafafa 0%, #f9fafb 100%);
-  animation: slideInBottom 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   margin-top: auto;
 }
 
@@ -293,18 +301,16 @@
   left: 0;
   right: 0;
   z-index: 900;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
-  animation: navbarSlideDown 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
 .modern-portfolio-navbar.scrolled {
   background: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid rgba(220, 38, 38, 0.1);
   box-shadow: 0 8px 30px rgba(220, 38, 38, 0.1);
-  transform: translateY(0);
 }
 
 .modern-navbar-container {
@@ -322,13 +328,13 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
   cursor: pointer;
   position: relative;
 }
 
 .modern-navbar-brand:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .modern-brand-logo {
@@ -344,7 +350,7 @@
   color: white;
   font-weight: 700;
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   border: 2px solid rgba(220, 38, 38, 0.2);
@@ -359,11 +365,11 @@
   bottom: 0;
   background: linear-gradient(45deg, rgba(255,255,255,0.3) 0%, transparent 100%);
   transform: translateX(-100%) rotate(45deg);
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s ease;
 }
 
 .modern-navbar-brand:hover .modern-brand-logo {
-  transform: rotate(8deg) scale(1.08);
+  transform: rotate(5deg) scale(1.05);
   box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
   border-color: rgba(220, 38, 38, 0.4);
 }
@@ -384,7 +390,7 @@
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   position: relative;
 }
 
@@ -400,7 +406,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
 .modern-navbar-brand:hover .modern-brand-subtitle {
@@ -423,7 +429,7 @@
   border-radius: 12px;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
   position: relative;
   overflow: hidden;
@@ -441,11 +447,11 @@
   bottom: 0;
   background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
   transform: translateX(-100%);
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s ease;
 }
 
 .modern-navbar-cta:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(220, 38, 38, 0.4);
   border-color: rgba(220, 38, 38, 0.5);
 }
@@ -465,10 +471,9 @@
   border: 1px solid rgba(220, 38, 38, 0.2);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  transform: scale(1);
 }
 
 .modern-hamburger-menu::before {
@@ -480,7 +485,7 @@
   bottom: 0;
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%);
   transform: scale(0);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
   border-radius: 12px;
 }
 
@@ -498,8 +503,7 @@
 .modern-hamburger-menu.active {
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   border-color: #dc2626;
-  transform: scale(0.95) rotate(180deg);
-  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: scale(0.95);
   box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
 }
 
@@ -508,7 +512,7 @@
   height: 2.5px;
   background: #dc2626;
   margin: 2.5px 0;
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.3s ease;
   border-radius: 2px;
   position: relative;
   z-index: 1;
@@ -531,29 +535,7 @@
   transform: rotate(-45deg) translate(8px, -7px);
 }
 
-/* Enhanced Animations */
-@keyframes slideInTop {
-  from { 
-    transform: translateY(-40px); 
-    opacity: 0; 
-  }
-  to { 
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-}
-
-@keyframes slideInBottom {
-  from { 
-    transform: translateY(40px); 
-    opacity: 0; 
-  }
-  to { 
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-}
-
+/* Optimized Animations - Reduced complexity */
 @keyframes staggerSlideIn {
   from { 
     transform: translateX(-40px); 
@@ -565,41 +547,14 @@
   }
 }
 
-@keyframes closeButtonPulse {
-  0%, 100% { 
-    transform: scale(1.1) rotate(90deg); 
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); 
-  }
-  50% { 
-    transform: scale(1.15) rotate(90deg); 
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); 
-  }
-}
-
-@keyframes navbarSlideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes titleGlow {
-  0% { text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-  100% { text-shadow: 0 2px 8px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.3); }
-}
-
 @keyframes headerShimmer {
-  0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
-  100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.1); }
 }
 
 /* Media Queries */
@@ -766,18 +721,6 @@
   }
 }
 
-/* Additional Enhancement Styles */
-.portfolio-nav-item:nth-child(1) { animation-delay: 0.1s; }
-.portfolio-nav-item:nth-child(2) { animation-delay: 0.15s; }
-.portfolio-nav-item:nth-child(3) { animation-delay: 0.2s; }
-.portfolio-nav-item:nth-child(4) { animation-delay: 0.25s; }
-.portfolio-nav-item:nth-child(5) { animation-delay: 0.3s; }
-.portfolio-nav-item:nth-child(6) { animation-delay: 0.35s; }
-.portfolio-nav-item:nth-child(7) { animation-delay: 0.4s; }
-.portfolio-nav-item:nth-child(8) { animation-delay: 0.45s; }
-.portfolio-nav-item:nth-child(9) { animation-delay: 0.5s; }
-.portfolio-nav-item:nth-child(10) { animation-delay: 0.55s; }
-
 /* Focus styles for accessibility */
 .portfolio-nav-link:focus,
 .modern-navbar-cta:focus,
@@ -796,23 +739,6 @@
   scroll-behavior: smooth;
 }
 
-/* Loading animation for icons */
-@keyframes iconBounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-3px);
-  }
-  60% {
-    transform: translateY(-2px);
-  }
-}
-
-.portfolio-nav-link:hover .portfolio-nav-icon {
-  animation: iconBounce 0.6s ease-in-out;
-}
-
 /* Enhanced hover effects */
 .modern-navbar-brand::after {
   content: '';
@@ -822,25 +748,38 @@
   width: 0;
   height: 2px;
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s ease;
 }
 
 .modern-navbar-brand:hover::after {
   width: 100%;
 }
 
-/* Gradient text effect */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .portfolio-sidebar-header::before {
+    animation: none;
+  }
+  
+  .portfolio-footer-highlight::after {
+    animation: none;
+  }
 }
 
-.portfolio-footer-highlight {
-  background: linear-gradient(45deg, #dc2626, #b91c1c, #dc2626);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 3s ease infinite;
+/* Performance optimizations */
+.portfolio-sidebar-container,
+.modern-portfolio-navbar {
+  contain: layout style paint;
+}
+
+.portfolio-nav-link,
+.modern-hamburger-menu,
+.modern-brand-logo {
+  contain: layout paint;
 }
