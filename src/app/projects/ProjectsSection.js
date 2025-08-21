@@ -12,7 +12,27 @@ const ProjectsSection = () => {
 
   const projects = [
     {
-      id: 1,
+      id: 5,
+      title: "Department of BCA",
+      description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
+      technologies: ["HTML", "CSS", "Javascript"],
+      projectLink: "https://bcasacredheart2024.github.io/Department_of_bca",
+      sourceCode: "hhttps://github.com",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782478/Screenshot_50_dksygb.png', title: 'Homepage' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782488/Screenshot_49_rynkf9.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782510/Screenshot_48_nuenyn.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782511/Screenshot_53_fnphdn.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782513/Screenshot_52_smjcwc.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782518/Screenshot_51_kgx7lm.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_56_r7qatt.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_55_rm9akg.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_54_cjhgxv.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782581/Screenshot_57_nwy1hx.png', title: 'Product Page' }
+      ]
+    },
+    {
+      id: 2,
       title: "Gamenexplay",
       description: "GameNexPlay.live is an interactive online gaming platform that offers users a variety of browser-based games without the need for downloads or installations. Designed with a sleek and responsive user interface, GameNexPlay provides a seamless experience across devices. The platform includes features such as coin-based rewards, redeemable gift cards, and user accounts, making gameplay both engaging and rewarding. Whether you're a casual gamer or a competitive player, GameNexPlay.live brings entertainment and excitement directly to your screen.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
@@ -30,7 +50,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: "CIPHER 2K25",
       description: "CIPHER2K25.in is the official website for CIPHER 2K25, the annual IT Fest organized by the BCA Department of Sacred Heart College. Designed to generate excitement and streamline participation, the site showcases all fest-related information including event lineups, registration details, rules, schedules, and sponsor highlights. With a modern, mobile-friendly interface and dynamic visuals inspired by tech and gaming culture, the website offers a smooth and engaging experience for students, coordinators, and visitors alike.",
       technologies: ["React", "Node.js", "Express js", "MongoDB","Cloudinary"],
@@ -56,7 +76,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: "Color Prediction",
       description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
       technologies: ["Next.js", "Node.js", "MongoDB"],
@@ -70,7 +90,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 4,
+      id: 5,
       title: "G.K Groups",
       description: "GKGRP.com is the official digital platform of GK Groups, a multifaceted company with expertise across three major domains: GK Design to Build, GK Industries, and GK Properties. The website serves as a unified portal to showcase the company’s diverse operations — from innovative architectural design and construction services, to manufacturing and industrial solutions, and real estate development. With a modern, intuitive interface, GKGRP.com reflects the group’s commitment to quality, professionalism, and growth across sectors.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
@@ -90,27 +110,8 @@ const ProjectsSection = () => {
 
       ]
     },
-    {
-      id: 5,
-      title: "Department of BCA",
-      description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
-      technologies: ["HTML", "CSS", "Javascript"],
-      projectLink: "https://bcasacredheart2024.github.io/Department_of_bca",
-      sourceCode: "hhttps://github.com",
-      slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782478/Screenshot_50_dksygb.png', title: 'Homepage' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782488/Screenshot_49_rynkf9.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782510/Screenshot_48_nuenyn.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782511/Screenshot_53_fnphdn.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782513/Screenshot_52_smjcwc.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782518/Screenshot_51_kgx7lm.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_56_r7qatt.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_55_rm9akg.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782529/Screenshot_54_cjhgxv.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782581/Screenshot_57_nwy1hx.png', title: 'Product Page' }
-      ]
-    },
-  ];
+    
+  ].reverse();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);

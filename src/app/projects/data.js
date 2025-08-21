@@ -85,4 +85,50 @@ export const projects = [
     githubLink: 'https://github.com/example',
     slides: commonSlides,
   },
+  {
+    id: 5,
+    title: 'E-Commerce Store',
+    description: 'A modern e-commerce web app with product browsing, cart, and checkout flow. Features payment integration, order history, and responsive design for mobile and desktop.',
+    technologies: ['Next.js', 'Stripe', 'MongoDB', 'TailwindCSS'],
+    liveLink: 'https://example-ecommerce.com',
+    githubLink: 'https://github.com/example/ecommerce',
+    slides: [
+      {
+        type: 'image',
+        src: 'https://via.placeholder.com/400x200.png?text=Ecommerce+1',
+        alt: 'Ecommerce Screenshot 1',
+      },
+      {
+        type: 'image',
+        src: 'https://via.placeholder.com/400x200.png?text=Ecommerce+2',
+        alt: 'Ecommerce Screenshot 2',
+      },
+      {
+        type: 'video',
+        thumbnail: 'https://img.youtube.com/vi/abcd1234/maxresdefault.jpg',
+        videoSrc: 'https://www.youtube.com/embed/abcd1234?autoplay=1&rel=0',
+        title: 'Demo Video',
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: 'Blog Platform',
+    description: 'A feature-rich blogging platform where users can create accounts, write posts, comment, and follow authors. Includes a rich text editor, SEO optimization, and dark mode support.',
+    technologies: ['Next.js', 'Prisma', 'PostgreSQL', 'TailwindCSS'],
+    liveLink: 'https://example-blog.com',
+    githubLink: 'https://github.com/example/blog-platform',
+    slides: [
+      {
+        type: 'image',
+        src: 'https://via.placeholder.com/400x200.png?text=Blog+Home',
+        alt: 'Blog Home Screenshot',
+      },
+      {
+        type: 'image',
+        src: 'https://via.placeholder.com/400x200.png?text=Blog+Post',
+        alt: 'Blog Post Screenshot',
+      },
+    ],
+  },
 ];
