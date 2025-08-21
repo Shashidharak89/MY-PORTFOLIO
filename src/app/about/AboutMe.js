@@ -85,7 +85,7 @@ const AboutMe = () => {
                 <p className="education-field">Sacred Heart College, Madanthyar</p>
                 <p className="education-school">Mangalore University</p>
                 <p className="education-year">2022 - 2025</p>
-                <p className="education-gpa">CGPA: 8.52/10</p>
+                <p className="education-gpa">CGPA: 8.67/10</p>
               </div>
             </div>
             <div className="timeline-item">
