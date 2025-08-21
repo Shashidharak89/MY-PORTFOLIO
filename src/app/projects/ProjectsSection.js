@@ -8,7 +8,7 @@ import './styles/ProjectsSection.css';
 const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  
+
 
   const projects = [
     {
@@ -51,46 +51,6 @@ const ProjectsSection = () => {
     },
     {
       id: 3,
-      title: "CIPHER 2K25",
-      description: "CIPHER2K25.in is the official website for CIPHER 2K25, the annual IT Fest organized by the BCA Department of Sacred Heart College. Designed to generate excitement and streamline participation, the site showcases all fest-related information including event lineups, registration details, rules, schedules, and sponsor highlights. With a modern, mobile-friendly interface and dynamic visuals inspired by tech and gaming culture, the website offers a smooth and engaging experience for students, coordinators, and visitors alike.",
-      technologies: ["React", "Node.js", "Express js", "MongoDB","Cloudinary"],
-      projectLink: "https://cipher2k25.in",
-      sourceCode: "https://github.com/Shashidharak89/ciphen.git",
-      slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784963/Screenshot_58_ahpt9z.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_59_nnpwga.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784964/Screenshot_60_ow1mdt.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_71_ymvoas.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784965/Screenshot_65_azatac.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784966/Screenshot_64_ycorwx.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_61_edymqn.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_62_dbq1ah.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_67_a6ft3o.png', title: 'Dashboard View' },
-        
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_69_xgpcgu.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_70_cck2sc.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_68_x8mhvd.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_72_qn7qe4.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_63_gmfqkz.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
-      ]
-    },
-    {
-      id: 4,
-      title: "Color Prediction",
-      description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
-      technologies: ["Next.js", "Node.js", "MongoDB"],
-      projectLink: "https://color-prediction-next-js.vercel.app",
-      sourceCode: "hhttps://github.com/Shashidharak89/Color-Prediction-NextJS.git",
-      slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775188/Screenshot_33_s0gcac.png', title: 'Homepage' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775190/Screenshot_35_yg1jhz.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775189/Screenshot_34_djpczm.png', title: 'Product Page' },
-        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Platform Demo' }
-      ]
-    },
-    {
-      id: 5,
       title: "G.K Groups",
       description: "GKGRP.com is the official digital platform of GK Groups, a multifaceted company with expertise across three major domains: GK Design to Build, GK Industries, and GK Properties. The website serves as a unified portal to showcase the company’s diverse operations — from innovative architectural design and construction services, to manufacturing and industrial solutions, and real estate development. With a modern, intuitive interface, GKGRP.com reflects the group’s commitment to quality, professionalism, and growth across sectors.",
       technologies: ["React", "Node.js", "Express js", "MongoDB"],
@@ -110,7 +70,71 @@ const ProjectsSection = () => {
 
       ]
     },
-    
+    {
+      id: 4,
+      title: "CIPHER 2K25",
+      description: "CIPHER2K25.in is the official website for CIPHER 2K25, the annual IT Fest organized by the BCA Department of Sacred Heart College. Designed to generate excitement and streamline participation, the site showcases all fest-related information including event lineups, registration details, rules, schedules, and sponsor highlights. With a modern, mobile-friendly interface and dynamic visuals inspired by tech and gaming culture, the website offers a smooth and engaging experience for students, coordinators, and visitors alike.",
+      technologies: ["React", "Node.js", "Express js", "MongoDB", "Cloudinary"],
+      projectLink: "https://cipher2k25.in",
+      sourceCode: "https://github.com/Shashidharak89/ciphen.git",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784963/Screenshot_58_ahpt9z.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_59_nnpwga.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784964/Screenshot_60_ow1mdt.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_71_ymvoas.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784965/Screenshot_65_azatac.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784966/Screenshot_64_ycorwx.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_61_edymqn.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_62_dbq1ah.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_67_a6ft3o.png', title: 'Dashboard View' },
+
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_69_xgpcgu.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_70_cck2sc.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_68_x8mhvd.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_72_qn7qe4.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_63_gmfqkz.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
+      ]
+    },
+
+    {
+      id: 5,
+      title: "Color Prediction",
+      description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
+      technologies: ["Next.js", "Node.js", "MongoDB"],
+      projectLink: "https://color-prediction-next-js.vercel.app",
+      sourceCode: "hhttps://github.com/Shashidharak89/Color-Prediction-NextJS.git",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775188/Screenshot_33_s0gcac.png', title: 'Homepage' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775190/Screenshot_35_yg1jhz.png', title: 'Product Page' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775189/Screenshot_34_djpczm.png', title: 'Product Page' },
+        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Platform Demo' }
+      ]
+    },
+    {
+      id: 6,
+      title: "SHASHI AI",
+      description: "SHASHI AI is a Telegram bot (@shashiai_bot) built with a Next.js backend that integrates Gemini AI for intelligent chatbot responses. It also includes a movie search feature, where users can type `$movies-<movie name>` to instantly fetch movie details if available. The bot is designed to be fast, reliable, and user-friendly, offering both conversational AI and entertainment utilities inside Telegram.",
+      technologies: ["Next.js", "Node.js", "Gemini AI", "Telegram Bot API"],
+      projectLink: "https://t.me/shashiai_bot",
+      sourceCode: "https://github.com",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786075/720da7fa-62ad-4039-ba43-d18cda100c86.png', title: 'Chat Interface' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755790340/6FF9BFE4-44DD-4852-8F18-E756CC20243C_mh6o8u.png', title: 'Movie Search Demo' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786138/319a8803-d02e-4414-aa29-da02a1e98a6e.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786173/36bab387-a8e1-47a3-a28b-d5b10a66b72d.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786226/b6aec87d-affc-4a32-bb7e-08542d379071.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786242/2052cf1f-d9f7-41bf-8052-b8450db1a0d5.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786287/6156e174-9665-4d71-8aaa-20d02fa76e4c.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786442/881c17c7-a13e-40bd-9e83-962ee5679f7e.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786459/9636fff0-738f-47b5-a767-fae8ce932628.png', title: 'Gemini AI Response' },
+
+        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Bot Demo' }
+      ]
+    }
+
+
+
   ].reverse();
 
   useEffect(() => {
