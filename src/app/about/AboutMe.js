@@ -15,6 +15,7 @@ const AboutMe = () => {
     setIsVisible(true);
   }, []);
 
+  
   const skills = [
     { name: 'Frontend Development', level: 85, color: '#2563eb' },
     { name: 'Backend Development', level: 80, color: '#dc2626' },
