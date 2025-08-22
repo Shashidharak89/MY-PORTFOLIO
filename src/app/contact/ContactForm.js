@@ -159,10 +159,10 @@ const ContactForm = () => {
         {/* Header Section */}
         <div className="contact-header">
           <h1 className="contact-title">
-            Let's <span className="highlight">Connect</span>
+            Lets <span className="highlight">Connect</span>
           </h1>
           <p className="contact-subtitle">
-            Ready to bring your ideas to life? Let's start a conversation and create something amazing together.
+            Ready to bring your ideas to life? Lets start a conversation and create something amazing together.
           </p>
         </div>
 
@@ -173,7 +173,7 @@ const ContactForm = () => {
             <div className="info-card">
               <h2 className="info-title">Get In Touch</h2>
               <p className="info-description">
-                I'm passionate about creating innovative solutions and always excited to collaborate on new projects.
+                I am passionate about creating innovative solutions and always excited to collaborate on new projects.
               </p>
 
               {/* Contact Details */}
