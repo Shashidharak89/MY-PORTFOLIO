@@ -1,18 +1,19 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   FaPython, FaJava, FaPhp, FaJs, FaHtml5, FaCss3Alt, FaReact, 
-  FaGitAlt, FaFigma, FaDatabase, FaBolt, FaCode // Added FaCode
+  FaGitAlt, FaFigma, FaDatabase, FaBolt, FaCode
 } from 'react-icons/fa';
 import { SiNextdotjs, SiExpress, SiSpringboot, SiVisualstudiocode, 
   SiCloudinary, SiR } from 'react-icons/si';
-import './styles/Skills.css';
+  import './styles/Skills.css';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('Languages');
   const skillsRef = useRef(null);
+  const countAnimationRef = useRef(new Map());
 
   // Skills data
   const skillsData = {
@@ -21,7 +22,7 @@ const Skills = () => {
       { name: 'Java', level: 88, icon: FaJava },
       { name: 'PHP', level: 88, icon: FaPhp },
       { name: 'JavaScript', level: 85, icon: FaJs },
-      { name: 'C', level: 80, icon: FaCode }, // FaCode is now properly imported
+      { name: 'C', level: 80, icon: FaCode },
       { name: 'SQL', level: 90, icon: FaDatabase },
       { name: 'R', level: 75, icon: SiR },
       { name: 'HTML5', level: 95, icon: FaHtml5 },
@@ -42,15 +43,16 @@ const Skills = () => {
     ]
   };
 
+  // Intersection observer for animations
+  const handleIntersection = useCallback((entries) => {
+    const [entry] = entries;
+    if (entry.isIntersecting && !isVisible) {
+      setIsVisible(true);
+    }
+  }, [isVisible]);
+
   useEffect(() => {
     const currentRef = skillsRef.current;
-
-    const handleIntersection = (entries) => {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-      }
-    };
 
     let observer;
     if (currentRef && 'IntersectionObserver' in window) {
@@ -68,69 +70,103 @@ const Skills = () => {
         observer.unobserve(currentRef);
       }
     };
-  }, []);
+  }, [handleIntersection]);
 
-  const handleCategoryChange = (category) => setActiveCategory(category);
+  // Animate counter numbers
+  useEffect(() => {
+    if (!isVisible) return;
+
+    skillsData[activeCategory].forEach((skill, index) => {
+      const key = `${activeCategory}-${skill.name}`;
+      if (countAnimationRef.current.has(key)) return;
+
+      const startTime = Date.now();
+      const duration = 1500;
+      const startDelay = index * 100 + 400;
+
+      setTimeout(() => {
+        const animateCount = () => {
+          const elapsed = Date.now() - startTime - startDelay;
+          const progress = Math.min(elapsed / duration, 1);
+          const currentValue = Math.floor(progress * skill.level);
+
+          const element = document.querySelector(`[data-skill="${key}"] .classic-percentage-number`);
+          if (element) {
+            element.textContent = `${currentValue}%`;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animateCount);
+          } else {
+            countAnimationRef.current.set(key, true);
+          }
+        };
+        animateCount();
+      }, startDelay);
+    });
+  }, [isVisible, activeCategory, skillsData]);
+
+  const handleCategoryChange = (category) => {
+    if (category !== activeCategory) {
+      setActiveCategory(category);
+      countAnimationRef.current.clear();
+    }
+  };
 
   return (
-    <section className="standard-skills-section" ref={skillsRef}>
-      <div className="standard-skills-container">
-        <header className="standard-skills-header">
-          <h2 className="standard-skills-title">My Skills</h2>
-          <p className="standard-skills-subtitle">
+    <section className="classic-skills-section" ref={skillsRef}>
+      <div className="classic-skills-container">
+        <div className="classic-skills-header">
+          <h2 className="classic-skills-title">My Skills</h2>
+          <p className="classic-skills-subtitle">
             Professional expertise in modern technologies
           </p>
-        </header>
+        </div>
 
-        <nav className="standard-category-tabs">
+        <div className="classic-category-tabs">
           {Object.keys(skillsData).map((category) => (
             <button
               key={category}
-              className={`standard-tab-button ${activeCategory === category ? 'active' : ''}`}
+              className={`classic-tab-button ${activeCategory === category ? 'classic-tab-active' : ''}`}
               onClick={() => handleCategoryChange(category)}
               aria-label={`View ${category} skills`}
             >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              {category}
             </button>
           ))}
-        </nav>
+        </div>
 
-        <div className="standard-skills-grid">
+        <div className="classic-skills-grid">
           {skillsData[activeCategory].map((skill, index) => {
             const IconComponent = skill.icon;
             return (
               <div
-                key={skill.name}
-                className={`standard-skill-card ${isVisible ? 'animate' : ''}`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                key={`${activeCategory}-${skill.name}`}
+                className={`classic-skill-card ${isVisible ? 'classic-card-visible' : ''}`}
+                style={{ '--animation-delay': `${index * 100}ms` }}
+                data-skill={`${activeCategory}-${skill.name}`}
               >
-                <div className="standard-skill-icon">
+                <div className="classic-skill-icon">
                   {IconComponent ? (
-                    <IconComponent />
+                    <IconComponent className="classic-icon" />
                   ) : (
-                    <span className="fallback-icon">{skill.name[0]}</span>
+                    <span className="classic-fallback-icon">{skill.name[0]}</span>
                   )}
                 </div>
                 
-                <div className="standard-skill-content">
-                  <h3 className="standard-skill-name">{skill.name}</h3>
+                <div className="classic-skill-content">
+                  <h3 className="classic-skill-name">{skill.name}</h3>
                   
-                  <div className="standard-skill-progress">
-                    <div className="standard-progress-track">
+                  <div className="classic-progress-container">
+                    <div className="classic-progress-bar">
                       <div 
-                        className="standard-progress-fill"
-                        style={{ 
-                          width: isVisible ? `${skill.level}%` : '0%',
-                          transitionDelay: `${index * 100}ms`
-                        }}
+                        className="classic-progress-fill"
+                        style={{ '--skill-level': `${skill.level}%` }}
                       ></div>
                     </div>
-                    
-                    <div className="standard-skill-percentage">
-                      <span className={isVisible ? 'count-up' : ''}>
-                        {isVisible ? skill.level : 0}%
-                      </span>
-                    </div>
+                    <span className="classic-skill-percentage">
+                      <span className="classic-percentage-number">0%</span>
+                    </span>
                   </div>
                 </div>
               </div>
