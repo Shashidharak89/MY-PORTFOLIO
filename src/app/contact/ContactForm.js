@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Twitter, Instagram, Linkedin, X, CheckCircle, AlertCircle } from 'lucide-react';
 import './styles/ContactForm.css';
 
 const ContactForm = () => {
@@ -13,10 +13,12 @@ const ContactForm = () => {
   });
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ message: '', type: '' });
 
   useEffect(() => {
-    setIsVisible(true);
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleInputChange = (e) => {
@@ -33,12 +35,18 @@ const ContactForm = () => {
     setSubmitStatus({ message: '', type: '' });
 
     try {
+      // Prepare data for API - use default phone if empty
+      const submitData = {
+        ...formData,
+        phone: formData.phone || '0000000000'
+      };
+
       const response = await fetch('/api/contacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       });
 
       const data = await response.json();
@@ -47,30 +55,48 @@ const ContactForm = () => {
         throw new Error(data.error || 'Failed to submit contact form');
       }
 
-      setSubmitStatus({ message: 'Message sent successfully!', type: 'success' });
+      setSubmitStatus({ 
+        message: 'Thank you! Your message has been sent successfully. I\'ll get back to you soon.', 
+        type: 'success' 
+      });
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
-      setSubmitStatus({ message: error.message || 'Something went wrong', type: 'error' });
+      setSubmitStatus({ 
+        message: error.message || 'Oops! Something went wrong. Please try again.', 
+        type: 'error' 
+      });
     } finally {
       setIsSubmitting(false);
+      setShowPopup(true);
+      
+      // Auto hide popup after 5 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+        setSubmitStatus({ message: '', type: '' });
+      }, 5000);
     }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setSubmitStatus({ message: '', type: '' });
   };
 
   const contactInfo = [
     {
-      icon: <Mail className="portfolio-contact-icon" />,
+      icon: <Mail className="contact-icon" />,
       label: 'Email',
       value: 'shashidharak334@gmail.com',
       link: 'mailto:shashidharak334@gmail.com',
     },
     {
-      icon: <Phone className="portfolio-contact-icon" />,
+      icon: <Phone className="contact-icon" />,
       label: 'Phone',
       value: '+91 7760770725',
       link: 'https://wa.me/7760770725',
     },
     {
-      icon: <MapPin className="portfolio-contact-icon" />,
+      icon: <MapPin className="contact-icon" />,
       label: 'Location',
       value: 'Belthangady 574214, Mangalore, Karnataka, India',
       link: null,
@@ -79,80 +105,90 @@ const ContactForm = () => {
 
   const socialLinks = [
     {
-      icon: <Github className="portfolio-social-icon" />,
+      icon: <Github className="social-icon" />,
       name: 'GitHub',
       url: 'https://github.com/Shashidharak89',
-      color: '#333',
     },
     {
-      icon: <Linkedin className="portfolio-social-icon" />,
+      icon: <Linkedin className="social-icon" />,
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b',
-      color: '#0077b5',
     },
     {
-      icon: <Twitter className="portfolio-social-icon" />,
+      icon: <Twitter className="social-icon" />,
       name: 'Twitter',
       url: 'https://twitter.com',
-      color: '#1da1f2',
     },
     {
-      icon: <Instagram className="portfolio-social-icon" />,
+      icon: <Instagram className="social-icon" />,
       name: 'Instagram',
       url: 'https://instagram.com/luminous_alpha_',
-      color: '#e4405f',
     },
   ];
 
   return (
-    <div className={`portfolio-contact-container ${isVisible ? 'portfolio-animate-in' : ''}`}>
-      {/* Animated Background Elements */}
-      <div className="portfolio-bg-shapes">
-        <div className="portfolio-shape portfolio-shape-1"></div>
-        <div className="portfolio-shape portfolio-shape-2"></div>
-        <div className="portfolio-shape portfolio-shape-3"></div>
-        <div className="portfolio-floating-dots">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className={`portfolio-dot portfolio-dot-${i + 1}`}></div>
-          ))}
+    <div className={`contact-container ${isVisible ? 'animate-in' : ''}`}>
+      {/* Success/Error Popup */}
+      {showPopup && submitStatus.message && (
+        <div className={`popup-overlay ${showPopup ? 'show' : ''}`}>
+          <div className={`popup-card ${submitStatus.type}`}>
+            <div className="popup-header">
+              <div className="popup-icon">
+                {submitStatus.type === 'success' ? (
+                  <CheckCircle className="icon-success" />
+                ) : (
+                  <AlertCircle className="icon-error" />
+                )}
+              </div>
+              <button className="popup-close" onClick={closePopup}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className="popup-content">
+              <h3 className="popup-title">
+                {submitStatus.type === 'success' ? 'Message Sent!' : 'Submission Failed'}
+              </h3>
+              <p className="popup-message">{submitStatus.message}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content */}
-      <div className="portfolio-contact-content">
+      <div className="contact-content">
         {/* Header Section */}
-        <div className="portfolio-contact-header">
-          <h1 className="portfolio-contact-title">
-            Let&apos;s <span className="portfolio-highlight">Connect</span>
+        <div className="contact-header">
+          <h1 className="contact-title">
+            Let's <span className="highlight">Connect</span>
           </h1>
-          <p className="portfolio-contact-subtitle">
-            Ready to bring your ideas to life? Let&apos;s start a conversation.
+          <p className="contact-subtitle">
+            Ready to bring your ideas to life? Let's start a conversation and create something amazing together.
           </p>
         </div>
 
         {/* Content Grid */}
-        <div className="portfolio-contact-grid">
+        <div className="contact-grid">
           {/* Contact Information Side */}
-          <div className="portfolio-contact-info">
-            <div className="portfolio-contact-card">
-              <h2 className="portfolio-info-title">Get In Touch</h2>
-              <p className="portfolio-info-description">
-                I&apos;m always excited to work on new projects and collaborate with amazing people.
+          <div className="contact-info">
+            <div className="info-card">
+              <h2 className="info-title">Get In Touch</h2>
+              <p className="info-description">
+                I'm passionate about creating innovative solutions and always excited to collaborate on new projects.
               </p>
 
               {/* Contact Details */}
-              <div className="portfolio-contact-details">
+              <div className="contact-details">
                 {contactInfo.map((item, index) => (
-                  <div key={index} className="portfolio-contact-item">
+                  <div key={index} className="contact-item" style={{ animationDelay: `${0.1 + index * 0.1}s` }}>
                     {item.icon}
-                    <div className="portfolio-contact-text">
-                      <span className="portfolio-contact-label">{item.label}</span>
+                    <div className="contact-text">
+                      <span className="contact-label">{item.label}</span>
                       {item.link ? (
-                        <a href={item.link} className="portfolio-contact-value">
+                        <a href={item.link} className="contact-value">
                           {item.value}
                         </a>
                       ) : (
-                        <span className="portfolio-contact-value">{item.value}</span>
+                        <span className="contact-value">{item.value}</span>
                       )}
                     </div>
                   </div>
@@ -160,20 +196,20 @@ const ContactForm = () => {
               </div>
 
               {/* Social Links */}
-              <div className="portfolio-social-section">
-                <h3 className="portfolio-social-title">Follow Me</h3>
-                <div className="portfolio-social-links">
+              <div className="social-section">
+                <h3 className="social-title">Connect With Me</h3>
+                <div className="social-links">
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="portfolio-social-link"
-                      style={{ '--social-color': social.color }}
+                      className="social-link"
+                      style={{ animationDelay: `${0.5 + index * 0.1}s` }}
                     >
                       {social.icon}
-                      <span className="portfolio-social-tooltip">{social.name}</span>
+                      <span className="social-tooltip">{social.name}</span>
                     </a>
                   ))}
                 </div>
@@ -182,96 +218,75 @@ const ContactForm = () => {
           </div>
 
           {/* Contact Form Side */}
-          <div className="portfolio-form-section">
-            <div className="portfolio-form-card">
-              <h2 className="portfolio-form-title">Send a Message</h2>
-              <form onSubmit={handleSubmit} className="portfolio-contact-form">
-                <div className="portfolio-form-row">
-                  <div className="portfolio-form-group">
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="portfolio-form-input"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    />
-                    <label className="portfolio-form-label">Full Name</label>
-                  </div>
+          <div className="form-section">
+            <div className="form-card">
+              <h2 className="form-title">Send a Message</h2>
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder=" "
+                    disabled={isSubmitting}
+                  />
+                  <label className="form-label">Full Name *</label>
                 </div>
 
-                <div className="portfolio-form-row">
-                  <div className="portfolio-form-group">
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="portfolio-form-input"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    />
-                    <label className="portfolio-form-label">Email Address</label>
-                  </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder=" "
+                    disabled={isSubmitting}
+                  />
+                  <label className="form-label">Email Address *</label>
                 </div>
 
-                <div className="portfolio-form-row">
-                  <div className="portfolio-form-group">
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="portfolio-form-input"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    />
-                    <label className="portfolio-form-label">Phone Number</label>
-                  </div>
+                <div className="form-group">
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="form-input"
+                    placeholder=" "
+                    disabled={isSubmitting}
+                  />
+                  <label className="form-label">Phone Number (Optional)</label>
                 </div>
 
-                <div className="portfolio-form-row">
-                  <div className="portfolio-form-group">
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows="5"
-                      className="portfolio-form-textarea"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    ></textarea>
-                    <label className="portfolio-form-label">Your Message</label>
-                  </div>
+                <div className="form-group">
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows="5"
+                    className="form-textarea"
+                    placeholder=" "
+                    disabled={isSubmitting}
+                  ></textarea>
+                  <label className="form-label">Your Message *</label>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`portfolio-submit-btn ${isSubmitting ? 'portfolio-submitting' : ''}`}
+                  className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
                 >
-                  <span className="portfolio-btn-text">
+                  <span className="btn-text">
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </span>
-                  <Send className="portfolio-btn-icon" />
-                  <div className="portfolio-btn-wave"></div>
+                  <Send className="btn-icon" />
                 </button>
-
-                {submitStatus.message && (
-                  <p
-                    className={`portfolio-form-status ${
-                      submitStatus.type === 'success'
-                        ? 'portfolio-form-success'
-                        : 'portfolio-form-error'
-                    }`}
-                  >
-                    {submitStatus.message}
-                  </p>
-                )}
               </form>
             </div>
           </div>
