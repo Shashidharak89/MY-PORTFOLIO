@@ -2,7 +2,7 @@ import './globals.css'; // Global styles
 import Script from 'next/script';
 
 export const metadata = {
-  title: 'My Portfolio',
+  title: 'Shashidhara K - Portfolio',
   description: 'Personal Portfolio built with Next.js',
 };
 
