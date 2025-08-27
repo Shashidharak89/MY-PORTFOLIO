@@ -1,97 +1,156 @@
-'use client';
+import React, { useState, useEffect } from 'react';
 
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image'; // Import Next.js Image component
-
-const ImageSlider = ({ slides, title, isActive }) => {
-  const scrollRef = useRef(null);
-  const [isVideoPopupOpen, setIsVideoPopupOpen] = useState(false);
-  const intervalId = useRef(null);
+const ImageSlider = ({ slides, title, isActive, projectLink, sourceCode }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadingStates, setLoadingStates] = useState({});
+  const [loadedImages, setLoadedImages] = useState(new Set());
 
-  const startAutoScroll = () => {
-    const container = scrollRef.current;
-    if (!container || !isActive || isVideoPopupOpen) return;
-
-    const nextIndex = (currentIndex + 1) % slides.length;
-    setCurrentIndex(nextIndex);
-    container.scrollTo({
-      left: container.children[nextIndex].offsetLeft,
-      behavior: 'smooth',
-    });
-  };
-
-  const handlePlayClick = () => {
-    setIsVideoPopupOpen(true);
-    if (intervalId.current) clearInterval(intervalId.current);
-  };
-
-  const closeVideoPopup = () => {
-    setIsVideoPopupOpen(false);
-  };
-
+  // Initialize loading states
   useEffect(() => {
-    if (isActive && !isVideoPopupOpen) {
-      intervalId.current = setInterval(startAutoScroll, 3000);
-      return () => clearInterval(intervalId.current);
-    }
-  }, [isActive, isVideoPopupOpen, currentIndex, startAutoScroll]); // Added startAutoScroll to dependencies
+    const initialLoadingStates = {};
+    slides.forEach((slide, index) => {
+      if (slide.type === 'image') {
+        initialLoadingStates[index] = true;
+      }
+    });
+    setLoadingStates(initialLoadingStates);
+  }, [slides]);
+
+  // Preload images
+  useEffect(() => {
+    slides.forEach((slide, index) => {
+      if (slide.type === 'image' && !loadedImages.has(index)) {
+        const img = new Image();
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, index]));
+          setLoadingStates(prev => ({
+            ...prev,
+            [index]: false
+          }));
+        };
+        img.onerror = () => {
+          setLoadingStates(prev => ({
+            ...prev,
+            [index]: false
+          }));
+        };
+        img.src = slide.src;
+      }
+    });
+  }, [slides, loadedImages]);
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const handleImageLoad = (index) => {
+    setLoadedImages(prev => new Set([...prev, index]));
+    setLoadingStates(prev => ({
+      ...prev,
+      [index]: false
+    }));
+  };
+
+  const handleImageError = (index) => {
+    setLoadingStates(prev => ({
+      ...prev,
+      [index]: false
+    }));
+  };
+
+  if (!slides || slides.length === 0) {
+    return (
+      <div className="image-slider-wrapper">
+        <div className="image-preloader-unique">
+          <div className="preloader-spinner-unique"></div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentSlide = slides[currentIndex];
+  const isLoading = loadingStates[currentIndex];
 
   return (
-    <div className="carousel-wrapper-shashi">
-      <div className="carousel-scroll-container-shashi" ref={scrollRef}>
-        {slides.map((slide, idx) => (
-          <div className="carousel-item-shashi" key={idx}>
-            {slide.type === 'image' ? (
-              <div
-                className="carousel-content-shashi"
-                style={{ backgroundImage: `url(${slide.src})` }}
-              />
-            ) : (
-              <div
-                className="carousel-content-shashi video-thumbnail-shashi"
-                onClick={handlePlayClick}
-              >
-                <Image // Replaced img with Image
-                  src={slide.thumbnail}
-                  alt={slide.title}
-                  className="video-thumb-image-shashi"
-                  width={200} // Add appropriate width
-                  height={120} // Add appropriate height
-                  style={{ objectFit: 'cover' }}
-                  draggable={false}
-                />
-                <div className="play-button-overlay-shashi">▶</div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="image-slider-wrapper">
+      {/* Preloader */}
+      {isLoading && currentSlide?.type === 'image' && (
+        <div className="image-preloader-unique">
+          <div className="preloader-spinner-unique"></div>
+        </div>
+      )}
 
-      <div className="carousel-indicators-shashi">
-        {slides.map((_, i) => (
-          <div
-            key={i}
-            className={`carousel-indicator-shashi ${i === currentIndex ? 'carousel-indicator-active-shashi' : ''}`}
+      {/* Current Slide Content */}
+      {currentSlide?.type === 'image' ? (
+        <img
+          src={currentSlide.src}
+          alt={currentSlide.title || title}
+          className={`slider-image ${isLoading ? 'loading' : 'loaded'}`}
+          onLoad={() => handleImageLoad(currentIndex)}
+          onError={() => handleImageError(currentIndex)}
+          loading="lazy"
+        />
+      ) : currentSlide?.type === 'video' ? (
+        <div className="video-container">
+          <iframe
+            src={currentSlide.videoSrc}
+            title={currentSlide.title || title}
+            allowFullScreen
+            loading="lazy"
           />
-        ))}
-      </div>
+        </div>
+      ) : null}
 
-      {isVideoPopupOpen && (
-        <div className="video-modal-overlay-shashi">
-          <div className="video-modal-container-shashi">
-            <button className="video-close-button-shashi" onClick={closeVideoPopup}>
-              ×
-            </button>
-            <iframe
-              className="video-iframe-shashi"
-              src={slides.find((s) => s.type === 'video').videoSrc}
-              title={title}
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            ></iframe>
-          </div>
+      {/* Navigation Arrows */}
+      {slides.length > 1 && (
+        <>
+          <button 
+            className="slider-nav-button prev" 
+            onClick={goToPrev}
+            aria-label="Previous slide"
+          >
+            ←
+          </button>
+          <button 
+            className="slider-nav-button next" 
+            onClick={goToNext}
+            aria-label="Next slide"
+          >
+            →
+          </button>
+        </>
+      )}
+
+      {/* Dots Navigation */}
+      {slides.length > 1 && (
+        <div className="slider-dots">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              className={`slider-dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Slide Counter */}
+      {slides.length > 1 && (
+        <div className="slide-counter">
+          {currentIndex + 1} / {slides.length}
         </div>
       )}
     </div>
