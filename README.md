@@ -42,14 +42,4 @@ blended with <b>white, black, and blue</b> for a striking user experience.
 
 ---
 
-<h2>🚀 Getting Started</h2>
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/portfolio.git
-
-# Install dependencies
-npm install
-
-# Run locally
-npm run dev
