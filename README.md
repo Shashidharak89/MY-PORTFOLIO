@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">🔥 Shashidhara K - Portfolio Website 🔥</h1>
 
-## Getting Started
+<p align="center">
+  <a href="http://portfolio.gamenexplay.live" target="_blank">
+    <img src="https://img.shields.io/badge/Visit-My%20Portfolio-red?style=for-the-badge&logo=firefox&logoColor=white" alt="Portfolio Link"/>
+  </a>
+</p>
 
-First, run the development server:
+---
+
+<h2>✨ About</h2>
+
+<p>
+This is my <b>personal portfolio website</b> built using 
+<strong>Next.js (Full Stack), JavaScript, and MongoDB</strong>.  
+It is designed with a modern look, smooth transitions, and <b>red</b> as the primary color theme,  
+blended with <b>white, black, and blue</b> for a striking user experience.  
+</p>
+
+---
+
+<h2>🎨 Features</h2>
+
+<ul>
+  <li>⚡ Smooth page transitions with animations</li>
+  <li>🎯 Minimal & modern UI with a <span style="color:red;"><b>red-focused</b></span> theme</li>
+  <li>📂 Projects, Skills, and Experience showcased</li>
+  <li>📱 Fully responsive design</li>
+  <li>🌐 Hosted live at <a href="http://portfolio.gamenexplay.live">portfolio.gamenexplay.live</a></li>
+</ul>
+
+---
+
+<h2>🛠️ Tech Stack</h2>
+
+<p>
+  <img src="https://img.shields.io/badge/Frontend-Next.js-black?style=for-the-badge&logo=next.js"/>
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js"/>
+  <img src="https://img.shields.io/badge/Database-MongoDB-blue?style=for-the-badge&logo=mongodb"/>
+  <img src="https://img.shields.io/badge/Language-JavaScript-yellow?style=for-the-badge&logo=javascript"/>
+</p>
+
+---
+
+<h2>🚀 Getting Started</h2>
 
 ```bash
+# Clone the repository
+git clone https://github.com/your-username/portfolio.git
+
+# Install dependencies
+npm install
+
+# Run locally
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
