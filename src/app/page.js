@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import PortfolioDashboard from './components/PortfolioDashboard';
 import Preloader from './components/Preloader';
 import FooterC from './components/FooterC';
+import ChatComponent from './components/ChatComponent';
 
 export default function Home() {
   const pathname = usePathname();
@@ -23,6 +24,7 @@ export default function Home() {
       <Navbar />
       <PortfolioDashboard />
       <Preloader />
+      <ChatComponent />
       <FooterC/>
     </>
   );
