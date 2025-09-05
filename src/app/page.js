@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import PortfolioDashboard from './components/PortfolioDashboard';
 import Preloader from './components/Preloader';
 import FooterC from './components/FooterC';
+import ChatWidget from './components/ChatWidget';
 
 
 export default function Home() {
@@ -24,7 +25,9 @@ export default function Home() {
       <Navbar />
       <PortfolioDashboard />
       <Preloader />
+      <ChatWidget/>
       <FooterC/>
+      
     </>
   );
 }
