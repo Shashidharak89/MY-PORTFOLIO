@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { HiPaperAirplane } from "react-icons/hi2";
 import "./styles/ChatBox.css";
 
 export default function ChatBox() {
@@ -25,6 +26,31 @@ export default function ChatBox() {
     // prevent dupes when socket echoes our own message
     if (msg._id && arr.some(m => m._id === msg._id)) return arr;
     return [...arr, msg];
+  };
+
+  // Format relative time
+  const getRelativeTime = (timestamp) => {
+    try {
+      const now = new Date();
+      const messageTime = new Date(timestamp);
+      const diffInSeconds = Math.floor((now - messageTime) / 1000);
+
+      if (diffInSeconds < 30) return "Just now";
+      if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+      
+      const diffInMinutes = Math.floor(diffInSeconds / 60);
+      if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+      
+      const diffInHours = Math.floor(diffInMinutes / 60);
+      if (diffInHours < 24) return `${diffInHours}h ago`;
+      
+      const diffInDays = Math.floor(diffInHours / 24);
+      if (diffInDays < 7) return `${diffInDays}d ago`;
+      
+      return messageTime.toLocaleDateString();
+    } catch {
+      return "";
+    }
   };
 
   // Load stored name
@@ -141,72 +167,96 @@ export default function ChatBox() {
   if (!storedName) {
     // ask for name first
     return (
-      <div className="name-container">
-        <div className="name-box">
-          <h2>Enter Your Name</h2>
+      <div className="portfolio-chatbox-name-container">
+        <div className="portfolio-chatbox-name-box">
+          <h3 className="portfolio-chatbox-name-title">Welcome! What's your name?</h3>
+          <p className="portfolio-chatbox-name-subtitle">Enter your name to start chatting with our support team</p>
           <input
             type="text"
+            className="portfolio-chatbox-name-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            placeholder="Enter your name"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSaveName();
+              }
+            }}
           />
-          <button onClick={handleSaveName}>Save</button>
+          <button 
+            className="portfolio-chatbox-name-button"
+            onClick={handleSaveName}
+            disabled={!name.trim()}
+          >
+            Start Chat
+          </button>
         </div>
       </div>
     );
   }
 
-  const formatTime = (iso) => {
-    try {
-      const d = new Date(iso);
-      const hh = d.getHours().toString().padStart(2, "0");
-      const mm = d.getMinutes().toString().padStart(2, "0");
-      return `${hh}:${mm}`;
-    } catch { return ""; }
-  };
-
   return (
-    <div className="chat-container">
-      <div className="chat-header">Live Support Chat</div>
-
-      <div className="chat-messages">
-        {messages.map((msg, idx) => {
-          const isAdmin = msg.userid === "ADMINSHASHI";
-          const side = isAdmin ? "left" : "right";
-          const showStatus = !isAdmin; // status/ticks only on user (right side)
-          return (
-            <div key={msg._id || msg.tempId || idx} className={`chat-message ${side}`}>
-              <div className="bubble">
-                <p className="msg-name">{msg.name}</p>
-                <p className="msg-text">{msg.message}</p>
-                <div className="meta-row">
-                  <span className="time">{formatTime(msg.timestamp)}</span>
-                  {showStatus && (
-                    <span className="status">
-                      {msg.status === "sending" && <span className="spinner" aria-label="sending" />}
-                      {msg.status === "sent" && <span className="tick" aria-label="sent">✓</span>}
-                      {msg.status === "failed" && (
-                        <button className="retry" onClick={() => handleRetry(msg.tempId)} title="Retry">!</button>
-                      )}
-                    </span>
-                  )}
+    <div className="portfolio-chatbox-container">
+      <div className="portfolio-chatbox-messages">
+        {messages.length === 0 ? (
+          <div className="portfolio-chatbox-welcome">
+            <p>👋 Hi {storedName}! How can we help you today?</p>
+          </div>
+        ) : (
+          messages.map((msg, idx) => {
+            const isAdmin = msg.userid === "ADMINSHASHI";
+            const side = isAdmin ? "left" : "right";
+            const showStatus = !isAdmin; // status/ticks only on user (right side)
+            return (
+              <div key={msg._id || msg.tempId || idx} className={`portfolio-chatbox-message ${side}`}>
+                <div className="portfolio-chatbox-bubble">
+                  <p className="portfolio-chatbox-msg-name">{msg.name}</p>
+                  <p className="portfolio-chatbox-msg-text">{msg.message}</p>
+                  <div className="portfolio-chatbox-meta-row">
+                    <span className="portfolio-chatbox-time">{getRelativeTime(msg.timestamp)}</span>
+                    {showStatus && (
+                      <span className="portfolio-chatbox-status">
+                        {msg.status === "sending" && <span className="portfolio-chatbox-spinner" aria-label="sending" />}
+                        {msg.status === "sent" && <span className="portfolio-chatbox-tick" aria-label="sent">✓</span>}
+                        {msg.status === "failed" && (
+                          <button 
+                            className="portfolio-chatbox-retry" 
+                            onClick={() => handleRetry(msg.tempId)} 
+                            title="Retry"
+                          >
+                            !
+                          </button>
+                        )}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
         <div ref={listEndRef} />
       </div>
 
-      <div className="chat-input">
-        <textarea
-          rows={1}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={onKeyDown}
-          placeholder="Type your message..."
-        />
-        <button onClick={handleSend}>Send</button>
+      <div className="portfolio-chatbox-input-container">
+        <div className="portfolio-chatbox-input-wrapper">
+          <textarea
+            className="portfolio-chatbox-textarea"
+            rows={1}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder="Type your message..."
+          />
+          <button 
+            className="portfolio-chatbox-send-button"
+            onClick={handleSend}
+            disabled={!message.trim()}
+          >
+            <HiPaperAirplane />
+          </button>
+        </div>
       </div>
     </div>
   );

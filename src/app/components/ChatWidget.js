@@ -59,9 +59,7 @@ export default function ChatWidget() {
                 <HiXMark />
               </button>
             </div>
-            <div className="portfolio-chat-content">
-              <ChatBox />
-            </div>
+            <ChatBox />
           </div>
         )}
       </div>

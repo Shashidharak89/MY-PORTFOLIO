@@ -242,10 +242,6 @@
     width: calc(100vw - 20px);
     right: -5px;
   }
-  
-  .portfolio-chat-content {
-    height: 300px;
-  }
 }
 
 /* Accessibility Focus Styles */
