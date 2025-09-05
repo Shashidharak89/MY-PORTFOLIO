@@ -169,7 +169,7 @@ export default function ChatBox() {
     return (
       <div className="portfolio-chatbox-name-container">
         <div className="portfolio-chatbox-name-box">
-          <h3 className="portfolio-chatbox-name-title">Welcome! What's your name?</h3>
+          <h3 className="portfolio-chatbox-name-title">Welcome! What is your name?</h3>
           <p className="portfolio-chatbox-name-subtitle">Enter your name to start chatting with our support team</p>
           <input
             type="text"
