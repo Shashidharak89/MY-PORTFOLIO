@@ -39,12 +39,12 @@ const Linkedin = () => {
             Belthangadi, Karnataka, India · <span className="li-contact">Contact info</span>
           </p>
           <a
-            href="https://portfolio.gamenexplay.live"
+            href="https://shashi-k.in"
             target="_blank"
             rel="noopener noreferrer"
             className="li-link"
           >
-            portfolio.gamenexplay.live
+            shashi-k.in
           </a>
           <p className="li-connections">90 connections</p>
           <button className="li-button" onClick={handleRedirect}>
