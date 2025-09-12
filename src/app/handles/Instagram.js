@@ -76,7 +76,7 @@ const Instagram = () => {
             <p>𝐍𝐌𝐀𝐌𝐈𝐓 𝐍𝐈𝐓𝐓𝐄</p>
             <p>Turning negativity into motivation 💀</p>
             <a href="https://portfolio.gamenexplay.live" target="_blank" rel="noopener noreferrer">
-              portfolio.gamenexplay.live
+              shashi-k.in
             </a>
           </div>
         </div>
