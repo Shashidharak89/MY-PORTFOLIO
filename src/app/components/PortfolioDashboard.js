@@ -16,10 +16,10 @@ const PortfolioDashboard = () => {
   ], []);
 
   const stats = [
-    { label: 'Projects Completed', value: '20+', icon: '🚀' },
+    { label: 'Projects Completed', value: '10+', icon: '🚀' },
     { label: 'Years Experience', value: '2+', icon: '⏰' },
     { label: 'Technologies', value: '10+', icon: '💻' },
-    { label: 'Happy Clients', value: '5+', icon: '😊' }
+    { label: 'Happy Clients', value: '3+', icon: '😊' }
   ];
 
   useEffect(() => {
