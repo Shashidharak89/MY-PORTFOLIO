@@ -26,7 +26,7 @@ blended with <b>white, black, and blue</b> for a striking user experience.
   <li>🎯 Minimal & modern UI with a <span style="color:red;"><b>red-focused</b></span> theme</li>
   <li>📂 Projects, Skills, and Experience showcased</li>
   <li>📱 Fully responsive design</li>
-  <li>🌐 Hosted live at <a href="http://portfolio.gamenexplay.live">portfolio.gamenexplay.live</a></li>
+  <li>🌐 Hosted live at <a href="http://shashi-k.in">shashi-k.in</a></li>
 </ul>
 
 ---
