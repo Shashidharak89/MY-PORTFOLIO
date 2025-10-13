@@ -10,8 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head />
+
       <body>
-        {/* Google Analytics Scripts */}
+        {/* 🧠 Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-ZZC27635YG"
           strategy="afterInteractive"
@@ -25,7 +26,16 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Your content */}
+        {/* 💰 Google AdSense */}
+        <Script
+          id="adsense-script"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4934238485595915"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
+        {/* 🧩 Your site content */}
         <main style={{ paddingTop: '60px' }}>{children}</main>
       </body>
     </html>
