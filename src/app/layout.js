@@ -1,4 +1,4 @@
-import './globals.css'; // Global styles
+import './globals.css';
 import Script from 'next/script';
 
 export const metadata = {
@@ -9,7 +9,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        {/* 🪪 Google AdSense Verification Meta Tag */}
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-4934238485595915"
+        />
+      </head>
 
       <body>
         {/* 🧠 Google Analytics */}
@@ -26,7 +32,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* 💰 Google AdSense */}
+        {/* 💰 Google AdSense Script */}
         <Script
           id="adsense-script"
           async
@@ -35,7 +41,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* 🧩 Your site content */}
+        {/* 🧩 Main content */}
         <main style={{ paddingTop: '60px' }}>{children}</main>
       </body>
     </html>
