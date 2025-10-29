@@ -99,20 +99,6 @@ const ProjectsSection = () => {
 
     {
       id: 5,
-      title: "Color Prediction",
-      description: "Color Prediction Game is a web-based betting platform where users can predict the outcome of color-based results (e.g., Red, Green, or Violet) and earn coins or rewards based on their predictions. Built with Next.js, this project provides a real-time, responsive experience that mimics the structure of popular online color prediction/betting apps. The interface is user-friendly, with wallet integration, result history, and secure prediction flow, making it both entertaining and engaging.",
-      technologies: ["Next.js", "Node.js", "MongoDB"],
-      projectLink: "https://color-prediction-next-js.vercel.app",
-      sourceCode: "hhttps://github.com/Shashidharak89/Color-Prediction-NextJS.git",
-      slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775188/Screenshot_33_s0gcac.png', title: 'Homepage' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775190/Screenshot_35_yg1jhz.png', title: 'Product Page' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775189/Screenshot_34_djpczm.png', title: 'Product Page' },
-        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Platform Demo' }
-      ]
-    },
-    {
-      id: 6,
       title: "SHASHI AI",
       description: "SHASHI AI is a Telegram bot (@shashiai_bot) built with a Next.js backend that integrates Gemini AI for intelligent chatbot responses. It also includes a movie search feature, where users can type `$movies-<movie name>` to instantly fetch movie details if available. The bot is designed to be fast, reliable, and user-friendly, offering both conversational AI and entertainment utilities inside Telegram.",
       technologies: ["Next.js", "Node.js", "Gemini AI", "Telegram Bot API"],
@@ -131,7 +117,28 @@ const ProjectsSection = () => {
 
         { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Bot Demo' }
       ]
-    }
+    },
+        {
+      id: 6,
+      title: "LEARNIX",
+      description: "Learnix is a sleek educational web platform built with Next.js that empowers students to access and share learning resources seamlessly. Designed with modern UI/UX in mind, the site supports effortless navigation, responsive layouts and intuitive content management—making it a compelling tool for collaborative and remote learning.",
+      technologies: ["Next.js", "Node.js", "Cloudinary", "MongoDB"],
+      projectLink: "https://learnix.shashi-k.in",
+      sourceCode: "https://github.com",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819907/dashboard_s0ftxp.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819925/profile-skeleton_gsfu0l.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819909/profile-ss_kf3eze.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819912/search_pher6e.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819904/materials-page_dwovnn.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819929/works-first_vovplj.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819924/upload-sub-delete_cbl5e7.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819907/feedback-send_hztwgv.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819923/upload-topic-add_j3qhbc.jpg', title: 'Workout Screen' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819925/work-id_k3bsrb.jpg', title: 'Workout Screen' }
+
+      ]
+    },
 
 
 
