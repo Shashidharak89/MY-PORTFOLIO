@@ -96,32 +96,43 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
       ]
     },
-
     {
       id: 5,
-      title: "SHASHI AI",
-      description: "SHASHI AI is a Telegram bot (@shashiai_bot) built with a Next.js backend that integrates Gemini AI for intelligent chatbot responses. It also includes a movie search feature, where users can type `$movies-<movie name>` to instantly fetch movie details if available. The bot is designed to be fast, reliable, and user-friendly, offering both conversational AI and entertainment utilities inside Telegram.",
-      technologies: ["Next.js", "Node.js", "Gemini AI", "Telegram Bot API"],
-      projectLink: "https://t.me/shashiai_bot",
+      title: "Gamenexplay",
+      description: "GameNexPlay.live is an interactive online gaming platform that offers users a variety of browser-based games without the need for downloads or installations. Designed with a sleek and responsive user interface, GameNexPlay provides a seamless experience across devices. The platform includes features such as coin-based rewards, redeemable gift cards, and user accounts, making gameplay both engaging and rewarding. Whether you're a casual gamer or a competitive player, GameNexPlay.live brings entertainment and excitement directly to your screen.",
+      technologies: ["React", "Node.js", "Express js", "MongoDB"],
+      projectLink: "https://gamenexplay.live",
       sourceCode: "https://github.com",
       slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786075/720da7fa-62ad-4039-ba43-d18cda100c86.png', title: 'Chat Interface' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755790340/6FF9BFE4-44DD-4852-8F18-E756CC20243C_mh6o8u.png', title: 'Movie Search Demo' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786138/319a8803-d02e-4414-aa29-da02a1e98a6e.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786173/36bab387-a8e1-47a3-a28b-d5b10a66b72d.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786226/b6aec87d-affc-4a32-bb7e-08542d379071.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786242/2052cf1f-d9f7-41bf-8052-b8450db1a0d5.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786287/6156e174-9665-4d71-8aaa-20d02fa76e4c.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786442/881c17c7-a13e-40bd-9e83-962ee5679f7e.png', title: 'Gemini AI Response' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755786459/9636fff0-738f-47b5-a767-fae8ce932628.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774357/Screenshot_26_eqtroy.png', title: 'Dashboard View' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774359/Screenshot_29_j01rmq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774366/Screenshot_28_rozreh.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774368/Screenshot_30_tp10bu.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774372/Screenshot_27_mqrpxq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774378/Screenshot_32_dk20yq.png', title: 'Analytics Panel' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774382/Screenshot_31_dxp9xw.png', title: 'Analytics Panel' }
 
-        { type: 'video', thumbnail: 'https://img.youtube.com/vi/JSt0FmvcvP8/0.jpg', videoSrc: 'https://www.youtube.com/embed/JSt0FmvcvP8', title: 'Bot Demo' }
+      ]
+    },
+
+    {
+      id: 6,
+      title: "ShopX [E-Commerce Website]",
+      description: "This is a full-stack e-commerce platform I built together with my collaborators using the MERN stack. It offers users a smooth online shopping experience — browse products, add to cart, checkout — while also featuring admin tools for product and order management. Built as a team project, it showcases how we worked together to create a scalable, user-friendly store.",
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB"],
+      projectLink: "https://e-commerce-mern-beta.vercel.app",
+      sourceCode: "https://github.com/Shashidharak89/E-COMMERCE-MERN.git",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385704/home_rbh4os.png', title: 'Chat Interface' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385997/login_xl30zx.png', title: 'Movie Search Demo' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385998/cart_kd6hvq.png', title: 'Gemini AI Response' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1756386190/orders_rhrtqx.png', title: 'Gemini AI Response' }
       ]
     },
         {
-      id: 6,
+      id: 7,
       title: "LEARNIX",
-      description: "Learnix is a sleek educational web platform built with Next.js that empowers students to access and share learning resources seamlessly. Designed with modern UI/UX in mind, the site supports effortless navigation, responsive layouts and intuitive content management—making it a compelling tool for collaborative and remote learning.",
+      description: "Learnix is a web-platform I built with Next.js that gives students a clean, responsive space to browse and share study materials, notes and resources. I focused on simple navigation, modern UI and making sure the site works great across devices. It’s designed so learners can quickly find what they need and focus on learning, without unnecessary distractions.",
       technologies: ["Next.js", "Node.js", "Cloudinary", "MongoDB"],
       projectLink: "https://learnix.shashi-k.in",
       sourceCode: "https://github.com",
@@ -139,7 +150,6 @@ const ProjectsSection = () => {
 
       ]
     },
-
 
 
   ].reverse();
