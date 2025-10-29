@@ -129,7 +129,7 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1756386190/orders_rhrtqx.png', title: 'Gemini AI Response' }
       ]
     },
-        {
+    {
       id: 7,
       title: "LEARNIX",
       description: "Learnix is a web-platform I built with Next.js that gives students a clean, responsive space to browse and share study materials, notes and resources. I focused on simple navigation, modern UI and making sure the site works great across devices. It’s designed so learners can quickly find what they need and focus on learning, without unnecessary distractions.",
@@ -149,7 +149,25 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819925/work-id_k3bsrb.jpg', title: 'Workout Screen' }
 
       ]
+
     },
+    {
+      id: 8,
+      title: "File sharing Website using LAN",
+      description: "A local network file-sharing web app built with Next.js that lets devices on the same LAN upload and access files through the browser without using internet or cloud. All files are stored locally on the host machine inside a dedicated share folder, ensuring privacy, speed, and offline access.",
+      technologies: ["Next.js", "Node.js"],
+      projectLink: "https://file-share-app-eight.vercel.app/",
+      sourceCode: "https://github.com/Shashidharak89/FILE-SHARE-APP.git",
+      slides: [
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753719/c1_20251029_21223303_jggqnq.jpg', title: 'User Interface' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753721/c1_20251029_21223287_uf3qql.jpg', title: 'Select files' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753721/c1_20251029_21223264_sc6lgd.jpg', title: 'Uploaded acknowledgement' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753719/c1_20251029_21223240_cccauy.jpg', title: 'The uploaded file is shown in uploaded files' },
+        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753720/c1_20251029_21223222_iaowjn.jpg', title: 'The uploaded file in file manager' }
+      ]
+    },
+
+
 
 
   ].reverse();
