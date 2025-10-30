@@ -96,27 +96,10 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
       ]
     },
+
+
     {
       id: 5,
-      title: "Gamenexplay",
-      description: "GameNexPlay.live is an interactive online gaming platform that offers users a variety of browser-based games without the need for downloads or installations. Designed with a sleek and responsive user interface, GameNexPlay provides a seamless experience across devices. The platform includes features such as coin-based rewards, redeemable gift cards, and user accounts, making gameplay both engaging and rewarding. Whether you're a casual gamer or a competitive player, GameNexPlay.live brings entertainment and excitement directly to your screen.",
-      technologies: ["React", "Node.js", "Express js", "MongoDB"],
-      projectLink: "https://gamenexplay.live",
-      sourceCode: "https://github.com",
-      slides: [
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774357/Screenshot_26_eqtroy.png', title: 'Dashboard View' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774359/Screenshot_29_j01rmq.png', title: 'Analytics Panel' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774366/Screenshot_28_rozreh.png', title: 'Analytics Panel' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774368/Screenshot_30_tp10bu.png', title: 'Analytics Panel' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774372/Screenshot_27_mqrpxq.png', title: 'Analytics Panel' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774378/Screenshot_32_dk20yq.png', title: 'Analytics Panel' },
-        { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774382/Screenshot_31_dxp9xw.png', title: 'Analytics Panel' }
-
-      ]
-    },
-
-    {
-      id: 6,
       title: "ShopX [E-Commerce Website]",
       description: "This is a full-stack e-commerce platform I built together with my collaborators using the MERN stack. It offers users a smooth online shopping experience — browse products, add to cart, checkout — while also featuring admin tools for product and order management. Built as a team project, it showcases how we worked together to create a scalable, user-friendly store.",
       technologies: ["React.js", "Node.js", "Express.js", "MongoDB"],
@@ -130,7 +113,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      id: 7,
+      id: 6,
       title: "LEARNIX",
       description: "Learnix is a web-platform I built with Next.js that gives students a clean, responsive space to browse and share study materials, notes and resources. I focused on simple navigation, modern UI and making sure the site works great across devices. It’s designed so learners can quickly find what they need and focus on learning, without unnecessary distractions.",
       technologies: ["Next.js", "Node.js", "Cloudinary", "MongoDB"],
@@ -152,7 +135,7 @@ const ProjectsSection = () => {
 
     },
     {
-      id: 8,
+      id: 7,
       title: "File sharing Website using LAN",
       description: "A local network file-sharing web app built with Next.js that lets devices on the same LAN upload and access files through the browser without using internet or cloud. All files are stored locally on the host machine inside a dedicated share folder, ensuring privacy, speed, and offline access.",
       technologies: ["Next.js", "Node.js"],
