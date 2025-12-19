@@ -6,9 +6,10 @@ import {
   FaGitAlt, FaFigma, FaDatabase, FaBolt, FaCode
 } from 'react-icons/fa';
 import {
-  SiNextdotjs, SiExpress, SiSpringboot, SiVisualstudiocode,
+  SiNextdotjs, SiExpress, SiSpringboot,
   SiCloudinary, SiR
 } from 'react-icons/si';
+import { VscVscode } from 'react-icons/vsc';
 import './styles/Skills.css';
 
 const Skills = () => {
@@ -38,7 +39,7 @@ const Skills = () => {
     ],
     Tools: [
       { name: 'Git & GitHub', level: 90, icon: FaGitAlt },
-      { name: 'VS Code', level: 95, icon: SiVisualstudiocode },
+      { name: 'VS Code', level: 95, icon: VscVscode },
       { name: 'Cloudinary', level: 80, icon: SiCloudinary },
       { name: 'Figma', level: 80, icon: FaFigma },
       { name: 'Thunder Client', level: 85, icon: FaBolt }
