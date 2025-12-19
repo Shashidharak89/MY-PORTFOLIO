@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { 
-  FaPython, FaJava, FaPhp, FaJs, FaHtml5, FaCss3Alt, FaReact, 
+import {
+  FaPython, FaJava, FaPhp, FaJs, FaHtml5, FaCss3Alt, FaReact,
   FaGitAlt, FaFigma, FaDatabase, FaBolt, FaCode
 } from 'react-icons/fa';
-import { SiNextdotjs, SiExpress, SiSpringboot, SiVisualstudiocode, 
-  SiCloudinary, SiR } from 'react-icons/si';
-  import './styles/Skills.css';
+import {
+  SiNextdotjs, SiExpress, SiSpringboot, SiVisualstudio,
+  SiCloudinary, SiR
+} from 'react-icons/si';
+import './styles/Skills.css';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +19,7 @@ const Skills = () => {
 
   // Skills data
   const skillsData = {
-    Languages: [  
+    Languages: [
       { name: 'Python', level: 90, icon: FaPython },
       { name: 'Java', level: 88, icon: FaJava },
       { name: 'PHP', level: 88, icon: FaPhp },
@@ -36,7 +38,7 @@ const Skills = () => {
     ],
     Tools: [
       { name: 'Git & GitHub', level: 90, icon: FaGitAlt },
-      { name: 'VS Code', level: 95, icon: SiVisualstudiocode },
+      { name: 'VS Code', level: 95, icon: SiVisualstudio },
       { name: 'Cloudinary', level: 80, icon: SiCloudinary },
       { name: 'Figma', level: 80, icon: FaFigma },
       { name: 'Thunder Client', level: 85, icon: FaBolt }
@@ -56,7 +58,7 @@ const Skills = () => {
 
     let observer;
     if (currentRef && 'IntersectionObserver' in window) {
-      observer = new IntersectionObserver(handleIntersection, { 
+      observer = new IntersectionObserver(handleIntersection, {
         threshold: 0.1,
         rootMargin: '50px'
       });
@@ -153,13 +155,13 @@ const Skills = () => {
                     <span className="classic-fallback-icon">{skill.name[0]}</span>
                   )}
                 </div>
-                
+
                 <div className="classic-skill-content">
                   <h3 className="classic-skill-name">{skill.name}</h3>
-                  
+
                   <div className="classic-progress-container">
                     <div className="classic-progress-bar">
-                      <div 
+                      <div
                         className="classic-progress-fill"
                         style={{ '--skill-level': `${skill.level}%` }}
                       ></div>
