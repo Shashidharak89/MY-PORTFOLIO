@@ -91,12 +91,37 @@ export const certificatesData = [
   {
     id: 8,
     date: '21 Jul 2025',
-    title: 'Machine Learning Course',
+    title: 'Tutedude Courses',
     issuer: 'TuteDude',
     description: 'Successfully Completed AIML Course in Tutedude.',
-    skills: ['ML','AI','Python','Google Colab'],
+    skills: ['ML','AI','Python','Google Colab','DSA With Python'],
     images: [
-      'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755353848/1755258125232-4ccd7df1-e802-4848-a294-68b6ce717ef4_1_bvztsz.jpg'
+      'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755353848/1755258125232-4ccd7df1-e802-4848-a294-68b6ce717ef4_1_bvztsz.jpg',
+      'https://res.cloudinary.com/dsojdpkgh/image/upload/v1770985509/qbdclwkseyd4gxh8kjl6.jpg'
+    ]
+  },
+
+  {
+    id: 9,
+    date: '21 and 22 Nov 2025',
+    title: 'Aprameya 2025 Hackathon',
+    issuer: 'Aprameya 2025',
+    description: 'Successfully participated in Aprameya 2025 Hackathon held at NMIT Bengaluru.',
+    skills: ['Teamwork','Pipeline','N8N'],
+    images:[
+      "https://res.cloudinary.com/dsojdpkgh/image/upload/v1770985510/grnzypln6bwxolrndvgb.jpg"
+    ]
+  },
+  {
+    id: 10,
+    date: '29 and 30 Jan 2026',
+    title: 'Winners in Coding Competition',
+    issuer: 'CHAKRAVYUHA 2026',
+    description: 'Secured Winners in Coding Competition held at Srinivas College Mangalore, CHAKRAVYUHA 2026.',
+    skills:['Problem Solving','Python','DSA'],
+    images:[
+      "https://res.cloudinary.com/dsojdpkgh/image/upload/v1770985511/ycpgbki9llmcmsq5rfiy.jpg",
+      "https://res.cloudinary.com/dsojdpkgh/image/upload/v1770985511/rrkhba2ukatm8ugutdru.jpg"
     ]
   }
 
