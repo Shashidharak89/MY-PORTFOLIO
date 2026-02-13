@@ -15,7 +15,7 @@ const AboutMe = () => {
     setIsVisible(true);
   }, []);
 
-  
+
   const skills = [
     { name: 'Frontend Development', level: 85, color: '#2563eb' },
     { name: 'Backend Development', level: 80, color: '#dc2626' },
@@ -61,7 +61,7 @@ const AboutMe = () => {
             </div>
             <div className="info-card">
               <h3 className="info-label">Age</h3>
-              <p className="info-value">21 Years</p>
+              <p className="info-value">22 Years</p>
             </div>
             <div className="info-card">
               <h3 className="info-label">Date of Birth</h3>
@@ -91,10 +91,11 @@ const AboutMe = () => {
             <div className="timeline-item">
               <div className="timeline-marker"></div>
               <div className="timeline-content">
-                <h3 className="education-degree">Currently Pursuing</h3>
-                <p className="education-field">Master of Computer Applications</p>
-                <p className="education-school">N.M.A.M.I.T Nitte</p>
+                <h3 className="education-degree">Master of Computer Applications</h3>
+                <p className="education-field">N.M.A.M Institute of Technology, Nitte</p>
+                <p className="education-school">Nitte University</p>
                 <p className="education-year">2025 - Present</p>
+                <p className="education-gpa">CGPA: 9.27/10</p>
               </div>
             </div>
           </div>
@@ -105,17 +106,17 @@ const AboutMe = () => {
           <h2 className="section-title">Technical Skills</h2>
           <div className="skills-grid">
             {skills.map((skill, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="skill-card"
                 onMouseEnter={() => setActiveSkill(index)}
                 onMouseLeave={() => setActiveSkill(null)}
               >
                 <h3 className="skill-name">{skill.name}</h3>
                 <div className="skill-bar">
-                  <div 
+                  <div
                     className="skill-progress"
-                    style={{ 
+                    style={{
                       width: activeSkill === index ? `${skill.level}%` : '0%',
                       backgroundColor: skill.color,
                       transition: 'width 1s ease-in-out'
