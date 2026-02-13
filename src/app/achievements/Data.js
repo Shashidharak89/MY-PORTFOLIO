@@ -1,7 +1,29 @@
 // Data.js - Achievements data storage
 export const achievementsData = [
-    {
+     {
         id: 1,
+        date:"23 Apr 2024",
+        title:"Winners in Web Designing",
+        description:"Secured First position in Web Designing Competition, ENIGMA 2K24 IT Fest Held at Sacred Heart College, Madanthyar",
+        participants:["Shashidhara K","Prajwal"],
+        images:[
+                'https://res.cloudinary.com/dsojdpkgh/image/upload/v1770986354/smsdoepjjl92ksqeaqbt.jpg'
+        ]
+     },
+    {
+        id:2,
+        date: '23 Apr 2024',
+        title: 'Winners in Coding',
+        description: 'Secured First position in Coding Competition, ENIGMA 2K24 IT Fest Held at Sacred Heart College, Madanthyar',
+        participants: ['Shashidhara K','Pankaja'],
+        images: [
+            'https://res.cloudinary.com/dsojdpkgh/image/upload/v1770986355/ncvtbfbcfmv90fgqp37x.jpg'
+        ]
+    },
+   
+
+    {
+        id: 4,
         date: '30 Apr 2024',
         title: 'Runners in Coding',
         description: 'Secured Runner position in Coding Competition, EKASHUNYAM IT Fest Held at SDM College , Ujire',
@@ -13,7 +35,7 @@ export const achievementsData = [
         ]
     },
     {
-        id: 2,
+        id: 5,
         date: '29,30 Aug 2024',
         title: 'Winner in Coding',
         description: 'Secured First position in Coding Competition, JOSHIANA 13.0 IT Fest Held at ST.Joseph Engineering College, Mangalore',
@@ -26,7 +48,7 @@ export const achievementsData = [
         ]
     },
     {
-        id: 3,
+        id: 6,
         date: '14,15 Mar 2025',
         title: 'Overall Winners',
         description: 'Winners in TECHOTSAV-2K25 IT Fest Held at Alva\'s College Moodbidri.',
@@ -38,7 +60,7 @@ export const achievementsData = [
         ]
     },
     {
-        id: 4,
+        id: 7,
         date: '26 Mar 2025',
         title: 'Winners in Coding',
         description: 'Secured First position in Coding Competition, EKASHUNYAM IT Fest Held at SDM College , Ujire',
@@ -50,7 +72,7 @@ export const achievementsData = [
         ]
     },
     {
-        id: 5,
+        id: 8,
         date: '03 Apr 2025',
         title: 'Runner in Coding',
         description: 'Runner in Coding Competition, PINNACLE IT Fest Held at ST.Philomina College , Puttur',
@@ -59,7 +81,18 @@ export const achievementsData = [
             'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755249357/Picsart_25-04-05_18-47-51-801_zvwvso.jpg',
             'https://res.cloudinary.com/dsojdpkgh/image/upload/v1755256267/Picsart_25-04-06_11-12-08-700_DkoGl9Qt8o_hmvsvu.jpg'
         ]
-    }
+    },
+    {
+        id: 9,
+        date:"29 and 30 Jan 2026",
+        title:"Winners in Coding",
+        description:"Secured First position in Coding Competition, Srinivas College, Mangalore, CHAKRAVYUHA 2026",
+        participants:["Shashidhara K","Havyas U"],
+        images:[
+                'https://res.cloudinary.com/dsojdpkgh/image/upload/v1770986353/zwpxhiwobvywljxz4ut6.jpg',
+                'https://res.cloudinary.com/dsojdpkgh/image/upload/v1770986357/ihyydevuvlngh4hhqzvr.jpg'
+        ]
+    },
 
 
 ].reverse();
