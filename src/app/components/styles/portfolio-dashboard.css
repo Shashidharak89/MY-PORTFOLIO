@@ -355,8 +355,8 @@
   background: #ffffff;
   padding: 3.5rem 3.5rem;
   border-radius: 28px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(220, 38, 38, 0.12);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+  border: none;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -366,8 +366,7 @@
 
 .visual-blogs-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 25px 60px rgba(220, 38, 38, 0.14);
-  border-color: rgba(220, 38, 38, 0.25);
+  box-shadow: 0 20px 55px rgba(220, 38, 38, 0.12);
 }
 
 .visual-glow-bg {
@@ -455,7 +454,7 @@
   border-radius: 22px;
   background: rgba(220, 38, 38, 0.08);
   color: #dc2626;
-  border: 1px solid rgba(220, 38, 38, 0.15);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -470,7 +469,6 @@
   color: #ffffff;
   transform: scale(1.12) rotate(6deg);
   box-shadow: 0 10px 25px rgba(220, 38, 38, 0.35);
-  border-color: transparent;
 }
 
 /* Grand CTA Button */
