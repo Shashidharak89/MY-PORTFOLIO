@@ -5,6 +5,7 @@ import HeroSection from './HeroSection';
 import StatsSection from './StatsSection';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
 import ToolkitSection from './ToolkitSection';
+import BeyondTheCodeSection from './BeyondTheCodeSection';
 import BlogsNavSection from './BlogsNavSection';
 import './styles/portfolio-dashboard.css';
 
@@ -22,6 +23,7 @@ const PortfolioDashboard = () => {
         <StatsSection />
         <FeaturedProjectsSection />
         <ToolkitSection />
+        <BeyondTheCodeSection />
         <BlogsNavSection />
       </div>
     </div>
