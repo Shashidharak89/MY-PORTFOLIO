@@ -65,12 +65,12 @@ export default function HeroSection() {
       });
 
       heroTl
-        .to(heroLeftRef.current, { y: -65, opacity: 0.25, ease: 'none' }, 0)
-        .to(ringsRef.current, { rotation: 40, y: -35, opacity: 0.4, ease: 'none' }, 0)
-        .to(avatarFrameRef.current, { scale: 0.9, opacity: 0.3, ease: 'none' }, 0)
-        .to(heroRightRef.current, { y: -75, opacity: 0.25, ease: 'none' }, 0)
-        .to(orb1Ref.current, { x: 80, y: -120, opacity: 0.15, ease: 'none' }, 0)
-        .to(orb2Ref.current, { x: -70, y: -90, opacity: 0.15, ease: 'none' }, 0);
+        .to(heroLeftRef.current, { y: -80, opacity: 0, ease: 'power1.in' }, 0)
+        .to(ringsRef.current, { rotation: 45, y: -45, opacity: 0, ease: 'power1.in' }, 0)
+        .to(avatarFrameRef.current, { scale: 0.85, opacity: 0, ease: 'power1.in' }, 0)
+        .to(heroRightRef.current, { y: -90, opacity: 0, ease: 'power1.in' }, 0)
+        .to(orb1Ref.current, { x: 90, y: -140, opacity: 0, ease: 'none' }, 0)
+        .to(orb2Ref.current, { x: -80, y: -100, opacity: 0, ease: 'none' }, 0);
     });
 
     return () => ctx.revert();

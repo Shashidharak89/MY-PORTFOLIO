@@ -33,12 +33,12 @@ export default function StatsSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Creative Section 2 Timeline:
-      // 0% -> 20%: hidden
-      // 20% -> 50%: Creative 3D Perspective Entrance (opacity 0 -> 1, y 65px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
+      // Precision Section 2 Timeline:
+      // 0% -> 25%: hidden
+      // 25% -> 50%: Entrance Fade-In (opacity 0 -> 1, y 60px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
       // 50% -> 60%: Full Visibility Plateau (opacity 1)
-      // 60% -> 90%: Fade Out (opacity 1 -> 0, y 0 -> -50px, scale 1 -> 0.94, blur 0px -> 8px)
-      // 90% -> 100%: hidden
+      // 60% -> 85%: Exit Fade-Out (opacity 1 -> 0, y 0 -> -60px, scale 1 -> 0.88, blur 0px -> 8px)
+      // 85% -> 100%: hidden
       const sec2Tl = gsap.timeline({
         scrollTrigger: {
           trigger: section2Ref.current,
@@ -50,35 +50,35 @@ export default function StatsSection() {
       });
 
       sec2Tl
-        // 0% -> 20%
-        .set(wrapper2Ref.current, { opacity: 0, y: 65, scale: 0.88, filter: 'blur(8px)' })
-        .to(wrapper2Ref.current, { opacity: 0, y: 65, scale: 0.88, filter: 'blur(8px)', duration: 0.20 })
+        // 0% -> 25%: Hidden
+        .set(wrapper2Ref.current, { opacity: 0, y: 60, scale: 0.88, filter: 'blur(8px)' })
+        .to(wrapper2Ref.current, { opacity: 0, y: 60, scale: 0.88, filter: 'blur(8px)', duration: 0.25 })
         
-        // 20% -> 50%: Creative entrance with scale + unblur
+        // 25% -> 50%: Fade In Entrance
         .to(wrapper2Ref.current, { 
           opacity: 1, 
           y: 0, 
           scale: 1, 
           filter: 'blur(0px)', 
-          duration: 0.30, 
-          ease: 'back.out(1.2)' 
+          duration: 0.25, 
+          ease: 'power2.out' 
         })
         
-        // 50% -> 60%: Plateau
+        // 50% -> 60%: Full Visibility Plateau
         .to(wrapper2Ref.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.10 })
         
-        // 60% -> 90%: Fade out starts at 60% and ends at 90%
+        // 60% -> 85%: Exit Fade-Out
         .to(wrapper2Ref.current, { 
           opacity: 0, 
-          y: -50, 
-          scale: 0.94, 
+          y: -60, 
+          scale: 0.88, 
           filter: 'blur(8px)', 
-          duration: 0.30, 
+          duration: 0.25, 
           ease: 'power2.in' 
         })
         
-        // 90% -> 100%: Hold hidden
-        .to(wrapper2Ref.current, { opacity: 0, y: -50, scale: 0.94, filter: 'blur(8px)', duration: 0.10 });
+        // 85% -> 100%: Hold hidden
+        .to(wrapper2Ref.current, { opacity: 0, y: -60, scale: 0.88, filter: 'blur(8px)', duration: 0.15 });
 
       // Stat cards internal micro stagger during entrance
       const statCards = cardsGridRef.current?.children;
@@ -91,12 +91,12 @@ export default function StatsSection() {
             y: 0,
             scale: 1,
             rotationX: 0,
-            stagger: 0.06,
+            stagger: 0.04,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: section2Ref.current,
-              start: 'top 70%',
-              end: 'top 35%',
+              start: 'top 75%',
+              end: 'top 45%',
               scrub: 0.5
             }
           }
