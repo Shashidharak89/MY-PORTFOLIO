@@ -15,6 +15,8 @@ if (typeof window !== 'undefined') {
 export default function StatsSection() {
   const section2Ref = useRef(null);
   const wrapper2Ref = useRef(null);
+  const title2Ref = useRef(null);
+  const cardsGridRef = useRef(null);
   const orbStatsRef = useRef(null);
 
   useScrollVelocity(section2Ref, { maxSkew: 0.8, maxOffset: 10 });
@@ -31,12 +33,12 @@ export default function StatsSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Precision Section 2 Scroll Timeline:
+      // Creative Section 2 Timeline:
       // 0% -> 20%: hidden
-      // 20% -> 50%: Fade In (opacity 0 -> 1, y 50px -> 0px, blur 6px -> 0px)
-      // 50% -> 75%: Plateau (opacity 1)
-      // 75% -> 95%: Fade Out (opacity 1 -> 0, y 0px -> -40px, blur 0px -> 6px)
-      // 95% -> 100%: hidden
+      // 20% -> 50%: Creative 3D Perspective Entrance (opacity 0 -> 1, y 65px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
+      // 50% -> 60%: Full Visibility Plateau (opacity 1)
+      // 60% -> 90%: Fade Out (opacity 1 -> 0, y 0 -> -50px, scale 1 -> 0.94, blur 0px -> 8px)
+      // 90% -> 100%: hidden
       const sec2Tl = gsap.timeline({
         scrollTrigger: {
           trigger: section2Ref.current,
@@ -48,18 +50,64 @@ export default function StatsSection() {
       });
 
       sec2Tl
-        .set(wrapper2Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)' })
-        .to(wrapper2Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)', duration: 0.20 })
-        .to(wrapper2Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.30, ease: 'power2.out' })
-        .to(wrapper2Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.25 })
-        .to(wrapper2Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.20, ease: 'power2.in' })
-        .to(wrapper2Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.05 });
+        // 0% -> 20%
+        .set(wrapper2Ref.current, { opacity: 0, y: 65, scale: 0.88, filter: 'blur(8px)' })
+        .to(wrapper2Ref.current, { opacity: 0, y: 65, scale: 0.88, filter: 'blur(8px)', duration: 0.20 })
+        
+        // 20% -> 50%: Creative entrance with scale + unblur
+        .to(wrapper2Ref.current, { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          filter: 'blur(0px)', 
+          duration: 0.30, 
+          ease: 'back.out(1.2)' 
+        })
+        
+        // 50% -> 60%: Plateau
+        .to(wrapper2Ref.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.10 })
+        
+        // 60% -> 90%: Fade out starts at 60% and ends at 90%
+        .to(wrapper2Ref.current, { 
+          opacity: 0, 
+          y: -50, 
+          scale: 0.94, 
+          filter: 'blur(8px)', 
+          duration: 0.30, 
+          ease: 'power2.in' 
+        })
+        
+        // 90% -> 100%: Hold hidden
+        .to(wrapper2Ref.current, { opacity: 0, y: -50, scale: 0.94, filter: 'blur(8px)', duration: 0.10 });
 
-      // Floating Orb Motion
+      // Stat cards internal micro stagger during entrance
+      const statCards = cardsGridRef.current?.children;
+      if (statCards) {
+        gsap.fromTo(
+          statCards,
+          { opacity: 0, y: 35, scale: 0.9, rotationX: -15 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            stagger: 0.06,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section2Ref.current,
+              start: 'top 70%',
+              end: 'top 35%',
+              scrub: 0.5
+            }
+          }
+        );
+      }
+
+      // Floating Orb Parallax Motion
       gsap.to(orbStatsRef.current, {
-        y: -120,
-        x: 60,
-        rotation: 35,
+        y: -140,
+        x: 70,
+        rotation: 45,
         ease: 'none',
         scrollTrigger: {
           trigger: section2Ref.current,
@@ -79,8 +127,8 @@ export default function StatsSection() {
       <div ref={orbStatsRef} className="stats-floating-orb"></div>
 
       <div ref={wrapper2Ref} className="portfolio-dashboard-stats-wrapper">
-        <h2 className="stats-section-title">Achievements & Impact</h2>
-        <div className="portfolio-dashboard-stats">
+        <h2 ref={title2Ref} className="stats-section-title">Achievements & Impact</h2>
+        <div ref={cardsGridRef} className="portfolio-dashboard-stats">
           {stats.map((stat) => (
             <div key={stat.label} className="portfolio-dashboard-stat-card">
               <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
