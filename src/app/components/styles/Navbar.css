@@ -150,8 +150,8 @@
   padding: 2.5rem 0;
   flex: 1;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(220, 38, 38, 0.3) transparent;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
 }
 
 .portfolio-nav-list {
@@ -294,26 +294,14 @@
   animation: heartbeat 2s ease-in-out infinite;
 }
 
+.portfolio-sidebar-container::-webkit-scrollbar,
 .portfolio-sidebar-nav::-webkit-scrollbar {
-  width: 6px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-.portfolio-sidebar-nav::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 10px;
-}
 
-.portfolio-sidebar-nav::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3) 0%, rgba(185, 28, 28, 0.3) 100%);
-  border-radius: 10px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-.portfolio-sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.5) 0%, rgba(185, 28, 28, 0.5) 100%);
-  background-clip: content-box;
-}
 
 /* Navbar Styles */
 .modern-portfolio-navbar {

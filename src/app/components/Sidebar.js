@@ -216,22 +216,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           }
         }
 
-        /* Smooth scrollbar */
+        /* Hide scrollbars */
+        .portfolio-sidebar-nav {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .portfolio-sidebar-container::-webkit-scrollbar,
         .portfolio-sidebar-nav::-webkit-scrollbar {
-          width: 4px;
-        }
-
-        .portfolio-sidebar-nav::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .portfolio-sidebar-nav::-webkit-scrollbar-thumb {
-          background: rgba(220, 38, 38, 0.2);
-          border-radius: 2px;
-        }
-
-        .portfolio-sidebar-nav::-webkit-scrollbar-thumb:hover {
-          background: rgba(220, 38, 38, 0.3);
+          display: none;
+          width: 0;
+          height: 0;
         }
 
         /* Animation for mobile toggle */
