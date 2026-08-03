@@ -15,7 +15,8 @@ import {
   FaPaperPlane, 
   FaDownload, 
   FaLinkedinIn, 
-  FaEnvelope 
+  FaEnvelope,
+  FaPhone 
 } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import './styles/portfolio-dashboard.css';
@@ -48,90 +49,93 @@ const PortfolioDashboard = () => {
   return (
     <div className="portfolio-dashboard-container">
       <div className={`portfolio-dashboard-main ${isVisible ? 'portfolio-dashboard-visible' : 'portfolio-dashboard-hidden'}`}>
-        
-        {/* 3-Column Hero Section matching reference design */}
-        <section className="portfolio-hero-3col">
-          
-          {/* Left Column: Greeting, Title, Bio, CTAs & Social Links */}
-          <div className="hero-left-col">
-            <div className="greeting-pill">
-              <span className="wave-hand">👋</span>
-              <span>Hi, I'm</span>
-            </div>
+        {/* SECTION 1: 3-Column Hero Section matching reference design */}
+        <section className="home-snap-section">
+          <div className="portfolio-hero-3col">
+            
+            {/* Left Column: Greeting, Title, Bio, CTAs & Social Links */}
+            <div className="hero-left-col">
+              <div className="greeting-pill">
+                <span className="wave-hand">👋</span>
+                <span>Hi, I'm</span>
+              </div>
 
-            <h1 className="hero-name-heading">
-              Shashidhara <span className="name-accent">K</span>
-            </h1>
+              <h1 className="hero-name-heading">
+                Shashidhara <span className="name-accent">K</span>
+              </h1>
 
-            <div className="hero-role-heading" key={currentRoleIndex}>
-              <span className="role-prefix-text">
-                {titleRoles[currentRoleIndex].prefix}
-              </span>
-              <span className="role-suffix-text">
-                {titleRoles[currentRoleIndex].suffix}
-              </span>
-            </div>
+              <div className="hero-role-heading" key={currentRoleIndex}>
+                <span className="role-prefix-text">
+                  {titleRoles[currentRoleIndex].prefix}
+                </span>
+                <span className="role-suffix-text">
+                  {titleRoles[currentRoleIndex].suffix}
+                </span>
+              </div>
 
-            <p className="hero-short-bio">
-              Full-Stack & App Developer passionate about building high-performance applications. DSA enthusiast, consistent LeetCode problem solver (450+ solved), and competitive programming winner turning complex logic into impactful products.
-            </p>
+              <p className="hero-short-bio">
+                Full-Stack & App Developer passionate about building high-performance applications. DSA enthusiast, consistent LeetCode problem solver (450+ solved), and competitive programming winner turning complex logic into impactful products.
+              </p>
 
-            <div className="hero-cta-buttons">
-              <Link href="/projects">
-                <button className="cta-btn primary-btn">
-                  <FaRocket />
-                  <span>View Projects</span>
-                </button>
-              </Link>
-              <Link href="/resume">
-                <button className="cta-btn secondary-btn">
-                  <FaDownload />
-                  <span>Download Resume</span>
-                </button>
-              </Link>
-              <Link href="/contact">
-                <button className="cta-btn secondary-btn">
-                  <FaPaperPlane />
-                  <span>Hire Me</span>
-                </button>
-              </Link>
-            </div>
+              <div className="hero-cta-buttons">
+                <Link href="/projects">
+                  <button className="cta-btn primary-btn">
+                    <FaRocket />
+                    <span>View Projects</span>
+                  </button>
+                </Link>
+                <Link href="/resume">
+                  <button className="cta-btn secondary-btn">
+                    <FaDownload />
+                    <span>Download Resume</span>
+                  </button>
+                </Link>
+                <Link href="/contact">
+                  <button className="cta-btn secondary-btn">
+                    <FaPaperPlane />
+                    <span>Hire Me</span>
+                  </button>
+                </Link>
+              </div>
 
-            <div className="hero-connect-row">
-              <span className="connect-label">Let's connect</span>
-              <div className="connect-social-icons">
-                <a href="https://github.com/Shashidharak89" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="GitHub">
-                  <FaGithub />
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LinkedIn">
-                  <FaLinkedinIn />
-                </a>
-                <a href="mailto:gamenexplay63@gmail.com" className="social-icon-btn" aria-label="Email">
-                  <FaEnvelope />
-                </a>
-                <a href="https://leetcode.com/u/shashidhara_k/" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LeetCode">
-                  <SiLeetcode />
-                </a>
+              <div className="hero-connect-row">
+                <span className="connect-label">Let's connect</span>
+                <div className="connect-social-icons">
+                  <a href="https://github.com/Shashidharak89" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="GitHub" title="GitHub">
+                    <FaGithub />
+                  </a>
+                  <a href="https://www.linkedin.com/in/shashidhara-k-a2374b31b/" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+                    <FaLinkedinIn />
+                  </a>
+                  <a href="mailto:shashidharak334@gmail.com" className="social-icon-btn" aria-label="Email" title="Email: shashidharak334@gmail.com">
+                    <FaEnvelope />
+                  </a>
+                  <a href="tel:+917760770725" className="social-icon-btn" aria-label="Phone" title="Phone: +91 7760770725">
+                    <FaPhone />
+                  </a>
+                  <a href="https://leetcode.com/u/shashidhara_k/" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LeetCode" title="LeetCode">
+                    <SiLeetcode />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Center Column: Avatar Image with Ambient Glow & Orbit Details */}
-          <div className="hero-center-col">
-            <div className="avatar-wrapper">
-              <div className="avatar-ambient-glow"></div>
-              <div className="avatar-orbit-ring ring-1"></div>
-              <div className="avatar-orbit-ring ring-2"></div>
-              <div className="orbit-dot dot-1"></div>
-              <div className="orbit-dot dot-2"></div>
+            {/* Center Column: Avatar Image with Ambient Glow & Orbit Details */}
+            <div className="hero-center-col">
+              <div className="avatar-wrapper">
+                <div className="avatar-ambient-glow"></div>
+                <div className="avatar-orbit-ring ring-1"></div>
+                <div className="avatar-orbit-ring ring-2"></div>
+                <div className="orbit-dot dot-1"></div>
+                <div className="orbit-dot dot-2"></div>
 
-              <div className="avatar-image-frame"></div>
+                <div className="avatar-image-frame"></div>
+              </div>
             </div>
-          </div>
 
-          {/* Right Column: Personal Info Card */}
-          <div className="hero-right-col">
-            <div className="info-card">
+            {/* Right Column: Personal Info Card */}
+            <div className="hero-right-col">
+              <div className="info-card">
               
               <div className="info-card-item">
                 <div className="info-icon-box">
@@ -173,8 +177,8 @@ const PortfolioDashboard = () => {
 
             </div>
           </div>
-
-        </section>
+        </div>
+      </section>
 
         {/* SECTION 2: 4 Stats Cards Section */}
         <section className="home-snap-section">

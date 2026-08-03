@@ -10,14 +10,18 @@ html {
   font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-  padding: 0 2.5rem;
+  position: relative;
+  background: #fafafa;
+  background-image: radial-gradient(rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  padding: 0 1.25rem;
+  overflow-x: hidden;
 }
 
 .portfolio-dashboard-main {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  max-width: 1440px;
-  width: 100%;
+  max-width: 1680px;
+  width: 98%;
   margin: 0 auto;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   padding-top: 80px;
@@ -33,23 +37,27 @@ html {
   opacity: 0;
 }
 
-/* 3 Smooth Proximity Snap Sections - Natural Landing & Vertical Centering */
+/* 3 Smooth Proximity Snap Sections - 100% height below navbar */
 .home-snap-section {
-  min-height: calc(100vh - 100px);
+  position: relative;
+  min-height: calc(100vh - 80px);
+  height: calc(100vh - 80px);
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3.5rem 0;
+  padding: 2rem 0;
   box-sizing: border-box;
   width: 100%;
 }
 
 .portfolio-hero-3col {
+  position: relative;
+  z-index: 1;
   width: 100%;
   display: grid;
-  grid-template-columns: 1.25fr 1fr 0.85fr;
+  grid-template-columns: 1.3fr 1fr 0.85fr;
   gap: 2.5rem;
   align-items: center;
 }
