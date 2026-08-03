@@ -134,29 +134,29 @@ const PortfolioDashboard = () => {
               
               <div className="info-card-item">
                 <div className="info-icon-box">
-                  <FaLocationDot />
+                  <FaGraduationCap />
                 </div>
                 <div className="info-text">
-                  <span className="info-title">Karnataka, India</span>
+                  <span className="info-title">NMAM Institute of Technology, Nitte</span>
                 </div>
               </div>
 
               <div className="info-card-item">
                 <div className="info-icon-box">
-                  <FaGraduationCap />
+                  <FaBookOpenReader />
                 </div>
                 <div className="info-text">
-                  <span className="info-title">MCA Student</span>
+                  <span className="info-title">MCA</span>
                   <span className="info-subtitle">CGPA: 9.30</span>
                 </div>
               </div>
 
               <div className="info-card-item">
                 <div className="info-icon-box">
-                  <FaLaptopCode />
+                  <FaLocationDot />
                 </div>
                 <div className="info-text">
-                  <span className="info-title">Full Stack Developer</span>
+                  <span className="info-title">Mangaluru, Karnataka, India</span>
                 </div>
               </div>
 
