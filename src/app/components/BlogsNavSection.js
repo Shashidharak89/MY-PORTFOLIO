@@ -14,8 +14,7 @@ if (typeof window !== 'undefined') {
 
 export default function BlogsNavSection() {
   const section3Ref = useRef(null);
-  const section3TitleRef = useRef(null);
-  const section3IconsRef = useRef(null);
+  const wrapper3Ref = useRef(null);
   const orbBlogsRef = useRef(null);
 
   useScrollVelocity(section3Ref, { maxSkew: 0.8, maxOffset: 10 });
@@ -25,50 +24,34 @@ export default function BlogsNavSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. Entrance Title Reveal with Blur Removal
-      gsap.fromTo(
-        section3TitleRef.current,
-        { opacity: 0, y: 40, filter: 'blur(6px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section3Ref.current,
-            start: 'top 85%',
-            end: 'top 50%',
-            scrub: 0.5,
-          }
+      // Precision Section 3 Scroll Timeline:
+      // 0% -> 20%: hidden
+      // 20% -> 50%: Fade In (opacity 0 -> 1, y 50px -> 0px, blur 6px -> 0px)
+      // 50% -> 75%: Plateau (opacity 1)
+      // 75% -> 95%: Fade Out (opacity 1 -> 0, y 0px -> -40px, blur 0px -> 6px)
+      // 95% -> 100%: hidden
+      const sec3Tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section3Ref.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5,
+          invalidateOnRefresh: true,
         }
-      );
+      });
 
-      // 2. Icon Badges Stagger Reveal
-      const visualIcons = section3IconsRef.current?.children;
-      if (visualIcons) {
-        gsap.fromTo(
-          visualIcons,
-          { opacity: 0, scale: 0.85, y: 25 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            stagger: 0.08,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: section3Ref.current,
-              start: 'top 75%',
-              end: 'top 40%',
-              scrub: 0.5,
-            }
-          }
-        );
-      }
+      sec3Tl
+        .set(wrapper3Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)' })
+        .to(wrapper3Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)', duration: 0.20 })
+        .to(wrapper3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.30, ease: 'power2.out' })
+        .to(wrapper3Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.25 })
+        .to(wrapper3Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.20, ease: 'power2.in' })
+        .to(wrapper3Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.05 });
 
-      // 3. Floating Orb Parallax Movement
+      // Floating Orb Motion
       gsap.to(orbBlogsRef.current, {
-        y: -90,
-        x: -40,
+        y: -100,
+        x: -50,
         scale: 1.15,
         ease: 'none',
         scrollTrigger: {
@@ -85,15 +68,15 @@ export default function BlogsNavSection() {
 
   return (
     <section ref={section3Ref} className="home-snap-section blogs-snap-section">
-      {/* Floating Ambient Background Orb */}
+      {/* Ambient Floating Background Orb */}
       <div ref={orbBlogsRef} className="blogs-floating-orb"></div>
 
-      <div className="portfolio-dashboard-blogs-section">
+      <div ref={wrapper3Ref} className="portfolio-dashboard-blogs-section">
         <div className="visual-blogs-card">
           <div className="visual-glow-bg"></div>
 
           <div className="visual-blogs-hero">
-            <div ref={section3TitleRef} className="visual-blogs-header">
+            <div className="visual-blogs-header">
               <div className="visual-main-icon-box">
                 <FaBookOpenReader className="visual-main-icon" />
               </div>
@@ -107,7 +90,7 @@ export default function BlogsNavSection() {
           </div>
 
           {/* Standalone Big Visual Icons Row */}
-          <div ref={section3IconsRef} className="visual-icons-row">
+          <div className="visual-icons-row">
             <div className="visual-icon-pill" title="Full Stack Web & Cloud">
               <FaLaptopCode />
             </div>

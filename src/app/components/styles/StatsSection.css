@@ -2,7 +2,13 @@
 
 .stats-snap-section {
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  background-image: url('../images/section2bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden !important;
 }
 
 .stats-floating-orb {

@@ -14,8 +14,7 @@ if (typeof window !== 'undefined') {
 
 export default function StatsSection() {
   const section2Ref = useRef(null);
-  const section2TitleRef = useRef(null);
-  const section2StatsRef = useRef(null);
+  const wrapper2Ref = useRef(null);
   const orbStatsRef = useRef(null);
 
   useScrollVelocity(section2Ref, { maxSkew: 0.8, maxOffset: 10 });
@@ -32,61 +31,35 @@ export default function StatsSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Bi-directional Scrub Timeline (Fade in on enter, fade out on leave for both down and up scroll)
-      const tl = gsap.timeline({
+      // Precision Section 2 Scroll Timeline:
+      // 0% -> 20%: hidden
+      // 20% -> 50%: Fade In (opacity 0 -> 1, y 50px -> 0px, blur 6px -> 0px)
+      // 50% -> 75%: Plateau (opacity 1)
+      // 75% -> 95%: Fade Out (opacity 1 -> 0, y 0px -> -40px, blur 0px -> 6px)
+      // 95% -> 100%: hidden
+      const sec2Tl = gsap.timeline({
         scrollTrigger: {
           trigger: section2Ref.current,
-          start: 'top 85%',
-          end: 'bottom 15%',
+          start: 'top bottom',
+          end: 'bottom top',
           scrub: 0.5,
+          invalidateOnRefresh: true,
         }
       });
 
-      // 1. Entrance Title Reveal with Blur Removal
-      gsap.fromTo(
-        section2TitleRef.current,
-        { opacity: 0, y: 45, filter: 'blur(6px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section2Ref.current,
-            start: 'top 80%',
-            end: 'top 45%',
-            scrub: 0.5,
-          }
-        }
-      );
+      sec2Tl
+        .set(wrapper2Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)' })
+        .to(wrapper2Ref.current, { opacity: 0, y: 55, filter: 'blur(6px)', duration: 0.20 })
+        .to(wrapper2Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.30, ease: 'power2.out' })
+        .to(wrapper2Ref.current, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.25 })
+        .to(wrapper2Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.20, ease: 'power2.in' })
+        .to(wrapper2Ref.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.05 });
 
-      // 2. Card Grid Stagger Reveal
-      const statCards = section2StatsRef.current?.children;
-      if (statCards) {
-        gsap.fromTo(
-          statCards,
-          { opacity: 0, y: 40, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            stagger: 0.08,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: section2Ref.current,
-              start: 'top 75%',
-              end: 'top 35%',
-              scrub: 0.5,
-            }
-          }
-        );
-      }
-
-      // 3. Floating Orb Parallax Movement
+      // Floating Orb Motion
       gsap.to(orbStatsRef.current, {
-        y: -100,
-        x: 50,
-        rotation: 30,
+        y: -120,
+        x: 60,
+        rotation: 35,
         ease: 'none',
         scrollTrigger: {
           trigger: section2Ref.current,
@@ -102,12 +75,12 @@ export default function StatsSection() {
 
   return (
     <section ref={section2Ref} className="home-snap-section stats-snap-section">
-      {/* Floating Accent Background Orb */}
+      {/* Ambient Floating Background Orb */}
       <div ref={orbStatsRef} className="stats-floating-orb"></div>
 
-      <div className="portfolio-dashboard-stats-wrapper">
-        <h2 ref={section2TitleRef} className="stats-section-title">Achievements & Impact</h2>
-        <div ref={section2StatsRef} className="portfolio-dashboard-stats">
+      <div ref={wrapper2Ref} className="portfolio-dashboard-stats-wrapper">
+        <h2 className="stats-section-title">Achievements & Impact</h2>
+        <div className="portfolio-dashboard-stats">
           {stats.map((stat) => (
             <div key={stat.label} className="portfolio-dashboard-stat-card">
               <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
