@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { FaBookOpenReader, FaLaptopCode, FaBrain, FaLightbulb, FaArrowRight } from 'react-icons/fa6';
+import { FaBookOpenReader, FaLaptopCode, FaBrain, FaCompass, FaArrowRight } from 'react-icons/fa6';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollVelocity } from '../hooks/useScrollVelocity';
@@ -148,9 +148,9 @@ export default function BlogsNavSection() {
                 <FaBookOpenReader className="visual-main-icon" />
               </div>
               <div className="visual-blogs-titles">
-                <h2 className="visual-blogs-heading">Read My Tech Blogs</h2>
+                <h2 className="visual-blogs-heading">Read My Blogs</h2>
                 <p className="visual-blogs-description">
-                  Discover practical tutorials, system architecture breakdowns, and algorithm solutions.
+                  Explore tech tutorials, daily life activities, personal experiences, travel stories, and engineering insights.
                 </p>
               </div>
             </div>
@@ -158,14 +158,14 @@ export default function BlogsNavSection() {
 
           {/* Standalone Big Visual Icons Row */}
           <div ref={iconsRow3Ref} className="visual-icons-row">
-            <div className="visual-icon-pill" title="Full Stack Web & Cloud">
+            <div className="visual-icon-pill" title="Full Stack Web & Tech">
               <FaLaptopCode />
             </div>
-            <div className="visual-icon-pill" title="DSA & Algorithms">
-              <FaBrain />
+            <div className="visual-icon-pill" title="Daily Life & Travel Stories">
+              <FaCompass />
             </div>
-            <div className="visual-icon-pill" title="Tech Articles & Insights">
-              <FaLightbulb />
+            <div className="visual-icon-pill" title="DSA & Logic Insights">
+              <FaBrain />
             </div>
           </div>
 
