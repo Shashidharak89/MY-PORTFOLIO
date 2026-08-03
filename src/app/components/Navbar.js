@@ -119,6 +119,7 @@ Sidebar.displayName = 'Sidebar';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleSidebar = useCallback(() => {
     setIsOpen(prev => !prev);
@@ -129,24 +130,33 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    let ticking = false;
+    let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrolled = window.scrollY > 20;
-          if (scrolled !== isScrolled) {
-            setIsScrolled(scrolled);
-          }
-          ticking = false;
-        });
-        ticking = true;
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar at top of page
+      if (currentScrollY <= 10) {
+        setIsVisible(true);
+        setIsScrolled(false);
+      } else {
+        setIsScrolled(true);
+        // Scroll DOWN -> Hide navbar smoothly
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          setIsVisible(false);
+        }
+        // Scroll UP -> Show navbar smoothly
+        else if (currentScrollY < lastScrollY) {
+          setIsVisible(true);
+        }
       }
+
+      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isScrolled]);
+  }, []);
 
   // Close sidebar on escape key
   useEffect(() => {
@@ -171,7 +181,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`modern-portfolio-navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`modern-portfolio-navbar ${isScrolled ? 'scrolled' : ''} ${!isVisible && !isOpen ? 'nav-hidden' : ''}`}>
         <div className="modern-navbar-container">
           <Link
             href="/"
