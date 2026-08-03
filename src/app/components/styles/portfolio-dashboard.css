@@ -24,7 +24,7 @@ html {
   width: 98%;
   margin: 0 auto;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  padding-top: 80px;
+  padding-top: 0;
 }
 
 .portfolio-dashboard-main.portfolio-dashboard-visible {
@@ -52,14 +52,39 @@ html {
   width: 100%;
 }
 
+.home-snap-section:first-child {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 0;
+  padding-top: 0;
+  justify-content: flex-start;
+  background-image: url('../images/section1bg.jpeg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  min-height: 100vh;
+  height: 100vh;
+}
+
 .portfolio-hero-3col {
   position: relative;
   z-index: 1;
-  width: 100%;
+  max-width: 1680px;
+  width: 96%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1.3fr 1fr 0.85fr;
   gap: 2.5rem;
   align-items: center;
+  padding-top: 95px;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 /* Left Column: Greeting, Title, Bio, CTAs & Social Links */
