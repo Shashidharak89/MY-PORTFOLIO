@@ -204,25 +204,29 @@
   width: 340px;
   height: 340px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(220, 38, 38, 0.02) 65%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, rgba(220, 38, 38, 0.03) 65%, transparent 70%);
   pointer-events: none;
+  animation: pulseAmbient 4s ease-in-out infinite alternate;
 }
 
 .avatar-orbit-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1.5px dashed rgba(220, 38, 38, 0.25);
+  border: 1.5px dashed rgba(220, 38, 38, 0.3);
   pointer-events: none;
 }
 
 .ring-1 {
   width: 350px;
   height: 350px;
+  animation: rotateOrbit 20s linear infinite;
 }
 
 .ring-2 {
-  width: 370px;
-  height: 370px;
+  width: 375px;
+  height: 375px;
+  border-color: rgba(220, 38, 38, 0.18);
+  animation: rotateOrbitReverse 25s linear infinite;
 }
 
 .orbit-dot {
@@ -236,7 +240,8 @@
   width: 14px;
   height: 14px;
   background: #dc2626;
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.6);
+  animation: pulseDot 3s ease-in-out infinite alternate;
 }
 
 .dot-2 {
@@ -246,6 +251,33 @@
   height: 10px;
   border: 2px solid #dc2626;
   background: white;
+  animation: pulseDot 2.5s ease-in-out 1s infinite alternate;
+}
+
+@keyframes rotateOrbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotateOrbitReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulseAmbient {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.85); box-shadow: 0 0 5px rgba(220, 38, 38, 0.4); }
+  100% { transform: scale(1.25); box-shadow: 0 0 18px rgba(220, 38, 38, 0.8); }
 }
 
 .avatar-image-frame {
@@ -488,20 +520,28 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .portfolio-hero-3col {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 2.5rem;
   }
+  .hero-center-col {
+    order: 1; /* First: Image comes first */
+  }
   .hero-left-col {
+    order: 2; /* Second: Bio & CTAs */
     align-items: center;
     text-align: center;
+  }
+  .hero-right-col {
+    order: 3; /* Third: Info card with CGPA */
+    justify-content: center;
+    width: 100%;
   }
   .hero-short-bio {
     max-width: 100%;
   }
   .hero-cta-buttons {
-    justify-content: center;
-  }
-  .hero-right-col {
     justify-content: center;
   }
   .info-card {
