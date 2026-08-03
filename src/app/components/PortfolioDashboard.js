@@ -2,7 +2,21 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { FaRocket, FaLaptopCode, FaGithub, FaBookOpenReader, FaBrain, FaLightbulb, FaArrowRight } from 'react-icons/fa6';
+import { 
+  FaRocket, 
+  FaLaptopCode, 
+  FaGithub, 
+  FaBookOpenReader, 
+  FaBrain, 
+  FaLightbulb, 
+  FaArrowRight, 
+  FaLocationDot, 
+  FaGraduationCap, 
+  FaPaperPlane, 
+  FaDownload, 
+  FaLinkedinIn, 
+  FaEnvelope 
+} from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import './styles/portfolio-dashboard.css';
 
@@ -35,42 +49,130 @@ const PortfolioDashboard = () => {
   return (
     <div className="portfolio-dashboard-container">
       <div className={`portfolio-dashboard-main ${isVisible ? 'portfolio-dashboard-visible' : 'portfolio-dashboard-hidden'}`}>
-        <section className="portfolio-dashboard-hero">
-          <div className="portfolio-dashboard-profile">
-            <div className="portfolio-dashboard-avatar"></div>
-            <h2 className="portfolio-dashboard-name">Shashidhara K</h2>
-            <div className="portfolio-dashboard-title">
-              <span className="portfolio-dashboard-skill" key={currentSkill}>
-                {skills[currentSkill]}
+        
+        {/* 3-Column Hero Section matching reference design */}
+        <section className="portfolio-hero-3col">
+          
+          {/* Left Column: Greeting, Title, Bio, CTAs & Social Links */}
+          <div className="hero-left-col">
+            <div className="greeting-pill">
+              <span className="wave-hand">👋</span>
+              <span>Hi, I'm</span>
+            </div>
+
+            <h1 className="hero-name-heading">
+              Shashidhara <span className="name-accent">K</span>
+            </h1>
+
+            <div className="hero-role-heading">
+              <span className="role-accent">Full Stack</span>{' '}
+              <span className="role-skill-text" key={currentSkill}>
+                {skills[currentSkill].includes('Developer') ? 'Developer' : skills[currentSkill]}
               </span>
             </div>
-            <p className="portfolio-dashboard-bio">
-              Passionate about creating exceptional digital experiences through innovative solutions.
-            </p>
-          </div>
 
-          <div className="portfolio-dashboard-content">
-            <p className="portfolio-dashboard-greeting">Hello, I&apos;m</p>
-            <h1 className="portfolio-dashboard-headline">
-              Building Digital
-              <br />
-              <span className="portfolio-dashboard-headline-accent">Experiences</span>
-            </h1>
-            <p className="portfolio-dashboard-description">
-              Blending full-stack development and app creation with a passion for problem-solving, clean code, and scalable design. Driven by a strong DSA foundation and curiosity for innovation, every line of code transforms ideas into purposeful, high-impact digital solutions — where logic meets creativity and every interaction delivers meaning.            </p>
-            <div className="portfolio-dashboard-cta">
+            <p className="hero-short-bio">
+              I build fast, scalable and user-friendly web applications using modern technologies. I love solving real-world problems and turning ideas into impactful products.
+            </p>
+
+            <div className="hero-cta-buttons">
               <Link href="/projects">
-                <button className="portfolio-dashboard-button portfolio-dashboard-button-primary">
-                  View My Work
+                <button className="cta-btn primary-btn">
+                  <FaRocket />
+                  <span>View Projects</span>
+                </button>
+              </Link>
+              <Link href="/resume">
+                <button className="cta-btn secondary-btn">
+                  <FaDownload />
+                  <span>Download Resume</span>
                 </button>
               </Link>
               <Link href="/contact">
-                <button className="portfolio-dashboard-button portfolio-dashboard-button-secondary">
-                  Get In Touch
+                <button className="cta-btn secondary-btn">
+                  <FaPaperPlane />
+                  <span>Hire Me</span>
                 </button>
               </Link>
             </div>
+
+            <div className="hero-connect-row">
+              <span className="connect-label">Let's connect</span>
+              <div className="connect-social-icons">
+                <a href="https://github.com/Shashidharak89" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="GitHub">
+                  <FaGithub />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LinkedIn">
+                  <FaLinkedinIn />
+                </a>
+                <a href="mailto:gamenexplay63@gmail.com" className="social-icon-btn" aria-label="Email">
+                  <FaEnvelope />
+                </a>
+                <a href="https://leetcode.com" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LeetCode">
+                  <SiLeetcode />
+                </a>
+              </div>
+            </div>
           </div>
+
+          {/* Center Column: Avatar Image with Ambient Glow & Orbit Details */}
+          <div className="hero-center-col">
+            <div className="avatar-wrapper">
+              <div className="avatar-ambient-glow"></div>
+              <div className="avatar-orbit-ring ring-1"></div>
+              <div className="avatar-orbit-ring ring-2"></div>
+              <div className="orbit-dot dot-1"></div>
+              <div className="orbit-dot dot-2"></div>
+
+              <div className="avatar-image-frame"></div>
+            </div>
+          </div>
+
+          {/* Right Column: Personal Info Card */}
+          <div className="hero-right-col">
+            <div className="info-card">
+              
+              <div className="info-card-item">
+                <div className="info-icon-box">
+                  <FaLocationDot />
+                </div>
+                <div className="info-text">
+                  <span className="info-title">Karnataka, India</span>
+                </div>
+              </div>
+
+              <div className="info-card-item">
+                <div className="info-icon-box">
+                  <FaGraduationCap />
+                </div>
+                <div className="info-text">
+                  <span className="info-title">MCA Student</span>
+                  <span className="info-subtitle">CGPA: 9.30</span>
+                </div>
+              </div>
+
+              <div className="info-card-item">
+                <div className="info-icon-box">
+                  <FaLaptopCode />
+                </div>
+                <div className="info-text">
+                  <span className="info-title">Full Stack Developer</span>
+                </div>
+              </div>
+
+              <div className="info-card-item">
+                <div className="info-icon-box status-box">
+                  <span className="green-status-pulse"></span>
+                </div>
+                <div className="info-text">
+                  <span className="info-title">Open to</span>
+                  <span className="info-subtitle">Internship & Full-time</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </section>
 
         <section className="portfolio-dashboard-stats">
