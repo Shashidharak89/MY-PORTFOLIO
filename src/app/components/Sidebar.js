@@ -18,19 +18,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         .portfolio-sidebar-container {
           position: fixed;
           top: 0;
-          left: 0;
+          right: 0;
+          left: auto;
           height: 100vh;
           width: 280px;
           background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-          border-right: 1px solid #e5e7eb;
-          box-shadow: 0 4px 20px rgba(220, 38, 38, 0.08);
+          border-left: 1px solid #e5e7eb;
+          border-right: none;
+          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
           z-index: 1000;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
           transform: translateX(0);
         }
 
         .portfolio-sidebar-container.mobile-hidden {
-          transform: translateX(-100%);
+          transform: translateX(100%);
+          opacity: 0;
         }
 
         .portfolio-sidebar-header {
@@ -39,6 +42,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
           position: relative;
           overflow: hidden;
+          border-radius: 0 0 0 16px;
         }
 
         .portfolio-sidebar-header::before {
@@ -80,22 +84,25 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           background: rgba(255, 255, 255, 0.2);
           border: none;
           color: white;
-          width: 32px;
-          height: 32px;
-          border-radius: 6px;
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
           cursor: pointer;
-          display: none;
+          display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 18px;
-          transition: all 0.2s ease;
+          font-size: 20px;
+          font-weight: 600;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           backdrop-filter: blur(10px);
           z-index: 2;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .portfolio-sidebar-close:hover {
-          background: rgba(255, 255, 255, 0.3);
-          transform: scale(1.05);
+          background: rgba(255, 255, 255, 0.35);
+          transform: scale(1.15) rotate(180deg);
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
         .portfolio-sidebar-nav {
