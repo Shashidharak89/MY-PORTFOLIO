@@ -5,6 +5,7 @@ import { FaRocket, FaLaptopCode, FaGithub } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/StatsSection.css';
 
 if (typeof window !== 'undefined') {
@@ -15,6 +16,9 @@ export default function StatsSection() {
   const section2Ref = useRef(null);
   const section2TitleRef = useRef(null);
   const section2StatsRef = useRef(null);
+  const orbStatsRef = useRef(null);
+
+  useScrollVelocity(section2Ref, { maxSkew: 0.8, maxOffset: 10 });
 
   const stats = [
     { label: 'Projects Completed', value: '10+', icon: <FaRocket /> },
@@ -28,50 +32,79 @@ export default function StatsSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // Bi-directional Scrub Timeline (Fade in on enter, fade out on leave for both down and up scroll)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          scrub: 0.5,
+        }
+      });
+
+      // 1. Entrance Title Reveal with Blur Removal
       gsap.fromTo(
         section2TitleRef.current,
-        { opacity: 0, y: 40, filter: 'blur(6px)' },
+        { opacity: 0, y: 45, filter: 'blur(6px)' },
         {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
-          duration: 0.8,
-          ease: 'power3.out',
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: section2Ref.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            end: 'top 45%',
+            scrub: 0.5,
           }
         }
       );
 
+      // 2. Card Grid Stagger Reveal
       const statCards = section2StatsRef.current?.children;
       if (statCards) {
         gsap.fromTo(
           statCards,
-          { opacity: 0, y: 35, scale: 0.96 },
+          { opacity: 0, y: 40, scale: 0.95 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.7,
             stagger: 0.08,
-            ease: 'power3.out',
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: section2Ref.current,
               start: 'top 75%',
-              toggleActions: 'play none none reverse'
+              end: 'top 35%',
+              scrub: 0.5,
             }
           }
         );
       }
+
+      // 3. Floating Orb Parallax Movement
+      gsap.to(orbStatsRef.current, {
+        y: -100,
+        x: 50,
+        rotation: 30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.8
+        }
+      });
     });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={section2Ref} className="home-snap-section">
+    <section ref={section2Ref} className="home-snap-section stats-snap-section">
+      {/* Floating Accent Background Orb */}
+      <div ref={orbStatsRef} className="stats-floating-orb"></div>
+
       <div className="portfolio-dashboard-stats-wrapper">
         <h2 ref={section2TitleRef} className="stats-section-title">Achievements & Impact</h2>
         <div ref={section2StatsRef} className="portfolio-dashboard-stats">

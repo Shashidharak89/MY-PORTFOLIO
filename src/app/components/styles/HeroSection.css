@@ -12,6 +12,41 @@
   background-repeat: no-repeat;
   border-radius: 0;
   min-height: 100vh;
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.home-hero-section::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Ambient Moving Floating Accent Objects */
+.hero-floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-top-left {
+  top: 10%;
+  left: 5%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(254, 202, 202, 0.45) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.orb-bottom-right {
+  bottom: 8%;
+  right: 6%;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 75%);
+  filter: blur(50px);
 }
 
 .portfolio-hero-3col {

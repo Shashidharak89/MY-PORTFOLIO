@@ -30,6 +30,8 @@ export default function HeroSection() {
   const avatarFrameRef = useRef(null);
   const ringsRef = useRef(null);
   const heroRightRef = useRef(null);
+  const orb1Ref = useRef(null);
+  const orb2Ref = useRef(null);
 
   const titleRoles = useMemo(() => [
     { prefix: 'Full Stack', suffix: 'Developer' },
@@ -46,7 +48,7 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, [titleRoles]);
 
-  // Hero Scroll-Driven Parallax Storytelling Timeline
+  // Hero Scroll-Driven Parallax Storytelling & Floating Objects Timeline
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -63,10 +65,12 @@ export default function HeroSection() {
       });
 
       heroTl
-        .to(heroLeftRef.current, { y: -35, opacity: 0.85, ease: 'none' }, 0)
-        .to(ringsRef.current, { rotation: 25, y: -20, ease: 'none' }, 0)
-        .to(avatarFrameRef.current, { scale: 0.94, ease: 'none' }, 0)
-        .to(heroRightRef.current, { y: -45, opacity: 0.85, ease: 'none' }, 0);
+        .to(heroLeftRef.current, { y: -65, opacity: 0.25, ease: 'none' }, 0)
+        .to(ringsRef.current, { rotation: 40, y: -35, opacity: 0.4, ease: 'none' }, 0)
+        .to(avatarFrameRef.current, { scale: 0.9, opacity: 0.3, ease: 'none' }, 0)
+        .to(heroRightRef.current, { y: -75, opacity: 0.25, ease: 'none' }, 0)
+        .to(orb1Ref.current, { x: 80, y: -120, opacity: 0.15, ease: 'none' }, 0)
+        .to(orb2Ref.current, { x: -70, y: -90, opacity: 0.15, ease: 'none' }, 0);
     });
 
     return () => ctx.revert();
@@ -74,6 +78,10 @@ export default function HeroSection() {
 
   return (
     <section ref={heroSectionRef} className="home-snap-section home-hero-section">
+      {/* Floating Moving Ambient Accent Orbs */}
+      <div ref={orb1Ref} className="hero-floating-orb orb-top-left"></div>
+      <div ref={orb2Ref} className="hero-floating-orb orb-bottom-right"></div>
+
       <div className="portfolio-hero-3col">
         
         {/* Left Column: Greeting, Title, Bio, CTAs & Social Links */}

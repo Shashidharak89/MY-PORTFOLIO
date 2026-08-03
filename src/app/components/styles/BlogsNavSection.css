@@ -1,6 +1,26 @@
 /* BlogsNavSection.css - Section 3 Styles */
 
+.blogs-snap-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.blogs-floating-orb {
+  position: absolute;
+  bottom: 10%;
+  left: 6%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 202, 202, 0.4) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .portfolio-dashboard-blogs-section {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1100px;
   display: flex;
