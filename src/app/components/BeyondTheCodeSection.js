@@ -15,6 +15,7 @@ export default function BeyondTheCodeSection() {
   const sectionRef = useRef(null);
   const wrapperRef = useRef(null);
   const gridRef = useRef(null);
+  const orbBeyondRef = useRef(null);
 
   useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
 
@@ -52,6 +53,7 @@ export default function BeyondTheCodeSection() {
     const ctx = gsap.context(() => {
       const cardElements = gridRef.current?.children;
 
+      // Master Section 3D Timeline
       const beyondTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -62,57 +64,89 @@ export default function BeyondTheCodeSection() {
         }
       });
 
+      // 1. Wrapper 3D Perspective Pop Entrance
       beyondTl
         .set(wrapperRef.current, { 
           opacity: 0, 
-          y: 60, 
-          scale: 0.86, 
-          filter: 'blur(8px)' 
+          y: 70, 
+          scale: 0.82, 
+          rotationX: 20,
+          transformPerspective: 1000, 
+          filter: 'blur(10px)' 
         })
         .to(wrapperRef.current, { 
           opacity: 0, 
-          y: 60, 
-          scale: 0.86, 
-          filter: 'blur(8px)', 
+          y: 70, 
+          scale: 0.82, 
+          rotationX: 20,
+          filter: 'blur(10px)', 
           duration: 0.25 
         })
         .to(wrapperRef.current, { 
           opacity: 1, 
           y: 0, 
           scale: 1, 
+          rotationX: 0,
           filter: 'blur(0px)', 
           duration: 0.25, 
           ease: 'power3.out' 
         })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.10 })
+        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationX: 0, filter: 'blur(0px)', duration: 0.10 })
         .to(wrapperRef.current, { 
           opacity: 0, 
           y: -45, 
           scale: 0.9, 
+          rotationX: -15,
           filter: 'blur(6px)', 
           duration: 0.20, 
           ease: 'power3.in' 
         })
         .to(wrapperRef.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.20 });
 
-      if (cardElements) {
+      // 2. Creative 3D Diamond Wave Cascade Flip for the 4 Small Cards
+      if (cardElements && cardElements.length > 0) {
         gsap.fromTo(
           cardElements,
-          { opacity: 0, y: 35, scale: 0.88 },
+          { 
+            opacity: 0, 
+            y: 60, 
+            rotationZ: (i) => (i % 2 === 0 ? -12 : 12),
+            rotationX: 35, 
+            scale: 0.72, 
+            transformPerspective: 800 
+          },
           {
             opacity: 1,
             y: 0,
+            rotationZ: 0,
+            rotationX: 0,
             scale: 1,
-            stagger: 0.05,
-            ease: 'back.out(1.5)',
+            stagger: 0.06,
+            ease: 'back.out(2)',
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: 'top 75%',
-              end: 'top 45%',
+              start: 'top 78%',
+              end: 'top 42%',
               scrub: 0.5
             }
           }
         );
+      }
+
+      // 3. Sky Blue Floating Ambient Orb Motion
+      if (orbBeyondRef.current) {
+        gsap.to(orbBeyondRef.current, {
+          y: -100,
+          x: 45,
+          rotation: 45,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.8
+          }
+        });
       }
     });
 
@@ -121,6 +155,8 @@ export default function BeyondTheCodeSection() {
 
   return (
     <section ref={sectionRef} className="home-snap-section beyond-code-snap-section">
+      <div ref={orbBeyondRef} className="beyond-floating-orb"></div>
+
       <div ref={wrapperRef} className="portfolio-dashboard-beyond-wrapper">
         
         {/* Header */}
@@ -132,7 +168,7 @@ export default function BeyondTheCodeSection() {
           </p>
         </div>
 
-        {/* 4 Small Cards Grid in Sky Blue Theme */}
+        {/* 4 Small Cards (3D Diamond Wave Cascade Flip Reveal) */}
         <div ref={gridRef} className="beyond-code-grid">
           {philosophyCards.map((card) => (
             <div key={card.id} className="beyond-card">

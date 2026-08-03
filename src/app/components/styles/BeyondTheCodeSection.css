@@ -1,4 +1,4 @@
-/* BeyondTheCodeSection.css - Slight Sky Blue Theme */
+/* BeyondTheCodeSection.css - Slight Sky Blue Theme with 3D Card Effects */
 
 .beyond-code-snap-section {
   position: relative;
@@ -8,6 +8,19 @@
   background-size: 28px 28px;
   overflow: hidden !important;
   padding: 2.2rem 0;
+}
+
+.beyond-floating-orb {
+  position: absolute;
+  top: 20%;
+  left: 6%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, transparent 70%);
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .portfolio-dashboard-beyond-wrapper {
@@ -80,13 +93,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.65rem;
+  transform-style: preserve-3d;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .beyond-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(14, 165, 233, 0.14);
-  border-color: rgba(14, 165, 233, 0.3);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(14, 165, 233, 0.16);
+  border-color: rgba(14, 165, 233, 0.35);
 }
 
 .beyond-card-icon-box {
