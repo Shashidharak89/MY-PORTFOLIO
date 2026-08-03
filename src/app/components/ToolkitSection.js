@@ -110,7 +110,9 @@ export default function ToolkitSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Precision Timeline for Toolkit Section
+      const cardElements = gridRef.current?.children;
+
+      // Master Section 3D Deck Flip Timeline
       const toolkitTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -121,51 +123,65 @@ export default function ToolkitSection() {
         }
       });
 
+      // 1. Wrapper 3D Y-Axis Tilt Entrance (Distinct from other sections)
       toolkitTl
         .set(wrapperRef.current, { 
           opacity: 0, 
-          y: 70, 
-          scale: 0.86, 
-          filter: 'blur(8px)' 
+          y: 80, 
+          scale: 0.8, 
+          rotationY: -18,
+          transformPerspective: 1200, 
+          filter: 'blur(10px)' 
         })
         .to(wrapperRef.current, { 
           opacity: 0, 
-          y: 70, 
-          scale: 0.86, 
-          filter: 'blur(8px)', 
+          y: 80, 
+          scale: 0.8, 
+          rotationY: -18,
+          filter: 'blur(10px)', 
           duration: 0.25 
         })
         .to(wrapperRef.current, { 
           opacity: 1, 
           y: 0, 
           scale: 1, 
+          rotationY: 0,
           filter: 'blur(0px)', 
           duration: 0.25, 
           ease: 'power3.out' 
         })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.10 })
+        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.10 })
         .to(wrapperRef.current, { 
           opacity: 0, 
           y: -50, 
-          scale: 0.9, 
-          filter: 'blur(6px)', 
+          scale: 0.88, 
+          rotationY: 15,
+          filter: 'blur(8px)', 
           duration: 0.20, 
           ease: 'power3.in' 
         })
-        .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(6px)', duration: 0.20 });
+        .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(8px)', duration: 0.20 });
 
-      // Stagger Cards inside Grid
-      const categoryCards = gridRef.current?.children;
-      if (categoryCards) {
+      // 2. Individual Cards 3D Fan-Out & Deck Flip Reveal
+      if (cardElements && cardElements.length > 0) {
         gsap.fromTo(
-          categoryCards,
-          { opacity: 0, y: 30, scale: 0.9 },
+          cardElements,
+          { 
+            opacity: 0, 
+            y: 50, 
+            rotationX: -45, 
+            rotationZ: (i) => (i - 2) * 4, // 3D Fan angle (-8deg, -4deg, 0deg, 4deg, 8deg)
+            scale: 0.75, 
+            transformPerspective: 800 
+          },
           {
             opacity: 1,
             y: 0,
+            rotationX: 0,
+            rotationZ: 0,
             scale: 1,
-            stagger: 0.05,
-            ease: 'back.out(1.4)',
+            stagger: 0.04,
+            ease: 'back.out(1.8)',
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top 75%',
@@ -176,7 +192,7 @@ export default function ToolkitSection() {
         );
       }
 
-      // Parallax Orb
+      // Parallax Floating Orb
       gsap.to(orbToolkitRef.current, {
         y: -110,
         x: -50,
@@ -205,7 +221,7 @@ export default function ToolkitSection() {
           <p className="toolkit-subtitle">Technologies I work with</p>
         </div>
 
-        {/* All 5 Category Cards in Single Row Grid */}
+        {/* 5 Category Cards (3D Fan-Out & Deck Flip Reveal) */}
         <div ref={gridRef} className="toolkit-grid">
           {toolkitCategories.map((cat) => (
             <div key={cat.id} className="toolkit-card">
