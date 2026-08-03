@@ -1,0 +1,235 @@
+/* ToolkitSection.css - Single Horizontal Row (5 Cards) Layout */
+
+.toolkit-snap-section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  background-image: radial-gradient(rgba(220, 38, 38, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  overflow: hidden !important;
+  padding: 2.2rem 0;
+}
+
+.toolkit-floating-orb {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.portfolio-dashboard-toolkit-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0 1.25rem;
+}
+
+/* Header Styles */
+.toolkit-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+}
+
+.toolkit-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.toolkit-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* All 5 Cards in Single Horizontal Row Grid */
+.toolkit-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+/* Category Card Styling */
+.toolkit-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1rem 0.9rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.toolkit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(220, 38, 38, 0.12);
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* Card Header */
+.toolkit-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid #f9fafb;
+}
+
+.toolkit-card-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.toolkit-card-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Skills List */
+.toolkit-skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.toolkit-skill-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  transition: all 0.25s ease;
+}
+
+.toolkit-card:hover .toolkit-skill-item:hover {
+  background: #ffffff;
+  border-color: rgba(220, 38, 38, 0.2);
+  transform: translateX(3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.skill-icon {
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #374151;
+  white-space: nowrap;
+}
+
+/* Brand Icon Colors */
+.react-color { color: #61dafb; }
+.next-color { color: #000000; }
+.js-color { color: #f7df1e; }
+.html-color { color: #e34f26; }
+.css-color { color: #1572b6; }
+.java-color { color: #007396; }
+.springboot-color { color: #6db33f; }
+.node-color { color: #339933; }
+.express-color { color: #000000; }
+.postgres-color { color: #4169e1; }
+.mongo-color { color: #47a248; }
+.mysql-color { color: #4479a1; }
+.python-color { color: #3776ab; }
+.c-color { color: #a8b9cc; }
+.github-color { color: #181717; }
+.linux-color { color: #fcc624; }
+.postman-color { color: #ff6c37; }
+
+/* Footer CTA */
+.toolkit-footer-cta {
+  margin-top: 0.1rem;
+}
+
+.view-all-skills-link {
+  text-decoration: none;
+}
+
+.view-all-skills-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 16px rgba(17, 24, 39, 0.16);
+  transition: all 0.25s ease;
+}
+
+.view-all-skills-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.3);
+}
+
+.view-all-skills-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  .toolkit-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .toolkit-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .toolkit-grid {
+    grid-template-columns: 1fr;
+  }
+}
