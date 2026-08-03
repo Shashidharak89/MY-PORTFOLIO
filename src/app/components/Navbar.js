@@ -195,7 +195,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {isOpen && <Sidebar isOpen={isOpen} toggleSidebar={closeSidebar} />}
+      <Sidebar isOpen={isOpen} toggleSidebar={closeSidebar} />
     </>
   );
 };
