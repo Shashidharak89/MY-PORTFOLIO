@@ -1,5 +1,6 @@
 import './globals.css';
 import Script from 'next/script';
+import SmoothScroll from './components/SmoothScroll';
 
 export const metadata = {
   title: 'Shashidhara K - Portfolio',
@@ -42,7 +43,9 @@ export default function RootLayout({ children }) {
         />
 
         {/* 🧩 Main content */}
-        <main style={{ paddingTop: '60px' }}>{children}</main>
+        <SmoothScroll>
+          <main style={{ paddingTop: '60px' }}>{children}</main>
+        </SmoothScroll>
       </body>
     </html>
   );

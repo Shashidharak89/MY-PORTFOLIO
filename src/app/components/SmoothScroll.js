@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,6 +11,9 @@ if (typeof window !== 'undefined') {
 }
 
 export default function SmoothScroll({ children }) {
+  const pathname = usePathname();
+  const lenisRef = useRef(null);
+
   useEffect(() => {
     // Respect prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,6 +28,8 @@ export default function SmoothScroll({ children }) {
       wheelMultiplier: 0.9,
       touchMultiplier: 1.5,
     });
+
+    lenisRef.current = lenis;
 
     if (typeof window !== 'undefined') {
       window.lenis = lenis;
@@ -41,11 +47,22 @@ export default function SmoothScroll({ children }) {
     return () => {
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
+      lenisRef.current = null;
       if (typeof window !== 'undefined') {
         delete window.lenis;
       }
     };
   }, []);
+
+  // Handle route changes: scroll to top and refresh ScrollTrigger
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 }
