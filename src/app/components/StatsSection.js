@@ -127,7 +127,7 @@ export default function StatsSection() {
       <div ref={orbStatsRef} className="stats-floating-orb"></div>
 
       <div ref={wrapper2Ref} className="portfolio-dashboard-stats-wrapper">
-        <h2 ref={title2Ref} className="stats-section-title">Achievements & Impact</h2>
+        <h2 ref={title2Ref} className="stats-section-title">Metrics & Impact</h2>
         <div ref={cardsGridRef} className="portfolio-dashboard-stats">
           {stats.map((stat) => (
             <div key={stat.label} className="portfolio-dashboard-stat-card">

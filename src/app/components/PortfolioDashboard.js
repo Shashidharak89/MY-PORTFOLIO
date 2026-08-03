@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
 import StatsSection from './StatsSection';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
+import AchievementsNavSection from './AchievementsNavSection';
 import ToolkitSection from './ToolkitSection';
 import BeyondTheCodeSection from './BeyondTheCodeSection';
 import BlogsNavSection from './BlogsNavSection';
@@ -22,6 +23,7 @@ const PortfolioDashboard = () => {
         <HeroSection />
         <StatsSection />
         <FeaturedProjectsSection />
+        <AchievementsNavSection />
         <ToolkitSection />
         <BeyondTheCodeSection />
         <BlogsNavSection />

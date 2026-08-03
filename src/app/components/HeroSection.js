@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   const titleRoles = useMemo(() => [
     { prefix: 'Full Stack', suffix: 'Developer' },
-    { prefix: 'App', suffix: 'Developer' },
+    { prefix: 'Android', suffix: 'Developer' },
     { prefix: 'Problem', suffix: 'Solver' }
   ], []);
 
@@ -204,7 +204,7 @@ export default function HeroSection() {
                 <span className="green-status-pulse"></span>
               </div>
               <div className="info-text">
-                <span className="info-title">Open to</span><br/>
+                <span className="info-title">Open to</span><br />
                 <span className="info-subtitle">Internship & Full-time</span>
               </div>
             </div>
