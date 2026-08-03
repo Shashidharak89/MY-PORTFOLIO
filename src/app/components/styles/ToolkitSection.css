@@ -4,10 +4,19 @@
   position: relative;
   width: 100%;
   margin: 0;
-  background-image: radial-gradient(rgba(220, 38, 38, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden !important;
   padding: 2.2rem 0;
+}
+
+.toolkit-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(1px);
+  z-index: 0;
 }
 
 .toolkit-floating-orb {

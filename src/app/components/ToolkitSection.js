@@ -35,6 +35,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/ToolkitSection.css';
+import toolkitBg from './images/toolkit.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -210,7 +211,12 @@ export default function ToolkitSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="home-snap-section toolkit-snap-section">
+    <section 
+      ref={sectionRef} 
+      className="home-snap-section toolkit-snap-section"
+      style={{ backgroundImage: `url(${toolkitBg.src})` }}
+    >
+      <div className="toolkit-bg-overlay"></div>
       <div ref={orbToolkitRef} className="toolkit-floating-orb"></div>
 
       <div ref={wrapperRef} className="portfolio-dashboard-toolkit-wrapper">

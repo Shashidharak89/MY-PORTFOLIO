@@ -10,6 +10,14 @@
   overflow: hidden !important;
 }
 
+.achievements-nav-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(1px);
+  z-index: 0;
+}
+
 .achievements-nav-floating-orb {
   position: absolute;
   top: 20%;

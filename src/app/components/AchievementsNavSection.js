@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/AchievementsNavSection.css';
+import achivementBg from './images/achivement.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -150,7 +151,12 @@ export default function AchievementsNavSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="home-snap-section achievements-nav-snap-section">
+    <section 
+      ref={sectionRef} 
+      className="home-snap-section achievements-nav-snap-section"
+      style={{ backgroundImage: `url(${achivementBg.src})` }}
+    >
+      <div className="achievements-nav-bg-overlay"></div>
       <div ref={orbRef} className="achievements-nav-floating-orb"></div>
 
       <div ref={wrapperRef} className="achievements-nav-wrapper">
