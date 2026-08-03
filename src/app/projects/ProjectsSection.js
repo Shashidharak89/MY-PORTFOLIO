@@ -75,7 +75,7 @@ const ProjectsSection = () => {
       title: "CIPHER 2K25",
       description: "CIPHER2K25.in is the official website for CIPHER 2K25, the annual IT Fest organized by the BCA Department of Sacred Heart College. Designed to generate excitement and streamline participation, the site showcases all fest-related information including event lineups, registration details, rules, schedules, and sponsor highlights. With a modern, mobile-friendly interface and dynamic visuals inspired by tech and gaming culture, the website offers a smooth and engaging experience for students, coordinators, and visitors alike.",
       technologies: ["React", "Node.js", "Express js", "MongoDB", "Cloudinary"],
-      projectLink: "https://cipher2k25.in",
+      projectLink: "https://ciphen-2k25.vercel.app/",
       sourceCode: "https://github.com/Shashidharak89/ciphen.git",
       slides: [
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784963/Screenshot_58_ahpt9z.png', title: 'Dashboard View' },

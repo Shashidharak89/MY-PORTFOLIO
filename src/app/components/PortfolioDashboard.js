@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
 import StatsSection from './StatsSection';
+import FeaturedProjectsSection from './FeaturedProjectsSection';
 import BlogsNavSection from './BlogsNavSection';
 import './styles/portfolio-dashboard.css';
 
@@ -18,6 +19,7 @@ const PortfolioDashboard = () => {
       <div className={`portfolio-dashboard-main ${isVisible ? 'portfolio-dashboard-visible' : 'portfolio-dashboard-hidden'}`}>
         <HeroSection />
         <StatsSection />
+        <FeaturedProjectsSection />
         <BlogsNavSection />
       </div>
     </div>
