@@ -25,6 +25,10 @@ export default function SmoothScroll({ children }) {
       touchMultiplier: 1.5,
     });
 
+    if (typeof window !== 'undefined') {
+      window.lenis = lenis;
+    }
+
     lenis.on('scroll', ScrollTrigger.update);
 
     const updateLenis = (time) => {
@@ -37,6 +41,9 @@ export default function SmoothScroll({ children }) {
     return () => {
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
+      if (typeof window !== 'undefined') {
+        delete window.lenis;
+      }
     };
   }, []);
 

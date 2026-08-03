@@ -65,9 +65,17 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
       <div
         className={`portfolio-sidebar-overlay ${isOpen ? 'active' : ''}`}
         onClick={toggleSidebar}
+        onWheel={(e) => e.preventDefault()}
+        onTouchMove={(e) => e.preventDefault()}
+        data-lenis-prevent
       />
 
-      <div className={`portfolio-sidebar-container ${isOpen ? 'active' : ''}`}>
+      <div 
+        className={`portfolio-sidebar-container ${isOpen ? 'active' : ''}`}
+        data-lenis-prevent
+        onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
         <div className="portfolio-sidebar-header">
           <div className="portfolio-sidebar-brand">
             <h1 className="portfolio-brand-title">Portfolio</h1>
@@ -82,7 +90,7 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
           </button>
         </div>
 
-        <nav className="portfolio-sidebar-nav">
+        <nav className="portfolio-sidebar-nav" data-lenis-prevent>
           <ul className="portfolio-nav-list">
             {navigationItems.map((item, index) => (
               <li 
@@ -158,7 +166,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close sidebar on escape key
+  // Close sidebar on escape key and control scroll locking
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -169,13 +177,25 @@ const Navbar = () => {
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.stop();
+      }
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.start();
+      }
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.start();
+      }
     };
   }, [isOpen]);
 

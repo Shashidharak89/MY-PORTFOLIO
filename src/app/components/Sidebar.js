@@ -258,7 +258,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         }
       `}</style>
 
-      <div className={`portfolio-sidebar-container ${!isOpen ? 'mobile-hidden' : ''}`}>
+      <div 
+        className={`portfolio-sidebar-container ${!isOpen ? 'mobile-hidden' : ''}`}
+        data-lenis-prevent
+        onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
         <div className="portfolio-sidebar-header">
           <div className="portfolio-sidebar-brand">
             <h1 className="portfolio-brand-title">Portfolio</h1>
@@ -273,7 +278,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </button>
         </div>
 
-        <nav className="portfolio-sidebar-nav">
+        <nav className="portfolio-sidebar-nav" data-lenis-prevent>
           <ul className="portfolio-nav-list">
             {navigationItems.map((item) => (
               <li key={item.id} className="portfolio-nav-item">

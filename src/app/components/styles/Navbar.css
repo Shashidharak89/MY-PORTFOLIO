@@ -25,6 +25,8 @@
   pointer-events: none;
   transition: opacity 0.4s ease, visibility 0.4s ease;
   backdrop-filter: blur(2px);
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 .portfolio-sidebar-overlay.active {
@@ -39,6 +41,7 @@
   right: 0;
   left: auto;
   height: 100vh;
+  height: 100dvh;
   width: 340px;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
   border-left: 1px solid #e5e7eb;
@@ -54,6 +57,8 @@
   display: flex;
   flex-direction: column;
   will-change: transform, opacity;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .portfolio-sidebar-container.active {
@@ -150,6 +155,9 @@
   padding: 2.5rem 0;
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE & Edge */
 }
