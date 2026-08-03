@@ -25,6 +25,8 @@ export default function FeaturedProjectsSection() {
   const orbProjectsRef = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoDirection, setAutoDirection] = useState('forward');
+  const [isHovered, setIsHovered] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
   useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
@@ -130,44 +132,89 @@ export default function FeaturedProjectsSection() {
     return () => ctx.revert();
   }, []);
 
-  // Smooth Card Transition Handler
-  const goToNext = () => {
-    if (isAnimating || currentIndex >= featuredProjects.length - 1) return;
+  // Strict Directional Card Transition Handler (No Shaking)
+  const animateCardTransition = (targetIndex, direction) => {
+    if (!cardRef.current || isAnimating) return;
     setIsAnimating(true);
-    
+    gsap.killTweensOf(cardRef.current);
+
+    // Direction 'forward': Moving right-to-left (Current exits left -90px, Next enters from right +90px)
+    // Direction 'reverse': Moving left-to-right (Current exits right +90px, Next enters from left -90px)
+    const slideOutX = direction === 'forward' ? -90 : 90;
+    const slideInX = direction === 'forward' ? 90 : -90;
+
     gsap.to(cardRef.current, {
-      x: -70,
+      x: slideOutX,
       opacity: 0,
       duration: 0.22,
       ease: 'power2.in',
       onComplete: () => {
-        setCurrentIndex((prev) => prev + 1);
-        gsap.fromTo(cardRef.current, 
-          { x: 70, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.32, ease: 'power2.out', onComplete: () => setIsAnimating(false) }
+        setCurrentIndex(targetIndex);
+        gsap.fromTo(
+          cardRef.current,
+          { x: slideInX, opacity: 0 },
+          { 
+            x: 0, 
+            opacity: 1, 
+            duration: 0.32, 
+            ease: 'power2.out',
+            clearProps: 'transform',
+            onComplete: () => setIsAnimating(false) 
+          }
         );
       }
     });
+  };
+
+  const goToNext = () => {
+    if (isAnimating || currentIndex >= featuredProjects.length - 1) return;
+    setAutoDirection('forward');
+    animateCardTransition(currentIndex + 1, 'forward');
   };
 
   const goToPrev = () => {
     if (isAnimating || currentIndex <= 0) return;
-    setIsAnimating(true);
-
-    gsap.to(cardRef.current, {
-      x: 70,
-      opacity: 0,
-      duration: 0.22,
-      ease: 'power2.in',
-      onComplete: () => {
-        setCurrentIndex((prev) => prev - 1);
-        gsap.fromTo(cardRef.current, 
-          { x: -70, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.32, ease: 'power2.out', onComplete: () => setIsAnimating(false) }
-        );
-      }
-    });
+    setAutoDirection('reverse');
+    animateCardTransition(currentIndex - 1, 'reverse');
   };
+
+  // 3-Second Auto Loop with Strict Directional Movements
+  useEffect(() => {
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      if (isAnimating) return;
+
+      let nextIdx = currentIndex;
+      let dir = autoDirection;
+
+      if (autoDirection === 'forward') {
+        if (currentIndex < featuredProjects.length - 1) {
+          nextIdx = currentIndex + 1;
+          dir = 'forward';
+        } else {
+          // Hit the last project! Turn around to reverse
+          nextIdx = currentIndex - 1;
+          dir = 'reverse';
+          setAutoDirection('reverse');
+        }
+      } else {
+        if (currentIndex > 0) {
+          nextIdx = currentIndex - 1;
+          dir = 'reverse';
+        } else {
+          // Hit the first project! Turn around to forward
+          nextIdx = currentIndex + 1;
+          dir = 'forward';
+          setAutoDirection('forward');
+        }
+      }
+
+      animateCardTransition(nextIdx, dir);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, autoDirection, isHovered, isAnimating, featuredProjects.length]);
 
   const currentProject = featuredProjects[currentIndex];
   const prevProject = currentIndex > 0 ? featuredProjects[currentIndex - 1] : null;
@@ -193,10 +240,14 @@ export default function FeaturedProjectsSection() {
           <h2 className="featured-projects-title">Featured Projects</h2>
         </div>
 
-        {/* Carousel Container with Side Preview Cards & Far Arrow Buttons */}
-        <div className="single-card-carousel-container">
+        {/* Carousel Container (Strict Directional Animations, Zero Shaking) */}
+        <div 
+          className="single-card-carousel-container"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
 
-          {/* Far Left Arrow Button (Appears when currentIndex > 0) */}
+          {/* Left Arrow Button */}
           {currentIndex > 0 && (
             <button 
               className="carousel-arrow-btn left-arrow-btn"
@@ -281,7 +332,7 @@ export default function FeaturedProjectsSection() {
             </div>
           )}
 
-          {/* Far Right Arrow Button (Appears when currentIndex < length - 1) */}
+          {/* Right Arrow Button */}
           {currentIndex < featuredProjects.length - 1 && (
             <button 
               className="carousel-arrow-btn right-arrow-btn"

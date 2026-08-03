@@ -2,17 +2,17 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { 
-  FaRocket, 
-  FaGithub, 
-  FaBookOpenReader, 
-  FaLocationDot, 
-  FaGraduationCap, 
-  FaPaperPlane, 
-  FaDownload, 
-  FaLinkedinIn, 
+import {
+  FaRocket,
+  FaGithub,
+  FaBookOpenReader,
+  FaLocationDot,
+  FaGraduationCap,
+  FaPaperPlane,
+  FaDownload,
+  FaLinkedinIn,
   FaEnvelope,
-  FaPhone 
+  FaPhone
 } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import { gsap } from 'gsap';
@@ -83,7 +83,7 @@ export default function HeroSection() {
       <div ref={orb2Ref} className="hero-floating-orb orb-bottom-right"></div>
 
       <div className="portfolio-hero-3col">
-        
+
         {/* Left Column: Greeting, Title, Bio, CTAs & Social Links */}
         <div ref={heroLeftRef} className="hero-left-col">
           <div className="greeting-pill">
@@ -155,7 +155,7 @@ export default function HeroSection() {
         <div ref={heroCenterRef} className="hero-center-col">
           <div className="avatar-wrapper">
             <div className="avatar-ambient-glow"></div>
-            
+
             {/* Parallax Orbiting Rings */}
             <div ref={ringsRef} style={{ position: 'absolute', width: '100%', height: '100%' }}>
               <div className="avatar-orbit-ring ring-1"></div>
@@ -185,7 +185,7 @@ export default function HeroSection() {
                 <FaBookOpenReader />
               </div>
               <div className="info-text">
-                <span className="info-title">MCA</span>
+                <span className="info-title">MCA</span><br />
                 <span className="info-subtitle">CGPA: 9.30</span>
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function HeroSection() {
                 <span className="green-status-pulse"></span>
               </div>
               <div className="info-text">
-                <span className="info-title">Open to</span>
+                <span className="info-title">Open to</span><br/>
                 <span className="info-subtitle">Internship & Full-time</span>
               </div>
             </div>

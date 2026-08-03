@@ -1,4 +1,4 @@
-/* FeaturedProjectsSection.css - Side Previews & Far Directional Arrows */
+/* FeaturedProjectsSection.css - 1 Project Card Carousel & Clean Image Borders */
 
 .projects-snap-section {
   position: relative;
@@ -406,7 +406,7 @@
   transition: transform 0.25s ease;
 }
 
-/* Hide Side Previews on Tablet & Mobile */
+/* Responsive Media Queries */
 @media (max-width: 1024px) {
   .side-project-preview {
     display: none !important;
