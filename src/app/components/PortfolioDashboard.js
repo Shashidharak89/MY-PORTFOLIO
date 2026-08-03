@@ -22,14 +22,13 @@ import './styles/portfolio-dashboard.css';
 
 const PortfolioDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [currentSkill, setCurrentSkill] = useState(0);
-
-  const skills = useMemo(() => [
-    'Full Stack Developer',
-    'DSA Enthusiast',
-    'Problem Solver',
-    'Tech Enthusiast'
+  const titleRoles = useMemo(() => [
+    { prefix: 'Full Stack', suffix: 'Developer' },
+    { prefix: 'App', suffix: 'Developer' },
+    { prefix: 'Problem', suffix: 'Solver' }
   ], []);
+
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
   const stats = [
     { label: 'Projects Completed', value: '10+', icon: <FaRocket /> },
@@ -41,10 +40,10 @@ const PortfolioDashboard = () => {
   useEffect(() => {
     setIsVisible(true);
     const interval = setInterval(() => {
-      setCurrentSkill((prev) => (prev + 1) % skills.length);
+      setCurrentRoleIndex((prev) => (prev + 1) % titleRoles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [skills]);
+  }, [titleRoles]);
 
   return (
     <div className="portfolio-dashboard-container">
@@ -64,15 +63,17 @@ const PortfolioDashboard = () => {
               Shashidhara <span className="name-accent">K</span>
             </h1>
 
-            <div className="hero-role-heading">
-              <span className="role-accent">Full Stack</span>{' '}
-              <span className="role-skill-text" key={currentSkill}>
-                {skills[currentSkill].includes('Developer') ? 'Developer' : skills[currentSkill]}
+            <div className="hero-role-heading" key={currentRoleIndex}>
+              <span className="role-prefix-text">
+                {titleRoles[currentRoleIndex].prefix}
+              </span>
+              <span className="role-suffix-text">
+                {titleRoles[currentRoleIndex].suffix}
               </span>
             </div>
 
             <p className="hero-short-bio">
-              I build fast, scalable and user-friendly web applications using modern technologies. I love solving real-world problems and turning ideas into impactful products.
+              Full-Stack & App Developer passionate about building high-performance applications. DSA enthusiast, consistent LeetCode problem solver (450+ solved), and competitive programming winner turning complex logic into impactful products.
             </p>
 
             <div className="hero-cta-buttons">

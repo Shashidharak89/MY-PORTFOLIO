@@ -1,15 +1,15 @@
 /* Portfolio Dashboard Styles */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
 .portfolio-dashboard-container {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
   padding: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .portfolio-dashboard-main {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,21 +78,53 @@
   font-weight: 700;
   margin-bottom: 1.2rem;
   color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 42px;
+  overflow: hidden;
 }
 
-.role-accent {
+.role-prefix-text {
   color: #dc2626;
+  display: inline-block;
+  animation: slideFromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.role-skill-text {
+.role-suffix-text {
+  color: #111827;
   display: inline-block;
-  animation: portfolio-slideInRight 0.6s ease-out;
+  animation: slideFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .hero-short-bio {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1rem;
   color: #4b5563;
-  line-height: 1.65;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   margin-bottom: 2rem;
   max-width: 480px;
 }
@@ -305,6 +337,7 @@
 }
 
 .info-card {
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background: #ffffff;
   border-radius: 20px;
   padding: 1.8rem 1.8rem;
