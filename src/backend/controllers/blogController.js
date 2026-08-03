@@ -1,11 +1,12 @@
 import Blog from '../models/Blog.js';
 import connectDB from '../utils/db.js';
+import cloudinary from '../utils/cloudinary.js';
 
 // Create a new blog
 export const createBlog = async (req) => {
   try {
     await connectDB();
-    const { blogname, description } = await req.json();
+    const { blogname, description, imageurl, image, file } = await req.json();
 
     if (!blogname || !description) {
       return new Response(JSON.stringify({ error: 'Blog name and description are required' }), {
@@ -14,7 +15,36 @@ export const createBlog = async (req) => {
       });
     }
 
-    const blog = new Blog({ blogname, description });
+    let finalImageUrl = [];
+
+    // If imageurl is directly provided (e.g. string or array)
+    if (imageurl) {
+      if (Array.isArray(imageurl)) {
+        finalImageUrl = imageurl.filter(url => url && url.trim() !== '');
+      } else if (typeof imageurl === 'string' && imageurl.trim() !== '') {
+        finalImageUrl = [imageurl.trim()];
+      }
+    }
+
+    // If direct base64 image data is provided
+    const base64Image = image || file;
+    if (base64Image && typeof base64Image === 'string' && base64Image.startsWith('data:image/')) {
+      const uploadResult = await cloudinary.uploader.upload(base64Image, {
+        folder: 'portfolio_blogs',
+      });
+      finalImageUrl.push(uploadResult.secure_url);
+    }
+
+    const blogData = {
+      blogname,
+      description,
+    };
+
+    if (finalImageUrl.length > 0) {
+      blogData.imageurl = finalImageUrl;
+    }
+
+    const blog = new Blog(blogData);
     await blog.save();
 
     return new Response(JSON.stringify({ message: 'Blog created successfully', blog }), {
@@ -29,6 +59,7 @@ export const createBlog = async (req) => {
     });
   }
 };
+
 
 // Get all blogs
 export const getAllBlogs = async () => {

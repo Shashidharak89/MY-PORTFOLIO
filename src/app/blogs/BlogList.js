@@ -14,6 +14,19 @@ const BlogList = () => {
   const [likedBlogs, setLikedBlogs] = useState(new Set());
   const [loadingBlogs, setLoadingBlogs] = useState(true);
 
+  // Helper to extract image URL safely
+  const getImageSrc = (imageurl) => {
+    if (!imageurl) return null;
+    if (Array.isArray(imageurl)) {
+      const src = imageurl[0];
+      return src && src !== 'xyz.jpg' ? src : null;
+    }
+    if (typeof imageurl === 'string' && imageurl !== 'xyz.jpg' && imageurl.trim() !== '') {
+      return imageurl;
+    }
+    return null;
+  };
+
   // Format time to relative format (e.g., "4 minutes ago")
   const formatTimeAgo = (dateString) => {
     const now = new Date();
@@ -300,10 +313,10 @@ const BlogList = () => {
             </div>
           </div>
           
-          {currentBlog.imageurl && currentBlog.imageurl.length > 0 && currentBlog.imageurl[0] !== 'xyz.jpg' && (
+          {getImageSrc(currentBlog.imageurl) && (
             <div className="crimson-image-showcase">
               <img 
-                src={currentBlog.imageurl[0]} 
+                src={getImageSrc(currentBlog.imageurl)} 
                 alt={currentBlog.blogname}
                 className="crimson-detail-image" 
               />
@@ -619,9 +632,9 @@ const BlogList = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="crimson-card-image-wrapper">
-                {blog.imageurl && blog.imageurl.length > 0 && blog.imageurl[0] !== 'xyz.jpg' ? (
+                {getImageSrc(blog.imageurl) ? (
                   <img 
-                    src={blog.imageurl[0]} 
+                    src={getImageSrc(blog.imageurl)} 
                     alt={blog.blogname}
                     className="crimson-card-image" 
                   />
