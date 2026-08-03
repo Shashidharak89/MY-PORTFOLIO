@@ -323,8 +323,8 @@
 
 .modern-portfolio-navbar.scrolled {
   background: rgba(255, 255, 255, 0.98);
-  border-bottom: 1px solid rgba(220, 38, 38, 0.1);
-  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.1);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.12);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.08);
 }
 
 .modern-navbar-container {
@@ -337,6 +337,11 @@
   justify-content: space-between;
   height: 80px;
   position: relative;
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modern-portfolio-navbar.scrolled .modern-navbar-container {
+  height: 68px;
 }
 
 .modern-navbar-brand {

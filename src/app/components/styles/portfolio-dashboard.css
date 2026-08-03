@@ -2,8 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  scroll-behavior: auto;
 }
 
 .portfolio-dashboard-container {
@@ -37,12 +36,10 @@ html {
   opacity: 0;
 }
 
-/* 3 Smooth Proximity Snap Sections - 100% height below navbar */
+/* Smooth Storytelling Sections - 100% height below navbar */
 .home-snap-section {
   position: relative;
   min-height: calc(100vh - 80px);
-  height: calc(100vh - 80px);
-  scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
