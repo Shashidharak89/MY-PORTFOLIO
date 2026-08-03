@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaGooglePlay, FaUpRightFromSquare, FaRocket, FaArrowRight } from 'react-icons/fa6';
+import { FaGooglePlay, FaUpRightFromSquare, FaRocket, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/FeaturedProjectsSection.css';
 
+import sectionprojectsBg from './images/sectionprojects.jpeg';
 import learnixImg from './images/projects/learnix.jpeg';
 import cipherImg from './images/projects/cipher2k25.jpeg';
 import shopxImg from './images/projects/shopx.jpeg';
@@ -20,8 +21,11 @@ if (typeof window !== 'undefined') {
 export default function FeaturedProjectsSection() {
   const sectionRef = useRef(null);
   const wrapperRef = useRef(null);
-  const cardsGridRef = useRef(null);
+  const cardRef = useRef(null);
   const orbProjectsRef = useRef(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
 
@@ -29,9 +33,9 @@ export default function FeaturedProjectsSection() {
     {
       id: 'learnix',
       title: 'LEARNIX Mobile App & Web',
-      category: 'Education & Android App',
-      shortDesc: 'A learning portal & Android app for students to access study notes and academic materials.',
-      technologies: ['Next.js', 'Node.js', 'MongoDB', 'Android'],
+      category: 'Education Platform & Android App',
+      shortDesc: 'A comprehensive learning portal for students to access study notes, materials, and academic resources with an Android app on Google Play Store.',
+      technologies: ['Next.js', 'Node.js', 'Cloudinary', 'MongoDB', 'Android'],
       image: learnixImg,
       playStoreLink: 'https://play.google.com/store/apps/details?id=com.shashidharak.learnix',
       liveLink: 'https://learnix.shashi-k.in',
@@ -40,29 +44,28 @@ export default function FeaturedProjectsSection() {
       id: 'cipher2k25',
       title: 'CIPHER 2K25',
       category: 'Annual IT Fest Platform',
-      description: 'Official digital hub for CIPHER 2K25 IT Fest featuring registrations & event schedules.',
-      shortDesc: 'Official digital hub for CIPHER 2K25 IT Fest featuring event schedules & registrations.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Cloudinary'],
+      shortDesc: 'Official digital hub for CIPHER 2K25 IT Fest featuring registrations, event schedules, sponsor highlights, and dynamic tech visuals.',
+      technologies: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Cloudinary'],
       image: cipherImg,
       liveLink: 'https://ciphen-2k25.vercel.app/',
     },
     {
       id: 'shopx',
-      title: 'ShopX E-Commerce',
-      category: 'Full-Stack Shopping',
-      shortDesc: 'Full-stack MERN e-commerce store with product cart management & checkout.',
+      title: 'ShopX E-Commerce Platform',
+      category: 'Full-Stack Shopping Experience',
+      shortDesc: 'Full-stack MERN e-commerce web application featuring seamless product browsing, cart management, checkout workflows, and admin panel.',
       technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
       image: shopxImg,
       liveLink: 'https://e-commerce-mern-beta.vercel.app',
     }
   ];
 
+  // Section Scroll Timeline
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 3D Perspective Card Stack Unfold Transition
       const projectsTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -111,29 +114,6 @@ export default function FeaturedProjectsSection() {
         })
         .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(6px)', duration: 0.25 });
 
-      // Stagger Cards
-      const projectCards = cardsGridRef.current?.children;
-      if (projectCards) {
-        gsap.fromTo(
-          projectCards,
-          { opacity: 0, scale: 0.8, y: 35 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            stagger: 0.05,
-            ease: 'back.out(1.4)',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-              end: 'top 45%',
-              scrub: 0.5
-            }
-          }
-        );
-      }
-
-      // Parallax Orb
       gsap.to(orbProjectsRef.current, {
         y: -120,
         x: 60,
@@ -150,8 +130,56 @@ export default function FeaturedProjectsSection() {
     return () => ctx.revert();
   }, []);
 
+  // Smooth Card Transition Handler
+  const goToNext = () => {
+    if (isAnimating || currentIndex >= featuredProjects.length - 1) return;
+    setIsAnimating(true);
+    
+    gsap.to(cardRef.current, {
+      x: -70,
+      opacity: 0,
+      duration: 0.22,
+      ease: 'power2.in',
+      onComplete: () => {
+        setCurrentIndex((prev) => prev + 1);
+        gsap.fromTo(cardRef.current, 
+          { x: 70, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.32, ease: 'power2.out', onComplete: () => setIsAnimating(false) }
+        );
+      }
+    });
+  };
+
+  const goToPrev = () => {
+    if (isAnimating || currentIndex <= 0) return;
+    setIsAnimating(true);
+
+    gsap.to(cardRef.current, {
+      x: 70,
+      opacity: 0,
+      duration: 0.22,
+      ease: 'power2.in',
+      onComplete: () => {
+        setCurrentIndex((prev) => prev - 1);
+        gsap.fromTo(cardRef.current, 
+          { x: -70, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.32, ease: 'power2.out', onComplete: () => setIsAnimating(false) }
+        );
+      }
+    });
+  };
+
+  const currentProject = featuredProjects[currentIndex];
+  const prevProject = currentIndex > 0 ? featuredProjects[currentIndex - 1] : null;
+  const nextProject = currentIndex < featuredProjects.length - 1 ? featuredProjects[currentIndex + 1] : null;
+
   return (
-    <section ref={sectionRef} className="home-snap-section projects-snap-section">
+    <section 
+      ref={sectionRef} 
+      className="home-snap-section projects-snap-section"
+      style={{ backgroundImage: `url(${sectionprojectsBg.src})` }}
+    >
+      <div className="section-projects-bg-overlay"></div>
       <div ref={orbProjectsRef} className="projects-floating-orb"></div>
 
       <div ref={wrapperRef} className="portfolio-dashboard-projects-wrapper">
@@ -160,76 +188,113 @@ export default function FeaturedProjectsSection() {
         <div className="featured-projects-header">
           <div className="featured-projects-pill">
             <FaRocket />
-            <span>Handpicked Work</span>
+            <span>Handpicked Work ({currentIndex + 1} / {featuredProjects.length})</span>
           </div>
           <h2 className="featured-projects-title">Featured Projects</h2>
         </div>
 
-        {/* Compact Image-Only Default Cards with Hover Overlay */}
-        <div ref={cardsGridRef} className="featured-projects-grid">
-          {featuredProjects.map((project) => (
-            <div key={project.id} className="compact-project-card">
-              
-              {/* Image Container */}
-              <div className="compact-card-media">
-                <Image 
-                  src={project.image} 
-                  alt={project.title}
-                  className="compact-card-img"
-                  placeholder="blur"
-                />
+        {/* Carousel Container with Side Preview Cards & Far Arrow Buttons */}
+        <div className="single-card-carousel-container">
 
-                {/* Default Visible Title Banner at Bottom */}
-                <div className="compact-title-banner">
-                  <h3 className="compact-banner-title">{project.title}</h3>
-                  <span className="compact-banner-category">{project.category}</span>
+          {/* Far Left Arrow Button (Appears when currentIndex > 0) */}
+          {currentIndex > 0 && (
+            <button 
+              className="carousel-arrow-btn left-arrow-btn"
+              onClick={goToPrev}
+              aria-label="Previous Project"
+            >
+              <FaChevronLeft />
+            </button>
+          )}
+
+          {/* Previous Project Peek Thumbnail (Desktop) */}
+          {prevProject && (
+            <div className="side-project-preview prev-preview-card" onClick={goToPrev} title={prevProject.title}>
+              <Image src={prevProject.image} alt={prevProject.title} className="side-preview-img" />
+              <div className="side-preview-overlay"></div>
+            </div>
+          )}
+
+          {/* Center Active Project Card */}
+          <div ref={cardRef} className="single-featured-card">
+            <div className="compact-card-media">
+              <Image 
+                src={currentProject.image} 
+                alt={currentProject.title}
+                className="compact-card-img"
+                placeholder="blur"
+                priority
+              />
+
+              {/* Default Visible Title Banner at Bottom */}
+              <div className="compact-title-banner">
+                <h3 className="compact-banner-title">{currentProject.title}</h3>
+                <span className="compact-banner-category">{currentProject.category}</span>
+              </div>
+
+              {/* Smooth Hover Overlay */}
+              <div className="compact-hover-overlay">
+                <h3 className="overlay-title">{currentProject.title}</h3>
+                <p className="overlay-desc">{currentProject.shortDesc}</p>
+                
+                <div className="overlay-tech-list">
+                  {currentProject.technologies.map((tech) => (
+                    <span key={tech} className="overlay-tech-tag">{tech}</span>
+                  ))}
                 </div>
 
-                {/* Hover Reveal Overlay (Over the Image) */}
-                <div className="compact-hover-overlay">
-                  <h3 className="overlay-title">{project.title}</h3>
-                  <p className="overlay-desc">{project.shortDesc}</p>
-                  
-                  <div className="overlay-tech-list">
-                    {project.technologies.map((tech) => (
-                      <span key={tech} className="overlay-tech-tag">{tech}</span>
-                    ))}
-                  </div>
+                <div className="overlay-action-buttons">
+                  {currentProject.playStoreLink && (
+                    <a 
+                      href={currentProject.playStoreLink} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="overlay-btn playstore"
+                    >
+                      <FaGooglePlay />
+                      <span>Play Store</span>
+                    </a>
+                  )}
 
-                  <div className="overlay-action-buttons">
-                    {project.playStoreLink && (
-                      <a 
-                        href={project.playStoreLink} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="overlay-btn playstore"
-                      >
-                        <FaGooglePlay />
-                        <span>Play Store</span>
-                      </a>
-                    )}
-
-                    {project.liveLink && (
-                      <a 
-                        href={project.liveLink} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="overlay-btn live"
-                      >
-                        <FaUpRightFromSquare />
-                        <span>Visit</span>
-                      </a>
-                    )}
-                  </div>
+                  {currentProject.liveLink && (
+                    <a 
+                      href={currentProject.liveLink} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="overlay-btn live"
+                    >
+                      <FaUpRightFromSquare />
+                      <span>Visit</span>
+                    </a>
+                  )}
                 </div>
-
               </div>
 
             </div>
-          ))}
+          </div>
+
+          {/* Next Project Peek Thumbnail (Desktop) */}
+          {nextProject && (
+            <div className="side-project-preview next-preview-card" onClick={goToNext} title={nextProject.title}>
+              <Image src={nextProject.image} alt={nextProject.title} className="side-preview-img" />
+              <div className="side-preview-overlay"></div>
+            </div>
+          )}
+
+          {/* Far Right Arrow Button (Appears when currentIndex < length - 1) */}
+          {currentIndex < featuredProjects.length - 1 && (
+            <button 
+              className="carousel-arrow-btn right-arrow-btn"
+              onClick={goToNext}
+              aria-label="Next Project"
+            >
+              <FaChevronRight />
+            </button>
+          )}
+
         </div>
 
-        {/* View All Projects Link */}
+        {/* View All Projects Footer Link */}
         <div className="featured-projects-footer-cta">
           <Link href="/projects" className="view-all-projects-link">
             <button className="view-all-projects-btn">

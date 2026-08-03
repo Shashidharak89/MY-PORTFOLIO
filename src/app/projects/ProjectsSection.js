@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import ImageSlider from './ImageSlider'; // Adjust path as needed
+import { useState, useEffect, useRef } from 'react';
+import ImageSlider from './ImageSlider';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import './styles/ProjectsSection.css';
-
 
 const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-
-
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const sliderRef = useRef(null);
 
   const projects = [
     {
@@ -17,7 +18,7 @@ const ProjectsSection = () => {
       description: "This is an official academic website developed for the Bachelor of Computer Applications (BCA) Department at Sacred Heart College. The platform serves as a centralized hub for students, faculty, and visitors, providing seamless access to important departmental information, faculty profiles, academic resources, event highlights, and contact details. Designed with a clean and responsive interface, the website ensures easy navigation across devices and reflects the department’s commitment to transparency, technology, and student engagement.",
       technologies: ["HTML", "CSS", "Javascript"],
       projectLink: "https://bcasacredheart2024.github.io/Department_of_bca",
-      sourceCode: "hhttps://github.com",
+      sourceCode: "https://github.com",
       slides: [
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782478/Screenshot_50_dksygb.png', title: 'Homepage' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750782488/Screenshot_49_rynkf9.png', title: 'Product Page' },
@@ -46,7 +47,6 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774372/Screenshot_27_mqrpxq.png', title: 'Analytics Panel' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774378/Screenshot_32_dk20yq.png', title: 'Analytics Panel' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750774382/Screenshot_31_dxp9xw.png', title: 'Analytics Panel' }
-
       ]
     },
     {
@@ -67,7 +67,6 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775717/Screenshot_46_wssult.png', title: 'Workout Screen' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775721/Screenshot_43_k20btq.png', title: 'Workout Screen' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750775722/Screenshot_44_qhep3t.png', title: 'Workout Screen' }
-
       ]
     },
     {
@@ -87,7 +86,6 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_61_edymqn.png', title: 'Dashboard View' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_62_dbq1ah.png', title: 'Dashboard View' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784967/Screenshot_67_a6ft3o.png', title: 'Dashboard View' },
-
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784970/Screenshot_69_xgpcgu.png', title: 'Dashboard View' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_70_cck2sc.png', title: 'Dashboard View' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784969/Screenshot_68_x8mhvd.png', title: 'Dashboard View' },
@@ -96,8 +94,6 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1750784972/Screenshot_66_p4nj0z.png', title: 'Dashboard View' }
       ]
     },
-
-
     {
       id: 5,
       title: "ShopX [E-Commerce Website]",
@@ -130,9 +126,7 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819907/feedback-send_hztwgv.jpg', title: 'Workout Screen' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819923/upload-topic-add_j3qhbc.jpg', title: 'Workout Screen' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1758819925/work-id_k3bsrb.jpg', title: 'Workout Screen' }
-
       ]
-
     },
     {
       id: 7,
@@ -148,17 +142,43 @@ const ProjectsSection = () => {
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753719/c1_20251029_21223240_cccauy.jpg', title: 'The uploaded file is shown in uploaded files' },
         { type: 'image', src: 'https://res.cloudinary.com/dsojdpkgh/image/upload/v1761753720/c1_20251029_21223222_iaowjn.jpg', title: 'The uploaded file in file manager' }
       ]
-    },
-
-
-
-
+    }
   ].reverse();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleScroll = () => {
+    if (!sliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    setShowLeftArrow(scrollLeft > 20);
+    setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 20);
+  };
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (el) {
+      el.addEventListener('scroll', handleScroll);
+      handleScroll();
+    }
+    return () => {
+      if (el) el.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollNext = () => {
+    if (!sliderRef.current) return;
+    const cardWidth = sliderRef.current.firstElementChild?.getBoundingClientRect().width || 650;
+    sliderRef.current.scrollBy({ left: cardWidth + 30, behavior: 'smooth' });
+  };
+
+  const scrollPrev = () => {
+    if (!sliderRef.current) return;
+    const cardWidth = sliderRef.current.firstElementChild?.getBoundingClientRect().width || 650;
+    sliderRef.current.scrollBy({ left: -(cardWidth + 30), behavior: 'smooth' });
+  };
 
   const handleProjectLinkClick = (link) => {
     window.open(link, '_blank', 'noopener,noreferrer');
@@ -171,70 +191,102 @@ const ProjectsSection = () => {
   return (
     <section className="projects-section-unique" id="projects">
       <div className="projects-container-unique">
+        
+        {/* Header */}
         <div className={`projects-header-unique ${isVisible ? 'projects-header-visible-unique' : ''}`}>
           <h2 className="projects-title-unique">My Projects</h2>
           <div className="projects-title-underline-unique"></div>
         </div>
 
-        <div className="projects-list-unique">
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`project-item-unique ${isVisible ? 'project-item-visible-unique' : ''}`}
-              style={{ animationDelay: `${0.3 + index * 0.2}s` }}
+        {/* Carousel Container with Left/Right Navigation Arrows */}
+        <div className="projects-carousel-wrapper-unique">
+          
+          {/* Left Arrow (Only appears after scrolling right) */}
+          {showLeftArrow && (
+            <button 
+              className="projects-nav-arrow-unique left-arrow-unique"
+              onClick={scrollPrev}
+              aria-label="Previous Projects"
             >
-              {/* Project Header */}
-              <div className="project-header-unique">
-                <div className="project-number-badge-unique">
-                  {String(index + 1).padStart(2, '0')}
+              <FaChevronLeft />
+            </button>
+          )}
+
+          {/* Right Arrow (Always on right corner initially) */}
+          {showRightArrow && (
+            <button 
+              className="projects-nav-arrow-unique right-arrow-unique"
+              onClick={scrollNext}
+              aria-label="Next Projects"
+            >
+              <FaChevronRight />
+            </button>
+          )}
+
+          {/* Horizontal Slider (Shows 1 and 1/2 project cards) */}
+          <div ref={sliderRef} className="projects-list-unique">
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className={`project-item-unique ${isVisible ? 'project-item-visible-unique' : ''}`}
+                style={{ animationDelay: `${0.2 + index * 0.15}s` }}
+              >
+                {/* Project Header */}
+                <div className="project-header-unique">
+                  <div className="project-number-badge-unique">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  <h3 className="project-title-unique">{project.title}</h3>
                 </div>
-                <h3 className="project-title-unique">{project.title}</h3>
-              </div>
 
-              {/* Image Slider with 16:9 ratio */}
-              <div className="project-slider-container-unique">
-                <ImageSlider
-                  slides={project.slides}
-                  title={project.title}
-                  isActive={true}
-                  projectLink={project.projectLink}
-                  sourceCode={project.sourceCode}
-                />
-              </div>
+                {/* Image Slider */}
+                <div className="project-slider-container-unique">
+                  <ImageSlider
+                    slides={project.slides}
+                    title={project.title}
+                    isActive={true}
+                    projectLink={project.projectLink}
+                    sourceCode={project.sourceCode}
+                  />
+                </div>
 
-              {/* Project Details */}
-              <div className="project-details-unique">
-                <p className="project-description-unique">
-                  {project.description}
-                </p>
+                {/* Project Details */}
+                <div className="project-details-unique">
+                  <p className="project-description-unique">
+                    {project.description}
+                  </p>
 
-                <div className="project-technologies-unique">
-                  <h4 className="tech-title-unique">Technologies Used:</h4>
-                  <div className="tech-list-unique">
-                    {project.technologies.map((tech, idx) => (
-                      <span key={idx} className="tech-tag-unique">{tech}</span>
-                    ))}
+                  <div className="project-technologies-unique">
+                    <h4 className="tech-title-unique">Technologies Used:</h4>
+                    <div className="tech-list-unique">
+                      {project.technologies.map((tech, idx) => (
+                        <span key={idx} className="tech-tag-unique">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="project-actions-unique">
+                    <button
+                      className="project-btn-primary-unique"
+                      onClick={() => handleProjectLinkClick(project.projectLink)}
+                    >
+                      Live Demo
+                    </button>
+                    <button
+                      className="project-btn-secondary-unique"
+                      onClick={() => handleSourceCodeClick(project.sourceCode)}
+                    >
+                      Source Code
+                    </button>
                   </div>
                 </div>
 
-                <div className="project-actions-unique">
-                  <button
-                    className="project-btn-primary-unique"
-                    onClick={() => handleProjectLinkClick(project.projectLink)}
-                  >
-                    Live Demo
-                  </button>
-                  <button
-                    className="project-btn-secondary-unique"
-                    onClick={() => handleSourceCodeClick(project.sourceCode)}
-                  >
-                    Source Code
-                  </button>
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
         </div>
+
       </div>
     </section>
   );
