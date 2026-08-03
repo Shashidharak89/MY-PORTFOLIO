@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/BeyondTheCodeSection.css';
+import beyondthecodeBg from './images/beyondthecodesection.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -154,7 +155,12 @@ export default function BeyondTheCodeSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="home-snap-section beyond-code-snap-section">
+    <section 
+      ref={sectionRef} 
+      className="home-snap-section beyond-code-snap-section"
+      style={{ backgroundImage: `url(${beyondthecodeBg.src})` }}
+    >
+      <div className="beyond-code-bg-overlay"></div>
       <div ref={orbBeyondRef} className="beyond-floating-orb"></div>
 
       <div ref={wrapperRef} className="portfolio-dashboard-beyond-wrapper">
