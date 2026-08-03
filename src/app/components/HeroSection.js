@@ -18,6 +18,7 @@ import { SiLeetcode } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/HeroSection.css';
+import profile2dImg from './images/profile2d.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -164,7 +165,11 @@ export default function HeroSection() {
               <div className="orbit-dot dot-2"></div>
             </div>
 
-            <div ref={avatarFrameRef} className="avatar-image-frame"></div>
+            <div 
+              ref={avatarFrameRef} 
+              className="avatar-image-frame"
+              style={{ backgroundImage: `url(${profile2dImg.src})` }}
+            ></div>
           </div>
         </div>
 
@@ -176,7 +181,8 @@ export default function HeroSection() {
                 <FaGraduationCap />
               </div>
               <div className="info-text">
-                <span className="info-title">NMAM Institute of Technology, Nitte</span>
+                <span className="info-title">NMAM</span>
+                <span className="info-subtitle">Institute of Technology, Nitte</span>
               </div>
             </div>
 
@@ -185,7 +191,7 @@ export default function HeroSection() {
                 <FaBookOpenReader />
               </div>
               <div className="info-text">
-                <span className="info-title">MCA</span><br />
+                <span className="info-title">MCA</span>
                 <span className="info-subtitle">CGPA: 9.30</span>
               </div>
             </div>
@@ -195,7 +201,8 @@ export default function HeroSection() {
                 <FaLocationDot />
               </div>
               <div className="info-text">
-                <span className="info-title">Mangaluru, Karnataka, India</span>
+                <span className="info-title">Location</span>
+                <span className="info-subtitle">Mangaluru, Karnataka, India</span>
               </div>
             </div>
 
@@ -204,7 +211,7 @@ export default function HeroSection() {
                 <span className="green-status-pulse"></span>
               </div>
               <div className="info-text">
-                <span className="info-title">Open to</span><br />
+                <span className="info-title">Open to Work</span>
                 <span className="info-subtitle">Internship & Full-time</span>
               </div>
             </div>
