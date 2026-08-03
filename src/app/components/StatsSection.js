@@ -36,9 +36,9 @@ export default function StatsSection() {
       // Precision Section 2 Timeline:
       // 0% -> 25%: hidden
       // 25% -> 50%: Entrance Fade-In (opacity 0 -> 1, y 60px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
-      // 50% -> 60%: Full Visibility Plateau (opacity 1)
-      // 60% -> 85%: Exit Fade-Out (opacity 1 -> 0, y 0 -> -60px, scale 1 -> 0.88, blur 0px -> 8px)
-      // 85% -> 100%: hidden
+      // 50% -> 55%: Full Visibility Plateau (opacity 1)
+      // 55% -> 75%: Exit Fade-Out (opacity 1 -> 0, y 0 -> -60px, scale 1 -> 0.88, blur 0px -> 8px)
+      // 75% -> 100%: hidden
       const sec2Tl = gsap.timeline({
         scrollTrigger: {
           trigger: section2Ref.current,
@@ -64,21 +64,21 @@ export default function StatsSection() {
           ease: 'power2.out' 
         })
         
-        // 50% -> 60%: Full Visibility Plateau
-        .to(wrapper2Ref.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.10 })
+        // 50% -> 55%: Full Visibility Plateau
+        .to(wrapper2Ref.current, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.05 })
         
-        // 60% -> 85%: Exit Fade-Out
+        // 55% -> 75%: Exit Fade-Out (starts at 55%, ends at 75%)
         .to(wrapper2Ref.current, { 
           opacity: 0, 
           y: -60, 
           scale: 0.88, 
           filter: 'blur(8px)', 
-          duration: 0.25, 
+          duration: 0.20, 
           ease: 'power2.in' 
         })
         
-        // 85% -> 100%: Hold hidden
-        .to(wrapper2Ref.current, { opacity: 0, y: -60, scale: 0.88, filter: 'blur(8px)', duration: 0.15 });
+        // 75% -> 100%: Hold hidden
+        .to(wrapper2Ref.current, { opacity: 0, y: -60, scale: 0.88, filter: 'blur(8px)', duration: 0.25 });
 
       // Stat cards internal micro stagger during entrance
       const statCards = cardsGridRef.current?.children;

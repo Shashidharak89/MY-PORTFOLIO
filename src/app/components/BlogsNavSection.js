@@ -28,9 +28,9 @@ export default function BlogsNavSection() {
       // Precision Section 3 Timeline:
       // 0% -> 25%: hidden
       // 25% -> 50%: Entrance Fade-In & 3D Slide (opacity 0 -> 1, x -120px -> 0, rotationY -20deg -> 0, scale 0.82 -> 1, blur 12px -> 0px)
-      // 50% -> 60%: Full Visibility Plateau (opacity 1)
-      // 60% -> 85%: Exit Fade-Out & 3D Slide Out (opacity 1 -> 0, x 0 -> 120px, rotationY 0 -> 20deg, scale 1 -> 0.82, blur 0px -> 12px)
-      // 85% -> 100%: hidden
+      // 50% -> 55%: Full Visibility Plateau (opacity 1)
+      // 55% -> 75%: Exit Fade-Out & 3D Slide Out (opacity 1 -> 0, x 0 -> 120px, rotationY 0 -> 20deg, scale 1 -> 0.82, blur 0px -> 12px)
+      // 75% -> 100%: hidden
       const sec3Tl = gsap.timeline({
         scrollTrigger: {
           trigger: section3Ref.current,
@@ -74,10 +74,10 @@ export default function BlogsNavSection() {
           ease: 'power3.out' 
         })
         
-        // 50% -> 60%: Full Visibility Plateau
-        .to(wrapper3Ref.current, { opacity: 1, x: 0, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.10 })
+        // 50% -> 55%: Full Visibility Plateau
+        .to(wrapper3Ref.current, { opacity: 1, x: 0, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.05 })
         
-        // 60% -> 85%: Exit Fade Out
+        // 55% -> 75%: Exit Fade Out (starts at 55%, ends at 75%)
         .to(wrapper3Ref.current, { 
           opacity: 0, 
           x: 120, 
@@ -85,12 +85,12 @@ export default function BlogsNavSection() {
           scale: 0.82, 
           rotationY: 20, 
           filter: 'blur(12px)', 
-          duration: 0.25, 
+          duration: 0.20, 
           ease: 'power3.in' 
         })
         
-        // 85% -> 100%: Hold hidden
-        .to(wrapper3Ref.current, { opacity: 0, x: 120, filter: 'blur(12px)', duration: 0.15 });
+        // 75% -> 100%: Hold hidden
+        .to(wrapper3Ref.current, { opacity: 0, x: 120, filter: 'blur(12px)', duration: 0.25 });
 
       // Icon Badges Pop Reveal
       const visualIcons = iconsRow3Ref.current?.children;
