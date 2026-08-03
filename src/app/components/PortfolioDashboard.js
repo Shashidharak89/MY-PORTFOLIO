@@ -109,7 +109,7 @@ const PortfolioDashboard = () => {
                 <a href="mailto:gamenexplay63@gmail.com" className="social-icon-btn" aria-label="Email">
                   <FaEnvelope />
                 </a>
-                <a href="https://leetcode.com" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LeetCode">
+                <a href="https://leetcode.com/u/shashidhara_k/" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LeetCode">
                   <SiLeetcode />
                 </a>
               </div>
@@ -176,62 +176,70 @@ const PortfolioDashboard = () => {
 
         </section>
 
-        <section className="portfolio-dashboard-stats">
-          {stats.map((stat, index) => (
-            <div
-              key={stat.label}
-              className="portfolio-dashboard-stat-card"
-              style={{
-                animation: `portfolio-fadeInUp 0.8s ease-out ${0.2 * (index + 1)}s both`
-              }}
-            >
-              <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
-              <div className="portfolio-dashboard-stat-value">{stat.value}</div>
-              <div className="portfolio-dashboard-stat-label">{stat.label}</div>
+        {/* SECTION 2: 4 Stats Cards Section */}
+        <section className="home-snap-section">
+          <div className="portfolio-dashboard-stats-wrapper">
+            <h2 className="stats-section-title">Achievements & Impact</h2>
+            <div className="portfolio-dashboard-stats">
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className="portfolio-dashboard-stat-card"
+                  style={{
+                    animation: `portfolio-fadeInUp 0.8s ease-out ${0.2 * (index + 1)}s both`
+                  }}
+                >
+                  <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
+                  <div className="portfolio-dashboard-stat-value">{stat.value}</div>
+                  <div className="portfolio-dashboard-stat-label">{stat.label}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </section>
 
-        {/* Visual & Spacious Read My Blogs Section */}
-        <section className="portfolio-dashboard-blogs-section">
-          <div className="visual-blogs-card">
-            <div className="visual-glow-bg"></div>
+        {/* SECTION 3: Visual & Spacious Read My Blogs Section */}
+        <section className="home-snap-section">
+          <div className="portfolio-dashboard-blogs-section">
+            <div className="visual-blogs-card">
+              <div className="visual-glow-bg"></div>
 
-            <div className="visual-blogs-hero">
-              <div className="visual-blogs-header">
-                <div className="visual-main-icon-box">
-                  <FaBookOpenReader className="visual-main-icon" />
+              <div className="visual-blogs-hero">
+                <div className="visual-blogs-header">
+                  <div className="visual-main-icon-box">
+                    <FaBookOpenReader className="visual-main-icon" />
+                  </div>
+                  <div className="visual-blogs-titles">
+                    <h2 className="visual-blogs-heading">Read My Tech Blogs</h2>
+                    <p className="visual-blogs-description">
+                      Discover practical tutorials, system architecture breakdowns, and algorithm solutions.
+                    </p>
+                  </div>
                 </div>
-                <div className="visual-blogs-titles">
-                  <h2 className="visual-blogs-heading">Read My Tech Blogs</h2>
-                  <p className="visual-blogs-description">
-                    Discover practical tutorials, system architecture breakdowns, and algorithm solutions.
-                  </p>
+              </div>
+
+              {/* Standalone Big Visual Icons Row */}
+              <div className="visual-icons-row">
+                <div className="visual-icon-pill" title="Full Stack Web & Cloud">
+                  <FaLaptopCode />
+                </div>
+                <div className="visual-icon-pill" title="DSA & Algorithms">
+                  <FaBrain />
+                </div>
+                <div className="visual-icon-pill" title="Tech Articles & Insights">
+                  <FaLightbulb />
                 </div>
               </div>
-            </div>
 
-            {/* Standalone Big Visual Icons Row */}
-            <div className="visual-icons-row">
-              <div className="visual-icon-pill" title="Full Stack Web & Cloud">
-                <FaLaptopCode />
+              {/* Grand CTA Button */}
+              <div className="visual-blogs-action">
+                <Link href="/blogs" className="visual-blogs-link">
+                  <button className="visual-grand-blogs-btn">
+                    <span>Explore All Blogs</span>
+                    <FaArrowRight className="btn-arrow-icon" />
+                  </button>
+                </Link>
               </div>
-              <div className="visual-icon-pill" title="DSA & Algorithms">
-                <FaBrain />
-              </div>
-              <div className="visual-icon-pill" title="Tech Articles & Insights">
-                <FaLightbulb />
-              </div>
-            </div>
-
-            {/* Grand CTA Button */}
-            <div className="visual-blogs-action">
-              <Link href="/blogs" className="visual-blogs-link">
-                <button className="visual-grand-blogs-btn">
-                  <span>Explore All Blogs</span>
-                  <FaArrowRight className="btn-arrow-icon" />
-                </button>
-              </Link>
             </div>
           </div>
         </section>
