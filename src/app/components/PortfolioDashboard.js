@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { FaRocket, FaClock, FaLaptopCode, FaFaceSmile } from 'react-icons/fa6';
+import { FaRocket, FaLaptopCode, FaGithub } from 'react-icons/fa6';
+import { SiLeetcode } from 'react-icons/si';
 import './styles/portfolio-dashboard.css';
 
 const PortfolioDashboard = () => {
@@ -18,9 +19,9 @@ const PortfolioDashboard = () => {
 
   const stats = [
     { label: 'Projects Completed', value: '10+', icon: <FaRocket /> },
-    { label: 'Years Experience', value: '2+', icon: <FaClock /> },
-    { label: 'Technologies', value: '10+', icon: <FaLaptopCode /> },
-    { label: 'Happy Clients', value: '3+', icon: <FaFaceSmile /> }
+    { label: 'LeetCode Solved', value: '450+', icon: <SiLeetcode /> },
+    { label: 'GitHub Contributions', value: '3800+', icon: <FaGithub /> },
+    { label: 'Technologies Used', value: '10+', icon: <FaLaptopCode /> }
   ];
 
   useEffect(() => {
