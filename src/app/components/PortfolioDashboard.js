@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { FaRocket, FaLaptopCode, FaGithub } from 'react-icons/fa6';
+import { FaRocket, FaLaptopCode, FaGithub, FaBookOpenReader, FaBrain, FaLightbulb, FaArrowRight } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import './styles/portfolio-dashboard.css';
 
@@ -87,6 +87,50 @@ const PortfolioDashboard = () => {
               <div className="portfolio-dashboard-stat-label">{stat.label}</div>
             </div>
           ))}
+        </section>
+
+        {/* Visual & Spacious Read My Blogs Section */}
+        <section className="portfolio-dashboard-blogs-section">
+          <div className="visual-blogs-card">
+            <div className="visual-glow-bg"></div>
+
+            <div className="visual-blogs-hero">
+              <div className="visual-blogs-header">
+                <div className="visual-main-icon-box">
+                  <FaBookOpenReader className="visual-main-icon" />
+                </div>
+                <div className="visual-blogs-titles">
+                  <h2 className="visual-blogs-heading">Read My Tech Blogs</h2>
+                  <p className="visual-blogs-description">
+                    Discover practical tutorials, system architecture breakdowns, and algorithm solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Standalone Big Visual Icons Row */}
+            <div className="visual-icons-row">
+              <div className="visual-icon-pill" title="Full Stack Web & Cloud">
+                <FaLaptopCode />
+              </div>
+              <div className="visual-icon-pill" title="DSA & Algorithms">
+                <FaBrain />
+              </div>
+              <div className="visual-icon-pill" title="Tech Articles & Insights">
+                <FaLightbulb />
+              </div>
+            </div>
+
+            {/* Grand CTA Button */}
+            <div className="visual-blogs-action">
+              <Link href="/blogs" className="visual-blogs-link">
+                <button className="visual-grand-blogs-btn">
+                  <span>Explore All Blogs</span>
+                  <FaArrowRight className="btn-arrow-icon" />
+                </button>
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
     </div>
