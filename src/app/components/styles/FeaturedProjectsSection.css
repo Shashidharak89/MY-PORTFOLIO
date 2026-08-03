@@ -212,8 +212,8 @@
 }
 
 .single-featured-card:hover .compact-card-img {
-  filter: blur(8px) brightness(0.45);
-  transform: scale(1.06);
+  filter: blur(10px) brightness(0.75);
+  transform: scale(1.05);
 }
 
 /* Default Visible Title Banner at Bottom */
@@ -250,11 +250,12 @@
   font-weight: 600;
 }
 
-/* Smooth Gradient Overlay Container */
+/* Smooth Translucent Dark Overlay (Not Pitch Black) */
 .compact-hover-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(17, 24, 39, 0.82) 0%, rgba(17, 24, 39, 0.95) 100%);
+  background: rgba(17, 24, 39, 0.48);
+  backdrop-filter: blur(6px);
   padding: 1.8rem;
   display: flex;
   flex-direction: column;
