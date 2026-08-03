@@ -328,10 +328,10 @@
 }
 
 .modern-navbar-container {
-  max-width: 1440px;
-  width: 100%;
+  max-width: 100%;
+  width: 98.5%;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 0 0.6rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
