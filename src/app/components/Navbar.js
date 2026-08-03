@@ -2,6 +2,19 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { 
+  FaHouse, 
+  FaUser, 
+  FaRocket, 
+  FaBolt, 
+  FaFileLines, 
+  FaPenToSquare, 
+  FaGlobe, 
+  FaFlask, 
+  FaTrophy, 
+  FaEnvelope,
+  FaHeart
+} from 'react-icons/fa6';
 import './styles/Navbar.css';
 
 const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
@@ -9,16 +22,16 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
   const [activeItem, setActiveItem] = useState('home');
 
   const navigationItems = useMemo(() => [
-    { id: 'home', label: 'Home', icon: '🏡', route: '/' },
-    { id: 'about', label: 'About', icon: '👨‍💼', route: '/about' },
-    { id: 'projects', label: 'Projects', icon: '🚀', route: '/projects' },
-    { id: 'skills', label: 'Skills', icon: '⚡', route: '/skills' },
-    { id: 'resume', label: 'Resume', icon: '📋', route: '/resume' },
-    { id: 'blogs', label: 'Blogs', icon: '📝', route: '/blogs' },
-    { id: 'handles', label: 'Handles', icon: '🌐', route: '/handles' },
-    { id: 'featurelab', label: 'Feature Lab', icon: '🧪', route: '/featurelab' },
-    { id: 'achievements', label: 'Achievements', icon: '🏆', route: '/achievements' },
-    { id: 'contact', label: 'Contact', icon: '📬', route: '/contact' }
+    { id: 'home', label: 'Home', icon: <FaHouse />, route: '/' },
+    { id: 'about', label: 'About', icon: <FaUser />, route: '/about' },
+    { id: 'projects', label: 'Projects', icon: <FaRocket />, route: '/projects' },
+    { id: 'skills', label: 'Skills', icon: <FaBolt />, route: '/skills' },
+    { id: 'resume', label: 'Resume', icon: <FaFileLines />, route: '/resume' },
+    { id: 'blogs', label: 'Blogs', icon: <FaPenToSquare />, route: '/blogs' },
+    { id: 'handles', label: 'Handles', icon: <FaGlobe />, route: '/handles' },
+    { id: 'featurelab', label: 'Feature Lab', icon: <FaFlask />, route: '/featurelab' },
+    { id: 'achievements', label: 'Achievements', icon: <FaTrophy />, route: '/achievements' },
+    { id: 'contact', label: 'Contact', icon: <FaEnvelope />, route: '/contact' }
   ], []);
 
   const routeToIdMap = useMemo(() => ({
@@ -92,7 +105,7 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
 
         <div className="portfolio-sidebar-footer">
           <p className="portfolio-footer-text">
-            Built with <span className="portfolio-footer-highlight">passion</span><br />
+            Built with <span className="portfolio-footer-highlight">passion <FaHeart style={{ color: '#dc2626', display: 'inline', fontSize: '0.8rem', marginLeft: '3px' }} /></span><br />
             & modern technologies
           </p>
         </div>

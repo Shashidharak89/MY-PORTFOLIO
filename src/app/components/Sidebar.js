@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { FaHouse, FaUser, FaBriefcase, FaBolt, FaFileLines, FaEnvelope } from 'react-icons/fa6';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [activeItem, setActiveItem] = useState('home');
 
   const navigationItems = [
-    { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'about', label: 'About', icon: '👤' },
-    { id: 'projects', label: 'Projects', icon: '💼' },
-    { id: 'skills', label: 'Skills', icon: '⚡' },
-    { id: 'resume', label: 'Resume', icon: '📄' },
-    { id: 'contact', label: 'Contact', icon: '📧' }
+    { id: 'home', label: 'Home', icon: <FaHouse /> },
+    { id: 'about', label: 'About', icon: <FaUser /> },
+    { id: 'projects', label: 'Projects', icon: <FaBriefcase /> },
+    { id: 'skills', label: 'Skills', icon: <FaBolt /> },
+    { id: 'resume', label: 'Resume', icon: <FaFileLines /> },
+    { id: 'contact', label: 'Contact', icon: <FaEnvelope /> }
   ];
 
   return (
@@ -167,13 +168,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
         .portfolio-nav-icon {
           font-size: 1.1rem;
-          margin-right: 0.75rem;
-          transition: transform 0.2s ease;
+          margin-right: 0.85rem;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          background: rgba(220, 38, 38, 0.08);
+          color: #dc2626;
         }
 
         .portfolio-nav-link:hover .portfolio-nav-icon,
         .portfolio-nav-link.active .portfolio-nav-icon {
-          transform: scale(1.1);
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: #ffffff;
+          transform: scale(1.1) rotate(5deg);
+          box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
         .portfolio-sidebar-footer {

@@ -242,21 +242,29 @@
 }
 
 .portfolio-nav-icon {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   margin-right: 1.2rem;
-  transition: transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.12);
 }
 
 .portfolio-nav-link:hover .portfolio-nav-icon,
 .portfolio-nav-link.active .portfolio-nav-icon {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
   transform: scale(1.1) rotate(5deg);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
 }
 
 .portfolio-nav-text {
@@ -288,10 +296,7 @@
 }
 
 .portfolio-footer-highlight::after {
-  content: '💖';
-  font-size: 0.8rem;
-  margin-left: 4px;
-  animation: heartbeat 2s ease-in-out infinite;
+  content: '';
 }
 
 .portfolio-sidebar-container::-webkit-scrollbar,

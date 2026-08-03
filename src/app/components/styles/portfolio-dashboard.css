@@ -217,10 +217,26 @@
 }
 
 .portfolio-dashboard-stat-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  display: block;
-  animation: portfolio-bounce 2s infinite;
+  font-size: 1.8rem;
+  margin: 0 auto 1.2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-dashboard-stat-card:hover .portfolio-dashboard-stat-icon {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.35);
+  border-color: transparent;
 }
 
 .portfolio-dashboard-stat-value {
