@@ -1,4 +1,4 @@
-/* FeaturedProjectsSection.css - Pinned Split Showcase with Dynamic Cross-Fading Blur Backgrounds */
+/* FeaturedProjectsSection.css - Pinned Split Showcase with Dynamic Light/Dark Project Themes */
 
 .projects-pinned-section {
   position: relative;
@@ -38,6 +38,12 @@
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(2px);
   z-index: 1;
+  transition: background 0.5s ease;
+}
+
+/* Darker Overlay when Dark Project is active */
+.projects-pinned-viewport.is-dark-theme .section-projects-bg-overlay {
+  background: rgba(17, 24, 39, 0.55);
 }
 
 .projects-floating-orb {
@@ -93,6 +99,7 @@
   color: #dc2626;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  transition: all 0.4s ease;
 }
 
 .featured-projects-title {
@@ -101,6 +108,20 @@
   color: #111827;
   letter-spacing: -0.03em;
   margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* Animated Dark Theme Header Variant (Project 2) */
+.featured-projects-header.is-dark-theme .featured-projects-title {
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.featured-projects-header.is-dark-theme .featured-projects-pill {
+  background: rgba(17, 24, 39, 0.85) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #ef4444 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Center Stage Area */
@@ -175,6 +196,7 @@
   color: #dc2626;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  transition: color 0.4s ease;
 }
 
 .stage-project-heading {
@@ -184,6 +206,7 @@
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  transition: color 0.4s ease;
 }
 
 .stage-project-desc {
@@ -191,6 +214,7 @@
   color: #4b5563;
   line-height: 1.6;
   margin: 0;
+  transition: color 0.4s ease;
 }
 
 .stage-tech-stack-row {
@@ -208,6 +232,28 @@
   padding: 5px 12px;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
+  transition: all 0.4s ease;
+}
+
+/* Dark Project Content Styling (Project 2) */
+.project-stage-content-box.is-dark-project .stage-project-category {
+  color: #ef4444 !important;
+}
+
+.project-stage-content-box.is-dark-project .stage-project-heading {
+  color: #ffffff !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.project-stage-content-box.is-dark-project .stage-project-desc {
+  color: #e5e7eb !important;
+}
+
+.project-stage-content-box.is-dark-project .stage-tech-pill {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8px);
 }
 
 .stage-actions-row {
@@ -370,6 +416,13 @@
   border-radius: 999px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+}
+
+/* Dark Theme Footer Progress Bar */
+.projects-pinned-viewport.is-dark-theme .projects-progress-box {
+  background: rgba(17, 24, 39, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .projects-progress-dots {

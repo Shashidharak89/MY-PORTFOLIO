@@ -14,10 +14,10 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/FeaturedProjectsSection.css';
 
-import section1Bg from './images/section1bg.jpeg';
-import section2Bg from './images/section2bg.jpeg';
-import section3Bg from './images/section3bg.jpeg';
-import sectionProjectsBg from './images/sectionprojects.jpeg';
+import bg1Img from './images/bg1.jpeg';
+import bg2Img from './images/bg2.jpeg';
+import bg3Img from './images/bg3.jpeg';
+import bg4Img from './images/bg4.jpeg';
 
 import learnixImg from './images/projects/learnix.jpeg';
 import cipherImg from './images/projects/cipher2k25.jpeg';
@@ -49,6 +49,7 @@ export default function FeaturedProjectsSection() {
       technologies: ['Next.js', 'Node.js', 'Cloudinary', 'MongoDB', 'Android'],
       image: learnixImg,
       shiftDirection: 'right', // Image moves RIGHT, content reveals on LEFT
+      isDarkBg: false,
       playStoreLink: 'https://play.google.com/store/apps/details?id=com.shashidharak.learnix',
       liveLink: 'https://learnix.shashi-k.in',
     },
@@ -61,6 +62,7 @@ export default function FeaturedProjectsSection() {
       technologies: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Cloudinary'],
       image: cipherImg,
       shiftDirection: 'left', // Image moves LEFT, content reveals on RIGHT
+      isDarkBg: true, // Dark Background (section2bg.jpeg) -> Requires light colored text
       liveLink: 'https://ciphen-2k25.vercel.app/',
     },
     {
@@ -72,6 +74,7 @@ export default function FeaturedProjectsSection() {
       technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
       image: shopxImg,
       shiftDirection: 'right', // Image moves RIGHT, content reveals on LEFT
+      isDarkBg: false,
       liveLink: 'https://e-commerce-mern-beta.vercel.app',
     }
   ];
@@ -121,14 +124,14 @@ export default function FeaturedProjectsSection() {
       });
 
       // Background Cross-Fade Animations between Phase 1 -> 2 -> 3 -> 4
-      // Phase 1 -> 2 (bg1 -> bg2)
+      // Phase 1 -> 2 (bg1 -> bg2 dark background)
       if (bgs[0] && bgs[1]) {
         masterTl
           .to(bgs[0], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 0.80)
           .to(bgs[1], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 0.80);
       }
 
-      // Phase 2 -> 3 (bg2 -> bg3)
+      // Phase 2 -> 3 (bg2 dark background -> bg3 light background)
       if (bgs[1] && bgs[2]) {
         masterTl
           .to(bgs[1], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 1.80)
@@ -271,42 +274,44 @@ export default function FeaturedProjectsSection() {
     return () => ctx.revert();
   }, [featuredProjects.length]);
 
+  const isDarkPhase = activeStageIndex === 1; // Project 2 has dark background (section2bg.jpeg)
+
   return (
     <section 
       ref={sectionRef} 
       className="projects-pinned-section"
     >
-      {/* Dynamic Background Stack (Cross-fading with blur for P1, P2, P3, Finale) */}
+      {/* Dynamic Background Stack (Cross-fading with blur for P1: bg1, P2: bg2, P3: bg3, Finale: bg4) */}
       <div className="projects-bg-stack">
         <div
           ref={(el) => (bgLayersRef.current[0] = el)}
           className="projects-bg-layer"
-          style={{ backgroundImage: `url(${section1Bg.src})` }}
+          style={{ backgroundImage: `url(${bg1Img.src})` }}
         />
         <div
           ref={(el) => (bgLayersRef.current[1] = el)}
           className="projects-bg-layer"
-          style={{ backgroundImage: `url(${section2Bg.src})` }}
+          style={{ backgroundImage: `url(${bg2Img.src})` }}
         />
         <div
           ref={(el) => (bgLayersRef.current[2] = el)}
           className="projects-bg-layer"
-          style={{ backgroundImage: `url(${section3Bg.src})` }}
+          style={{ backgroundImage: `url(${bg3Img.src})` }}
         />
         <div
           ref={(el) => (bgLayersRef.current[3] = el)}
           className="projects-bg-layer"
-          style={{ backgroundImage: `url(${sectionProjectsBg.src})` }}
+          style={{ backgroundImage: `url(${bg4Img.src})` }}
         />
       </div>
 
       <div className="section-projects-bg-overlay"></div>
       <div ref={orbProjectsRef} className="projects-floating-orb"></div>
 
-      <div className="projects-pinned-viewport">
+      <div className={`projects-pinned-viewport ${isDarkPhase ? 'is-dark-theme' : ''}`}>
         
-        {/* Minimal Header */}
-        <div className="featured-projects-header">
+        {/* Header - Adapts text color to Light/Dark background */}
+        <div className={`featured-projects-header ${isDarkPhase ? 'is-dark-theme' : ''}`}>
           <div className="featured-projects-pill">
             <FaRocket />
             <span>HANDPICKED WORK</span>
@@ -339,12 +344,12 @@ export default function FeaturedProjectsSection() {
                   />
                 </div>
 
-                {/* Pure Borderless Content Box */}
+                {/* Pure Borderless Content Box (Adapts to Light/Dark Theme) */}
                 <div
                   ref={(el) => (contentBoxesRef.current[idx] = el)}
                   className={`project-stage-content-box ${
                     isShiftRight ? 'stage-content-left' : 'stage-content-right'
-                  }`}
+                  } ${proj.isDarkBg ? 'is-dark-project' : ''}`}
                 >
                   <span className="stage-project-category">{proj.category}</span>
                   <h3 className="stage-project-heading">{proj.title}</h3>
@@ -386,7 +391,7 @@ export default function FeaturedProjectsSection() {
             );
           })}
 
-          {/* Phase 4: Blurred Background Collage + Glowing Center Button (No Card Box) */}
+          {/* Phase 4: Blurred Background Collage + Glowing Center Button */}
           <div ref={finaleRef} className="projects-finale-stage">
             {/* Background Blurred Thumbnails Collage */}
             <div ref={finaleBlurRef} className="finale-blur-collage">
@@ -402,7 +407,7 @@ export default function FeaturedProjectsSection() {
               ))}
             </div>
 
-            {/* Single Glowing Center Button (No Card Box) */}
+            {/* Single Glowing Center Button */}
             <div ref={finaleCardRef} className="finale-center-button-wrapper">
               <Link href="/projects" className="finale-center-btn">
                 <span>View More Projects</span>
