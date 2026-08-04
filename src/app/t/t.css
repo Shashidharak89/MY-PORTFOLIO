@@ -1,4 +1,4 @@
-/* Styles for dedicated /t route - Pinned Horizontal Card-Scroll Showcase */
+/* Styles for /t route - Huge Cinematic Hero Image Showcase (No Image Overlays) */
 
 .t-page-container {
   min-height: 100vh;
@@ -11,13 +11,13 @@
 
 /* Intro Section */
 .t-intro-section {
-  min-height: 60vh;
+  min-height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 6rem 1.5rem 3rem;
+  padding: 6rem 1.5rem 2.5rem;
   background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
   border-bottom: 1px solid #f3f4f6;
   position: relative;
@@ -40,19 +40,19 @@
 }
 
 .t-intro-title {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: #111827;
   letter-spacing: -0.03em;
   margin: 0 0 0.8rem 0;
-  max-width: 800px;
+  max-width: 850px;
 }
 
 .t-intro-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: #6b7280;
   font-weight: 500;
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 0 2rem 0;
   line-height: 1.6;
 }
@@ -80,18 +80,19 @@
 .t-pinned-outer {
   position: relative;
   width: 100%;
-  background: #0f172a;
-  color: #ffffff;
-  overflow: hidden;
+  background: #ffffff;
+  background-image: radial-gradient(rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: #111827;
+  overflow: hidden !important;
 }
 
 .t-pinned-bg-overlay {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(220, 38, 38, 0.15) 1px, transparent 1px);
-  background-size: 36px 36px;
-  opacity: 0.6;
-  pointer-events: none;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(2px);
+  z-index: 0;
 }
 
 .t-pinned-viewport {
@@ -102,260 +103,228 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 2.2rem 1.5rem 2rem;
+  padding: 1.5rem 1.5rem 1.2rem;
   box-sizing: border-box;
   z-index: 2;
+  overflow: hidden;
 }
 
-/* Header inside Viewport */
+/* Clean Minimal Header inside Viewport */
 .t-pinned-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.4rem;
-  z-index: 3;
+  gap: 0.25rem;
+  z-index: 5;
+  margin-top: 0.1rem;
 }
 
 .t-cat-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 20px;
+  gap: 8px;
+  padding: 5px 18px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #f87171;
-  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #dc2626;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.t-cat-active-name {
-  color: #ffffff;
-  font-weight: 800;
-}
-
 .t-pinned-title {
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #111827;
   letter-spacing: -0.03em;
   margin: 0;
 }
 
-.t-pinned-subtitle {
-  font-size: 0.95rem;
-  color: #94a3b8;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* Horizontal Track Container */
-.t-track-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: visible;
-  padding: 1.5rem 0;
-  z-index: 3;
-}
-
-.t-horizontal-track {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  will-change: transform;
-}
-
-/* Spotlight Card */
-.t-spotlight-card {
-  width: 580px;
-  max-width: 88vw;
-  background: rgba(30, 41, 59, 0.85);
-  backdrop-filter: blur(16px);
-  border-radius: 24px;
-  padding: 2rem 2.2rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  flex-shrink: 0;
+/* Stage Area (Full Viewport Fill) */
+.t-stage-area {
   position: relative;
-  box-sizing: border-box;
-  transform-origin: center center;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  overflow: hidden;
-}
-
-.t-spotlight-card.is-focused {
-  border-color: var(--card-accent, #ef4444);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(239, 68, 68, 0.25);
-  background: rgba(30, 41, 59, 0.95);
-}
-
-.t-card-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.t-card-num {
-  font-size: 1.8rem;
-  font-weight: 900;
-  font-family: monospace;
-  color: #475569;
-}
-
-.t-spotlight-card.is-focused .t-card-num {
-  color: var(--card-accent, #ef4444);
-}
-
-.t-card-badge {
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.t-spotlight-card.is-focused .t-card-badge {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-.t-card-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.t-card-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
+  width: 100%;
+  max-width: 1200px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  flex-shrink: 0;
+  z-index: 3;
 }
 
-.t-card-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 4px 0;
-}
-
-.t-card-sub {
-  font-size: 0.88rem;
-  color: #94a3b8;
-  font-weight: 500;
-  margin: 0;
-  line-height: 1.4;
-}
-
-.t-skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.t-skill-pill {
+/* Project Item Layer */
+.t-project-item {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 11px 16px;
-  border-radius: 14px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.25s ease;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  will-change: transform, opacity;
 }
 
-.t-spotlight-card.is-focused .t-skill-pill:hover {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(239, 68, 68, 0.4);
-  transform: translateX(5px);
+/* Massive Hero Image Box (Takes up ~80% of screen height initially) */
+.t-project-image-box {
+  position: absolute;
+  width: 78vw;
+  max-width: 900px;
+  height: auto;
+  max-height: 75vh;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+  border: none !important;
+  background: transparent;
+  z-index: 2;
+  will-change: transform;
 }
 
-.t-skill-left {
+.t-project-img {
+  width: 100%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 24px;
+}
+
+/* Pure Borderless Content Box (No card container box) */
+.t-project-content-box {
+  position: absolute;
+  width: 440px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  z-index: 3;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+.t-project-category {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.t-project-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.t-project-desc {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.t-tech-stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.1rem;
+}
+
+.t-tech-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #374151;
+  background: rgba(243, 244, 246, 0.9);
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.t-actions-row {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-top: 0.3rem;
 }
 
-.t-skill-icon {
-  font-size: 1.3rem;
-  display: flex;
+.t-action-btn {
+  display: inline-flex;
   align-items: center;
-}
-
-.t-skill-name {
-  font-size: 0.92rem;
+  gap: 8px;
+  padding: 0.65rem 1.3rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: #f1f5f9;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.t-skill-tag {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 3px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.t-action-btn.playstore {
+  background: #111827;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
 }
 
-.t-card-glow-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: transparent;
-  transition: background 0.4s ease;
+.t-action-btn.playstore:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
 }
 
-.t-spotlight-card.is-focused .t-card-glow-bar {
-  background: var(--card-accent, #ef4444);
+.t-action-btn.live {
+  background: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.2);
 }
 
-/* Viewport Footer */
+.t-action-btn.live:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.38);
+}
+
+/* Position Variants for Split Content */
+.t-content-left {
+  left: 2%;
+}
+
+.t-content-right {
+  right: 2%;
+}
+
+/* Simple Clean Footer Progress Dots */
 .t-pinned-footer {
   width: 100%;
   max-width: 1100px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  z-index: 3;
+  justify-content: center;
+  z-index: 5;
+  margin-bottom: 0.2rem;
 }
 
 .t-progress-box {
   display: flex;
   align-items: center;
-  gap: 18px;
-  background: rgba(30, 41, 59, 0.8);
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  padding: 9px 22px;
+  padding: 8px 20px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.t-progress-num {
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: monospace;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .t-progress-dots {
@@ -368,13 +337,14 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: #d1d5db;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .t-progress-dot.active {
   width: 32px;
   border-radius: 12px;
+  background: #dc2626;
 }
 
 .t-home-btn {
@@ -383,21 +353,21 @@
   gap: 8px;
   padding: 0.75rem 1.6rem;
   border-radius: 12px;
-  background: #ef4444;
+  background: #dc2626;
   color: #ffffff;
   font-size: 0.92rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.35);
+  box-shadow: 0 6px 22px rgba(220, 38, 38, 0.3);
   transition: all 0.25s ease;
   text-decoration: none;
 }
 
 .t-home-btn:hover {
-  background: #dc2626;
+  background: #b91c1c;
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 10px 28px rgba(220, 38, 38, 0.45);
 }
 
 /* Outro Section */
@@ -414,7 +384,7 @@
 }
 
 .t-outro-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: #111827;
   margin: 0 0 0.8rem 0;
@@ -423,13 +393,26 @@
 .t-outro-desc {
   font-size: 1rem;
   color: #6b7280;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 0 1.8rem 0;
 }
 
-@media (max-width: 768px) {
-  .t-intro-title { font-size: 2.2rem; }
-  .t-pinned-title { font-size: 1.7rem; }
-  .t-spotlight-card { width: 88vw; padding: 1.5rem 1.2rem; }
-  .t-pinned-footer { flex-direction: column; gap: 14px; }
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .t-project-image-box {
+    width: 90vw;
+    max-height: 50vh;
+  }
+
+  .t-project-content-box {
+    width: 90vw;
+    position: relative;
+    left: auto !important;
+    right: auto !important;
+    margin-top: 1rem;
+  }
+
+  .t-project-item {
+    flex-direction: column;
+  }
 }
