@@ -1,4 +1,4 @@
-/* FeaturedProjectsSection.css - Pinned Cinematic Split Project Showcase */
+/* FeaturedProjectsSection.css - Pinned Cinematic Split Project Showcase with Blurred Finale CTA */
 
 .projects-pinned-section {
   position: relative;
@@ -84,7 +84,7 @@
   margin: 0;
 }
 
-/* Center Stage Area (Holds Project Layers) */
+/* Center Stage Area (Holds Project Layers & Finale Layer) */
 .projects-stage-area {
   position: relative;
   width: 100%;
@@ -244,13 +244,132 @@
   right: 2%;
 }
 
-/* Footer & Progress Bar */
+/* Finale Stage Container (Phase 4 - View All Projects) */
+.projects-finale-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  will-change: transform, opacity;
+}
+
+/* Background Blurred Image Collage */
+.finale-blur-collage {
+  position: absolute;
+  width: 100%;
+  max-width: 1100px;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: blur(14px);
+  transform: scale(0.95);
+}
+
+.finale-blur-thumb {
+  width: 320px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.finale-blur-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Center Finale CTA Card */
+.finale-cta-card {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2.4rem 3rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 0 30px rgba(220, 38, 38, 0.15);
+  max-width: 580px;
+}
+
+.finale-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.finale-heading {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.finale-desc {
+  font-size: 0.98rem;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.55;
+  max-width: 480px;
+}
+
+.finale-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.85rem 2rem;
+  border-radius: 14px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.35);
+  transition: all 0.25s ease;
+  margin-top: 0.3rem;
+}
+
+.finale-cta-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(220, 38, 38, 0.45);
+}
+
+.finale-cta-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* Footer Progress Bar */
 .projects-pinned-footer {
   width: 100%;
   max-width: 1100px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 5;
   margin-bottom: 0.2rem;
 }
@@ -287,41 +406,6 @@
   background: #dc2626;
 }
 
-/* View All Projects Button */
-.view-all-projects-link {
-  text-decoration: none;
-}
-
-.view-all-projects-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.7rem 1.5rem;
-  border-radius: 12px;
-  background: #111827;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(17, 24, 39, 0.18);
-  transition: all 0.25s ease;
-}
-
-.view-all-projects-btn:hover {
-  background: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.32);
-}
-
-.view-all-projects-btn:hover .btn-arrow {
-  transform: translateX(4px);
-}
-
-.btn-arrow {
-  transition: transform 0.25s ease;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 900px) {
   .project-hero-image-box {
@@ -341,8 +425,13 @@
     flex-direction: column;
   }
 
-  .projects-pinned-footer {
+  .finale-blur-collage {
     flex-direction: column;
-    gap: 12px;
+    height: auto;
+  }
+
+  .finale-cta-card {
+    padding: 1.8rem 1.5rem;
+    width: 90vw;
   }
 }

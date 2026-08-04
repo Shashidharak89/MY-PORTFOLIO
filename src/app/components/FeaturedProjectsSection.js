@@ -7,7 +7,8 @@ import {
   FaGooglePlay,
   FaUpRightFromSquare,
   FaRocket,
-  FaArrowRight
+  FaArrowRight,
+  FaWandMagicSparkles
 } from 'react-icons/fa6';
 
 import { gsap } from 'gsap';
@@ -28,8 +29,11 @@ export default function FeaturedProjectsSection() {
   const projectItemsRef = useRef([]);
   const imageBoxesRef = useRef([]);
   const contentBoxesRef = useRef([]);
+  const finaleRef = useRef(null);
+  const finaleBlurRef = useRef(null);
+  const finaleCardRef = useRef(null);
   const orbProjectsRef = useRef(null);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [activeStageIndex, setActiveStageIndex] = useState(0);
 
   const featuredProjects = [
     {
@@ -74,13 +78,14 @@ export default function FeaturedProjectsSection() {
 
     const section = sectionRef.current;
     const numProjects = featuredProjects.length;
+    const totalPhases = numProjects + 1; // 3 projects + 1 finale phase
 
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      const pinDistance = 2800; // Smooth, balanced pin distance matching ToolkitSection
+      const pinDistance = 3500; // Pinned scroll length for 4 phases
 
-      // Master Pinned ScrollTrigger Timeline (Identical scroll feel to ToolkitSection)
+      // Master Pinned ScrollTrigger Timeline
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -92,15 +97,23 @@ export default function FeaturedProjectsSection() {
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
-            const rawIndex = p * (numProjects - 1);
-            const idx = Math.min(numProjects - 1, Math.max(0, Math.round(rawIndex)));
-            setActiveProjectIndex(idx);
+            const rawIndex = p * (totalPhases - 1);
+            const idx = Math.min(totalPhases - 1, Math.max(0, Math.round(rawIndex)));
+            setActiveStageIndex(idx);
           }
         }
       });
 
-      const projectDuration = 1.0;
+      const phaseDuration = 1.0;
 
+      // Initial setup for Finale Stage (Phase 4)
+      if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
+        gsap.set(finaleRef.current, { opacity: 0, visibility: 'hidden' });
+        gsap.set(finaleBlurRef.current, { opacity: 0, scale: 0.9, filter: 'blur(20px)' });
+        gsap.set(finaleCardRef.current, { opacity: 0, scale: 0.9, y: 30, filter: 'blur(8px)' });
+      }
+
+      // Projects 1, 2, 3 Timelines (Phases 1, 2, 3)
       featuredProjects.forEach((proj, i) => {
         const itemEl = projectItemsRef.current[i];
         const imgBox = imageBoxesRef.current[i];
@@ -108,7 +121,7 @@ export default function FeaturedProjectsSection() {
 
         if (!itemEl || !imgBox || !contentBox) return;
 
-        const startTime = i * projectDuration;
+        const startTime = i * phaseDuration;
         const isShiftRight = proj.shiftDirection === 'right';
 
         const targetImgX = isShiftRight ? '22vw' : '-22vw';
@@ -116,11 +129,11 @@ export default function FeaturedProjectsSection() {
 
         // Initial setup for all project layers
         if (i === 0) {
-          gsap.set(itemEl, { opacity: 1 });
+          gsap.set(itemEl, { opacity: 1, visibility: 'visible' });
           gsap.set(imgBox, { scale: 1.25, x: '0vw', opacity: 1 });
           gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
         } else {
-          gsap.set(itemEl, { opacity: 0 });
+          gsap.set(itemEl, { opacity: 0, visibility: 'hidden' });
           gsap.set(imgBox, { scale: 1.25, x: '0vw', opacity: 0 });
           gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
         }
@@ -128,10 +141,10 @@ export default function FeaturedProjectsSection() {
         // Project i Entrance (for i > 0)
         if (i > 0) {
           masterTl
-            .to(itemEl, { opacity: 1, duration: 0.2, ease: 'power1.out' }, startTime)
+            .to(itemEl, { visibility: 'visible', opacity: 1, duration: 0.15, ease: 'none' }, startTime)
             .fromTo(imgBox,
               { scale: 1.25, x: '0vw', opacity: 0 },
-              { scale: 1.25, x: '0vw', opacity: 1, duration: 0.3, ease: 'power1.out' },
+              { scale: 1.25, x: '0vw', opacity: 1, duration: 0.25, ease: 'power1.out' },
               startTime
             );
         }
@@ -153,12 +166,10 @@ export default function FeaturedProjectsSection() {
             ease: 'power1.out'
           }, startTime + 0.25);
 
-        // Phase 3: Hold fully visible plateau
-        masterTl.to([imgBox, contentBox], {
-          duration: 0.20
-        }, startTime + 0.65);
+        // Phase 3: Hold plateau
+        masterTl.to([imgBox, contentBox], { duration: 0.20 }, startTime + 0.65);
 
-        // Phase 4: Soft, fluid fade out before next project or unpinning
+        // Phase 4: Soft fade out
         masterTl
           .to(contentBox, {
             opacity: 0,
@@ -175,11 +186,56 @@ export default function FeaturedProjectsSection() {
             duration: 0.20,
             ease: 'power1.in'
           }, startTime + 0.80)
-          .to(itemEl, {
-            opacity: 0,
-            duration: 0.05
-          }, startTime + 0.98);
+          .to(itemEl, { visibility: 'hidden', opacity: 0, duration: 0.01 }, startTime + 0.99);
       });
+
+      // Phase 4: Finale View All Projects CTA (starts at t = 3.0)
+      const finaleStartTime = numProjects * phaseDuration;
+
+      if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
+        masterTl
+          .to(finaleRef.current, {
+            visibility: 'visible',
+            opacity: 1,
+            duration: 0.15,
+            ease: 'none'
+          }, finaleStartTime)
+          .to(finaleBlurRef.current, {
+            opacity: 0.55,
+            scale: 0.98,
+            filter: 'blur(14px)',
+            duration: 0.35,
+            ease: 'power1.out'
+          }, finaleStartTime + 0.10)
+          .to(finaleCardRef.current, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 0.35,
+            ease: 'power2.out'
+          }, finaleStartTime + 0.15)
+          .to([finaleBlurRef.current, finaleCardRef.current], {
+            duration: 0.30
+          }, finaleStartTime + 0.50)
+          .to(finaleCardRef.current, {
+            opacity: 0,
+            y: -30,
+            filter: 'blur(6px)',
+            duration: 0.20,
+            ease: 'power1.in'
+          }, finaleStartTime + 0.80)
+          .to(finaleBlurRef.current, {
+            opacity: 0,
+            duration: 0.20,
+            ease: 'power1.in'
+          }, finaleStartTime + 0.80)
+          .to(finaleRef.current, {
+            visibility: 'hidden',
+            opacity: 0,
+            duration: 0.01
+          }, finaleStartTime + 0.99);
+      }
 
       // Floating Orb Motion
       if (orbProjectsRef.current) {
@@ -296,28 +352,52 @@ export default function FeaturedProjectsSection() {
               </div>
             );
           })}
+
+          {/* Phase 4: Blurred Background Collage + Center View All Projects CTA */}
+          <div ref={finaleRef} className="projects-finale-stage">
+            {/* Background Blurred Thumbnails Collage */}
+            <div ref={finaleBlurRef} className="finale-blur-collage">
+              {featuredProjects.map((proj) => (
+                <div key={`blur-${proj.id}`} className="finale-blur-thumb">
+                  <Image
+                    src={proj.image}
+                    alt={proj.title}
+                    className="finale-blur-img"
+                    placeholder="blur"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Foreground Glassmorphic CTA Card */}
+            <div ref={finaleCardRef} className="finale-cta-card">
+              <div className="finale-badge">
+                <FaWandMagicSparkles />
+                <span>CURATED PORTFOLIO</span>
+              </div>
+              <h3 className="finale-heading">Explore All Projects</h3>
+              <p className="finale-desc">
+                Discover complete web applications, Android apps, open-source repositories & engineering case studies.
+              </p>
+              <Link href="/projects" className="finale-cta-btn">
+                <span>View More Projects</span>
+                <FaArrowRight className="btn-arrow" />
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Footer Progress & View All Projects Link */}
+        {/* Footer Progress Bar (4 Dots: 3 Projects + 1 Finale) */}
         <div className="projects-pinned-footer">
           <div className="projects-progress-box">
             <div className="projects-progress-dots">
-              {featuredProjects.map((proj, i) => (
+              {[0, 1, 2, 3].map((dotIdx) => (
                 <div
-                  key={proj.id}
-                  className={`projects-progress-dot ${i === activeProjectIndex ? 'active' : ''}`}
+                  key={dotIdx}
+                  className={`projects-progress-dot ${dotIdx === activeStageIndex ? 'active' : ''}`}
                 />
               ))}
             </div>
-          </div>
-
-          <div className="featured-projects-footer-cta">
-            <Link href="/projects" className="view-all-projects-link">
-              <button className="view-all-projects-btn">
-                <span>View All Projects</span>
-                <FaArrowRight className="btn-arrow" />
-              </button>
-            </Link>
           </div>
         </div>
 
