@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   FaHandshake,
@@ -15,9 +16,95 @@ import {
   FaWandMagicSparkles,
   FaArrowRight
 } from 'react-icons/fa6';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/FinalCtaSection.css';
+import ctaBg from './images/section3bg.jpeg';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const FinalCtaSection = () => {
+  const sectionRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const orbCtaRef = useRef(null);
+  const buttonsRowRef = useRef(null);
+
+  useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // 3D Entrance & Exit Timeline for Final CTA Section
+      const ctaTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      ctaTl
+        .set(wrapperRef.current, {
+          opacity: 0,
+          y: 70,
+          scale: 0.84,
+          rotationY: -15,
+          transformPerspective: 1000,
+          filter: 'blur(10px)'
+        })
+        .to(wrapperRef.current, {
+          opacity: 0,
+          y: 70,
+          scale: 0.84,
+          rotationY: -15,
+          filter: 'blur(10px)',
+          duration: 0.25
+        })
+        .to(wrapperRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationY: 0,
+          filter: 'blur(0px)',
+          duration: 0.25,
+          ease: 'power3.out'
+        })
+        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.25 })
+        .to(wrapperRef.current, {
+          opacity: 0,
+          y: -40,
+          scale: 0.88,
+          rotationY: 15,
+          filter: 'blur(8px)',
+          duration: 0.25,
+          ease: 'power3.in'
+        });
+
+      // Ambient Floating Orb Motion
+      gsap.to(orbCtaRef.current, {
+        y: -90,
+        x: -40,
+        scale: 1.15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.8
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const quickConnectLinks = [
     {
       name: 'LinkedIn',
@@ -46,11 +133,18 @@ const FinalCtaSection = () => {
   ];
 
   return (
-    <section className="final-cta-section">
+    <section 
+      ref={sectionRef} 
+      className="home-snap-section final-cta-snap-section"
+      style={{ backgroundImage: `url(${ctaBg.src})` }}
+    >
+      {/* Background Overlay & Ambient Orb */}
+      <div className="final-cta-bg-overlay"></div>
+      <div ref={orbCtaRef} className="final-cta-floating-orb"></div>
+
       {/* Background Decorative Tech Accents & Connection Lines */}
       <div className="cta-bg-graphics">
         <div className="cta-grid-pattern"></div>
-        <div className="cta-glow-orb"></div>
         
         {/* Floating tech badges */}
         <div className="cta-floating-badge float-top-left">
@@ -76,7 +170,7 @@ const FinalCtaSection = () => {
         </svg>
       </div>
 
-      <div className="final-cta-container">
+      <div ref={wrapperRef} className="final-cta-container">
         {/* Header Icon */}
         <div className="cta-top-icon-box">
           <FaHandshake className="cta-top-icon" />
@@ -108,7 +202,7 @@ const FinalCtaSection = () => {
         </blockquote>
 
         {/* Action Buttons Row */}
-        <div className="cta-buttons-row">
+        <div ref={buttonsRowRef} className="cta-buttons-row">
           <Link href="/contact" className="cta-action-btn primary-btn">
             <FaMessage className="btn-icon" />
             <span>Let’s Connect</span>
