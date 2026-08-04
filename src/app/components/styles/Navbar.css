@@ -318,7 +318,6 @@
 
 /* Navbar Styles */
 .modern-portfolio-navbar {
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -327,7 +326,29 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+/* Home Screen Variant (Strictly Absolute to Top of Page Flow) */
+.modern-portfolio-navbar.is-home-nav {
+  position: absolute;
   transform: none !important;
+}
+
+/* Inner Pages Variant (Fixed, Hides on Scroll Down, Reveals on Scroll Up) */
+.modern-portfolio-navbar.is-inner-nav {
+  position: fixed;
+  transform: translateY(0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modern-portfolio-navbar.is-inner-nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.modern-portfolio-navbar.is-inner-nav.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.12);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.08);
 }
 
 .modern-navbar-container {

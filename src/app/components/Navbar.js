@@ -125,6 +125,9 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
 Sidebar.displayName = 'Sidebar';
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -137,7 +140,40 @@ const Navbar = () => {
     setIsOpen(false);
   }, []);
 
-  // Navbar is strictly absolute to top of page (no scroll listeners or pop-in hiding)
+  // Handle scroll behavior (Only active for inner pages, disabled on homepage)
+  useEffect(() => {
+    if (isHomePage) {
+      setIsVisible(true);
+      setIsScrolled(false);
+      return;
+    }
+
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 10) {
+        setIsVisible(true);
+        setIsScrolled(false);
+      } else {
+        setIsScrolled(true);
+        // Scroll DOWN -> Hide navbar smoothly
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          setIsVisible(false);
+        }
+        // Scroll UP -> Reveal navbar smoothly
+        else if (currentScrollY < lastScrollY) {
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
 
   // Close sidebar on escape key and control scroll locking
   useEffect(() => {
@@ -174,7 +210,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="modern-portfolio-navbar">
+      <nav className={`modern-portfolio-navbar ${isHomePage ? 'is-home-nav' : 'is-inner-nav'} ${isScrolled ? 'scrolled' : ''} ${!isVisible && !isOpen ? 'nav-hidden' : ''}`}>
         <div className="modern-navbar-container">
           <Link
             href="/"
