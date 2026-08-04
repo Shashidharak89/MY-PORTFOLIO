@@ -200,3 +200,107 @@ export const getComments = async (req) => {
     });
   }
 };
+
+// Update an existing blog
+export const updateBlog = async (req) => {
+  try {
+    await connectDB();
+    const body = await req.json();
+    const { id, _id, blogname, description, imageurl, image, file } = body;
+    const blogId = id || _id;
+
+    if (!blogId) {
+      return new Response(JSON.stringify({ error: 'Blog ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return new Response(JSON.stringify({ error: 'Blog not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    if (blogname) blog.blogname = blogname;
+    if (description) blog.description = description;
+
+    let finalImageUrl = blog.imageurl || [];
+
+    // If direct image URL(s) provided
+    if (imageurl) {
+      if (Array.isArray(imageurl) && imageurl.length > 0) {
+        finalImageUrl = imageurl.filter(url => url && url.trim() !== '');
+      } else if (typeof imageurl === 'string' && imageurl.trim() !== '') {
+        finalImageUrl = [imageurl.trim()];
+      }
+    }
+
+    // If base64 image data provided
+    const base64Image = image || file;
+    if (base64Image && typeof base64Image === 'string' && base64Image.startsWith('data:image/')) {
+      const uploadResult = await cloudinary.uploader.upload(base64Image, {
+        folder: 'portfolio_blogs',
+      });
+      finalImageUrl = [uploadResult.secure_url];
+    }
+
+    blog.imageurl = finalImageUrl;
+    await blog.save();
+
+    return new Response(JSON.stringify({ message: 'Blog updated successfully', blog }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error updating blog:', error);
+    return new Response(JSON.stringify({ error: 'Server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
+
+// Delete a blog
+export const deleteBlog = async (req) => {
+  try {
+    await connectDB();
+    
+    let blogId;
+    try {
+      const body = await req.json();
+      blogId = body.id || body._id;
+    } catch (e) {
+      const { searchParams } = new URL(req.url);
+      blogId = searchParams.get('id');
+    }
+
+    if (!blogId) {
+      return new Response(JSON.stringify({ error: 'Blog ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const deletedBlog = await Blog.findByIdAndDelete(blogId);
+    if (!deletedBlog) {
+      return new Response(JSON.stringify({ error: 'Blog not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify({ message: 'Blog deleted successfully' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error deleting blog:', error);
+    return new Response(JSON.stringify({ error: 'Server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
