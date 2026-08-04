@@ -137,34 +137,7 @@ const Navbar = () => {
     setIsOpen(false);
   }, []);
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Always show navbar at top of page
-      if (currentScrollY <= 10) {
-        setIsVisible(true);
-        setIsScrolled(false);
-      } else {
-        setIsScrolled(true);
-        // Scroll DOWN -> Hide navbar smoothly
-        if (currentScrollY > lastScrollY && currentScrollY > 50) {
-          setIsVisible(false);
-        }
-        // Scroll UP -> Show navbar smoothly
-        else if (currentScrollY < lastScrollY) {
-          setIsVisible(true);
-        }
-      }
-
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Navbar is strictly absolute to top of page (no scroll listeners or pop-in hiding)
 
   // Close sidebar on escape key and control scroll locking
   useEffect(() => {
@@ -201,7 +174,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`modern-portfolio-navbar ${isScrolled ? 'scrolled' : ''} ${!isVisible && !isOpen ? 'nav-hidden' : ''}`}>
+      <nav className="modern-portfolio-navbar">
         <div className="modern-navbar-container">
           <Link
             href="/"
