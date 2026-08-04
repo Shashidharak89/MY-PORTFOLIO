@@ -1,0 +1,435 @@
+/* Styles for dedicated /t route - Pinned Horizontal Card-Scroll Showcase */
+
+.t-page-container {
+  min-height: 100vh;
+  width: 100%;
+  background: #fafafa;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Intro Section */
+.t-intro-section {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1.5rem 3rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+}
+
+.t-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #dc2626;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.t-intro-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.8rem 0;
+  max-width: 800px;
+}
+
+.t-intro-subtitle {
+  font-size: 1.15rem;
+  color: #6b7280;
+  font-weight: 500;
+  max-width: 620px;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.t-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  animation: t-bounce 2s infinite;
+}
+
+@keyframes t-bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
+}
+
+/* Pinned Showcase Container */
+.t-pinned-outer {
+  position: relative;
+  width: 100%;
+  background: #0f172a;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.t-pinned-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(220, 38, 38, 0.15) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.t-pinned-viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.2rem 1.5rem 2rem;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+/* Header inside Viewport */
+.t-pinned-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  z-index: 3;
+}
+
+.t-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 20px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f87171;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.t-cat-active-name {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.t-pinned-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.t-pinned-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Horizontal Track Container */
+.t-track-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 1.5rem 0;
+  z-index: 3;
+}
+
+.t-horizontal-track {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  will-change: transform;
+}
+
+/* Spotlight Card */
+.t-spotlight-card {
+  width: 580px;
+  max-width: 88vw;
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+  transform-origin: center center;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.t-spotlight-card.is-focused {
+  border-color: var(--card-accent, #ef4444);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(239, 68, 68, 0.25);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.t-card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.t-card-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  font-family: monospace;
+  color: #475569;
+}
+
+.t-spotlight-card.is-focused .t-card-num {
+  color: var(--card-accent, #ef4444);
+}
+
+.t-card-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.t-spotlight-card.is-focused .t-card-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.t-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.t-card-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.t-card-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.t-card-sub {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.t-skills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.t-skill-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.25s ease;
+}
+
+.t-spotlight-card.is-focused .t-skill-pill:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: translateX(5px);
+}
+
+.t-skill-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.t-skill-icon {
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.t-skill-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.t-skill-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.t-card-glow-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: transparent;
+  transition: background 0.4s ease;
+}
+
+.t-spotlight-card.is-focused .t-card-glow-bar {
+  background: var(--card-accent, #ef4444);
+}
+
+/* Viewport Footer */
+.t-pinned-footer {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.t-progress-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.t-progress-num {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.t-progress-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.t-progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.t-progress-dot.active {
+  width: 32px;
+  border-radius: 12px;
+}
+
+.t-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1.6rem;
+  border-radius: 12px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.35);
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.t-home-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(239, 68, 68, 0.5);
+}
+
+/* Outro Section */
+.t-outro-section {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: #ffffff;
+  border-top: 1px solid #f3f4f6;
+}
+
+.t-outro-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 0.8rem 0;
+}
+
+.t-outro-desc {
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 500px;
+  margin: 0 0 1.8rem 0;
+}
+
+@media (max-width: 768px) {
+  .t-intro-title { font-size: 2.2rem; }
+  .t-pinned-title { font-size: 1.7rem; }
+  .t-spotlight-card { width: 88vw; padding: 1.5rem 1.2rem; }
+  .t-pinned-footer { flex-direction: column; gap: 14px; }
+}

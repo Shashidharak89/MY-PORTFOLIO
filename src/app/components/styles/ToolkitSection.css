@@ -167,73 +167,23 @@
 }
 
 /* Brand Icon Colors */
-.react-color {
-  color: #61dafb;
-}
-
-.next-color {
-  color: #000000;
-}
-
-.js-color {
-  color: #f7df1e;
-}
-
-.html-color {
-  color: #e34f26;
-}
-
-.css-color {
-  color: #1572b6;
-}
-
-.java-color {
-  color: #007396;
-}
-
-.springboot-color {
-  color: #6db33f;
-}
-
-.node-color {
-  color: #339933;
-}
-
-.express-color {
-  color: #000000;
-}
-
-.postgres-color {
-  color: #4169e1;
-}
-
-.mongo-color {
-  color: #47a248;
-}
-
-.mysql-color {
-  color: #4479a1;
-}
-
-.python-color {
-  color: #3776ab;
-}
-
-.c-color {
-  color: #a8b9cc;
-}
-
-.github-color {
-  color: #181717;
-}
-
-.linux-color {
-  color: #fcc624;
-}
-
-.postman-color {
-  color: #ff6c37;
-}
+.react-color { color: #61dafb; }
+.next-color { color: #000000; }
+.js-color { color: #f7df1e; }
+.html-color { color: #e34f26; }
+.css-color { color: #1572b6; }
+.java-color { color: #007396; }
+.springboot-color { color: #6db33f; }
+.node-color { color: #339933; }
+.express-color { color: #000000; }
+.postgres-color { color: #4169e1; }
+.mongo-color { color: #47a248; }
+.mysql-color { color: #4479a1; }
+.python-color { color: #3776ab; }
+.c-color { color: #a8b9cc; }
+.github-color { color: #181717; }
+.linux-color { color: #fcc624; }
+.postman-color { color: #ff6c37; }
 
 /* Footer CTA */
 .toolkit-footer-cta {

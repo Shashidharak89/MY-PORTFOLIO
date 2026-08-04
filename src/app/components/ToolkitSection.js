@@ -9,7 +9,6 @@ import {
   FaCss3Alt,
   FaJava,
   FaNodeJs,
-  FaGitAlt,
   FaGithub,
   FaLinux,
   FaPython,
@@ -113,7 +112,6 @@ export default function ToolkitSection() {
     const ctx = gsap.context(() => {
       const cardElements = gridRef.current?.children;
 
-      // Master Section 3D Deck Flip Timeline
       const toolkitTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -124,7 +122,6 @@ export default function ToolkitSection() {
         }
       });
 
-      // 1. Wrapper 3D Y-Axis Tilt Entrance (Distinct from other sections)
       toolkitTl
         .set(wrapperRef.current, {
           opacity: 0,
@@ -163,7 +160,6 @@ export default function ToolkitSection() {
         })
         .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(8px)', duration: 0.20 });
 
-      // 2. Individual Cards 3D Fan-Out & Deck Flip Reveal
       if (cardElements && cardElements.length > 0) {
         gsap.fromTo(
           cardElements,
@@ -171,7 +167,7 @@ export default function ToolkitSection() {
             opacity: 0,
             y: 50,
             rotationX: -45,
-            rotationZ: (i) => (i - 2) * 4, // 3D Fan angle (-8deg, -4deg, 0deg, 4deg, 8deg)
+            rotationZ: (i) => (i - 2) * 4,
             scale: 0.75,
             transformPerspective: 800
           },
@@ -193,7 +189,6 @@ export default function ToolkitSection() {
         );
       }
 
-      // Parallax Floating Orb
       gsap.to(orbToolkitRef.current, {
         y: -110,
         x: -50,
@@ -227,7 +222,7 @@ export default function ToolkitSection() {
           <p className="toolkit-subtitle">Technologies I work with</p>
         </div>
 
-        {/* 5 Category Cards (3D Fan-Out & Deck Flip Reveal) */}
+        {/* 5 Category Cards */}
         <div ref={gridRef} className="toolkit-grid">
           {toolkitCategories.map((cat) => (
             <div key={cat.id} className="toolkit-card">
