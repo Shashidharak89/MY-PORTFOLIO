@@ -25,11 +25,11 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
     { id: 'home', label: 'Home', icon: <FaHouse />, route: '/' },
     { id: 'about', label: 'About', icon: <FaUser />, route: '/about' },
     { id: 'projects', label: 'Projects', icon: <FaRocket />, route: '/projects' },
-    { id: 'skills', label: 'Skills', icon: <FaBolt />, route: '/skills' },
+    { id: 'skills', label: 'Skills', icon: <FaBolt />, route: '/skills', hidden: true },
     { id: 'resume', label: 'Resume', icon: <FaFileLines />, route: '/resume' },
     { id: 'blogs', label: 'Blogs', icon: <FaPenToSquare />, route: '/blogs' },
-    { id: 'handles', label: 'Handles', icon: <FaGlobe />, route: '/handles' },
-    { id: 'featurelab', label: 'Feature Lab', icon: <FaFlask />, route: '/featurelab' },
+    { id: 'handles', label: 'Handles', icon: <FaGlobe />, route: '/handles', hidden: true },
+    { id: 'featurelab', label: 'Feature Lab', icon: <FaFlask />, route: '/featurelab', hidden: true },
     { id: 'achievements', label: 'Achievements', icon: <FaTrophy />, route: '/achievements' },
     { id: 'contact', label: 'Contact', icon: <FaEnvelope />, route: '/contact' }
   ], []);
@@ -92,7 +92,7 @@ const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
 
         <nav className="portfolio-sidebar-nav" data-lenis-prevent>
           <ul className="portfolio-nav-list">
-            {navigationItems.map((item, index) => (
+            {navigationItems.filter(item => !item.hidden).map((item, index) => (
               <li 
                 key={item.id} 
                 className="portfolio-nav-item" 

@@ -19,8 +19,7 @@ const AboutMe = () => {
   const skills = [
     { name: 'Frontend Development', level: 85, color: '#2563eb' },
     { name: 'Backend Development', level: 80, color: '#dc2626' },
-    { name: 'Mobile App Development', level: 75, color: '#1f2937' },
-    { name: 'UI/UX Design', level: 70, color: '#2563eb' }
+    { name: 'Mobile App Development', level: 75, color: '#1f2937' }
   ];
 
   const interests = [
@@ -95,7 +94,7 @@ const AboutMe = () => {
                 <p className="education-field">N.M.A.M Institute of Technology, Nitte</p>
                 <p className="education-school">Nitte University</p>
                 <p className="education-year">2025 - Present</p>
-                <p className="education-gpa">CGPA: 9.27/10</p>
+                <p className="education-gpa">CGPA: 9.30/10</p>
               </div>
             </div>
           </div>
