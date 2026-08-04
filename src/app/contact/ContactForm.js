@@ -115,14 +115,14 @@ const ContactForm = () => {
       url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b',
     },
     {
-      icon: <Twitter className="social-icon" />,
-      name: 'Twitter',
-      url: 'https://twitter.com',
+      icon: <Mail className="social-icon" />,
+      name: 'Email',
+      url: 'mailto:shashidharak334@gmail.com',
     },
     {
-      icon: <Instagram className="social-icon" />,
-      name: 'Instagram',
-      url: 'https://instagram.com/luminous_alpha_',
+      icon: <Phone className="social-icon" />,
+      name: 'Phone',
+      url: 'https://wa.me/7760770725',
     },
   ];
 
