@@ -39,7 +39,12 @@ const FinalCtaSection = () => {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 3D Entrance & Exit Timeline for Final CTA Section
+      // 3D Entrance & Exit Timeline for Final CTA Section:
+      // 0% -> 25%: hidden
+      // 25% -> 50%: Fade in entrance (opacity 0 -> 1)
+      // 50% -> 55%: Full Visibility Plateau (opacity 1)
+      // 55% -> 75%: Fade out exit (opacity 1 -> 0)
+      // 75% -> 100%: hidden
       const ctaTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -76,16 +81,17 @@ const FinalCtaSection = () => {
           duration: 0.25,
           ease: 'power3.out'
         })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.25 })
+        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.05 })
         .to(wrapperRef.current, {
           opacity: 0,
           y: -40,
           scale: 0.88,
           rotationY: 15,
           filter: 'blur(8px)',
-          duration: 0.25,
+          duration: 0.20,
           ease: 'power3.in'
-        });
+        })
+        .to(wrapperRef.current, { opacity: 0, y: -40, filter: 'blur(8px)', duration: 0.25 });
 
       // Ambient Floating Orb Motion
       gsap.to(orbCtaRef.current, {
@@ -97,7 +103,8 @@ const FinalCtaSection = () => {
           trigger: sectionRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 0.8
+          scrub: 0.8,
+          invalidateOnRefresh: true,
         }
       });
     }, sectionRef);

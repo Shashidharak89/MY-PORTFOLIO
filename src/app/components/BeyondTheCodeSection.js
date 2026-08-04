@@ -54,7 +54,12 @@ export default function BeyondTheCodeSection() {
     const ctx = gsap.context(() => {
       const cardElements = gridRef.current?.children;
 
-      // Master Section 3D Timeline
+      // Master Section 3D Timeline:
+      // 0% -> 25%: hidden
+      // 25% -> 50%: Fade in entrance (opacity 0 -> 1)
+      // 50% -> 55%: Full Visibility Plateau (opacity 1)
+      // 55% -> 75%: Fade out exit (opacity 1 -> 0)
+      // 75% -> 100%: hidden
       const beyondTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -65,7 +70,6 @@ export default function BeyondTheCodeSection() {
         }
       });
 
-      // 1. Wrapper 3D Perspective Pop Entrance
       beyondTl
         .set(wrapperRef.current, { 
           opacity: 0, 
@@ -92,7 +96,7 @@ export default function BeyondTheCodeSection() {
           duration: 0.25, 
           ease: 'power3.out' 
         })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationX: 0, filter: 'blur(0px)', duration: 0.10 })
+        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationX: 0, filter: 'blur(0px)', duration: 0.05 })
         .to(wrapperRef.current, { 
           opacity: 0, 
           y: -45, 
@@ -102,9 +106,9 @@ export default function BeyondTheCodeSection() {
           duration: 0.20, 
           ease: 'power3.in' 
         })
-        .to(wrapperRef.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.20 });
+        .to(wrapperRef.current, { opacity: 0, y: -45, filter: 'blur(6px)', duration: 0.25 });
 
-      // 2. Creative 3D Diamond Wave Cascade Flip for the 4 Small Cards
+      // 4 Small Cards (3D Diamond Wave Cascade Flip Reveal)
       if (cardElements && cardElements.length > 0) {
         gsap.fromTo(
           cardElements,
@@ -128,13 +132,14 @@ export default function BeyondTheCodeSection() {
               trigger: sectionRef.current,
               start: 'top 78%',
               end: 'top 42%',
-              scrub: 0.5
+              scrub: 0.5,
+              invalidateOnRefresh: true,
             }
           }
         );
       }
 
-      // 3. Sky Blue Floating Ambient Orb Motion
+      // Sky Blue Floating Ambient Orb Motion
       if (orbBeyondRef.current) {
         gsap.to(orbBeyondRef.current, {
           y: -100,
@@ -145,7 +150,8 @@ export default function BeyondTheCodeSection() {
             trigger: sectionRef.current,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: 0.8
+            scrub: 0.8,
+            invalidateOnRefresh: true,
           }
         });
       }

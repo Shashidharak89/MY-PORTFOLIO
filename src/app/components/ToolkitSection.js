@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   FaReact,
@@ -17,7 +17,8 @@ import {
   FaDatabase,
   FaWrench,
   FaTerminal,
-  FaArrowRight
+  FaArrowRight,
+  FaWandMagicSparkles
 } from 'react-icons/fa6';
 import {
   SiNextdotjs,
@@ -32,7 +33,6 @@ import {
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/ToolkitSection.css';
 import toolkitBg from './images/toolkit.jpeg';
 
@@ -42,65 +42,88 @@ if (typeof window !== 'undefined') {
 
 export default function ToolkitSection() {
   const sectionRef = useRef(null);
-  const wrapperRef = useRef(null);
-  const gridRef = useRef(null);
-  const orbToolkitRef = useRef(null);
-
-  useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
+  const trackRef = useRef(null);
+  const cardsRef = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const toolkitCategories = [
     {
       id: 'frontend',
-      title: 'Frontend',
-      icon: <FaCode />,
+      number: '01',
+      categoryName: 'FRONTEND STACK',
+      title: 'Frontend & UI Engineering',
+      subtitle: 'Crafting responsive, high-performance & visually interactive interfaces',
+      icon: <FaCode className="cat-icon" />,
+      accentColor: '#dc2626',
+      badgeText: 'UI / UX & Web',
       skills: [
-        { name: 'React', icon: <FaReact className="react-color" /> },
-        { name: 'Next.js', icon: <SiNextdotjs className="next-color" /> },
-        { name: 'JavaScript', icon: <FaJs className="js-color" /> },
-        { name: 'HTML5', icon: <FaHtml5 className="html-color" /> },
-        { name: 'CSS3', icon: <FaCss3Alt className="css-color" /> },
+        { name: 'React', level: 'Advanced', icon: <FaReact className="react-color" /> },
+        { name: 'Next.js', level: 'Advanced', icon: <SiNextdotjs className="next-color" /> },
+        { name: 'JavaScript (ES6+)', level: 'Advanced', icon: <FaJs className="js-color" /> },
+        { name: 'HTML5', level: 'Expert', icon: <FaHtml5 className="html-color" /> },
+        { name: 'CSS3 / Modern CSS', level: 'Advanced', icon: <FaCss3Alt className="css-color" /> },
       ]
     },
     {
       id: 'backend',
-      title: 'Backend',
-      icon: <FaServer />,
+      number: '02',
+      categoryName: 'BACKEND STACK',
+      title: 'Server & API Systems',
+      subtitle: 'Engineering secure, scalable microservices & enterprise backend APIs',
+      icon: <FaServer className="cat-icon" />,
+      accentColor: '#2563eb',
+      badgeText: 'REST & Services',
       skills: [
-        { name: 'Java', icon: <FaJava className="java-color" /> },
-        { name: 'Spring Boot', icon: <SiSpringboot className="springboot-color" /> },
-        { name: 'Node.js', icon: <FaNodeJs className="node-color" /> },
-        { name: 'Express.js', icon: <SiExpress className="express-color" /> },
+        { name: 'Java', level: 'Advanced', icon: <FaJava className="java-color" /> },
+        { name: 'Spring Boot', level: 'Proficient', icon: <SiSpringboot className="springboot-color" /> },
+        { name: 'Node.js', level: 'Advanced', icon: <FaNodeJs className="node-color" /> },
+        { name: 'Express.js', level: 'Advanced', icon: <SiExpress className="express-color" /> },
       ]
     },
     {
       id: 'databases',
-      title: 'Databases',
-      icon: <FaDatabase />,
+      number: '03',
+      categoryName: 'DATABASE ENGINE',
+      title: 'Databases & Storage',
+      subtitle: 'Architecting relational schemas, NoSQL stores & optimized queries',
+      icon: <FaDatabase className="cat-icon" />,
+      accentColor: '#059669',
+      badgeText: 'Relational & NoSQL',
       skills: [
-        { name: 'PostgreSQL', icon: <SiPostgresql className="postgres-color" /> },
-        { name: 'MongoDB', icon: <SiMongodb className="mongo-color" /> },
-        { name: 'MySQL', icon: <SiMysql className="mysql-color" /> },
+        { name: 'PostgreSQL', level: 'Advanced', icon: <SiPostgresql className="postgres-color" /> },
+        { name: 'MongoDB', level: 'Proficient', icon: <SiMongodb className="mongo-color" /> },
+        { name: 'MySQL', level: 'Advanced', icon: <SiMysql className="mysql-color" /> },
       ]
     },
     {
       id: 'programming',
-      title: 'Programming',
-      icon: <FaTerminal />,
+      number: '04',
+      categoryName: 'CORE PROGRAMMING',
+      title: 'Programming Languages',
+      subtitle: 'Data Structures, Algorithms, Object-Oriented Design & Logic',
+      icon: <FaTerminal className="cat-icon" />,
+      accentColor: '#7c3aed',
+      badgeText: 'DSA & OOP',
       skills: [
-        { name: 'Java', icon: <FaJava className="java-color" /> },
-        { name: 'JavaScript', icon: <FaJs className="js-color" /> },
-        { name: 'Python', icon: <FaPython className="python-color" /> },
-        { name: 'C', icon: <SiC className="c-color" /> },
+        { name: 'Java', level: 'Expert', icon: <FaJava className="java-color" /> },
+        { name: 'JavaScript', level: 'Advanced', icon: <FaJs className="js-color" /> },
+        { name: 'Python', level: 'Proficient', icon: <FaPython className="python-color" /> },
+        { name: 'C Language', level: 'Foundational', icon: <SiC className="c-color" /> },
       ]
     },
     {
       id: 'tools',
-      title: 'Tools & DevOps',
-      icon: <FaWrench />,
+      number: '05',
+      categoryName: 'DEVOPS & TOOLS',
+      title: 'Tools & Ecosystem',
+      subtitle: 'Version control, shell automation, API testing & dev workflows',
+      icon: <FaWrench className="cat-icon" />,
+      accentColor: '#ea580c',
+      badgeText: 'Workflow & Tools',
       skills: [
-        { name: 'Git & GitHub', icon: <FaGithub className="github-color" /> },
-        { name: 'Linux', icon: <FaLinux className="linux-color" /> },
-        { name: 'Postman', icon: <SiPostman className="postman-color" /> },
+        { name: 'Git & GitHub', level: 'Advanced', icon: <FaGithub className="github-color" /> },
+        { name: 'Linux OS', level: 'Proficient', icon: <FaLinux className="linux-color" /> },
+        { name: 'Postman', level: 'Advanced', icon: <SiPostman className="postman-color" /> },
       ]
     }
   ];
@@ -109,147 +132,226 @@ export default function ToolkitSection() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    const cards = cardsRef.current.filter(Boolean);
+    const numCards = toolkitCategories.length;
+
+    if (!section || !track || cards.length === 0) return;
+
     const ctx = gsap.context(() => {
-      const cardElements = gridRef.current?.children;
+      const getBounds = () => {
+        const card = cards[0];
+        const cardWidth = card ? card.offsetWidth : 580;
+        const gap = 36;
+        const vw = window.innerWidth;
+        const startX = (vw - cardWidth) / 2;
+        const totalTravel = (numCards - 1) * (cardWidth + gap);
+        const endX = startX - totalTravel;
+        return { startX, endX, cardWidth, gap };
+      };
 
-      const toolkitTl = gsap.timeline({
+      const bounds = getBounds();
+      gsap.set(track, { x: bounds.startX });
+
+      const pinDistance = 3500;
+      const totalDuration = numCards - 1; // 4 timeline units
+
+      // Master Pinned ScrollTrigger Timeline
+      const mainTl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.5,
+          trigger: section,
+          start: 'top top',
+          end: `+=${pinDistance}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.8,
           invalidateOnRefresh: true,
-        }
-      });
-
-      toolkitTl
-        .set(wrapperRef.current, {
-          opacity: 0,
-          y: 80,
-          scale: 0.8,
-          rotationY: -18,
-          transformPerspective: 1200,
-          filter: 'blur(10px)'
-        })
-        .to(wrapperRef.current, {
-          opacity: 0,
-          y: 80,
-          scale: 0.8,
-          rotationY: -18,
-          filter: 'blur(10px)',
-          duration: 0.25
-        })
-        .to(wrapperRef.current, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotationY: 0,
-          filter: 'blur(0px)',
-          duration: 0.25,
-          ease: 'power3.out'
-        })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.10 })
-        .to(wrapperRef.current, {
-          opacity: 0,
-          y: -50,
-          scale: 0.88,
-          rotationY: 15,
-          filter: 'blur(8px)',
-          duration: 0.20,
-          ease: 'power3.in'
-        })
-        .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(8px)', duration: 0.20 });
-
-      if (cardElements && cardElements.length > 0) {
-        gsap.fromTo(
-          cardElements,
-          {
-            opacity: 0,
-            y: 50,
-            rotationX: -45,
-            rotationZ: (i) => (i - 2) * 4,
-            scale: 0.75,
-            transformPerspective: 800
-          },
-          {
-            opacity: 1,
-            y: 0,
-            rotationX: 0,
-            rotationZ: 0,
-            scale: 1,
-            stagger: 0.04,
-            ease: 'back.out(1.8)',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-              end: 'top 45%',
-              scrub: 0.5
-            }
+          onUpdate: (self) => {
+            const p = self.progress;
+            const rawIndex = p * (numCards - 1);
+            const idx = Math.min(numCards - 1, Math.max(0, Math.round(rawIndex)));
+            setActiveIndex(idx);
           }
-        );
-      }
-
-      gsap.to(orbToolkitRef.current, {
-        y: -110,
-        x: -50,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8
         }
       });
+
+      // 1. Move track horizontally from startX to endX
+      mainTl.to(track, {
+        x: () => getBounds().endX,
+        ease: 'none',
+        duration: totalDuration
+      }, 0);
+
+      // 2. Animate individual card spotlight focus sequence directly inside mainTl keyframes
+      cards.forEach((card, i) => {
+        const accent = toolkitCategories[i].accentColor;
+
+        // Set initial state for all cards
+        if (i === 0) {
+          gsap.set(card, {
+            scale: 1.06,
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            borderColor: accent,
+            boxShadow: `0 22px 55px rgba(0, 0, 0, 0.12), 0 0 35px ${accent}33`
+          });
+        } else {
+          gsap.set(card, {
+            scale: 0.86,
+            opacity: 0.45,
+            filter: 'blur(4px)',
+            y: 20,
+            borderColor: '#f3f4f6',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.05)'
+          });
+        }
+
+        // Entrance into spotlight focus
+        if (i > 0) {
+          mainTl.to(
+            card,
+            {
+              scale: 1.06,
+              opacity: 1,
+              filter: 'blur(0px)',
+              y: 0,
+              borderColor: accent,
+              boxShadow: `0 22px 55px rgba(0, 0, 0, 0.12), 0 0 35px ${accent}33`,
+              duration: 0.45,
+              ease: 'power2.out'
+            },
+            i - 0.45
+          );
+        }
+
+        // Exit out of spotlight focus
+        if (i < numCards - 1) {
+          mainTl.to(
+            card,
+            {
+              scale: 0.86,
+              opacity: 0.45,
+              filter: 'blur(4px)',
+              y: 20,
+              borderColor: '#f3f4f6',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.05)',
+              duration: 0.45,
+              ease: 'power2.in'
+            },
+            i + 0.1
+          );
+        }
+      });
+
+      // Refresh ScrollTrigger after mount for Lenis sync
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 300);
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [toolkitCategories.length]);
+
+  const activeCategory = toolkitCategories[activeIndex] || toolkitCategories[0];
 
   return (
     <section
       ref={sectionRef}
-      className="home-snap-section toolkit-snap-section"
+      className="toolkit-pinned-section"
       style={{ backgroundImage: `url(${toolkitBg.src})` }}
     >
       <div className="toolkit-bg-overlay"></div>
-      <div ref={orbToolkitRef} className="toolkit-floating-orb"></div>
+      <div className="toolkit-floating-orb"></div>
 
-      <div ref={wrapperRef} className="portfolio-dashboard-toolkit-wrapper">
-
-        {/* Header */}
-        <div className="toolkit-header">
-          <h2 className="toolkit-title">My Toolkit</h2>
-          <p className="toolkit-subtitle">Technologies I work with</p>
+      <div className="toolkit-pinned-viewport">
+        
+        {/* Section Header */}
+        <div className="toolkit-pinned-header">
+          <div className="toolkit-category-pill">
+            <FaWandMagicSparkles className="sparkle-icon" />
+            <span>MY TOOLKIT</span>
+            <span className="dot-divider">•</span>
+            <span className="active-cat-name">{activeCategory.categoryName}</span>
+          </div>
+          <h2 className="toolkit-pinned-title">My Toolkit</h2>
+          <p className="toolkit-pinned-subtitle">
+            Technologies & Ecosystem I Work With
+          </p>
         </div>
 
-        {/* 5 Category Cards */}
-        <div ref={gridRef} className="toolkit-grid">
-          {toolkitCategories.map((cat) => (
-            <div key={cat.id} className="toolkit-card">
-              <div className="toolkit-card-header">
-                <span className="toolkit-card-icon">{cat.icon}</span>
-                <h3 className="toolkit-card-title">{cat.title}</h3>
-              </div>
-              <div className="toolkit-skills-list">
-                {cat.skills.map((skill) => (
-                  <div key={skill.name} className="toolkit-skill-item">
-                    <span className="skill-icon">{skill.icon}</span>
-                    <span className="skill-name">{skill.name}</span>
+        {/* Horizontal Track Container */}
+        <div className="toolkit-track-container">
+          <div ref={trackRef} className="toolkit-horizontal-track">
+            {toolkitCategories.map((cat, idx) => {
+              const isFocused = idx === activeIndex;
+              return (
+                <div
+                  key={cat.id}
+                  ref={(el) => (cardsRef.current[idx] = el)}
+                  className={`toolkit-spotlight-card ${isFocused ? 'is-focused' : ''}`}
+                  style={{ '--card-accent': cat.accentColor }}
+                >
+                  <div className="card-top-bar">
+                    <span className="card-number">{cat.number}</span>
+                    <span className="card-badge">{cat.badgeText}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
+
+                  <div className="card-header-main">
+                    <div className="card-icon-box" style={{ background: `${cat.accentColor}15`, color: cat.accentColor }}>
+                      {cat.icon}
+                    </div>
+                    <div className="card-title-group">
+                      <h3 className="card-title">{cat.title}</h3>
+                      <p className="card-subtitle">{cat.subtitle}</p>
+                    </div>
+                  </div>
+
+                  <div className="card-skills-grid">
+                    {cat.skills.map((skill) => (
+                      <div key={skill.name} className="skill-pill-item">
+                        <div className="skill-pill-left">
+                          <span className="skill-icon">{skill.icon}</span>
+                          <span className="skill-name">{skill.name}</span>
+                        </div>
+                        <span className="skill-level-tag">{skill.level}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="card-footer-glow"></div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* View All Skills Link */}
-        <div className="toolkit-footer-cta">
-          <Link href="/skills" className="view-all-skills-link">
-            <button className="view-all-skills-btn">
-              <span>Explore All Skills</span>
-              <FaArrowRight className="btn-arrow" />
-            </button>
-          </Link>
+        {/* Bottom Bar */}
+        <div className="toolkit-pinned-footer">
+          <div className="toolkit-progress-bar">
+            <span className="progress-counter">
+              {String(activeIndex + 1).padStart(2, '0')} / {String(toolkitCategories.length).padStart(2, '0')}
+            </span>
+            <div className="progress-dots">
+              {toolkitCategories.map((cat, i) => (
+                <div
+                  key={cat.id}
+                  className={`progress-dot ${i === activeIndex ? 'active' : ''}`}
+                  style={i === activeIndex ? { backgroundColor: cat.accentColor } : {}}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="toolkit-footer-cta">
+            <Link href="/skills" className="view-all-skills-link">
+              <button className="view-all-skills-btn">
+                <span>Explore Full Toolkit</span>
+                <FaArrowRight className="btn-arrow" />
+              </button>
+            </Link>
+          </div>
         </div>
 
       </div>

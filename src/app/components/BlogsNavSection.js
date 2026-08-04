@@ -27,9 +27,9 @@ export default function BlogsNavSection() {
     const ctx = gsap.context(() => {
       // Precision Section 3 Timeline:
       // 0% -> 25%: hidden
-      // 25% -> 50%: Entrance Fade-In & 3D Slide (opacity 0 -> 1, x -120px -> 0, rotationY -20deg -> 0, scale 0.82 -> 1, blur 12px -> 0px)
+      // 25% -> 50%: Entrance Fade-In (opacity 0 -> 1, x -120 -> 0, rotationY -20 -> 0, blur 12px -> 0px)
       // 50% -> 55%: Full Visibility Plateau (opacity 1)
-      // 55% -> 75%: Exit Fade-Out & 3D Slide Out (opacity 1 -> 0, x 0 -> 120px, rotationY 0 -> 20deg, scale 1 -> 0.82, blur 0px -> 12px)
+      // 55% -> 75%: Exit Fade-Out (opacity 1 -> 0, x 0 -> 120, rotationY 0 -> 20, blur 0px -> 12px)
       // 75% -> 100%: hidden
       const sec3Tl = gsap.timeline({
         scrollTrigger: {
@@ -42,7 +42,6 @@ export default function BlogsNavSection() {
       });
 
       sec3Tl
-        // 0% -> 25%: Hidden State
         .set(wrapper3Ref.current, { 
           opacity: 0, 
           x: -120, 
@@ -61,8 +60,6 @@ export default function BlogsNavSection() {
           filter: 'blur(12px)', 
           duration: 0.25 
         })
-        
-        // 25% -> 50%: Fade In Entrance
         .to(wrapper3Ref.current, { 
           opacity: 1, 
           x: 0, 
@@ -73,11 +70,7 @@ export default function BlogsNavSection() {
           duration: 0.25, 
           ease: 'power3.out' 
         })
-        
-        // 50% -> 55%: Full Visibility Plateau
         .to(wrapper3Ref.current, { opacity: 1, x: 0, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.05 })
-        
-        // 55% -> 75%: Exit Fade Out (starts at 55%, ends at 75%)
         .to(wrapper3Ref.current, { 
           opacity: 0, 
           x: 120, 
@@ -88,8 +81,6 @@ export default function BlogsNavSection() {
           duration: 0.20, 
           ease: 'power3.in' 
         })
-        
-        // 75% -> 100%: Hold hidden
         .to(wrapper3Ref.current, { opacity: 0, x: 120, filter: 'blur(12px)', duration: 0.25 });
 
       // Icon Badges Pop Reveal
@@ -109,7 +100,8 @@ export default function BlogsNavSection() {
               trigger: section3Ref.current,
               start: 'top 75%',
               end: 'top 45%',
-              scrub: 0.5
+              scrub: 0.5,
+              invalidateOnRefresh: true,
             }
           }
         );
@@ -125,7 +117,8 @@ export default function BlogsNavSection() {
           trigger: section3Ref.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 0.8
+          scrub: 0.8,
+          invalidateOnRefresh: true,
         }
       });
     });

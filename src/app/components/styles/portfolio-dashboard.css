@@ -35,7 +35,7 @@ html {
 }
 
 .portfolio-dashboard-main.portfolio-dashboard-visible {
-  transform: translateY(0);
+  transform: none !important;
   opacity: 1;
 }
 

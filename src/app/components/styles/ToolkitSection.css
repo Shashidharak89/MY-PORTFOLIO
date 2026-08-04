@@ -1,195 +1,347 @@
-/* ToolkitSection.css - Single Horizontal Row (5 Cards) Layout */
+/* ToolkitSection.css - Pinned Horizontal Card-Scroll Section */
 
-.toolkit-snap-section {
+.toolkit-pinned-section {
   position: relative;
   width: 100%;
+  height: 100vh;
   margin: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden !important;
-  padding: 2.2rem 0;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }
 
 .toolkit-bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(1px);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
   z-index: 0;
 }
 
 .toolkit-floating-orb {
   position: absolute;
-  top: 15%;
-  right: 5%;
-  width: 280px;
-  height: 280px;
+  top: 20%;
+  right: 10%;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
-  filter: blur(55px);
+  filter: blur(75px);
   pointer-events: none;
   z-index: 1;
 }
 
-.portfolio-dashboard-toolkit-wrapper {
+/* Fixed Viewport Fill */
+.toolkit-pinned-viewport {
   position: relative;
-  z-index: 2;
   width: 100%;
-  max-width: 1260px;
-  margin: 0 auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 1.2rem;
-  padding: 0 1.25rem;
+  padding: 2.2rem 1.5rem 1.8rem;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 /* Header Styles */
-.toolkit-header {
+.toolkit-pinned-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.2rem;
+  gap: 0.35rem;
+  z-index: 3;
+  margin-top: 0.2rem;
 }
 
-.toolkit-title {
-  font-size: 2.1rem;
+.toolkit-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #dc2626;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sparkle-icon {
+  font-size: 0.85rem;
+  color: #dc2626;
+}
+
+.dot-divider {
+  color: #d1d5db;
+}
+
+.active-cat-name {
   font-weight: 800;
   color: #111827;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.04em;
+}
+
+.toolkit-pinned-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
-.toolkit-subtitle {
-  font-size: 1rem;
+.toolkit-pinned-subtitle {
+  font-size: 0.95rem;
   color: #6b7280;
   font-weight: 600;
   margin: 0;
 }
 
-/* All 5 Cards in Single Horizontal Row Grid */
-.toolkit-grid {
+/* Horizontal Track Wrapper */
+.toolkit-track-container {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-}
-
-/* Category Card Styling */
-.toolkit-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 1rem 0.9rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f3f4f6;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.toolkit-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(220, 38, 38, 0.12);
-  border-color: rgba(220, 38, 38, 0.25);
-}
-
-/* Card Header */
-.toolkit-card-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-bottom: 0.45rem;
-  border-bottom: 2px solid #f9fafb;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 1.2rem 0;
+  z-index: 3;
 }
 
-.toolkit-card-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
+.toolkit-horizontal-track {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  will-change: transform;
+}
+
+/* Spotlight Card Styling */
+.toolkit-spotlight-card {
+  width: 580px;
+  max-width: 88vw;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+  transform-origin: center center;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.toolkit-spotlight-card.is-focused {
+  border-color: var(--card-accent, #dc2626);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12), 0 0 35px rgba(220, 38, 38, 0.14);
+}
+
+/* Card Top Bar */
+.card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-number {
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-family: monospace;
+  color: #d1d5db;
+  line-height: 1;
+}
+
+.toolkit-spotlight-card.is-focused .card-number {
+  color: var(--card-accent, #dc2626);
+}
+
+.card-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.toolkit-spotlight-card.is-focused .card-badge {
   background: rgba(220, 38, 38, 0.08);
-  color: #dc2626;
+  color: var(--card-accent, #dc2626);
+}
+
+/* Card Header Main */
+.card-header-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   flex-shrink: 0;
 }
 
-.toolkit-card-title {
-  font-size: 1.02rem;
+.card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-title {
+  font-size: 1.35rem;
   font-weight: 800;
   color: #111827;
   margin: 0;
-  white-space: nowrap;
 }
 
-/* Skills List */
-.toolkit-skills-list {
+.card-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Skills List Grid */
+.card-skills-grid {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
+  margin-top: 0.2rem;
 }
 
-.toolkit-skill-item {
+.skill-pill-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-  border-radius: 7px;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
   background: #f9fafb;
   border: 1px solid #f3f4f6;
   transition: all 0.25s ease;
 }
 
-.toolkit-card:hover .toolkit-skill-item:hover {
+.toolkit-spotlight-card.is-focused .skill-pill-item:hover {
   background: #ffffff;
-  border-color: rgba(220, 38, 38, 0.2);
-  transform: translateX(3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  border-color: rgba(220, 38, 38, 0.25);
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.skill-pill-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .skill-icon {
-  font-size: 1.08rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .skill-name {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #374151;
-  white-space: nowrap;
+  color: #1f2937;
 }
 
-/* Brand Icon Colors */
-.react-color { color: #61dafb; }
-.next-color { color: #000000; }
-.js-color { color: #f7df1e; }
-.html-color { color: #e34f26; }
-.css-color { color: #1572b6; }
-.java-color { color: #007396; }
-.springboot-color { color: #6db33f; }
-.node-color { color: #339933; }
-.express-color { color: #000000; }
-.postgres-color { color: #4169e1; }
-.mongo-color { color: #47a248; }
-.mysql-color { color: #4479a1; }
-.python-color { color: #3776ab; }
-.c-color { color: #a8b9cc; }
-.github-color { color: #181717; }
-.linux-color { color: #fcc624; }
-.postman-color { color: #ff6c37; }
-
-/* Footer CTA */
-.toolkit-footer-cta {
-  margin-top: 0.1rem;
+.skill-level-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #6b7280;
+  background: #ffffff;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
 }
 
+/* Accent Glow at bottom of card */
+.card-footer-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: transparent;
+  transition: background 0.4s ease;
+}
+
+.toolkit-spotlight-card.is-focused .card-footer-glow {
+  background: var(--card-accent, #dc2626);
+}
+
+/* Footer & Progress Bar */
+.toolkit-pinned-footer {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+  margin-bottom: 0.2rem;
+}
+
+.toolkit-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.progress-counter {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #111827;
+  font-family: monospace;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d1d5db;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.progress-dot.active {
+  width: 32px;
+  border-radius: 12px;
+}
+
+/* Footer CTA Link */
 .view-all-skills-link {
   text-decoration: none;
 }
@@ -197,23 +349,23 @@
 .view-all-skills-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 0.65rem 1.4rem;
-  border-radius: 10px;
+  gap: 8px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
   background: #111827;
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 5px 16px rgba(17, 24, 39, 0.16);
+  box-shadow: 0 6px 20px rgba(17, 24, 39, 0.18);
   transition: all 0.25s ease;
 }
 
 .view-all-skills-btn:hover {
   background: #dc2626;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.32);
 }
 
 .view-all-skills-btn:hover .btn-arrow {
@@ -224,21 +376,51 @@
   transition: transform 0.25s ease;
 }
 
-/* Responsive Layout */
-@media (max-width: 1024px) {
-  .toolkit-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+/* Icon Colors */
+.react-color { color: #61dafb; }
+.next-color { color: #000000; }
+.js-color { color: #f59e0b; }
+.html-color { color: #ea580c; }
+.css-color { color: #2563eb; }
+.java-color { color: #0284c7; }
+.springboot-color { color: #16a34a; }
+.node-color { color: #16a34a; }
+.express-color { color: #000000; }
+.postgres-color { color: #2563eb; }
+.mongo-color { color: #16a34a; }
+.mysql-color { color: #0284c7; }
+.python-color { color: #2563eb; }
+.c-color { color: #6b7280; }
+.github-color { color: #111827; }
+.linux-color { color: #d97706; }
+.postman-color { color: #ea580c; }
 
-@media (max-width: 680px) {
-  .toolkit-grid {
-    grid-template-columns: repeat(2, 1fr);
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .toolkit-pinned-viewport {
+    padding: 1.5rem 1rem 1.2rem;
   }
-}
 
-@media (max-width: 480px) {
-  .toolkit-grid {
-    grid-template-columns: 1fr;
+  .toolkit-pinned-title {
+    font-size: 1.7rem;
+  }
+
+  .toolkit-spotlight-card {
+    width: 88vw;
+    padding: 1.4rem 1.2rem;
+    gap: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .toolkit-pinned-footer {
+    flex-direction: column;
+    gap: 12px;
   }
 }
