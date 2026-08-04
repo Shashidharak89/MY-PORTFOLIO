@@ -113,36 +113,36 @@ export default function FeaturedProjectsSection() {
 
       const phaseDuration = 1.0;
 
-      // 1. Initial setup for 4 Background Image Layers (Cross-fading with blur)
+      // 1. Initial setup for 4 Background Image Layers (Exact crisp cross-fading, zero blur)
       const bgs = bgLayersRef.current.filter(Boolean);
       bgs.forEach((bg, idx) => {
         if (idx === 0) {
-          gsap.set(bg, { opacity: 1, filter: 'blur(0px)', scale: 1 });
+          gsap.set(bg, { opacity: 1, scale: 1 });
         } else {
-          gsap.set(bg, { opacity: 0, filter: 'blur(12px)', scale: 1.06 });
+          gsap.set(bg, { opacity: 0, scale: 1 });
         }
       });
 
       // Background Cross-Fade Animations between Phase 1 -> 2 -> 3 -> 4
-      // Phase 1 -> 2 (bg1 -> bg2 dark background)
+      // Phase 1 -> 2 (bg1 -> bg2)
       if (bgs[0] && bgs[1]) {
         masterTl
-          .to(bgs[0], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 0.80)
-          .to(bgs[1], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 0.80);
+          .to(bgs[0], { opacity: 0, duration: 0.45, ease: 'power1.inOut' }, 0.80)
+          .to(bgs[1], { opacity: 1, duration: 0.45, ease: 'power1.inOut' }, 0.80);
       }
 
-      // Phase 2 -> 3 (bg2 dark background -> bg3 light background)
+      // Phase 2 -> 3 (bg2 -> bg3)
       if (bgs[1] && bgs[2]) {
         masterTl
-          .to(bgs[1], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 1.80)
-          .to(bgs[2], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 1.80);
+          .to(bgs[1], { opacity: 0, duration: 0.45, ease: 'power1.inOut' }, 1.80)
+          .to(bgs[2], { opacity: 1, duration: 0.45, ease: 'power1.inOut' }, 1.80);
       }
 
       // Phase 3 -> 4 Finale (bg3 -> bg4)
       if (bgs[2] && bgs[3]) {
         masterTl
-          .to(bgs[2], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 2.80)
-          .to(bgs[3], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 2.80);
+          .to(bgs[2], { opacity: 0, duration: 0.45, ease: 'power1.inOut' }, 2.80)
+          .to(bgs[3], { opacity: 1, duration: 0.45, ease: 'power1.inOut' }, 2.80);
       }
 
       // Initial setup for Finale Stage (Phase 4)

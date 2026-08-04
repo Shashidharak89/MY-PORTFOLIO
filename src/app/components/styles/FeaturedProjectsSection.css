@@ -1,4 +1,4 @@
-/* FeaturedProjectsSection.css - Pinned Split Showcase with Dynamic Light/Dark Project Themes */
+/* FeaturedProjectsSection.css - Micro Blur Backgrounds with Zero Color Shading */
 
 .projects-pinned-section {
   position: relative;
@@ -11,7 +11,7 @@
   background: #111827;
 }
 
-/* Background Image Stack for Cross-Fading */
+/* Background Image Stack with Ultra-Subtle Micro Blur */
 .projects-bg-stack {
   position: absolute;
   inset: 0;
@@ -29,21 +29,21 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+  filter: blur(2px); /* Barely noticeable micro-blur */
 }
 
+/* Zero Color Shading Overlay */
 .section-projects-bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(2px);
+  background: transparent !important;
+  backdrop-filter: none !important;
   z-index: 1;
-  transition: background 0.5s ease;
 }
 
-/* Darker Overlay when Dark Project is active */
 .projects-pinned-viewport.is-dark-theme .section-projects-bg-overlay {
-  background: rgba(17, 24, 39, 0.55);
+  background: transparent !important;
 }
 
 .projects-floating-orb {
