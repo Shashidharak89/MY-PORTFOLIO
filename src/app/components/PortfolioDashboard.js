@@ -8,6 +8,7 @@ import AchievementsNavSection from './AchievementsNavSection';
 import ToolkitSection from './ToolkitSection';
 import BeyondTheCodeSection from './BeyondTheCodeSection';
 import BlogsNavSection from './BlogsNavSection';
+import FinalCtaSection from './FinalCtaSection';
 import './styles/portfolio-dashboard.css';
 
 const PortfolioDashboard = () => {
@@ -27,6 +28,7 @@ const PortfolioDashboard = () => {
         <ToolkitSection />
         <BeyondTheCodeSection />
         <BlogsNavSection />
+        <FinalCtaSection />
       </div>
     </div>
   );

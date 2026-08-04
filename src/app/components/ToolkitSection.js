@@ -44,6 +44,9 @@ if (typeof window !== 'undefined') {
 export default function ToolkitSection() {
   const sectionRef = useRef(null);
   const wrapperRef = useRef(null);
+  const pinRef = useRef(null);
+  const trackOuterRef = useRef(null);
+  const trackRef = useRef(null);
   const gridRef = useRef(null);
   const orbToolkitRef = useRef(null);
 
@@ -108,106 +111,208 @@ export default function ToolkitSection() {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      const cardElements = gridRef.current?.children;
-
-      // Master Section 3D Deck Flip Timeline
-      const toolkitTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.5,
-          invalidateOnRefresh: true,
+    // Reduced motion: simple fade-in only, no pinning, no horizontal drive
+    if (prefersReducedMotion) {
+      const ctx = gsap.context(() => {
+        gsap.set(wrapperRef.current, { opacity: 1, y: 0, scale: 1 });
+        const cardElements = gridRef.current?.children;
+        if (cardElements && cardElements.length > 0) {
+          gsap.fromTo(
+            cardElements,
+            { opacity: 0 },
+            {
+              opacity: 1,
+              stagger: 0.05,
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
         }
       });
+      return () => ctx.revert();
+    }
 
-      // 1. Wrapper 3D Y-Axis Tilt Entrance (Distinct from other sections)
-      toolkitTl
-        .set(wrapperRef.current, { 
-          opacity: 0, 
-          y: 80, 
-          scale: 0.8, 
-          rotationY: -18,
-          transformPerspective: 1200, 
-          filter: 'blur(10px)' 
-        })
-        .to(wrapperRef.current, { 
-          opacity: 0, 
-          y: 80, 
-          scale: 0.8, 
-          rotationY: -18,
-          filter: 'blur(10px)', 
-          duration: 0.25 
-        })
-        .to(wrapperRef.current, { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1, 
-          rotationY: 0,
-          filter: 'blur(0px)', 
-          duration: 0.25, 
-          ease: 'power3.out' 
-        })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, filter: 'blur(0px)', duration: 0.10 })
-        .to(wrapperRef.current, { 
-          opacity: 0, 
-          y: -50, 
-          scale: 0.88, 
-          rotationY: 15,
-          filter: 'blur(8px)', 
-          duration: 0.20, 
-          ease: 'power3.in' 
-        })
-        .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(8px)', duration: 0.20 });
+    const mm = gsap.matchMedia();
 
-      // 2. Individual Cards 3D Fan-Out & Deck Flip Reveal
-      if (cardElements && cardElements.length > 0) {
+    // Desktop / tablet: pinned section, vertical scroll drives horizontal card movement
+    mm.add('(min-width: 769px)', () => {
+      const ctx = gsap.context(() => {
+        const cardElements = gridRef.current?.children;
+        if (!cardElements || cardElements.length === 0) return;
+
+        // Wrapper entrance (fade/scale only, no rotation — keeps perf high)
         gsap.fromTo(
-          cardElements,
-          { 
-            opacity: 0, 
-            y: 50, 
-            rotationX: -45, 
-            rotationZ: (i) => (i - 2) * 4, // 3D Fan angle (-8deg, -4deg, 0deg, 4deg, 8deg)
-            scale: 0.75, 
-            transformPerspective: 800 
-          },
+          wrapperRef.current,
+          { opacity: 0, y: 40, scale: 0.96 },
           {
             opacity: 1,
             y: 0,
-            rotationX: 0,
-            rotationZ: 0,
             scale: 1,
-            stagger: 0.04,
-            ease: 'back.out(1.8)',
+            ease: 'power2.out',
             scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-              end: 'top 45%',
-              scrub: 0.5
+              trigger: pinRef.current,
+              start: 'top 85%',
+              end: 'top 55%',
+              scrub: 0.4,
             }
           }
         );
-      }
 
-      // Parallax Floating Orb
-      gsap.to(orbToolkitRef.current, {
-        y: -110,
-        x: -50,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8
-        }
-      });
+        // Compute the horizontal distance the track needs to travel
+        const getScrollDistance = () => {
+          const trackWidth = trackRef.current.scrollWidth;
+          const viewportWidth = trackOuterRef.current.offsetWidth;
+          return Math.max(0, trackWidth - viewportWidth);
+        };
+
+        const horizontalTween = gsap.to(trackRef.current, {
+          x: () => -getScrollDistance(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: pinRef.current,
+            start: 'top top',
+            end: () => `+=${getScrollDistance() + window.innerHeight * 0.4}`,
+            scrub: 0.6,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          }
+        });
+
+        // Per-card fade / scale / parallax as they enter and leave the pinned viewport
+        Array.from(cardElements).forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0.3, scale: 0.88, y: 18 },
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: horizontalTween,
+                start: 'left 100%',
+                end: 'left 62%',
+                scrub: true,
+              }
+            }
+          );
+
+          gsap.to(card, {
+            opacity: 0.3,
+            scale: 0.88,
+            y: -18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: horizontalTween,
+              start: 'right 38%',
+              end: 'right 0%',
+              scrub: true,
+            }
+          });
+
+          // Subtle stagger-driven parallax between the icon header and skill list
+          const header = card.querySelector('.toolkit-card-header');
+          const skills = card.querySelector('.toolkit-skills-list');
+          if (header && skills) {
+            gsap.fromTo(
+              header,
+              { x: 10 },
+              {
+                x: -10,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: horizontalTween,
+                  start: 'left 90%',
+                  end: 'right 10%',
+                  scrub: true,
+                }
+              }
+            );
+          }
+        });
+
+        // Parallax floating orb tied to the pinned scroll range
+        gsap.to(orbToolkitRef.current, {
+          x: -80,
+          y: -60,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: pinRef.current,
+            start: 'top top',
+            end: () => `+=${getScrollDistance() + window.innerHeight * 0.4}`,
+            scrub: 0.8,
+          }
+        });
+      }, sectionRef);
+
+      return () => ctx.revert();
     });
 
-    return () => ctx.revert();
+    // Mobile: simplified vertical fade/stagger, no pinning, no horizontal drive
+    mm.add('(max-width: 768px)', () => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          wrapperRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 85%',
+              end: 'top 55%',
+              scrub: 0.4,
+            }
+          }
+        );
+
+        const cardElements = gridRef.current?.children;
+        if (cardElements && cardElements.length > 0) {
+          gsap.fromTo(
+            cardElements,
+            { opacity: 0, y: 24, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              stagger: 0.06,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: gridRef.current,
+                start: 'top 90%',
+                end: 'top 55%',
+                scrub: 0.5,
+              }
+            }
+          );
+        }
+
+        gsap.to(orbToolkitRef.current, {
+          y: -40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.8,
+          }
+        });
+      }, sectionRef);
+
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -219,44 +324,50 @@ export default function ToolkitSection() {
       <div className="toolkit-bg-overlay"></div>
       <div ref={orbToolkitRef} className="toolkit-floating-orb"></div>
 
-      <div ref={wrapperRef} className="portfolio-dashboard-toolkit-wrapper">
-        
-        {/* Header */}
-        <div className="toolkit-header">
-          <h2 className="toolkit-title">My Toolkit</h2>
-          <p className="toolkit-subtitle">Technologies I work with</p>
-        </div>
+      <div ref={pinRef} className="toolkit-pin-viewport">
+        <div ref={wrapperRef} className="portfolio-dashboard-toolkit-wrapper">
+          
+          {/* Header */}
+          <div className="toolkit-header">
+            <h2 className="toolkit-title">My Toolkit</h2>
+            <p className="toolkit-subtitle">Technologies I work with</p>
+          </div>
 
-        {/* 5 Category Cards (3D Fan-Out & Deck Flip Reveal) */}
-        <div ref={gridRef} className="toolkit-grid">
-          {toolkitCategories.map((cat) => (
-            <div key={cat.id} className="toolkit-card">
-              <div className="toolkit-card-header">
-                <span className="toolkit-card-icon">{cat.icon}</span>
-                <h3 className="toolkit-card-title">{cat.title}</h3>
-              </div>
-              <div className="toolkit-skills-list">
-                {cat.skills.map((skill) => (
-                  <div key={skill.name} className="toolkit-skill-item">
-                    <span className="skill-icon">{skill.icon}</span>
-                    <span className="skill-name">{skill.name}</span>
+          {/* Horizontally-scroll-driven track on desktop, normal grid on mobile */}
+          <div ref={trackOuterRef} className="toolkit-track-outer">
+            <div ref={trackRef} className="toolkit-track">
+              <div ref={gridRef} className="toolkit-grid">
+                {toolkitCategories.map((cat) => (
+                  <div key={cat.id} className="toolkit-card">
+                    <div className="toolkit-card-header">
+                      <span className="toolkit-card-icon">{cat.icon}</span>
+                      <h3 className="toolkit-card-title">{cat.title}</h3>
+                    </div>
+                    <div className="toolkit-skills-list">
+                      {cat.skills.map((skill) => (
+                        <div key={skill.name} className="toolkit-skill-item">
+                          <span className="skill-icon">{skill.icon}</span>
+                          <span className="skill-name">{skill.name}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* View All Skills Link */}
-        <div className="toolkit-footer-cta">
-          <Link href="/skills" className="view-all-skills-link">
-            <button className="view-all-skills-btn">
-              <span>Explore All Skills</span>
-              <FaArrowRight className="btn-arrow" />
-            </button>
-          </Link>
-        </div>
+          {/* View All Skills Link */}
+          <div className="toolkit-footer-cta">
+            <Link href="/skills" className="view-all-skills-link">
+              <button className="view-all-skills-btn">
+                <span>Explore All Skills</span>
+                <FaArrowRight className="btn-arrow" />
+              </button>
+            </Link>
+          </div>
 
+        </div>
       </div>
     </section>
   );
