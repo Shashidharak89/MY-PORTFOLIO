@@ -1,16 +1,35 @@
-/* FeaturedProjectsSection.css - Pinned Split Project Showcase with Single Center Button Finale */
+/* FeaturedProjectsSection.css - Pinned Split Showcase with Dynamic Cross-Fading Blur Backgrounds */
 
 .projects-pinned-section {
   position: relative;
   width: 100%;
   height: 100vh;
   margin: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   overflow: hidden !important;
   scroll-snap-align: none !important;
   scroll-snap-stop: normal !important;
+  background: #111827;
+}
+
+/* Background Image Stack for Cross-Fading */
+.projects-bg-stack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.projects-bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform, opacity, filter;
 }
 
 .section-projects-bg-overlay {
@@ -18,7 +37,7 @@
   inset: 0;
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(2px);
-  z-index: 0;
+  z-index: 1;
 }
 
 .projects-floating-orb {
@@ -28,7 +47,7 @@
   width: 380px;
   height: 380px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.14) 0%, transparent 70%);
   filter: blur(75px);
   pointer-events: none;
   z-index: 1;
@@ -84,7 +103,7 @@
   margin: 0;
 }
 
-/* Center Stage Area (Holds Project Layers & Finale Layer) */
+/* Center Stage Area */
 .projects-stage-area {
   position: relative;
   width: 100%;
@@ -134,7 +153,7 @@
   border-radius: 24px;
 }
 
-/* Pure Borderless Content Box (No card container box) */
+/* Pure Borderless Content Box */
 .project-stage-content-box {
   position: absolute;
   width: 440px;

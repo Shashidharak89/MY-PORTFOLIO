@@ -14,7 +14,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/FeaturedProjectsSection.css';
 
-import sectionprojectsBg from './images/sectionprojects.jpeg';
+import section1Bg from './images/section1bg.jpeg';
+import section2Bg from './images/section2bg.jpeg';
+import section3Bg from './images/section3bg.jpeg';
+import sectionProjectsBg from './images/sectionprojects.jpeg';
+
 import learnixImg from './images/projects/learnix.jpeg';
 import cipherImg from './images/projects/cipher2k25.jpeg';
 import shopxImg from './images/projects/shopx.jpeg';
@@ -25,6 +29,7 @@ if (typeof window !== 'undefined') {
 
 export default function FeaturedProjectsSection() {
   const sectionRef = useRef(null);
+  const bgLayersRef = useRef([]);
   const projectItemsRef = useRef([]);
   const imageBoxesRef = useRef([]);
   const contentBoxesRef = useRef([]);
@@ -104,6 +109,43 @@ export default function FeaturedProjectsSection() {
       });
 
       const phaseDuration = 1.0;
+
+      // 1. Initial setup for 4 Background Image Layers (Cross-fading with blur)
+      const bgs = bgLayersRef.current.filter(Boolean);
+      bgs.forEach((bg, idx) => {
+        if (idx === 0) {
+          gsap.set(bg, { opacity: 1, filter: 'blur(0px)', scale: 1 });
+        } else {
+          gsap.set(bg, { opacity: 0, filter: 'blur(12px)', scale: 1.06 });
+        }
+      });
+
+      // Background Cross-Fade Animations between Phase 1 -> 2 -> 3 -> 4
+      // Phase 1 -> 2 (bg1 -> bg2)
+      if (bgs[0] && bgs[1]) {
+        masterTl
+          .to(bgs[0], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 0.80)
+          .to(bgs[1], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 0.80);
+      }
+
+      // Phase 2 -> 3 (bg2 -> bg3)
+      if (bgs[1] && bgs[2]) {
+        masterTl
+          .to(bgs[1], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 1.80)
+          .to(bgs[2], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 1.80);
+      }
+
+      // Phase 3 -> 4 Finale (bg3 -> bg4)
+      if (bgs[2] && bgs[3]) {
+        masterTl
+          .to(bgs[2], { opacity: 0, filter: 'blur(12px)', scale: 1.06, duration: 0.45, ease: 'power1.inOut' }, 2.80)
+          .to(bgs[3], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 2.80);
+      }
+
+      // Phase 4 Exit at end of section
+      if (bgs[3]) {
+        masterTl.to(bgs[3], { opacity: 0, filter: 'blur(12px)', duration: 0.20, ease: 'power1.in' }, 3.80);
+      }
 
       // Initial setup for Finale Stage (Phase 4)
       if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
@@ -258,8 +300,31 @@ export default function FeaturedProjectsSection() {
     <section 
       ref={sectionRef} 
       className="projects-pinned-section"
-      style={{ backgroundImage: `url(${sectionprojectsBg.src})` }}
     >
+      {/* Dynamic Background Stack (Cross-fading with blur for P1, P2, P3, Finale) */}
+      <div className="projects-bg-stack">
+        <div
+          ref={(el) => (bgLayersRef.current[0] = el)}
+          className="projects-bg-layer"
+          style={{ backgroundImage: `url(${section1Bg.src})` }}
+        />
+        <div
+          ref={(el) => (bgLayersRef.current[1] = el)}
+          className="projects-bg-layer"
+          style={{ backgroundImage: `url(${section2Bg.src})` }}
+        />
+        <div
+          ref={(el) => (bgLayersRef.current[2] = el)}
+          className="projects-bg-layer"
+          style={{ backgroundImage: `url(${section3Bg.src})` }}
+        />
+        <div
+          ref={(el) => (bgLayersRef.current[3] = el)}
+          className="projects-bg-layer"
+          style={{ backgroundImage: `url(${sectionProjectsBg.src})` }}
+        />
+      </div>
+
       <div className="section-projects-bg-overlay"></div>
       <div ref={orbProjectsRef} className="projects-floating-orb"></div>
 
