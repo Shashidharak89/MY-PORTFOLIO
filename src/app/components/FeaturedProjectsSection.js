@@ -7,8 +7,7 @@ import {
   FaGooglePlay,
   FaUpRightFromSquare,
   FaRocket,
-  FaArrowRight,
-  FaWandMagicSparkles
+  FaArrowRight
 } from 'react-icons/fa6';
 
 import { gsap } from 'gsap';
@@ -110,7 +109,7 @@ export default function FeaturedProjectsSection() {
       if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
         gsap.set(finaleRef.current, { opacity: 0, visibility: 'hidden' });
         gsap.set(finaleBlurRef.current, { opacity: 0, scale: 0.9, filter: 'blur(20px)' });
-        gsap.set(finaleCardRef.current, { opacity: 0, scale: 0.9, y: 30, filter: 'blur(8px)' });
+        gsap.set(finaleCardRef.current, { opacity: 0, scale: 0.85, filter: 'blur(6px)' });
       }
 
       // Projects 1, 2, 3 Timelines (Phases 1, 2, 3)
@@ -189,7 +188,7 @@ export default function FeaturedProjectsSection() {
           .to(itemEl, { visibility: 'hidden', opacity: 0, duration: 0.01 }, startTime + 0.99);
       });
 
-      // Phase 4: Finale View All Projects CTA (starts at t = 3.0)
+      // Phase 4: Finale View More Projects Center Button (starts at t = 3.0)
       const finaleStartTime = numProjects * phaseDuration;
 
       if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
@@ -210,7 +209,6 @@ export default function FeaturedProjectsSection() {
           .to(finaleCardRef.current, {
             opacity: 1,
             scale: 1,
-            y: 0,
             filter: 'blur(0px)',
             duration: 0.35,
             ease: 'power2.out'
@@ -220,7 +218,7 @@ export default function FeaturedProjectsSection() {
           }, finaleStartTime + 0.50)
           .to(finaleCardRef.current, {
             opacity: 0,
-            y: -30,
+            scale: 0.85,
             filter: 'blur(6px)',
             duration: 0.20,
             ease: 'power1.in'
@@ -353,7 +351,7 @@ export default function FeaturedProjectsSection() {
             );
           })}
 
-          {/* Phase 4: Blurred Background Collage + Center View All Projects CTA */}
+          {/* Phase 4: Blurred Background Collage + Glowing Center Button (No Card Box) */}
           <div ref={finaleRef} className="projects-finale-stage">
             {/* Background Blurred Thumbnails Collage */}
             <div ref={finaleBlurRef} className="finale-blur-collage">
@@ -369,17 +367,9 @@ export default function FeaturedProjectsSection() {
               ))}
             </div>
 
-            {/* Foreground Glassmorphic CTA Card */}
-            <div ref={finaleCardRef} className="finale-cta-card">
-              <div className="finale-badge">
-                <FaWandMagicSparkles />
-                <span>CURATED PORTFOLIO</span>
-              </div>
-              <h3 className="finale-heading">Explore All Projects</h3>
-              <p className="finale-desc">
-                Discover complete web applications, Android apps, open-source repositories & engineering case studies.
-              </p>
-              <Link href="/projects" className="finale-cta-btn">
+            {/* Single Glowing Center Button (No Card Box) */}
+            <div ref={finaleCardRef} className="finale-center-button-wrapper">
+              <Link href="/projects" className="finale-center-btn">
                 <span>View More Projects</span>
                 <FaArrowRight className="btn-arrow" />
               </Link>
