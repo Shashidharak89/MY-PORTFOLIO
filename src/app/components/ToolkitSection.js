@@ -17,7 +17,6 @@ import {
   FaDatabase,
   FaWrench,
   FaTerminal,
-  FaArrowRight,
   FaWandMagicSparkles
 } from 'react-icons/fa6';
 import {
@@ -342,15 +341,6 @@ export default function ToolkitSection() {
                 />
               ))}
             </div>
-          </div>
-
-          <div className="toolkit-footer-cta">
-            <Link href="/skills" className="view-all-skills-link">
-              <button className="view-all-skills-btn">
-                <span>Explore Full Toolkit</span>
-                <FaArrowRight className="btn-arrow" />
-              </button>
-            </Link>
           </div>
         </div>
 
