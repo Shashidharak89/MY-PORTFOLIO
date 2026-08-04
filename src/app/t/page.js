@@ -117,32 +117,22 @@ export default function PinnedProjectsDemoPage() {
         const targetImgX = isShiftRight ? '22vw' : '-22vw';
         const initialContentX = isShiftRight ? '-30px' : '30px';
 
-        // Initial setup: Massive initial scale (1.25) centered on screen
-        if (i === 0) {
-          gsap.set(itemEl, { opacity: 1, visibility: 'visible' });
-          gsap.set(imgBox, { scale: 1.25, x: '0vw', y: 0 });
-          gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
-        } else {
-          gsap.set(itemEl, { opacity: 0, visibility: 'hidden' });
-          gsap.set(imgBox, { scale: 1.25, x: '0vw', y: 0 });
-          gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
-        }
+        // Initial setup for all project layers (starts invisible)
+        gsap.set(itemEl, { opacity: 0, visibility: 'hidden' });
+        gsap.set(imgBox, { scale: 1.05, x: '0vw', opacity: 0, filter: 'blur(8px)' });
+        gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
 
-        // Project i Entrance (for i > 0)
-        if (i > 0) {
-          masterTl
-            .to(itemEl, {
-              visibility: 'visible',
-              opacity: 1,
-              duration: 0.15,
-              ease: 'none'
-            }, startTime)
-            .fromTo(imgBox,
-              { scale: 1.25, x: '0vw', opacity: 0 },
-              { scale: 1.25, x: '0vw', opacity: 1, duration: 0.25, ease: 'power2.out' },
-              startTime
-            );
-        }
+        // Project i Entrance (Smooth fade-in & focus scale up from blur)
+        masterTl
+          .to(itemEl, { visibility: 'visible', opacity: 1, duration: 0.15, ease: 'none' }, startTime)
+          .to(imgBox, {
+            scale: 1.25,
+            x: '0vw',
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 0.22,
+            ease: 'power2.out'
+          }, startTime);
 
         // Phase 2: Huge Image shrinks smoothly (scale 1.25 -> 0.65) AND shifts to side, Content reveals!
         masterTl
