@@ -142,11 +142,6 @@ export default function FeaturedProjectsSection() {
           .to(bgs[3], { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.45, ease: 'power1.inOut' }, 2.80);
       }
 
-      // Phase 4 Exit at end of section
-      if (bgs[3]) {
-        masterTl.to(bgs[3], { opacity: 0, filter: 'blur(12px)', duration: 0.20, ease: 'power1.in' }, 3.80);
-      }
-
       // Initial setup for Finale Stage (Phase 4)
       if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
         gsap.set(finaleRef.current, { opacity: 0, visibility: 'hidden' });
@@ -225,7 +220,7 @@ export default function FeaturedProjectsSection() {
           .to(itemEl, { visibility: 'hidden', opacity: 0, duration: 0.01 }, startTime + 0.99);
       });
 
-      // Phase 4: Finale View More Projects Center Button (starts at t = 3.0)
+      // Phase 4: Finale View More Projects Center Button (starts at t = 3.0, STAYS VISIBLE with NO fade-out)
       const finaleStartTime = numProjects * phaseDuration;
 
       if (finaleRef.current && finaleBlurRef.current && finaleCardRef.current) {
@@ -249,27 +244,7 @@ export default function FeaturedProjectsSection() {
             filter: 'blur(0px)',
             duration: 0.35,
             ease: 'power2.out'
-          }, finaleStartTime + 0.15)
-          .to([finaleBlurRef.current, finaleCardRef.current], {
-            duration: 0.30
-          }, finaleStartTime + 0.50)
-          .to(finaleCardRef.current, {
-            opacity: 0,
-            scale: 0.85,
-            filter: 'blur(6px)',
-            duration: 0.20,
-            ease: 'power1.in'
-          }, finaleStartTime + 0.80)
-          .to(finaleBlurRef.current, {
-            opacity: 0,
-            duration: 0.20,
-            ease: 'power1.in'
-          }, finaleStartTime + 0.80)
-          .to(finaleRef.current, {
-            visibility: 'hidden',
-            opacity: 0,
-            duration: 0.01
-          }, finaleStartTime + 0.99);
+          }, finaleStartTime + 0.15);
       }
 
       // Floating Orb Motion
