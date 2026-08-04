@@ -3,10 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaGooglePlay, FaUpRightFromSquare, FaRocket, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import {
+  FaGooglePlay,
+  FaUpRightFromSquare,
+  FaRocket,
+  FaArrowRight
+} from 'react-icons/fa6';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useScrollVelocity } from '../hooks/useScrollVelocity';
 import './styles/FeaturedProjectsSection.css';
 
 import sectionprojectsBg from './images/sectionprojects.jpeg';
@@ -20,339 +25,300 @@ if (typeof window !== 'undefined') {
 
 export default function FeaturedProjectsSection() {
   const sectionRef = useRef(null);
-  const wrapperRef = useRef(null);
-  const cardRef = useRef(null);
+  const projectItemsRef = useRef([]);
+  const imageBoxesRef = useRef([]);
+  const contentBoxesRef = useRef([]);
   const orbProjectsRef = useRef(null);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [autoDirection, setAutoDirection] = useState('forward');
-  const [isHovered, setIsHovered] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useScrollVelocity(sectionRef, { maxSkew: 0.8, maxOffset: 10 });
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const featuredProjects = [
     {
       id: 'learnix',
+      number: '01',
       title: 'LEARNIX Mobile App & Web',
       category: 'Education Platform & Android App',
-      shortDesc: 'A comprehensive learning portal for students to access study notes, materials, and academic resources with an Android app on Google Play Store.',
+      shortDesc: 'A comprehensive learning portal for students to access study notes, materials, and academic resources with an Android app published on Google Play Store.',
       technologies: ['Next.js', 'Node.js', 'Cloudinary', 'MongoDB', 'Android'],
       image: learnixImg,
+      shiftDirection: 'right', // Image moves RIGHT, content reveals on LEFT
       playStoreLink: 'https://play.google.com/store/apps/details?id=com.shashidharak.learnix',
       liveLink: 'https://learnix.shashi-k.in',
     },
     {
       id: 'cipher2k25',
+      number: '02',
       title: 'CIPHER 2K25',
       category: 'Annual IT Fest Platform',
       shortDesc: 'Official digital hub for CIPHER 2K25 IT Fest featuring registrations, event schedules, sponsor highlights, and dynamic tech visuals.',
       technologies: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Cloudinary'],
       image: cipherImg,
+      shiftDirection: 'left', // Image moves LEFT, content reveals on RIGHT
       liveLink: 'https://ciphen-2k25.vercel.app/',
     },
     {
       id: 'shopx',
+      number: '03',
       title: 'ShopX E-Commerce Platform',
       category: 'Full-Stack Shopping Experience',
       shortDesc: 'Full-stack MERN e-commerce web application featuring seamless product browsing, cart management, checkout workflows, and admin panel.',
       technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
       image: shopxImg,
+      shiftDirection: 'right', // Image moves RIGHT, content reveals on LEFT
       liveLink: 'https://e-commerce-mern-beta.vercel.app',
     }
   ];
 
-  // Section Scroll Timeline
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
+    const section = sectionRef.current;
+    const numProjects = featuredProjects.length;
+
+    if (!section) return;
+
     const ctx = gsap.context(() => {
-      const projectsTl = gsap.timeline({
+      const pinDistance = 2800; // Smooth, balanced pin distance matching ToolkitSection
+
+      // Master Pinned ScrollTrigger Timeline (Identical scroll feel to ToolkitSection)
+      const masterTl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.5,
+          trigger: section,
+          start: 'top top',
+          end: `+=${pinDistance}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 1, // Smooth inertia scrubbing
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const p = self.progress;
+            const rawIndex = p * (numProjects - 1);
+            const idx = Math.min(numProjects - 1, Math.max(0, Math.round(rawIndex)));
+            setActiveProjectIndex(idx);
+          }
         }
       });
 
-      projectsTl
-        .set(wrapperRef.current, { 
-          opacity: 0, 
-          y: 70, 
-          scale: 0.84, 
-          rotationX: 15, 
-          transformPerspective: 1000, 
-          filter: 'blur(8px)' 
-        })
-        .to(wrapperRef.current, { 
-          opacity: 0, 
-          y: 70, 
-          scale: 0.84, 
-          rotationX: 15, 
-          filter: 'blur(8px)', 
-          duration: 0.25 
-        })
-        .to(wrapperRef.current, { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1, 
-          rotationX: 0, 
-          filter: 'blur(0px)', 
-          duration: 0.25, 
-          ease: 'power3.out' 
-        })
-        .to(wrapperRef.current, { opacity: 1, y: 0, scale: 1, rotationX: 0, filter: 'blur(0px)', duration: 0.05 })
-        .to(wrapperRef.current, { 
-          opacity: 0, 
-          y: -50, 
-          scale: 0.9, 
-          rotationX: -10, 
-          filter: 'blur(6px)', 
-          duration: 0.20, 
-          ease: 'power3.in' 
-        })
-        .to(wrapperRef.current, { opacity: 0, y: -50, filter: 'blur(6px)', duration: 0.25 });
+      const projectDuration = 1.0;
 
-      gsap.to(orbProjectsRef.current, {
-        y: -120,
-        x: 60,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8
+      featuredProjects.forEach((proj, i) => {
+        const itemEl = projectItemsRef.current[i];
+        const imgBox = imageBoxesRef.current[i];
+        const contentBox = contentBoxesRef.current[i];
+
+        if (!itemEl || !imgBox || !contentBox) return;
+
+        const startTime = i * projectDuration;
+        const isShiftRight = proj.shiftDirection === 'right';
+
+        const targetImgX = isShiftRight ? '22vw' : '-22vw';
+        const initialContentX = isShiftRight ? '-30px' : '30px';
+
+        // Initial setup for all project layers
+        if (i === 0) {
+          gsap.set(itemEl, { opacity: 1 });
+          gsap.set(imgBox, { scale: 1.25, x: '0vw', opacity: 1 });
+          gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
+        } else {
+          gsap.set(itemEl, { opacity: 0 });
+          gsap.set(imgBox, { scale: 1.25, x: '0vw', opacity: 0 });
+          gsap.set(contentBox, { opacity: 0, x: initialContentX, scale: 0.94, filter: 'blur(4px)' });
         }
+
+        // Project i Entrance (for i > 0)
+        if (i > 0) {
+          masterTl
+            .to(itemEl, { opacity: 1, duration: 0.2, ease: 'power1.out' }, startTime)
+            .fromTo(imgBox,
+              { scale: 1.25, x: '0vw', opacity: 0 },
+              { scale: 1.25, x: '0vw', opacity: 1, duration: 0.3, ease: 'power1.out' },
+              startTime
+            );
+        }
+
+        // Phase 2: Huge Image shrinks smoothly (scale 1.25 -> 0.65) AND shifts to side, Content reveals!
+        masterTl
+          .to(imgBox, {
+            scale: 0.65,
+            x: targetImgX,
+            duration: 0.45,
+            ease: 'power1.inOut'
+          }, startTime + 0.20)
+          .to(contentBox, {
+            opacity: 1,
+            x: '0px',
+            scale: 1,
+            filter: 'blur(0px)',
+            duration: 0.45,
+            ease: 'power1.out'
+          }, startTime + 0.25);
+
+        // Phase 3: Hold fully visible plateau
+        masterTl.to([imgBox, contentBox], {
+          duration: 0.20
+        }, startTime + 0.65);
+
+        // Phase 4: Soft, fluid fade out before next project or unpinning
+        masterTl
+          .to(contentBox, {
+            opacity: 0,
+            x: initialContentX,
+            scale: 0.94,
+            filter: 'blur(4px)',
+            duration: 0.20,
+            ease: 'power1.in'
+          }, startTime + 0.80)
+          .to(imgBox, {
+            opacity: 0,
+            scale: 0.55,
+            filter: 'blur(6px)',
+            duration: 0.20,
+            ease: 'power1.in'
+          }, startTime + 0.80)
+          .to(itemEl, {
+            opacity: 0,
+            duration: 0.05
+          }, startTime + 0.98);
       });
+
+      // Floating Orb Motion
+      if (orbProjectsRef.current) {
+        gsap.to(orbProjectsRef.current, {
+          y: -120,
+          x: 60,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        });
+      }
+
+      // Refresh ScrollTrigger after mount for Lenis sync
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 300);
     });
 
     return () => ctx.revert();
-  }, []);
-
-  // Strict Directional Card Transition Handler (No Shaking)
-  const animateCardTransition = (targetIndex, direction) => {
-    if (!cardRef.current || isAnimating) return;
-    setIsAnimating(true);
-    gsap.killTweensOf(cardRef.current);
-
-    // Direction 'forward': Moving right-to-left (Current exits left -90px, Next enters from right +90px)
-    // Direction 'reverse': Moving left-to-right (Current exits right +90px, Next enters from left -90px)
-    const slideOutX = direction === 'forward' ? -90 : 90;
-    const slideInX = direction === 'forward' ? 90 : -90;
-
-    gsap.to(cardRef.current, {
-      x: slideOutX,
-      opacity: 0,
-      duration: 0.22,
-      ease: 'power2.in',
-      onComplete: () => {
-        setCurrentIndex(targetIndex);
-        gsap.fromTo(
-          cardRef.current,
-          { x: slideInX, opacity: 0 },
-          { 
-            x: 0, 
-            opacity: 1, 
-            duration: 0.32, 
-            ease: 'power2.out',
-            clearProps: 'transform',
-            onComplete: () => setIsAnimating(false) 
-          }
-        );
-      }
-    });
-  };
-
-  const goToNext = () => {
-    if (isAnimating || currentIndex >= featuredProjects.length - 1) return;
-    setAutoDirection('forward');
-    animateCardTransition(currentIndex + 1, 'forward');
-  };
-
-  const goToPrev = () => {
-    if (isAnimating || currentIndex <= 0) return;
-    setAutoDirection('reverse');
-    animateCardTransition(currentIndex - 1, 'reverse');
-  };
-
-  // 3-Second Auto Loop with Strict Directional Movements
-  useEffect(() => {
-    if (isHovered) return;
-
-    const interval = setInterval(() => {
-      if (isAnimating) return;
-
-      let nextIdx = currentIndex;
-      let dir = autoDirection;
-
-      if (autoDirection === 'forward') {
-        if (currentIndex < featuredProjects.length - 1) {
-          nextIdx = currentIndex + 1;
-          dir = 'forward';
-        } else {
-          // Hit the last project! Turn around to reverse
-          nextIdx = currentIndex - 1;
-          dir = 'reverse';
-          setAutoDirection('reverse');
-        }
-      } else {
-        if (currentIndex > 0) {
-          nextIdx = currentIndex - 1;
-          dir = 'reverse';
-        } else {
-          // Hit the first project! Turn around to forward
-          nextIdx = currentIndex + 1;
-          dir = 'forward';
-          setAutoDirection('forward');
-        }
-      }
-
-      animateCardTransition(nextIdx, dir);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [currentIndex, autoDirection, isHovered, isAnimating, featuredProjects.length]);
-
-  const currentProject = featuredProjects[currentIndex];
-  const prevProject = currentIndex > 0 ? featuredProjects[currentIndex - 1] : null;
-  const nextProject = currentIndex < featuredProjects.length - 1 ? featuredProjects[currentIndex + 1] : null;
+  }, [featuredProjects.length]);
 
   return (
     <section 
       ref={sectionRef} 
-      className="home-snap-section projects-snap-section"
+      className="projects-pinned-section"
       style={{ backgroundImage: `url(${sectionprojectsBg.src})` }}
     >
       <div className="section-projects-bg-overlay"></div>
       <div ref={orbProjectsRef} className="projects-floating-orb"></div>
 
-      <div ref={wrapperRef} className="portfolio-dashboard-projects-wrapper">
+      <div className="projects-pinned-viewport">
         
-        {/* Header */}
+        {/* Minimal Header */}
         <div className="featured-projects-header">
           <div className="featured-projects-pill">
             <FaRocket />
-            <span>Handpicked Work ({currentIndex + 1} / {featuredProjects.length})</span>
+            <span>HANDPICKED WORK</span>
           </div>
           <h2 className="featured-projects-title">Featured Projects</h2>
         </div>
 
-        {/* Carousel Container (Strict Directional Animations, Zero Shaking) */}
-        <div 
-          className="single-card-carousel-container"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-
-          {/* Left Arrow Button */}
-          {currentIndex > 0 && (
-            <button 
-              className="carousel-arrow-btn left-arrow-btn"
-              onClick={goToPrev}
-              aria-label="Previous Project"
-            >
-              <FaChevronLeft />
-            </button>
-          )}
-
-          {/* Previous Project Peek Thumbnail (Desktop) */}
-          {prevProject && (
-            <div className="side-project-preview prev-preview-card" onClick={goToPrev} title={prevProject.title}>
-              <Image src={prevProject.image} alt={prevProject.title} className="side-preview-img" />
-              <div className="side-preview-overlay"></div>
-            </div>
-          )}
-
-          {/* Center Active Project Card */}
-          <div ref={cardRef} className="single-featured-card">
-            <div className="compact-card-media">
-              <Image 
-                src={currentProject.image} 
-                alt={currentProject.title}
-                className="compact-card-img"
-                placeholder="blur"
-                priority
-              />
-
-              {/* Default Visible Title Banner at Bottom */}
-              <div className="compact-title-banner">
-                <h3 className="compact-banner-title">{currentProject.title}</h3>
-                <span className="compact-banner-category">{currentProject.category}</span>
-              </div>
-
-              {/* Smooth Hover Overlay */}
-              <div className="compact-hover-overlay">
-                <h3 className="overlay-title">{currentProject.title}</h3>
-                <p className="overlay-desc">{currentProject.shortDesc}</p>
-                
-                <div className="overlay-tech-list">
-                  {currentProject.technologies.map((tech) => (
-                    <span key={tech} className="overlay-tech-tag">{tech}</span>
-                  ))}
+        {/* Center Stage Area */}
+        <div className="projects-stage-area">
+          {featuredProjects.map((proj, idx) => {
+            const isShiftRight = proj.shiftDirection === 'right';
+            return (
+              <div
+                key={proj.id}
+                ref={(el) => (projectItemsRef.current[idx] = el)}
+                className="project-stage-item"
+              >
+                {/* Clean Hero Image Box (Zero Text Overlays) */}
+                <div
+                  ref={(el) => (imageBoxesRef.current[idx] = el)}
+                  className="project-hero-image-box"
+                >
+                  <Image
+                    src={proj.image}
+                    alt={proj.title}
+                    className="project-hero-img"
+                    style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                    placeholder="blur"
+                    priority
+                  />
                 </div>
 
-                <div className="overlay-action-buttons">
-                  {currentProject.playStoreLink && (
-                    <a 
-                      href={currentProject.playStoreLink} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="overlay-btn playstore"
-                    >
-                      <FaGooglePlay />
-                      <span>Play Store</span>
-                    </a>
-                  )}
+                {/* Pure Borderless Content Box */}
+                <div
+                  ref={(el) => (contentBoxesRef.current[idx] = el)}
+                  className={`project-stage-content-box ${
+                    isShiftRight ? 'stage-content-left' : 'stage-content-right'
+                  }`}
+                >
+                  <span className="stage-project-category">{proj.category}</span>
+                  <h3 className="stage-project-heading">{proj.title}</h3>
+                  <p className="stage-project-desc">{proj.shortDesc}</p>
 
-                  {currentProject.liveLink && (
-                    <a 
-                      href={currentProject.liveLink} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="overlay-btn live"
-                    >
-                      <FaUpRightFromSquare />
-                      <span>Visit</span>
-                    </a>
-                  )}
+                  <div className="stage-tech-stack-row">
+                    {proj.technologies.map((tech) => (
+                      <span key={tech} className="stage-tech-pill">{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className="stage-actions-row">
+                    {proj.playStoreLink && (
+                      <a
+                        href={proj.playStoreLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="stage-action-btn playstore"
+                      >
+                        <FaGooglePlay />
+                        <span>Play Store</span>
+                      </a>
+                    )}
+
+                    {proj.liveLink && (
+                      <a
+                        href={proj.liveLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="stage-action-btn live"
+                      >
+                        <FaUpRightFromSquare />
+                        <span>Visit Project</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
 
+        {/* Footer Progress & View All Projects Link */}
+        <div className="projects-pinned-footer">
+          <div className="projects-progress-box">
+            <div className="projects-progress-dots">
+              {featuredProjects.map((proj, i) => (
+                <div
+                  key={proj.id}
+                  className={`projects-progress-dot ${i === activeProjectIndex ? 'active' : ''}`}
+                />
+              ))}
             </div>
           </div>
 
-          {/* Next Project Peek Thumbnail (Desktop) */}
-          {nextProject && (
-            <div className="side-project-preview next-preview-card" onClick={goToNext} title={nextProject.title}>
-              <Image src={nextProject.image} alt={nextProject.title} className="side-preview-img" />
-              <div className="side-preview-overlay"></div>
-            </div>
-          )}
-
-          {/* Right Arrow Button */}
-          {currentIndex < featuredProjects.length - 1 && (
-            <button 
-              className="carousel-arrow-btn right-arrow-btn"
-              onClick={goToNext}
-              aria-label="Next Project"
-            >
-              <FaChevronRight />
-            </button>
-          )}
-
-        </div>
-
-        {/* View All Projects Footer Link */}
-        <div className="featured-projects-footer-cta">
-          <Link href="/projects" className="view-all-projects-link">
-            <button className="view-all-projects-btn">
-              <span>View All Projects</span>
-              <FaArrowRight className="btn-arrow" />
-            </button>
-          </Link>
+          <div className="featured-projects-footer-cta">
+            <Link href="/projects" className="view-all-projects-link">
+              <button className="view-all-projects-btn">
+                <span>View All Projects</span>
+                <FaArrowRight className="btn-arrow" />
+              </button>
+            </Link>
+          </div>
         </div>
 
       </div>

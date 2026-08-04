@@ -1,377 +1,293 @@
-/* FeaturedProjectsSection.css - 1 Project Card Carousel & Clean Image Borders */
+/* FeaturedProjectsSection.css - Pinned Cinematic Split Project Showcase */
 
-.projects-snap-section {
+.projects-pinned-section {
   position: relative;
   width: 100%;
+  height: 100vh;
   margin: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden !important;
-  padding: 3.5rem 0;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }
 
 .section-projects-bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(1px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(2px);
   z-index: 0;
 }
 
 .projects-floating-orb {
   position: absolute;
-  top: 20%;
-  left: 5%;
-  width: 340px;
-  height: 340px;
+  top: 15%;
+  left: 8%;
+  width: 380px;
+  height: 380px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.14) 0%, transparent 70%);
-  filter: blur(55px);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
+  filter: blur(75px);
   pointer-events: none;
   z-index: 1;
 }
 
-.portfolio-dashboard-projects-wrapper {
+/* Fixed Viewport Fill */
+.projects-pinned-viewport {
   position: relative;
-  z-index: 2;
   width: 100%;
-  max-width: 1220px;
-  margin: 0 auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 2.2rem;
-  padding: 0 1.25rem;
+  padding: 1.5rem 1.5rem 1.2rem;
+  box-sizing: border-box;
+  z-index: 2;
+  overflow: hidden;
 }
 
-/* Header Styles */
+/* Minimal Section Header */
 .featured-projects-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.4rem;
+  gap: 0.25rem;
+  z-index: 5;
+  margin-top: 0.1rem;
 }
 
 .featured-projects-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 14px;
-  border-radius: 20px;
-  background: rgba(220, 38, 38, 0.08);
+  gap: 8px;
+  padding: 5px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  font-size: 0.78rem;
+  font-weight: 800;
   color: #dc2626;
-  font-size: 0.85rem;
-  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .featured-projects-title {
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 800;
   color: #111827;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
-/* Single Card Carousel Container with Side Space */
-.single-card-carousel-container {
+/* Center Stage Area (Holds Project Layers) */
+.projects-stage-area {
   position: relative;
   width: 100%;
-  max-width: 960px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 60px;
-}
-
-/* Position Arrow Buttons Farther Outside */
-.carousel-arrow-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: #ffffff;
-  color: #111827;
-  border: 1px solid rgba(229, 231, 235, 0.8);
+  max-width: 1200px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.carousel-arrow-btn:hover {
-  background: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-  transform: translateY(-50%) scale(1.12);
-  box-shadow: 0 16px 35px rgba(220, 38, 38, 0.4);
-}
-
-.left-arrow-btn {
-  left: 0;
-  animation: popInArrow 0.3s ease-out;
-}
-
-.right-arrow-btn {
-  right: 0;
-  animation: popInArrow 0.3s ease-out;
-}
-
-@keyframes popInArrow {
-  from { opacity: 0; transform: translateY(-50%) scale(0.7); }
-  to { opacity: 1; transform: translateY(-50%) scale(1); }
-}
-
-/* Side Peek Preview Cards (Desktop only) */
-.side-project-preview {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) scale(0.85);
-  width: 140px;
-  height: 240px;
-  border-radius: 16px;
-  overflow: hidden;
-  opacity: 0.42;
-  filter: blur(2px);
-  cursor: pointer;
-  z-index: 2;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.side-project-preview:hover {
-  opacity: 0.8;
-  filter: blur(0px);
-  transform: translateY(-50%) scale(0.9);
-}
-
-.prev-preview-card {
-  left: 65px;
-}
-
-.next-preview-card {
-  right: 65px;
-}
-
-.side-preview-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
-.side-preview-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(17, 24, 39, 0.7) 0%, transparent 100%);
-}
-
-/* Center Active Featured Project Card */
-.single-featured-card {
-  position: relative;
-  width: 100%;
-  max-width: 650px;
-  height: 310px;
-  border-radius: 24px;
-  border: none !important;
-  overflow: hidden;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
-  background: #111827;
-  z-index: 5;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-}
-
-.single-featured-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 24px 55px rgba(220, 38, 38, 0.22);
-}
-
-/* Media Box */
-.compact-card-media {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* Smooth Image Blur & Scale on Hover */
-.compact-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  filter: blur(0px) brightness(1);
-  transform: scale(1);
-  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.single-featured-card:hover .compact-card-img {
-  filter: blur(10px) brightness(0.75);
-  transform: scale(1.05);
-}
-
-/* Default Visible Title Banner at Bottom */
-.compact-title-banner {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.4rem 1.5rem 1.1rem;
-  background: linear-gradient(to top, rgba(17, 24, 39, 0.95) 0%, rgba(17, 24, 39, 0.5) 65%, transparent 100%);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 2;
-  transition: opacity 0.4s ease;
-}
-
-.single-featured-card:hover .compact-title-banner {
-  opacity: 0;
-}
-
-.compact-banner-title {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0;
-  letter-spacing: -0.01em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
-
-.compact-banner-category {
-  font-size: 0.85rem;
-  color: #f87171;
-  font-weight: 600;
-}
-
-/* Smooth Translucent Dark Overlay (Not Pitch Black) */
-.compact-hover-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(17, 24, 39, 0.48);
-  backdrop-filter: blur(6px);
-  padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   z-index: 3;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.45s ease;
 }
 
-.single-featured-card:hover .compact-hover-overlay {
-  opacity: 1;
-  pointer-events: auto;
+/* Project Item Layer */
+.project-stage-item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  will-change: transform, opacity;
 }
 
-/* Staggered Micro-Animations for Text and Buttons */
-.overlay-title {
-  font-size: 1.3rem;
+/* Hero Image Box (Full Natural Aspect Ratio, Zero Image Overlays) */
+.project-hero-image-box {
+  position: absolute;
+  width: 78vw;
+  max-width: 900px;
+  height: auto;
+  max-height: 75vh;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+  border: none !important;
+  background: transparent;
+  z-index: 2;
+  will-change: transform;
+}
+
+.project-hero-img {
+  width: 100%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 24px;
+}
+
+/* Pure Borderless Content Box (No card container box) */
+.project-stage-content-box {
+  position: absolute;
+  width: 440px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  z-index: 3;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+.stage-project-category {
+  font-size: 0.8rem;
   font-weight: 800;
-  color: #ffffff;
-  margin: 0;
-  transform: translateY(14px);
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s, opacity 0.45s ease 0.08s;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.overlay-desc {
-  font-size: 0.92rem;
-  color: #e5e7eb;
-  line-height: 1.55;
+.stage-project-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
   margin: 0;
-  transform: translateY(14px);
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.16s, opacity 0.45s ease 0.16s;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-.overlay-tech-list {
+.stage-project-desc {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.stage-tech-stack-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  transform: translateY(14px);
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.24s, opacity 0.45s ease 0.24s;
+  gap: 8px;
+  margin-top: 0.1rem;
 }
 
-.overlay-tech-tag {
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 4px 10px;
+.stage-tech-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #374151;
+  background: rgba(243, 244, 246, 0.9);
+  padding: 5px 12px;
   border-radius: 8px;
-  background: rgba(220, 38, 38, 0.22);
-  color: #fca5a5;
-  border: 1px solid rgba(220, 38, 38, 0.35);
+  border: 1px solid #e5e7eb;
 }
 
-.overlay-action-buttons {
+.stage-actions-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  transform: translateY(14px);
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.30s, opacity 0.45s ease 0.30s;
+  gap: 12px;
+  margin-top: 0.3rem;
 }
 
-/* On Card Hover: Trigger Smooth Slide Up + Fade In for Text & Buttons */
-.single-featured-card:hover .overlay-title,
-.single-featured-card:hover .overlay-desc,
-.single-featured-card:hover .overlay-tech-list,
-.single-featured-card:hover .overlay-action-buttons {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.overlay-btn {
+.stage-action-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0.65rem 1.1rem;
-  border-radius: 12px;
-  font-size: 0.88rem;
+  gap: 8px;
+  padding: 0.65rem 1.3rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
   transition: all 0.25s ease;
-  flex-grow: 1;
 }
 
-.overlay-btn.playstore {
-  background: #01875f;
+.stage-action-btn.playstore {
+  background: #111827;
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(1, 135, 95, 0.3);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
 }
 
-.overlay-btn.playstore:hover {
-  background: #016c4c;
+.stage-action-btn.playstore:hover {
+  background: #dc2626;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(1, 135, 95, 0.4);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
 }
 
-.overlay-btn.live {
+.stage-action-btn.live {
   background: #dc2626;
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.2);
 }
 
-.overlay-btn.live:hover {
+.stage-action-btn.live:hover {
   background: #b91c1c;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.38);
 }
 
-/* Footer CTA */
-.featured-projects-footer-cta {
-  margin-top: 0.2rem;
+/* Position Variants for Split Content */
+.stage-content-left {
+  left: 2%;
 }
 
+.stage-content-right {
+  right: 2%;
+}
+
+/* Footer & Progress Bar */
+.projects-pinned-footer {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+  margin-bottom: 0.2rem;
+}
+
+.projects-progress-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.projects-progress-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.projects-progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d1d5db;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects-progress-dot.active {
+  width: 32px;
+  border-radius: 12px;
+  background: #dc2626;
+}
+
+/* View All Projects Button */
 .view-all-projects-link {
   text-decoration: none;
 }
@@ -380,11 +296,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0.8rem 1.8rem;
+  padding: 0.7rem 1.5rem;
   border-radius: 12px;
   background: #111827;
   color: #ffffff;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -395,7 +311,7 @@
 .view-all-projects-btn:hover {
   background: #dc2626;
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.32);
 }
 
 .view-all-projects-btn:hover .btn-arrow {
@@ -406,33 +322,27 @@
   transition: transform 0.25s ease;
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1024px) {
-  .side-project-preview {
-    display: none !important;
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .project-hero-image-box {
+    width: 90vw;
+    max-height: 50vh;
   }
 
-  .single-card-carousel-container {
-    padding: 0 45px;
+  .project-stage-content-box {
+    width: 90vw;
+    position: relative;
+    left: auto !important;
+    right: auto !important;
+    margin-top: 1rem;
   }
 
-  .left-arrow-btn {
-    left: -5px;
+  .project-stage-item {
+    flex-direction: column;
   }
 
-  .right-arrow-btn {
-    right: -5px;
-  }
-}
-
-@media (max-width: 768px) {
-  .single-featured-card {
-    height: 270px;
-  }
-
-  .carousel-arrow-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 1.1rem;
+  .projects-pinned-footer {
+    flex-direction: column;
+    gap: 12px;
   }
 }

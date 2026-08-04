@@ -80,7 +80,7 @@ export default function PinnedProjectsDemoPage() {
     if (!outer) return;
 
     const ctx = gsap.context(() => {
-      const pinDistance = 4500; // Pinned scroll length
+      const pinDistance = 2400; // Snappy scroll distance with zero dead scroll delay
 
       // Master ScrollTrigger Timeline
       const masterTl = gsap.timeline({
@@ -163,31 +163,32 @@ export default function PinnedProjectsDemoPage() {
 
         // Phase 3: Hold fully visible plateau for user to read content
         masterTl.to([imgBox, contentBox], {
-          duration: 0.25
+          duration: 0.20
         }, startTime + 0.65);
 
-        // Phase 4: Fade/slide current project OUT before next project starts
+        // Phase 4: Fade/slide project OUT (including final Project 3 before unpinning)
+        masterTl
+          .to(contentBox, {
+            opacity: 0,
+            x: initialContentX,
+            scale: 0.94,
+            filter: 'blur(4px)',
+            duration: 0.15,
+            ease: 'power2.in'
+          }, startTime + 0.85)
+          .to(imgBox, {
+            opacity: 0,
+            scale: 0.5,
+            filter: 'blur(6px)',
+            duration: 0.15,
+            ease: 'power2.in'
+          }, startTime + 0.85);
+
         if (i < numProjects - 1) {
-          masterTl
-            .to(contentBox, {
-              opacity: 0,
-              x: initialContentX,
-              scale: 0.94,
-              filter: 'blur(4px)',
-              duration: 0.15,
-              ease: 'power2.in'
-            }, startTime + 0.85)
-            .to(imgBox, {
-              opacity: 0,
-              scale: 0.5,
-              filter: 'blur(6px)',
-              duration: 0.15,
-              ease: 'power2.in'
-            }, startTime + 0.85)
-            .to(itemEl, {
-              visibility: 'hidden',
-              duration: 0.01
-            }, startTime + 1.0);
+          masterTl.to(itemEl, {
+            visibility: 'hidden',
+            duration: 0.01
+          }, startTime + 1.0);
         }
       });
 
