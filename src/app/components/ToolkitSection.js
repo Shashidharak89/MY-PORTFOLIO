@@ -33,7 +33,7 @@ import {
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/ToolkitSection.css';
-import toolkitBg from './images/toolkit.jpeg';
+import toolkitBg from './images/toolkitsection.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);

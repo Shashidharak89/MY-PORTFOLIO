@@ -16,8 +16,8 @@
 .toolkit-bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(1px);
   z-index: 0;
 }
 
