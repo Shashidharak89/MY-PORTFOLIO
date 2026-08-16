@@ -19,6 +19,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/HeroSection.css';
 import profile2dImg from './images/profile2d.jpeg';
+import section1BgImg from './images/section1bg.jpeg';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -33,6 +34,9 @@ export default function HeroSection() {
   const heroRightRef = useRef(null);
   const orb1Ref = useRef(null);
   const orb2Ref = useRef(null);
+  const videoRef = useRef(null);
+
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const titleRoles = useMemo(() => [
     { prefix: 'Full Stack', suffix: 'Developer' },
@@ -48,6 +52,13 @@ export default function HeroSection() {
     }, 3000);
     return () => clearInterval(interval);
   }, [titleRoles]);
+
+  // Check if video is already ready on mount
+  useEffect(() => {
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setIsVideoLoaded(true);
+    }
+  }, []);
 
   // Hero Scroll-Driven Parallax Storytelling & Floating Objects Timeline
   useEffect(() => {
@@ -79,6 +90,29 @@ export default function HeroSection() {
 
   return (
     <section ref={heroSectionRef} className="home-snap-section home-hero-section">
+      {/* Background Media Layer: Background Image Fallback & Looping Video */}
+      <div className="hero-bg-media-container">
+        <div
+          className={`hero-bg-image ${isVideoLoaded ? 'is-faded' : 'is-visible'}`}
+          style={{ backgroundImage: `url(${section1BgImg.src || section1BgImg})` }}
+        />
+        <video
+          ref={videoRef}
+          className={`hero-bg-video ${isVideoLoaded ? 'is-visible' : 'is-hidden'}`}
+          src="/videos/section1.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onCanPlayThrough={() => setIsVideoLoaded(true)}
+          onCanPlay={() => setIsVideoLoaded(true)}
+          onLoadedData={() => setIsVideoLoaded(true)}
+          onPlay={() => setIsVideoLoaded(true)}
+        />
+        <div className="hero-bg-overlay"></div>
+      </div>
+
       {/* Floating Moving Ambient Accent Orbs */}
       <div ref={orb1Ref} className="hero-floating-orb orb-top-left"></div>
       <div ref={orb2Ref} className="hero-floating-orb orb-bottom-right"></div>
