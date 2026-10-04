@@ -23,8 +23,8 @@ export default function StatsSection() {
 
   const stats = [
     { label: 'Projects Completed', value: '10+', icon: <FaRocket /> },
-    { label: 'LeetCode Solved', value: '450+', icon: <SiLeetcode /> },
-    { label: 'GitHub Contributions', value: '3800+', icon: <FaGithub /> },
+    { label: 'LeetCode Solved', value: '500+', icon: <SiLeetcode /> },
+    { label: 'GitHub Contributions', value: '4500+', icon: <FaGithub /> },
     { label: 'Technologies Used', value: '10+', icon: <FaLaptopCode /> }
   ];
 
