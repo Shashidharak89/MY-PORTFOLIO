@@ -37,6 +37,8 @@ export default function FeaturedProjectsSection() {
   const finaleBlurRef = useRef(null);
   const finaleCardRef = useRef(null);
   const orbProjectsRef = useRef(null);
+  const topFadeRef = useRef(null);
+  const bottomFadeRef = useRef(null);
   const [activeStageIndex, setActiveStageIndex] = useState(0);
 
   const featuredProjects = [
@@ -107,9 +109,34 @@ export default function FeaturedProjectsSection() {
             const rawIndex = p * (totalPhases - 1);
             const idx = Math.min(totalPhases - 1, Math.max(0, Math.round(rawIndex)));
             setActiveStageIndex(idx);
+
+            // Exit fade: last 12% of pin → fades smoothly return (opacity 0 → 1)
+            const EXIT_ZONE = 0.12;
+            const exitOpacity = p > (1 - EXIT_ZONE)
+              ? (p - (1 - EXIT_ZONE)) / EXIT_ZONE
+              : 0;
+            if (topFadeRef.current)    topFadeRef.current.style.opacity    = exitOpacity;
+            if (bottomFadeRef.current) bottomFadeRef.current.style.opacity = exitOpacity;
           }
         }
       });
+
+      // Entry fade: as section scrolls into view (opacity 1 → 0)
+      // Runs BEFORE the pin starts (top 90% → top 0%)
+      gsap.fromTo(
+        [topFadeRef.current, bottomFadeRef.current],
+        { opacity: 1 },
+        {
+          opacity: 0,
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            end: 'top top',
+            scrub: 1,
+          }
+        }
+      );
 
       const phaseDuration = 1.0;
 
@@ -281,6 +308,10 @@ export default function FeaturedProjectsSection() {
       ref={sectionRef} 
       className="projects-pinned-section"
     >
+      {/* Top & Bottom animated fade overlays (opacity driven by GSAP) */}
+      <div ref={topFadeRef}    className="projects-fade-top" />
+      <div ref={bottomFadeRef} className="projects-fade-bottom" />
+
       {/* Dynamic Background Stack (Cross-fading with blur for P1: bg1, P2: bg2, P3: bg3, Finale: bg4) */}
       <div className="projects-bg-stack">
         <div

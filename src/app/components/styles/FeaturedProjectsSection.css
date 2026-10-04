@@ -8,7 +8,33 @@
   overflow: hidden !important;
   scroll-snap-align: none !important;
   scroll-snap-stop: normal !important;
-  background: #111827;
+  background: transparent;
+}
+
+/* Animated top fade overlay — GSAP drives opacity */
+.projects-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(250, 250, 250, 0.75) 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+  will-change: opacity;
+}
+
+/* Animated bottom fade overlay — GSAP drives opacity */
+.projects-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(250, 250, 250, 1) 0%, rgba(250, 250, 250, 0.75) 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+  will-change: opacity;
 }
 
 /* Background Image Stack with Ultra-Subtle Micro Blur */
