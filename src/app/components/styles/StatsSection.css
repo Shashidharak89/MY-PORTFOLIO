@@ -95,6 +95,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
 .portfolio-dashboard-stat-value {
@@ -109,6 +110,74 @@
   font-size: 0.95rem;
   color: #6b7280;
   font-weight: 500;
+}
+
+/* ── Clickable link card overrides ─────────────────────────────────── */
+.stat-card-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* External link arrow — starts hidden, slides in on hover */
+.stat-card-ext-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.7rem;
+  color: #dc2626;
+  opacity: 0;
+  transform: translate(4px, -4px) scale(0.8);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Shimmer sweep layer */
+.stat-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(220, 38, 38, 0.04) 0%,
+    rgba(220, 38, 38, 0.08) 50%,
+    rgba(220, 38, 38, 0.04) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stat-card-link:hover::after {
+  opacity: 1;
+}
+
+.stat-card-link:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow:
+    0 20px 45px rgba(220, 38, 38, 0.16),
+    0 0 0 1.5px rgba(220, 38, 38, 0.3);
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
+.stat-card-link:hover .portfolio-dashboard-stat-icon {
+  transform: scale(1.18);
+  color: #b91c1c;
+}
+
+.stat-card-link:hover .portfolio-dashboard-stat-value {
+  color: #dc2626;
+}
+
+.stat-card-link:hover .stat-card-ext-icon {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.stat-card-link:active {
+  transform: translateY(-3px) scale(1.01);
 }
 
 @media (max-width: 1024px) {

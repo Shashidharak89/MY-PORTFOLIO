@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { FaRocket, FaLaptopCode, FaGithub } from 'react-icons/fa6';
+import { FaRocket, FaLaptopCode, FaGithub, FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -22,10 +22,22 @@ export default function StatsSection() {
   useScrollVelocity(section2Ref, { maxSkew: 0.8, maxOffset: 10 });
 
   const stats = [
-    { label: 'Projects Completed', value: '10+', icon: <FaRocket /> },
-    { label: 'LeetCode Solved', value: '500+', icon: <SiLeetcode /> },
-    { label: 'GitHub Contributions', value: '4500+', icon: <FaGithub /> },
-    { label: 'Technologies Used', value: '10+', icon: <FaLaptopCode /> }
+    { label: 'Projects Completed', value: '10+',   icon: <FaRocket /> },
+    {
+      label: 'LeetCode Solved',
+      value: '500+',
+      icon: <SiLeetcode />,
+      link: 'https://leetcode.com/u/shashidhara_k/',
+      ariaLabel: 'View LeetCode profile — 500+ problems solved'
+    },
+    {
+      label: 'GitHub Contributions',
+      value: '4500+',
+      icon: <FaGithub />,
+      link: 'https://github.com/Shashidharak89',
+      ariaLabel: 'View GitHub profile — 4500+ contributions'
+    },
+    { label: 'Technologies Used', value: '10+',   icon: <FaLaptopCode /> }
   ];
 
   useEffect(() => {
@@ -129,13 +141,33 @@ export default function StatsSection() {
       <div ref={wrapper2Ref} className="portfolio-dashboard-stats-wrapper">
         <h2 ref={title2Ref} className="stats-section-title">Metrics & Impact</h2>
         <div ref={cardsGridRef} className="portfolio-dashboard-stats">
-          {stats.map((stat) => (
-            <div key={stat.label} className="portfolio-dashboard-stat-card">
-              <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
-              <div className="portfolio-dashboard-stat-value">{stat.value}</div>
-              <div className="portfolio-dashboard-stat-label">{stat.label}</div>
-            </div>
-          ))}
+          {stats.map((stat) => {
+            const CardTag = stat.link ? 'a' : 'div';
+            const linkProps = stat.link
+              ? {
+                  href: stat.link,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  'aria-label': stat.ariaLabel,
+                }
+              : {};
+            return (
+              <CardTag
+                key={stat.label}
+                className={`portfolio-dashboard-stat-card${stat.link ? ' stat-card-link' : ''}`}
+                {...linkProps}
+              >
+                <span className="portfolio-dashboard-stat-icon">{stat.icon}</span>
+                <div className="portfolio-dashboard-stat-value">{stat.value}</div>
+                <div className="portfolio-dashboard-stat-label">{stat.label}</div>
+                {stat.link && (
+                  <span className="stat-card-ext-icon" aria-hidden="true">
+                    <FaArrowUpRightFromSquare />
+                  </span>
+                )}
+              </CardTag>
+            );
+          })}
         </div>
       </div>
     </section>
