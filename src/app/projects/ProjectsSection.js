@@ -1,15 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import ImageSlider from './ImageSlider';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import './styles/ProjectsSection.css';
 
 const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-  const sliderRef = useRef(null);
 
   const projects = [
     {
@@ -150,36 +146,6 @@ const ProjectsSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleScroll = () => {
-    if (!sliderRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-    setShowLeftArrow(scrollLeft > 20);
-    setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 20);
-  };
-
-  useEffect(() => {
-    const el = sliderRef.current;
-    if (el) {
-      el.addEventListener('scroll', handleScroll);
-      handleScroll();
-    }
-    return () => {
-      if (el) el.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const scrollNext = () => {
-    if (!sliderRef.current) return;
-    const cardWidth = sliderRef.current.firstElementChild?.getBoundingClientRect().width || 650;
-    sliderRef.current.scrollBy({ left: cardWidth + 30, behavior: 'smooth' });
-  };
-
-  const scrollPrev = () => {
-    if (!sliderRef.current) return;
-    const cardWidth = sliderRef.current.firstElementChild?.getBoundingClientRect().width || 650;
-    sliderRef.current.scrollBy({ left: -(cardWidth + 30), behavior: 'smooth' });
-  };
-
   const handleProjectLinkClick = (link) => {
     window.open(link, '_blank', 'noopener,noreferrer');
   };
@@ -198,93 +164,66 @@ const ProjectsSection = () => {
           <div className="projects-title-underline-unique"></div>
         </div>
 
-        {/* Carousel Container with Left/Right Navigation Arrows */}
-        <div className="projects-carousel-wrapper-unique">
-          
-          {/* Left Arrow (Only appears after scrolling right) */}
-          {showLeftArrow && (
-            <button 
-              className="projects-nav-arrow-unique left-arrow-unique"
-              onClick={scrollPrev}
-              aria-label="Previous Projects"
+        {/* Vertical Projects List */}
+        <div className="projects-list-unique">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`project-item-unique ${isVisible ? 'project-item-visible-unique' : ''}`}
+              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
-              <FaChevronLeft />
-            </button>
-          )}
-
-          {/* Right Arrow (Always on right corner initially) */}
-          {showRightArrow && (
-            <button 
-              className="projects-nav-arrow-unique right-arrow-unique"
-              onClick={scrollNext}
-              aria-label="Next Projects"
-            >
-              <FaChevronRight />
-            </button>
-          )}
-
-          {/* Horizontal Slider (Shows 1 and 1/2 project cards) */}
-          <div ref={sliderRef} className="projects-list-unique">
-            {projects.map((project, index) => (
-              <div
-                key={project.id}
-                className={`project-item-unique ${isVisible ? 'project-item-visible-unique' : ''}`}
-                style={{ animationDelay: `${0.2 + index * 0.15}s` }}
-              >
-                {/* Project Header */}
-                <div className="project-header-unique">
-                  <div className="project-number-badge-unique">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                  <h3 className="project-title-unique">{project.title}</h3>
+              {/* Project Header */}
+              <div className="project-header-unique">
+                <div className="project-number-badge-unique">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
-
-                {/* Image Slider */}
-                <div className="project-slider-container-unique">
-                  <ImageSlider
-                    slides={project.slides}
-                    title={project.title}
-                    isActive={true}
-                    projectLink={project.projectLink}
-                    sourceCode={project.sourceCode}
-                  />
-                </div>
-
-                {/* Project Details */}
-                <div className="project-details-unique">
-                  <p className="project-description-unique">
-                    {project.description}
-                  </p>
-
-                  <div className="project-technologies-unique">
-                    <h4 className="tech-title-unique">Technologies Used:</h4>
-                    <div className="tech-list-unique">
-                      {project.technologies.map((tech, idx) => (
-                        <span key={idx} className="tech-tag-unique">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="project-actions-unique">
-                    <button
-                      className="project-btn-primary-unique"
-                      onClick={() => handleProjectLinkClick(project.projectLink)}
-                    >
-                      Live Demo
-                    </button>
-                    <button
-                      className="project-btn-secondary-unique"
-                      onClick={() => handleSourceCodeClick(project.sourceCode)}
-                    >
-                      Source Code
-                    </button>
-                  </div>
-                </div>
-
+                <h3 className="project-title-unique">{project.title}</h3>
               </div>
-            ))}
-          </div>
 
+              {/* Image Slider */}
+              <div className="project-slider-container-unique">
+                <ImageSlider
+                  slides={project.slides}
+                  title={project.title}
+                  isActive={true}
+                  projectLink={project.projectLink}
+                  sourceCode={project.sourceCode}
+                />
+              </div>
+
+              {/* Project Details */}
+              <div className="project-details-unique">
+                <p className="project-description-unique">
+                  {project.description}
+                </p>
+
+                <div className="project-technologies-unique">
+                  <h4 className="tech-title-unique">Technologies Used:</h4>
+                  <div className="tech-list-unique">
+                    {project.technologies.map((tech, idx) => (
+                      <span key={idx} className="tech-tag-unique">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="project-actions-unique">
+                  <button
+                    className="project-btn-primary-unique"
+                    onClick={() => handleProjectLinkClick(project.projectLink)}
+                  >
+                    Live Demo
+                  </button>
+                  <button
+                    className="project-btn-secondary-unique"
+                    onClick={() => handleSourceCodeClick(project.sourceCode)}
+                  >
+                    Source Code
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          ))}
         </div>
 
       </div>

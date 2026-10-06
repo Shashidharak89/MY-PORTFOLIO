@@ -1,7 +1,7 @@
-/* Projects Section Styles - Horizontal 1.5 Card Carousel */
+/* Projects Section Styles - Clean Vertical Layout */
 .projects-section-unique {
   min-height: 100vh;
-  padding: 80px 20px;
+  padding: 80px 20px 100px 20px;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   position: relative;
   overflow: hidden;
@@ -19,7 +19,7 @@
 }
 
 .projects-container-unique {
-  max-width: 94%;
+  max-width: 980px;
   margin: 0 auto;
   width: 100%;
   position: relative;
@@ -28,7 +28,7 @@
 /* Header Styles */
 .projects-header-unique {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   opacity: 0;
   transform: translateY(-30px);
   transition: all 0.8s ease-out;
@@ -57,88 +57,28 @@
   animation: expandWidth-unique 1s ease-out 0.5s both;
 }
 
-/* Carousel Wrapper */
-.projects-carousel-wrapper-unique {
-  position: relative;
-  width: 100%;
-}
-
-/* Floating Navigation Arrows */
-.projects-nav-arrow-unique {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: #ffffff;
-  color: #111827;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.projects-nav-arrow-unique:hover {
-  background: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 14px 35px rgba(220, 38, 38, 0.35);
-}
-
-.left-arrow-unique {
-  left: -20px;
-  animation: fadeInArrow 0.3s ease-out forwards;
-}
-
-.right-arrow-unique {
-  right: -20px;
-  animation: fadeInArrow 0.3s ease-out forwards;
-}
-
-@keyframes fadeInArrow {
-  from { opacity: 0; transform: translateY(-50%) scale(0.8); }
-  to { opacity: 1; transform: translateY(-50%) scale(1); }
-}
-
-/* Projects Horizontal List (1 and 1/2 Cards Visible) */
+/* Projects Vertical List */
 .projects-list-unique {
   display: flex;
-  gap: 32px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding: 20px 10px 40px 10px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  flex-direction: column;
+  gap: 70px;
+  width: 100%;
+  padding: 10px 0 40px 0;
 }
 
-.projects-list-unique::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-/* Bigger Project Card (68% width so 1 and 1/2 projects are shown) */
+/* Project Card */
 .project-item-unique {
-  flex: 0 0 68%;
-  min-width: 68%;
-  max-width: 68%;
-  scroll-snap-align: start;
+  width: 100%;
   background: #ffffff;
   border-radius: 24px;
-  padding: 36px;
+  padding: 40px;
   box-shadow: 0 12px 45px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
   position: relative;
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .project-item-visible-unique {
@@ -197,6 +137,31 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #f3f4f6;
+  background: #f9fafb;
+  position: relative;
+  width: 100%;
+}
+
+.project-slider-container-unique .carousel-wrapper-shashi {
+  width: 100%;
+  margin: 0;
+}
+
+.project-slider-container-unique .carousel-scroll-container-shashi {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+}
+
+.project-slider-container-unique .carousel-item-shashi {
+  aspect-ratio: 16 / 9;
+  height: 100%;
+}
+
+.project-slider-container-unique .carousel-content-shashi {
+  aspect-ratio: 16 / 9;
+  height: 100%;
 }
 
 /* Details Section */
@@ -207,9 +172,9 @@
 }
 
 .project-description-unique {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #4b5563;
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -234,9 +199,9 @@
 }
 
 .tech-tag-unique {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 8px;
   background: #f3f4f6;
   color: #374151;
@@ -248,11 +213,11 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .project-btn-primary-unique {
-  padding: 0.75rem 1.6rem;
+  padding: 0.8rem 1.8rem;
   border-radius: 12px;
   background: #dc2626;
   color: #ffffff;
@@ -271,7 +236,7 @@
 }
 
 .project-btn-secondary-unique {
-  padding: 0.75rem 1.6rem;
+  padding: 0.8rem 1.8rem;
   border-radius: 12px;
   background: #f3f4f6;
   color: #111827;
@@ -287,38 +252,76 @@
   transform: translateY(-2px);
 }
 
+/* Animations */
+@keyframes slideInTop-unique {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes expandWidth-unique {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
 /* Responsive Layout */
 @media (max-width: 1024px) {
-  .project-item-unique {
-    flex: 0 0 85%;
-    min-width: 85%;
-    max-width: 85%;
+  .projects-container-unique {
+    max-width: 92%;
   }
 
-  .projects-nav-arrow-unique {
-    width: 44px;
-    height: 44px;
-    font-size: 1.1rem;
+  .project-item-unique {
+    padding: 32px;
   }
 }
 
 @media (max-width: 640px) {
+  .projects-section-unique {
+    padding: 60px 16px 80px 16px;
+  }
+
+  .projects-container-unique {
+    max-width: 100%;
+  }
+
   .project-item-unique {
-    flex: 0 0 94%;
-    min-width: 94%;
-    max-width: 94%;
-    padding: 24px;
+    padding: 24px 18px;
+    border-radius: 20px;
   }
 
   .projects-title-unique {
     font-size: 2.5rem;
   }
 
-  .left-arrow-unique {
-    left: -10px;
+  .projects-list-unique {
+    gap: 45px;
   }
 
-  .right-arrow-unique {
-    right: -10px;
+  .project-header-unique {
+    gap: 12px;
+  }
+
+  .project-title-unique {
+    font-size: 1.5rem;
+  }
+
+  .project-actions-unique {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .project-btn-primary-unique,
+  .project-btn-secondary-unique {
+    width: 100%;
+    text-align: center;
   }
 }
