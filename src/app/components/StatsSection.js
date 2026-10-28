@@ -44,9 +44,7 @@ export default function StatsSection() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const mm = gsap.matchMedia();
-
-    mm.add('(min-width: 601px)', () => {
+    const ctx = gsap.context(() => {
       // Precision Section 2 Timeline:
       // 0% -> 25%: hidden
       // 25% -> 50%: Entrance Fade-In (opacity 0 -> 1, y 60px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
@@ -132,7 +130,7 @@ export default function StatsSection() {
       });
     });
 
-    return () => mm.revert();
+    return () => ctx.revert();
   }, []);
 
   return (

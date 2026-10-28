@@ -1,49 +1,33 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import HeroSection from './HeroSection';
-import StatsSection from './StatsSection';
-import MobileStatsSection from './MobileStatsSection';
-import FeaturedProjectsSection from './FeaturedProjectsSection';
-import MobileProjectsSection from './MobileProjectsSection';
-import AchievementsNavSection from './AchievementsNavSection';
-import ToolkitSection from './ToolkitSection';
-import BeyondTheCodeSection from './BeyondTheCodeSection';
-import BlogsNavSection from './BlogsNavSection';
-import FinalCtaSection from './FinalCtaSection';
-import './styles/portfolio-dashboard.css';
+import PortfolioDashboardDesktop from './PortfolioDashboardDesktop';
+import PortfolioDashboardMobile from './PortfolioDashboardMobile';
 
-const PortfolioDashboard = () => {
-  const [isVisible, setIsVisible] = useState(false);
+export default function PortfolioDashboard() {
+  // Device mode decided once on initial page load
+  const [isMobileDevice, setIsMobileDevice] = useState(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    // Check viewport width once when the home screen is being loaded
+    const isMobile = window.innerWidth <= 600;
+    setIsMobileDevice(isMobile);
   }, []);
 
-  return (
-    <div className="portfolio-dashboard-container">
-      <div className={`portfolio-dashboard-main ${isVisible ? 'portfolio-dashboard-visible' : 'portfolio-dashboard-hidden'}`}>
-        <HeroSection />
-        <div className="portfolio-stats-desktop-wrapper">
-          <StatsSection />
-        </div>
-        <div className="portfolio-stats-mobile-wrapper">
-          <MobileStatsSection />
-        </div>
-        <div className="portfolio-projects-desktop-wrapper">
-          <FeaturedProjectsSection />
-        </div>
-        <div className="portfolio-projects-mobile-wrapper">
-          <MobileProjectsSection />
-        </div>
-        <AchievementsNavSection />
-        <ToolkitSection />
-        <BeyondTheCodeSection />
-        <BlogsNavSection />
-        <FinalCtaSection />
-      </div>
-    </div>
-  );
-};
+  // While deciding on initial load (covered by Preloader), render clean container matching SSR
+  if (isMobileDevice === null) {
+    return (
+      <div
+        className="portfolio-dashboard-container"
+        style={{ minHeight: '100vh', background: '#fafafa' }}
+      />
+    );
+  }
 
-export default PortfolioDashboard;
+  // Load purely desktop OR purely mobile - no duplicate DOM trees or conflicting scroll drivers
+  return isMobileDevice ? (
+    <PortfolioDashboardMobile />
+  ) : (
+    <PortfolioDashboardDesktop />
+  );
+}
