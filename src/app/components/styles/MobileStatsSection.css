@@ -1,0 +1,266 @@
+/* MobileStatsSection.css - Dedicated Metrics & Impact for screens <= 600px */
+
+.mobile-stats-snap-section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1.1rem 3.5rem 1.1rem;
+  box-sizing: border-box;
+  background-image: url('../images/section2bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden !important;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* Seamless background blends with preceding and following sections */
+.mobile-stats-snap-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(250, 250, 250, 0.7) 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mobile-stats-snap-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to top, rgba(250, 250, 250, 1) 0%, rgba(250, 250, 250, 0.7) 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient Subtle Orb */
+.mobile-stats-orb {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
+  filter: blur(35px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content Container */
+.mobile-stats-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* Header Area */
+.mobile-stats-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.mobile-stats-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(220, 38, 38, 0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mobile-stats-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #dc2626;
+}
+
+.mobile-stats-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.mobile-stats-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* 2x2 Grid for Mobile */
+.mobile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Stat Card */
+.mobile-stat-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 1rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(220, 38, 38, 0.1);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Permanent top accent line */
+.mobile-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+/* Active tap state for mobile touch */
+.mobile-stat-card:active {
+  transform: scale(0.97);
+  background: #ffffff;
+  border-color: rgba(220, 38, 38, 0.35);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.12);
+}
+
+/* Card Top Row */
+.mobile-stat-top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.mobile-stat-icon-wrapper {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(220, 38, 38, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+  font-size: 1.1rem;
+}
+
+.mobile-stat-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.mobile-stat-link-arrow {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.mobile-stat-card:active .mobile-stat-link-arrow {
+  transform: translate(2px, -2px);
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* Stat Value */
+.mobile-stat-value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+/* Stat Label */
+.mobile-stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4b5563;
+  line-height: 1.25;
+}
+
+/* Footer micro text */
+.mobile-stats-hint {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: -0.4rem;
+}
+
+/* Fallback for ultra-narrow phones (< 330px) */
+@media (max-width: 330px) {
+  .mobile-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+  .mobile-stats-title {
+    font-size: 1.55rem;
+  }
+  .mobile-stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Hide on screens > 600px */
+@media (min-width: 601px) {
+  .mobile-stats-snap-section {
+    display: none !important;
+  }
+}

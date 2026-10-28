@@ -191,3 +191,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .stats-snap-section {
+    display: none !important;
+  }
+}

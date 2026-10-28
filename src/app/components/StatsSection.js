@@ -41,6 +41,7 @@ export default function StatsSection() {
   ];
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 600) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
