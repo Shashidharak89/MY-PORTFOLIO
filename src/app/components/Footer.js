@@ -230,7 +230,7 @@ const Footer = () => {
         <div className={styles['crimson-bottom-bar']}>
           <div className={styles['crimson-bottom-content']}>
             <p className={styles['crimson-copyright']}>
-              © 2025 Portfolio. Made with{' '}
+              © 2026 Portfolio. Made with{' '}
               <Heart size={16} className={styles['crimson-heart']} /> by SHASHIDHARA.K
             </p>
             <div className={styles['crimson-bottom-links']}>

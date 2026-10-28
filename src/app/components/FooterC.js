@@ -213,7 +213,7 @@ const FooterC = () => {
         <div className="portfolio-bottom-section">
           <div className="portfolio-bottom-content">
             <p className="portfolio-copyright">
-              © 2025 Portfolio. Made with{' '}
+              © 2026 Portfolio. Made with{' '}
               <Heart size={14} className="portfolio-heart" /> by SHASHIDHARA.K
             </p>
             <div className="portfolio-bottom-links">

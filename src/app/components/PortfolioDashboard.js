@@ -3,15 +3,30 @@
 import { useState, useEffect } from 'react';
 import PortfolioDashboardDesktop from './PortfolioDashboardDesktop';
 import PortfolioDashboardMobile from './PortfolioDashboardMobile';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function PortfolioDashboard() {
-  // Device mode decided once on initial page load
   const [isMobileDevice, setIsMobileDevice] = useState(null);
 
   useEffect(() => {
-    // Check viewport width once when the home screen is being loaded
-    const isMobile = window.innerWidth <= 600;
-    setIsMobileDevice(isMobile);
+    const mediaQuery = window.matchMedia('(max-width: 600px)');
+
+    // Set initial device mode on mount
+    setIsMobileDevice(mediaQuery.matches);
+
+    // Adapt immediately when user resizes or switches screen width
+    const handleChange = (e) => {
+      setIsMobileDevice(e.matches);
+      // Allow the DOM to mount fresh before refreshing ScrollTrigger
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      }, 100);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   // While deciding on initial load (covered by Preloader), render clean container matching SSR
@@ -24,10 +39,10 @@ export default function PortfolioDashboard() {
     );
   }
 
-  // Load purely desktop OR purely mobile - no duplicate DOM trees or conflicting scroll drivers
+  // Keyed mount ensures full clean unmount/mount without any DOM reconciliation collision
   return isMobileDevice ? (
-    <PortfolioDashboardMobile />
+    <PortfolioDashboardMobile key="mobile-dashboard" />
   ) : (
-    <PortfolioDashboardDesktop />
+    <PortfolioDashboardDesktop key="desktop-dashboard" />
   );
 }
