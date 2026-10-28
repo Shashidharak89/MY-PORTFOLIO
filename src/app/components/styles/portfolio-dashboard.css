@@ -169,3 +169,23 @@ html {
     display: block !important;
   }
 }
+
+/* Responsive projects section wrappers */
+.portfolio-projects-desktop-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.portfolio-projects-mobile-wrapper {
+  display: none;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .portfolio-projects-desktop-wrapper {
+    display: none !important;
+  }
+  .portfolio-projects-mobile-wrapper {
+    display: block !important;
+  }
+}

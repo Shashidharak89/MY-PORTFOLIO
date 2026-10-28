@@ -5,6 +5,7 @@ import HeroSection from './HeroSection';
 import StatsSection from './StatsSection';
 import MobileStatsSection from './MobileStatsSection';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
+import MobileProjectsSection from './MobileProjectsSection';
 import AchievementsNavSection from './AchievementsNavSection';
 import ToolkitSection from './ToolkitSection';
 import BeyondTheCodeSection from './BeyondTheCodeSection';
@@ -29,7 +30,12 @@ const PortfolioDashboard = () => {
         <div className="portfolio-stats-mobile-wrapper">
           <MobileStatsSection />
         </div>
-        <FeaturedProjectsSection />
+        <div className="portfolio-projects-desktop-wrapper">
+          <FeaturedProjectsSection />
+        </div>
+        <div className="portfolio-projects-mobile-wrapper">
+          <MobileProjectsSection />
+        </div>
         <AchievementsNavSection />
         <ToolkitSection />
         <BeyondTheCodeSection />

@@ -91,7 +91,9 @@ export default function FeaturedProjectsSection() {
 
     if (!section) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 601px)', () => {
       const pinDistance = 3500; // Pinned scroll length for 4 phases
 
       // Master Pinned ScrollTrigger Timeline
@@ -298,7 +300,7 @@ export default function FeaturedProjectsSection() {
       }, 300);
     });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [featuredProjects.length]);
 
   const isDarkPhase = activeStageIndex === 1; // Project 2 has dark background (section2bg.jpeg)
