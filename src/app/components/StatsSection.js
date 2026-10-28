@@ -41,11 +41,12 @@ export default function StatsSection() {
   ];
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth <= 600) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 601px)', () => {
       // Precision Section 2 Timeline:
       // 0% -> 25%: hidden
       // 25% -> 50%: Entrance Fade-In (opacity 0 -> 1, y 60px -> 0, scale 0.88 -> 1, blur 8px -> 0px)
@@ -131,7 +132,7 @@ export default function StatsSection() {
       });
     });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

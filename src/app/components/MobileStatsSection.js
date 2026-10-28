@@ -54,11 +54,12 @@ export default function MobileStatsSection() {
   ];
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth > 600) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(max-width: 600px)', () => {
       // 1. Subtle ambient floating orb pulse
       if (orbRef.current) {
         gsap.to(orbRef.current, {
@@ -73,8 +74,6 @@ export default function MobileStatsSection() {
       }
 
       // 2. Entrance animation triggered ONCE when scrolled into view
-      // Note: Unlike the desktop version which scrubs opacity/blur, this triggers
-      // a crisp entrance and stays permanently visible with zero fade out!
       const cards = gridRef.current ? Array.from(gridRef.current.children) : [];
 
       const tl = gsap.timeline({
@@ -131,9 +130,9 @@ export default function MobileStatsSection() {
           '-=0.3'
         );
       }
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

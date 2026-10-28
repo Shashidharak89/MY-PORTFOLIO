@@ -149,3 +149,23 @@ html {
     font-size: 1.5rem;
   }
 }
+
+/* Responsive stats section wrappers */
+.portfolio-stats-desktop-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.portfolio-stats-mobile-wrapper {
+  display: none;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .portfolio-stats-desktop-wrapper {
+    display: none !important;
+  }
+  .portfolio-stats-mobile-wrapper {
+    display: block !important;
+  }
+}
