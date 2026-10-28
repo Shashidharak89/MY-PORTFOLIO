@@ -83,7 +83,7 @@ const FooterC = () => {
     { icon: Github, label: 'GitHub', url: 'https://github.com/Shashidharak89' },
     { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashidhara-kumbara' },
     { icon: Mail, label: 'Email', url: 'mailto:shashidharak334@gmail.com' },
-    { icon: Phone, label: 'Phone', url: '/contact' },
+    { icon: Phone, label: 'Phone', url: 'tel:+917760770725' },
   ];
 
   return (
@@ -149,18 +149,26 @@ const FooterC = () => {
           <div className="portfolio-contact-area">
             <h3 className="portfolio-area-title">Get In Touch</h3>
             <div className="portfolio-contact-list">
-              <div className="portfolio-contact-detail">
+              <a
+                href="mailto:shashidharak334@gmail.com"
+                className="portfolio-contact-detail portfolio-contact-link"
+                title="Send email"
+              >
                 <div className="portfolio-contact-icon-wrapper">
                   <Mail size={16} />
                 </div>
                 <span>shashidharak334@gmail.com</span>
-              </div>
-              <div className="portfolio-contact-detail">
+              </a>
+              <a
+                href="tel:+917760770725"
+                className="portfolio-contact-detail portfolio-contact-link"
+                title="Call phone"
+              >
                 <div className="portfolio-contact-icon-wrapper">
                   <Phone size={16} />
                 </div>
                 <span>+91 7760770725</span>
-              </div>
+              </a>
               <div className="portfolio-contact-detail">
                 <div className="portfolio-contact-icon-wrapper">
                   <MapPin size={16} />

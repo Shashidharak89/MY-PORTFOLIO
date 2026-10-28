@@ -83,7 +83,7 @@ const Footer = () => {
     { icon: Github, label: 'GitHub', url: 'https://github.com/Shashidharak89', color: '#FFD700' },
     { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashidhara-kumbara', color: '#FFD700' },
     { icon: Mail, label: 'Email', url: 'mailto:shashidharak334@gmail.com', color: '#FFD700' },
-    { icon: Phone, label: 'Phone', url: '/contact', color: '#FFD700' },
+    { icon: Phone, label: 'Phone', url: 'tel:+917760770725', color: '#FFD700' },
   ];
 
   return (
@@ -165,18 +165,26 @@ const Footer = () => {
           <div className={styles['crimson-contact-section']}>
             <h3 className={styles['crimson-section-title']}>Get In Touch</h3>
             <div className={styles['crimson-contact-info']}>
-              <div className={styles['crimson-contact-item']}>
+              <a
+                href="mailto:shashidharak334@gmail.com"
+                className={`${styles['crimson-contact-item']} ${styles['crimson-contact-link']}`}
+                title="Send email"
+              >
                 <div className={styles['crimson-contact-icon']}>
                   <Mail size={18} />
                 </div>
                 <span>shashidharak334@gmail.com</span>
-              </div>
-              <div className={styles['crimson-contact-item']}>
+              </a>
+              <a
+                href="tel:+917760770725"
+                className={`${styles['crimson-contact-item']} ${styles['crimson-contact-link']}`}
+                title="Call phone"
+              >
                 <div className={styles['crimson-contact-icon']}>
                   <Phone size={18} />
                 </div>
-                <span>Unavailable</span>
-              </div>
+                <span>+91 7760770725</span>
+              </a>
               <div className={styles['crimson-contact-item']}>
                 <div className={styles['crimson-contact-icon']}>
                   <MapPin size={18} />
