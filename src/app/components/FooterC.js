@@ -81,7 +81,7 @@ const FooterC = () => {
 
   const socialLinks = [
     { icon: Github, label: 'GitHub', url: 'https://github.com/Shashidharak89' },
-    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b' },
+    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashidhara-kumbara' },
     { icon: Mail, label: 'Email', url: 'mailto:shashidharak334@gmail.com' },
     { icon: Phone, label: 'Phone', url: '/contact' },
   ];

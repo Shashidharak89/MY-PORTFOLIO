@@ -112,7 +112,7 @@ const ContactForm = () => {
     {
       icon: <Linkedin className="social-icon" />,
       name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b',
+      url: 'https://www.linkedin.com/in/shashidhara-kumbara',
     },
     {
       icon: <Mail className="social-icon" />,

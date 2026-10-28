@@ -6,7 +6,7 @@ import { FaLinkedin } from 'react-icons/fa';
 
 const Linkedin = () => {
   const handleRedirect = () => {
-    window.open('https://www.linkedin.com/in/shashidhara-k-a2374b31b/', '_blank');
+    window.open('https://www.linkedin.com/in/shashidhara-kumbara', '_blank');
   };
 
   return (

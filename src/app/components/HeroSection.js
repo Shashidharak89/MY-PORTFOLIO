@@ -170,7 +170,7 @@ export default function HeroSection() {
               <a href="https://github.com/Shashidharak89" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="GitHub" title="GitHub">
                 <FaGithub />
               </a>
-              <a href="https://www.linkedin.com/in/shashidhara-k-a2374b31b/" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/shashidhara-kumbara" target="_blank" rel="noreferrer" className="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
                 <FaLinkedinIn />
               </a>
               <a href="mailto:shashidharak334@gmail.com" className="social-icon-btn" aria-label="Email" title="Email: shashidharak334@gmail.com">

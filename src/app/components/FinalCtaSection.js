@@ -116,7 +116,7 @@ const FinalCtaSection = () => {
     {
       name: 'LinkedIn',
       icon: <FaLinkedin />,
-      url: 'https://www.linkedin.com/in/shashidhara-k-a2374b31b/',
+      url: 'https://www.linkedin.com/in/shashidhara-kumbara',
       label: 'LinkedIn',
     },
     {
