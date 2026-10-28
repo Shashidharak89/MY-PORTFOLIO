@@ -14,27 +14,42 @@ import './styles/portfolio-dashboard.css';
 
 const PortfolioDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth <= 600;
-    }
-    return false;
-  });
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+    setIsMounted(true);
+
     const mediaQuery = window.matchMedia('(max-width: 600px)');
-    const updateMatch = (e) => setIsMobile(e.matches);
+    const updateMatch = (e) => {
+      setIsMobile(e.matches);
+    };
+
     setIsMobile(mediaQuery.matches);
     mediaQuery.addEventListener('change', updateMatch);
     return () => mediaQuery.removeEventListener('change', updateMatch);
   }, []);
 
+  // When switching between mobile and desktop dynamically, refresh ScrollTrigger
+  useEffect(() => {
+    if (isMounted) {
+      const timer = setTimeout(() => {
+        import('gsap/ScrollTrigger')
+          .then(({ ScrollTrigger }) => {
+            ScrollTrigger.refresh();
+          })
+          .catch(() => {});
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobile, isMounted]);
+
   return (
     <div className="portfolio-dashboard-container">
       <div className={`portfolio-dashboard-main ${isVisible ? 'portfolio-dashboard-visible' : 'portfolio-dashboard-hidden'}`}>
         <HeroSection />
-        {isMobile ? <MobileStatsSection /> : <StatsSection />}
+        {isMounted && isMobile ? <MobileStatsSection /> : <StatsSection />}
         <FeaturedProjectsSection />
         <AchievementsNavSection />
         <ToolkitSection />

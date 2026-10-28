@@ -25,17 +25,17 @@ export default function StatsSection() {
     { label: 'Projects Completed', value: '10+',   icon: <FaRocket /> },
     {
       label: 'LeetCode Solved',
-      value: '500+',
+      value: '540+',
       icon: <SiLeetcode />,
       link: 'https://leetcode.com/u/shashidhara_k/',
-      ariaLabel: 'View LeetCode profile — 500+ problems solved'
+      ariaLabel: 'View LeetCode profile — 540+ problems solved'
     },
     {
       label: 'GitHub Contributions',
-      value: '4500+',
+      value: '4800+',
       icon: <FaGithub />,
       link: 'https://github.com/Shashidharak89',
-      ariaLabel: 'View GitHub profile — 4500+ contributions'
+      ariaLabel: 'View GitHub profile — 4800+ contributions'
     },
     { label: 'Technologies Used', value: '10+',   icon: <FaLaptopCode /> }
   ];

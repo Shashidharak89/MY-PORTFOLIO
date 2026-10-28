@@ -28,20 +28,20 @@ export default function MobileStatsSection() {
     },
     {
       label: 'LeetCode Solved',
-      value: '500+',
-      targetNumber: 500,
+      value: '540+',
+      targetNumber: 540,
       icon: <SiLeetcode />,
       link: 'https://leetcode.com/u/shashidhara_k/',
-      ariaLabel: 'View LeetCode profile — 500+ problems solved',
+      ariaLabel: 'View LeetCode profile — 540+ problems solved',
       badge: 'Problems'
     },
     {
       label: 'GitHub Contributions',
-      value: '4500+',
-      targetNumber: 4500,
+      value: '4800+',
+      targetNumber: 4800,
       icon: <FaGithub />,
       link: 'https://github.com/Shashidharak89',
-      ariaLabel: 'View GitHub profile — 4500+ contributions',
+      ariaLabel: 'View GitHub profile — 4800+ contributions',
       badge: 'Commits'
     },
     {
@@ -54,6 +54,7 @@ export default function MobileStatsSection() {
   ];
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth > 600) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 

@@ -140,7 +140,7 @@ export default function HeroSection() {
           </div>
 
           <p className="hero-short-bio">
-            Full-Stack & App Developer passionate about building high-performance applications. DSA enthusiast, consistent LeetCode problem solver (450+ solved), and competitive programming winner turning complex logic into impactful products.
+            Full-Stack & App Developer passionate about building high-performance applications. DSA enthusiast, consistent LeetCode problem solver (540+ solved), and competitive programming winner turning complex logic into impactful products.
           </p>
 
           <div className="hero-cta-buttons">
