@@ -34,6 +34,33 @@
   z-index: 1;
 }
 
+/* Ambient Floating Background Orbs */
+.mobile-projects-orb-1 {
+  position: absolute;
+  top: 25%;
+  left: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.09) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mobile-projects-orb-2 {
+  position: absolute;
+  top: 65%;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.07) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Header Area */
 .mobile-projects-header {
   display: flex;
@@ -112,6 +139,7 @@
 
 /* Project Card */
 .mobile-project-card {
+  position: relative;
   background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
@@ -119,7 +147,28 @@
   border: 1px solid rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+  will-change: transform, opacity;
+}
+
+/* Subtle top line highlight on cards */
+.mobile-project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.4), transparent);
+  z-index: 3;
+}
+
+.mobile-project-card:active {
+  transform: scale(0.985);
+  border-color: rgba(220, 38, 38, 0.25);
+  box-shadow: 0 14px 34px rgba(220, 38, 38, 0.1);
 }
 
 /* Image Box */
@@ -136,56 +185,49 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-project-card:active .mobile-project-img {
+  transform: scale(1.04);
 }
 
 .mobile-project-badge-row {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  top: 12px;
+  left: 12px;
   z-index: 2;
   pointer-events: none;
 }
 
-.mobile-project-number {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  padding: 4px 9px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
 .mobile-project-cat-badge {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: rgba(220, 38, 38, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #ffffff;
-  padding: 4px 9px;
-  border-radius: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 /* Card Content */
 .mobile-project-content {
-  padding: 1.25rem 1.1rem;
+  padding: 1.25rem 1.15rem;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
 .mobile-project-heading {
-  font-size: 1.25rem;
+  font-size: 1.28rem;
   font-weight: 800;
   color: #111827;
   letter-spacing: -0.02em;
@@ -197,7 +239,7 @@
   font-size: 0.84rem;
   color: #4b5563;
   line-height: 1.45;
-  margin: 0 0 0.85rem 0;
+  margin: 0 0 0.9rem 0;
 }
 
 /* Tech Stack Pills */
@@ -269,6 +311,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
   border: 1px solid rgba(220, 38, 38, 0.12);
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 .mobile-projects-cta-card::before {
@@ -323,7 +366,7 @@
   font-size: 0.88rem;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.28);
   transition: transform 0.18s ease;
   -webkit-tap-highlight-color: transparent;
 }

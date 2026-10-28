@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -9,17 +9,29 @@ import {
   FaRocket,
   FaArrowRight
 } from 'react-icons/fa6';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles/MobileProjectsSection.css';
 
 import learnixImg from './images/projects/learnix.jpeg';
 import cipherImg from './images/projects/cipher2k25.jpeg';
 import shopxImg from './images/projects/shopx.jpeg';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function MobileProjectsSection() {
+  const sectionRef = useRef(null);
+  const orb1Ref = useRef(null);
+  const orb2Ref = useRef(null);
+  const headerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const ctaCardRef = useRef(null);
+
   const featuredProjects = [
     {
       id: 'learnix',
-      number: '01',
       title: 'LEARNIX Mobile App & Web',
       category: 'Education Platform & Android App',
       shortDesc: 'A comprehensive learning portal for students to access study notes, materials, and academic resources with an Android app published on Google Play Store.',
@@ -30,7 +42,6 @@ export default function MobileProjectsSection() {
     },
     {
       id: 'cipher2k25',
-      number: '02',
       title: 'CIPHER 2K25',
       category: 'Annual IT Fest Platform',
       shortDesc: 'Official digital hub for CIPHER 2K25 IT Fest featuring registrations, event schedules, sponsor highlights, and dynamic tech visuals.',
@@ -40,7 +51,6 @@ export default function MobileProjectsSection() {
     },
     {
       id: 'shopx',
-      number: '03',
       title: 'ShopX E-Commerce Platform',
       category: 'Full-Stack Shopping Experience',
       shortDesc: 'Full-stack MERN e-commerce web application featuring seamless product browsing, cart management, checkout workflows, and admin panel.',
@@ -50,10 +60,118 @@ export default function MobileProjectsSection() {
     }
   ];
 
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(max-width: 600px)', () => {
+      // 1. Ambient Background Orb Animations
+      if (orb1Ref.current) {
+        gsap.to(orb1Ref.current, {
+          y: 35,
+          x: 20,
+          scale: 1.15,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+      }
+      if (orb2Ref.current) {
+        gsap.to(orb2Ref.current, {
+          y: -30,
+          x: -15,
+          scale: 1.12,
+          duration: 4.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+      }
+
+      // 2. Header Entrance
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: -22 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 88%',
+              once: true
+            }
+          }
+        );
+      }
+
+      // 3. Staggered Card Reveals as each card enters viewport
+      cardRefs.current.forEach((card) => {
+        if (!card) return;
+        gsap.fromTo(
+          card,
+          {
+            opacity: 0,
+            y: 38,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.65,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              once: true
+            }
+          }
+        );
+      });
+
+      // 4. Finale CTA Card Entrance
+      if (ctaCardRef.current) {
+        gsap.fromTo(
+          ctaCardRef.current,
+          { opacity: 0, y: 35, scale: 0.94 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: ctaCardRef.current,
+              start: 'top 88%',
+              once: true
+            }
+          }
+        );
+      }
+    });
+
+    return () => mm.revert();
+  }, []);
+
   return (
-    <section className="mobile-projects-section" id="mobile-projects" aria-label="Featured Projects">
+    <section
+      ref={sectionRef}
+      className="mobile-projects-section"
+      id="mobile-projects"
+      aria-label="Featured Projects"
+    >
+      {/* Ambient background glowing orbs */}
+      <div ref={orb1Ref} className="mobile-projects-orb-1" aria-hidden="true" />
+      <div ref={orb2Ref} className="mobile-projects-orb-2" aria-hidden="true" />
+
       {/* Header */}
-      <header className="mobile-projects-header">
+      <header ref={headerRef} className="mobile-projects-header">
         <div className="mobile-projects-pill">
           <span className="mobile-projects-pill-dot" />
           <span>Featured Work</span>
@@ -66,8 +184,12 @@ export default function MobileProjectsSection() {
 
       {/* Orderly Vertically Scrollable Project Cards */}
       <div className="mobile-projects-list">
-        {featuredProjects.map((proj) => (
-          <article key={proj.id} className="mobile-project-card">
+        {featuredProjects.map((proj, idx) => (
+          <article
+            key={proj.id}
+            ref={(el) => (cardRefs.current[idx] = el)}
+            className="mobile-project-card"
+          >
             {/* Top Image Box */}
             <div className="mobile-project-image-box">
               <Image
@@ -77,7 +199,6 @@ export default function MobileProjectsSection() {
                 placeholder="blur"
               />
               <div className="mobile-project-badge-row">
-                <span className="mobile-project-number">{proj.number}</span>
                 <span className="mobile-project-cat-badge">{proj.category}</span>
               </div>
             </div>
@@ -125,7 +246,10 @@ export default function MobileProjectsSection() {
         ))}
 
         {/* Finale Call-To-Action Card */}
-        <div className="mobile-projects-cta-card">
+        <div
+          ref={ctaCardRef}
+          className="mobile-projects-cta-card"
+        >
           <div className="mobile-cta-icon-circle" aria-hidden="true">
             <FaRocket />
           </div>
