@@ -1,0 +1,208 @@
+/* MobileBlogsNavSection.css - Clean light theme design */
+@media (max-width: 600px) {
+  .mobile-blogs-section {
+    position: relative;
+    width: 100%;
+    padding: 3rem 1.1rem 3.5rem;
+    background: #fafafa;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .mobile-blogs-orb {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    top: 15%;
+    right: -100px;
+    background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, rgba(220, 38, 38, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(35px);
+  }
+
+  .mobile-blogs-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Card */
+  .mobile-blogs-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    padding: 1.8rem 1.3rem;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .mobile-blogs-card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #dc2626, #f87171, #dc2626);
+  }
+
+  /* Header */
+  .mobile-blogs-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-blogs-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+    border: 1px solid rgba(220, 38, 38, 0.16);
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mobile-blogs-main-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #fff1f2;
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+  }
+
+  .mobile-blogs-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .mobile-blogs-description {
+    font-size: 0.86rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 320px;
+  }
+
+  /* Topics */
+  .mobile-blogs-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .mobile-blog-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 0.95rem;
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .mobile-blog-topic-item:active {
+    transform: scale(0.98);
+    background: #f1f5f9;
+  }
+
+  .mobile-topic-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  .mobile-topic-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-topic-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .mobile-topic-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-topic-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.12rem 0.45rem;
+    border-radius: 6px;
+    border: 1px solid currentColor;
+    background: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .mobile-topic-desc {
+    font-size: 0.74rem;
+    color: #64748b;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* CTA */
+  .mobile-blogs-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.25);
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .mobile-blogs-cta:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+  }
+}

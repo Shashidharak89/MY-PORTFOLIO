@@ -1,0 +1,196 @@
+/* MobileBeyondTheCodeSection.css - Dedicated Mobile Beyond The Code Section */
+
+.mobile-beyond-section {
+  position: relative;
+  width: 100%;
+  padding: 4.5rem 1.15rem 4rem 1.15rem;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.mobile-beyond-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 250, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.mobile-beyond-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mobile-beyond-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mobile-beyond-orb {
+  position: absolute;
+  top: 25%;
+  right: -30px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mobile-beyond-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+.mobile-beyond-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.mobile-beyond-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.09);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(2, 132, 199, 0.22);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mobile-beyond-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0.15rem 0 0 0;
+}
+
+.mobile-beyond-desc {
+  font-size: 0.84rem;
+  color: #4b5563;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 340px;
+}
+
+/* 2x2 Philosophy Grid */
+.mobile-beyond-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Philosophy Card */
+.mobile-beyond-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.1rem 0.9rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(2, 132, 199, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-beyond-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+}
+
+.mobile-beyond-card:active {
+  transform: scale(0.97);
+  border-color: rgba(2, 132, 199, 0.35);
+  background: #ffffff;
+}
+
+.mobile-beyond-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(2, 132, 199, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0284c7;
+  font-size: 1.2rem;
+  margin-bottom: 0.65rem;
+}
+
+.mobile-beyond-card-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 0.3rem 0;
+  letter-spacing: -0.015em;
+}
+
+.mobile-beyond-card-desc {
+  font-size: 0.76rem;
+  color: #4b5563;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Fallback for ultra-narrow phones */
+@media (max-width: 330px) {
+  .mobile-beyond-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+/* Hide on screens > 600px */
+@media (min-width: 601px) {
+  .mobile-beyond-section {
+    display: none !important;
+  }
+}

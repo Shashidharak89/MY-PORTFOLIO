@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
 import MobileStatsSection from './MobileStatsSection';
 import MobileProjectsSection from './MobileProjectsSection';
-import AchievementsNavSection from './AchievementsNavSection';
-import ToolkitSection from './ToolkitSection';
-import BeyondTheCodeSection from './BeyondTheCodeSection';
-import BlogsNavSection from './BlogsNavSection';
-import FinalCtaSection from './FinalCtaSection';
+import MobileAchievementsSection from './MobileAchievementsSection';
+import MobileToolkitSection from './MobileToolkitSection';
+import MobileBeyondTheCodeSection from './MobileBeyondTheCodeSection';
+import MobileBlogsNavSection from './MobileBlogsNavSection';
+import MobileFinalCtaSection from './MobileFinalCtaSection';
 import './styles/portfolio-dashboard.css';
 
 export default function PortfolioDashboardMobile() {
@@ -24,11 +24,11 @@ export default function PortfolioDashboardMobile() {
         <HeroSection />
         <MobileStatsSection />
         <MobileProjectsSection />
-        <AchievementsNavSection />
-        <ToolkitSection />
-        <BeyondTheCodeSection />
-        <BlogsNavSection />
-        <FinalCtaSection />
+        <MobileAchievementsSection />
+        <MobileToolkitSection />
+        <MobileBeyondTheCodeSection />
+        <MobileBlogsNavSection />
+        <MobileFinalCtaSection />
       </div>
     </div>
   );

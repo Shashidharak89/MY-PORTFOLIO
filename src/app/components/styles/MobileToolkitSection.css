@@ -1,0 +1,298 @@
+/* MobileToolkitSection.css - Dedicated Mobile Toolkit Section */
+
+.mobile-toolkit-section {
+  position: relative;
+  width: 100%;
+  padding: 4.5rem 1.15rem 4rem 1.15rem;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.mobile-toolkit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 250, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.mobile-toolkit-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mobile-toolkit-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mobile-toolkit-orb {
+  position: absolute;
+  top: 30%;
+  left: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mobile-toolkit-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Header */
+.mobile-toolkit-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.mobile-toolkit-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(220, 38, 38, 0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mobile-toolkit-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0.15rem 0 0 0;
+}
+
+.mobile-toolkit-subtitle {
+  font-size: 0.84rem;
+  color: #6b7280;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* Horizontal Scrollable Category Tabs */
+.mobile-toolkit-tabs-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 0 6px 0;
+}
+
+.mobile-toolkit-tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-toolkit-tabs {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+}
+
+.mobile-toolkit-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-toolkit-tab.active {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
+}
+
+.mobile-toolkit-tab:active {
+  transform: scale(0.96);
+}
+
+/* Active Category Card */
+.mobile-toolkit-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.35rem 1.15rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.mobile-toolkit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, #dc2626);
+}
+
+.mobile-card-top-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-card-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.mobile-card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mobile-card-heading {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.mobile-card-desc {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Skills Grid */
+.mobile-skills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.mobile-skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  transition: transform 0.18s ease;
+}
+
+.mobile-skill-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.mobile-skill-icon {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-skill-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.mobile-skill-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #6b7280;
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* CTA Button */
+.mobile-toolkit-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  background: #111827;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-toolkit-cta:active {
+  transform: scale(0.97);
+}
+
+/* Hide on screens > 600px */
+@media (min-width: 601px) {
+  .mobile-toolkit-section {
+    display: none !important;
+  }
+}

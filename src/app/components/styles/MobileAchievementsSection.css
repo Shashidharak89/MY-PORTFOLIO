@@ -1,0 +1,354 @@
+/* MobileAchievementsSection.css - Dedicated Mobile Achievements & Certifications */
+
+.mobile-achievements-section {
+  position: relative;
+  width: 100%;
+  padding: 4.5rem 1.15rem 4rem 1.15rem;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.mobile-achievements-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 250, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+/* Subtle top and bottom gradient fades */
+.mobile-achievements-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mobile-achievements-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(250, 250, 250, 1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Ambient Floating Orb */
+.mobile-achieve-orb {
+  position: absolute;
+  top: 20%;
+  right: -30px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Content Container */
+.mobile-achievements-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+.mobile-achieve-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.mobile-achieve-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d97706;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mobile-achieve-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0.15rem 0 0 0;
+}
+
+.mobile-achieve-subtitle {
+  font-size: 0.84rem;
+  color: #6b7280;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 330px;
+}
+
+/* Main Blocks Column */
+.mobile-achieve-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+/* Block Card */
+.mobile-achieve-block {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 1.25rem 1.1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-achieve-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d97706, #f59e0b);
+}
+
+.mobile-achieve-block.cert-block::before {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.mobile-block-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.mobile-block-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.mobile-block-icon-badge.cert {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.mobile-block-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* Achievement Items List */
+.mobile-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mobile-item-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #f3f4f6;
+}
+
+.mobile-item-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.mobile-item-icon-box.gold { color: #d97706; }
+.mobile-item-icon-box.silver { color: #64748b; }
+.mobile-item-icon-box.bronze { color: #ea580c; }
+
+.mobile-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+
+.mobile-item-count-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.mobile-item-count {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.mobile-item-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.mobile-item-badge.badge-gold {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.mobile-item-badge.badge-silver {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.mobile-item-badge.badge-bronze {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.mobile-item-label {
+  font-size: 0.78rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* Certifications Summary Card inside block */
+.mobile-cert-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem;
+  background: #f9fafb;
+  border-radius: 14px;
+  border: 1px solid #f3f4f6;
+}
+
+.mobile-cert-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.mobile-cert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mobile-cert-stat-badge {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #dc2626;
+  line-height: 1;
+}
+
+.mobile-cert-heading {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.mobile-cert-desc {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Action Buttons */
+.mobile-achieve-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  background: #111827;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-achieve-cta-btn.cert-btn {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+}
+
+.mobile-achieve-cta-btn:active {
+  transform: scale(0.97);
+}
+
+.mobile-achieve-cta-btn svg {
+  font-size: 0.8rem;
+}
+
+/* Hide on screens > 600px */
+@media (min-width: 601px) {
+  .mobile-achievements-section {
+    display: none !important;
+  }
+}
